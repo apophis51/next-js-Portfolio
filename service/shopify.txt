@@ -1,0 +1,35 @@
+<div style="min-height:  100%; width :  100%; font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin :  0; padding :  0; " class=" zm_4776737396263653538_parse_-5827223720154438030">
+    <table class="x_-9726454mail-body" style="width :  100%; border-collapse :  collapse; border-spacing :  0; margin-top :  0; margin-bottom :  0; padding :  0; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; padding :  0; ">
+<td style="margin-top :  0; margin-bottom :  0; padding :  0; border-width :  0; "></td>
+<td style="margin-top :  0; margin-bottom :  0; padding :  0; border-width :  0; "><table class="x_-9726454mail-body__content" align="center" style="width :  100%; border-spacing :  0; max-width :  470px; text-align :  left; border-radius :  8px; overflow :  hidden; margin :  32px auto 0; padding :  0; border :  1px solid #c9cccf; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; padding :  0; "><td style="margin-top :  0; margin-bottom :  0; padding :  0; border-width :  0; "><table class="x_-9726454mail-sections" style="width :  100%; border-collapse :  collapse; border-spacing :  0; margin-top :  0; margin-bottom :  0; padding :  0; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; padding :  0; "><td style="margin-top :  0; margin-bottom :  0; padding :  20px; border-width :  0; ">
+<table class="x_-9726454mail-section x_-9726454mail-section--type-primary" style="width :  100%; border-collapse :  collapse; border-spacing :  0; margin-top :  0; margin-bottom :  0; padding :  0; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; padding :  0; "><td style="margin-top :  0; margin-bottom :  0; padding :  0 0 20px; border-width :  0; "><table style="width :  100%; border-collapse :  collapse; border-spacing :  0; margin-top :  0; margin-bottom :  0; padding :  0; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; padding :  0; "><td style="margin-top :  0; margin-bottom :  0; padding :  0; border-width :  0; "><div class="x_-9726454primary-message">You received a new message from your online store's contact form.</div></td></tr></tbody></table></td></tr></tbody></table>
+  
+  <table class="x_-9726454mail-section" style="width :  100%; border-collapse :  collapse; border-spacing :  0; margin-top :  0; margin-bottom :  0; padding :  0; " cellpadding="0" cellspacing="0"><tbody><tr style="margin-top :  0; margin-bottom :  0; border-top-width :  1px; border-top-color :  #c9cccf; border-top-style :  solid; padding :  0; "><td style="margin-top :  0; margin-bottom :  0; padding :  20px 0 0; border-width :  0; ">
+      <div class="x_-9726454form-section">
+        <b>Country Code:</b>
+        <pre style="font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin-top :  0; margin-bottom :  0; padding :  0; ">US</pre>
+      </div>
+      <div class="x_-9726454form-section" style="margin-top :  8px; ">
+        <b>Name:</b>
+        <pre style="font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin-top :  0; margin-bottom :  0; padding :  0; ">Jordan</pre>
+      </div>
+      <div class="x_-9726454form-section" style="margin-top :  8px; ">
+        <b>Email:</b>
+        <pre style="font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin-top :  0; margin-bottom :  0; padding :  0; "><a href="mailto:pridemorejordan@gmail.com" target="_blank">pridemorejordan@gmail.com</a></pre>
+      </div>
+      <div class="x_-9726454form-section" style="margin-top :  8px; ">
+        <b>Phone Number:</b>
+        <pre style="font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin-top :  0; margin-bottom :  0; padding :  0; ">5033309937</pre>
+      </div>
+      <div class="x_-9726454form-section" style="margin-top :  8px; ">
+        <b>Comment:</b>
+        <pre style="font-size :  14px; font-weight :  400; line-height :  20px; color :  #202223; font-family :  -apple-system,  BlinkMacSystemFont,  San Francisco,  Segoe UI,  Roboto,  Helvetica Neue,  sans-serif; margin-top :  0; margin-bottom :  0; padding :  0; ">There is a bong sold out on your website but it is the exact same bong as the one i broke that has been passed through my boyfriends club group for 15 years. Please help a girl out in replacing it!!</pre>
+      </div>
+</td></tr></tbody></table>
+</td></tr></tbody></table></td></tr></tbody></table></td>
+<td style="margin-top :  0; margin-bottom :  0; padding :  0; border-width :  0; "></td>
+</tr></tbody></table>
+  
+  
+
+</div>

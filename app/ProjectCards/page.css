@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+li {
+  list-style-type: disc;
+}
+
+/* #overflow{
+    width: 300px;  
+    padding: 10px;
+    border: 1px solid #aaa;
+    resize: both;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  } */

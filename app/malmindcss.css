@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+#video{
+  position: fixed;
+  /* opacity: .9; */
+  z-index: -1;
+  width:100%;
+}
+
+@media (max-width: 1300px) {
+  #video {
+    display: none;
+    background-color: black;
+  }
+}
+@media (max-width: 1300px) {
+  body {
+    background-color: black;
+  }
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(-12%);
+      animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+  50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+.animate-custom {
+  animation: bounce 2s infinite;
+}
+
+
+.pt-custom {
+  padding-top: 30rem/* 384px */;
+}
+
+h1, p, h2,h3, .shadow-custom{
+  text-shadow: 200px 200px 400px rgba(255, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+}
+canvas {
+  width: 100%;
+  min-height: 100%;
+  scale: 2;
+}
+
+body {
+  z-index: 2;
+  font-family: sans-serif;
+  /* background-color: rgb(12, 6, 86); */
+  height: 100000px;
+  color: azure;
+}
+
+a {
+  text-decoration: none;
+}
+
+label {
+  display: block;
+}
+
+nav a {
+  display: inline-block;
+  margin: 1em;
+}
+
+form div {
+  margin: 1em;
+  display: inline-block;
+}

@@ -1,0 +1,10 @@
+{
+    "development": {
+      "username": "default",
+      "password": "B4NRTdiHt8wI",
+      "database": "verceldb",
+      "host": "ep-spring-cake-45054709-pooler.us-east-1.postgres.vercel-storage.com",
+      "dialect": "postgres"
+    }
+  }
+  
