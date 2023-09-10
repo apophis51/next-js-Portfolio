@@ -112,7 +112,7 @@ const htmlmessage = `<!DOCTYPE html>
 //       },
 //   });
 
-// **magic email */
+// **magic email */ https://www.wpoven.com/tools/free-smtp-server-for-testing#
 // export async function sendMail() {
 //   var transporter = nodemailer.createTransport({
 //        host: 'smtp.freesmtpservers.com',
