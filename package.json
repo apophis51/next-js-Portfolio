@@ -18,6 +18,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.0",
     "@mui/material": "^5.14.0",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@prisma/client": "^5.2.0",
     "@react-three/drei": "^9.78.2",
     "@react-three/fiber": "^8.13.4",
@@ -33,9 +35,13 @@
     "axios": "^1.4.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "chai": "^4.3.8",
     "concurrently": "^8.0.1",
+    "dotenv": "^16.3.1",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "ethereum-waffle": "^4.0.10",
+    "ethers": "^5.7.2",
     "firebase": "^10.1.0",
     "firebaseui": "^6.1.0",
     "framer-motion": "^10.12.18",
@@ -63,6 +69,7 @@
     "@playwright/test": "^1.37.1",
     "@types/bcrypt": "^5.0.0",
     "daisyui": "^3.2.1",
+    "hardhat": "^2.17.2",
     "ts-node": "^10.9.1"
   }
 }
