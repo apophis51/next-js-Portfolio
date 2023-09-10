@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { sendMail } from "../../service/newmailservice";
+import { sendMail } from "../../../service/newmailservice";
 // import { sendMail } from "../../service/amazonservice";
 
 
