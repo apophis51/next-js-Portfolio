@@ -16,3 +16,9 @@ model User {
   password String
   name String? //optional
 }
+
+model PhoneEmailUnsubscribe {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String? //optional
+}
