@@ -1,7 +1,7 @@
 'use client'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import Navigation from '../app/Navigation/page'
+import Navigation from '@/app/(main site)/Navigation/page'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import About from './About/page';
 import Container from '@mui/material/Container';

@@ -14,6 +14,7 @@ export async function DELETE(request) {
 
     }
     catch{
+      console.log('there was an error')
     // console.log("**********************LOG*******************",request.nextUrl.searchParams.get('email'))
     }
     return NextResponse.json("DELETE")
