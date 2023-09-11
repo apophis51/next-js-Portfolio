@@ -15,7 +15,7 @@ function EmailUnsubscribe() {
         // In a real application, you would perform the unsubscribe action here
         // For this example, we'll just update the state to simulate it
         await fetch(`/TestDeletePhoneUser?email=${search}`,{
-            method: 'DELETE'
+            method: 'POST'
         })
         setIsUnsubscribed(true);
     };

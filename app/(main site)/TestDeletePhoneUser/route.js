@@ -2,15 +2,20 @@ import {  NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma';
 
 
-export async function DELETE(request) {
+export async function POST(request) {
 
     try{
-    await prisma.PhoneEmailUnsubscribe.delete({
+    await prisma.PhoneEmailUnsubscribe.upsert({
         where: {
           email: request.nextUrl.searchParams.get('email'),
         },
+        update: {},
+        create:{
+          email: request.nextUrl.searchParams.get('email'),
+          name: 'none'
+        }
       });
-      console.log('user deleted')
+      console.log('user added to do not call')
 
     }
     catch{

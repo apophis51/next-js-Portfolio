@@ -1,6 +1,8 @@
 var nodemailer = require("nodemailer");
+import {prisma} from '@/lib/prisma';
+import { TIMEOUT } from 'dns';
 
-
+function message (inputemail){
 const htmlmessage = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,15 +91,17 @@ const htmlmessage = `<!DOCTYPE html>
         </tr>
     </table>
     <div style="text-align: center; background-color: #ff0000; padding: 10px;">
-    <a href="https://www.truconnect.com/devices" target="_blank" style="color: #fff; text-decoration: none; font-weight: bold;">Too much mail? Unsubscribe here</a>
+    <a href="https://sweetphonedeals.online/Unsubscribe?email=${inputemail}" target="_blank" style="color: #fff; text-decoration: none; font-weight: bold;">Too much mail? Unsubscribe here</a>
 </div>
 </body>
 </html>`
 
+return htmlmessage
+}
 
-//-----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // export async function sendMail() {
-//   var transporter = nodemailer.createTransport({
+// var transporter = nodemailer.createTransport({
 //     service: "gmail",
 //     //   port: 587,
 //     // secure: true,
@@ -110,96 +114,141 @@ const htmlmessage = `<!DOCTYPE html>
 //         // do not fail on invalid certs
 //         rejectUnauthorized: false,
 //       },
-//   });
+// });
 
 // **magic email */ https://www.wpoven.com/tools/free-smtp-server-for-testing#
-// export async function sendMail() {
-//   var transporter = nodemailer.createTransport({
-//        host: 'smtp.freesmtpservers.com',
-//     port: 25,
-//     tls: {
-//         // do not fail on invalid certs
-//         rejectUnauthorized: false,
-//       },
-//   });
-
-  // export async function sendMail() {
-  //   var transporter = nodemailer.createTransport({
-  //        host: 'smtp.ethereal.email',
-  //     port: 587,
-  //     auth: {
-  //       user: process.env.ETHERIAL_USER,,
-  //       pass: process.env.ETHERIAL_PASS,
-  //     },
-  //     tls: {
-  //         // do not fail on invalid certs
-  //         rejectUnauthorized: false,
-  //       },
-  //   });
-  
-
-  //**magic email */
 export async function sendMail() {
-  var transporter = nodemailer.createTransport({
-    host: 'smtp.mailgun.org',
-    port: 25,
-    auth: {
-      user: process.env.MAILGUN_USER,
-      pass: process.env.MAILGUN_PASS,
-    },
-    tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false,
-      },
-  });
-
-  var mailOptions = {
-    from: `Subsidized Phones <NoReply@your.sweetphonedeals.online>`,
-    // from: 'cool@noreply.sweetjellyparties.com',
-    // to: 'admin@dinosaur.com',
-    // to: 'chris.z.norton@gmail.com',
-        // to: 'shawn@govelocitydigital.com',
-    to: 'malcolmxvernon@hotmail.com',
-    subject: 'Subsidized Wireless Plans Are Here',
-    // attachments: [
-    //     {
-    //         filename: 'Malcolm.jpg',
-    //         path: 'https://profile.malcmind.com/Malcolm.jpg',
-
-    //     }
-    // ],
-    // replyTo: 'admin@malcmind.com',
-    // text: 'this is a test message ',
-    html: htmlmessage
-  };
-
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-    console.log(process.env.NODEMAILER_USERNAME)
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
-//   transporter.sendMail(mailOptions, function (error, info) {
-//     if (error) {
-//       throw new Error(error);
-//     } else {
-//       console.log("Email Sent");
-//       return true;
-//     }
-//   });
-// }
-
-await new Promise((resolve, reject) => {
-    // send mail
-    transporter.sendMail(mailOptions, (err, response) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log("Email Sent");
-        resolve(response);
-      }
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.freesmtpservers.com',
+        port: 25,
+        tls: { // do not fail on invalid certs
+            rejectUnauthorized: false
+        }
     });
-  });
+
+    // export async function sendMail() {
+    // var transporter = nodemailer.createTransport({
+    //        host: 'smtp.ethereal.email',
+    //     port: 587,
+    //     auth: {
+    //       user: process.env.ETHERIAL_USER,,
+    //       pass: process.env.ETHERIAL_PASS,
+    //     },
+    //     tls: {
+    //         // do not fail on invalid certs
+    //         rejectUnauthorized: false,
+    //       },
+    // });
+
+
+    // **magic email */
+    // export async function sendMail() {
+    // var transporter = nodemailer.createTransport({
+    //     host: 'smtp.mailgun.org',
+    //     port: 25,
+    //     auth: {
+    //       user: process.env.MAILGUN_USER,
+    //       pass: process.env.MAILGUN_PASS,
+    //     },
+    //     tls: {
+    //         // do not fail on invalid certs
+    //         rejectUnauthorized: false,
+    //       },
+    // });
+
+    var email = 'admin@dinosaur.com'
+
+    function mailerOptions(transferemail){
+    var mailOptions = {
+        from: `Subsidized Phones <NoReply@your.sweetphonedeals.online>`,
+        // from: 'cool@noreply.sweetjellyparties.com',
+        // to: 'admin@dinosaur.com',
+        // to: 'chris.z.norton@gmail.com',
+        // to: 'shawn@govelocitydigital.com',
+        to: transferemail,
+        // to: 'malcolmxvernon@hotmail.com',
+        subject: 'Subsidized Wireless Plans Are Here',
+        // attachments: [
+        //     {
+        //         filename: 'Malcolm.jpg',
+        //         path: 'https://profile.malcmind.com/Malcolm.jpg',
+
+        //     }
+        // ],
+        // replyTo: 'admin@malcmind.com',
+        // text: 'this is a test message ',
+        html: message(transferemail)
+    };
+    return mailOptions
+  }
+
+    transporter.verify(function (error, success) {
+        if (error) {
+            console.log(error);
+            console.log(process.env.NODEMAILER_USERNAME)
+        } else {
+            console.log("Server is ready to take our messages");
+        }
+    });
+    // transporter.sendMail(mailOptions, function (error, info) {
+    //     if (error) {
+    //       throw new Error(error);
+    //     } else {
+    //       console.log("Email Sent");
+    //       return true;
+    //     }
+    // });
+    // }
+
+    const loader = [
+        'admin@dinosaur.com',
+        'birdog2800@aol.com',
+        'admin@dinossaur.com',
+        'admin@dinosaur.com',
+        'admin@dinosaur.com',
+    ]
+
+
+    let increment = 2000
+
+    for (let x of loader) {
+
+      setTimeout(() => handler(x), increment);
+      //executeEmail(x)
+        increment = increment + 10000
+
+        
+    }
+
+    async function handler(x){
+      await executeEmail(x)
+    }
+
+    async function executeEmail (email){
+        let test = await prisma.phoneEmailUnsubscribe.findUnique({
+            where: {
+                email: email
+            }
+        });
+
+        try {
+            if (test.email != null) {
+                console.log('user is on the do not call list')
+            }
+        } catch {
+            await new Promise(
+                (resolve, reject) => { // send mail
+                    transporter.sendMail(mailerOptions(email), (err, response) => {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            console.log("Email Sent");
+                            resolve(response);
+                        }
+                    });
+                }
+            );
+        }}
+
+
 }
