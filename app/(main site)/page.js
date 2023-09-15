@@ -3,6 +3,7 @@
 import ProjectCards from './ProjectCards/page';
 import About from './About/page'
 import JumboTron from './JumboTron/page'
+import ContactForm from './ContactForm/page'
 
 // import { ProjectCards} from './ProjectCards/page'
 
@@ -25,7 +26,7 @@ import JumboTron from './JumboTron/page'
 export default function Home() {
   return (
     
-    <main >
+    <main>
         {/* <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           <Framer message = "cool shit">
             <h1>cool Shit</h1>
@@ -59,9 +60,8 @@ export default function Home() {
      {/* <JumboTron/> */}
      <About/>
       {/* <ProjectCards/> */}
+    <ContactForm/>
 
-    
-      
     </main>
   )
 }

@@ -22,7 +22,7 @@ const htmlmessage = `<!DOCTYPE html>
 
     <table width="100%" bgcolor="#ffffff" cellpadding="0" cellspacing="0" border="0">
         <tr>
-            <td align="center"><a href="https://www.truconnect.com/offers/nlad_etc?agentid=50993&irclickid=QqhSRnzMPxyPUfyTljQq-SZIUkFUk23GNWOlyU0&utm_source=1250818-imp&utm_medium=aff&utm_campaign=1662005-Online%20Tracking%20Link&irgwc=1" target="_blank">
+            <td align="center"><a href="truconnect.pxf.io/R5ZNPN" target="_blank">
            <img src="https://res.cloudinary.com/dt0ujnagp/image/upload/v1694371740/82083_7eb52dbf06.jpg" alt="Free Phone Image" style="max-width: 100%; height: auto;"></a>
             </td>
         </tr>
@@ -65,7 +65,7 @@ const htmlmessage = `<!DOCTYPE html>
             <td align="center">
                 <p>This offer is too good to pass up, and it's available for a limited time only!</p>
                 <p>Click the button below to claim your FREE phone:</p>
-                <a href="https://www.truconnect.com/offers/nlad_etc?agentid=50993&irclickid=QqhSRnzMPxyPUfyTljQq-SZIUkFUk23GNWOlyU0&utm_source=1250818-imp&utm_medium=aff&utm_campaign=1662005-Online%20Tracking%20Link&irgwc=1" target="_blank" style="display: inline-block; background-color: #007bff; color: #fff; text-decoration: none; padding: 15px 30px; font-size: 16px; border-radius: 5px;">Claim Your Free Phone</a>
+                <a href="truconnect.pxf.io/R5ZNPN" target="_blank" style="display: inline-block; background-color: #007bff; color: #fff; text-decoration: none; padding: 15px 30px; font-size: 16px; border-radius: 5px;">Claim Your Free Phone</a>
             </td>
         </tr>
     </table>
@@ -117,14 +117,14 @@ return htmlmessage
 // });
 
 // **magic email */ https://www.wpoven.com/tools/free-smtp-server-for-testing#
-export async function sendMail() {
-    var transporter = nodemailer.createTransport({
-        host: 'smtp.freesmtpservers.com',
-        port: 25,
-        tls: { // do not fail on invalid certs
-            rejectUnauthorized: false
-        }
-    });
+// export async function sendMail() {
+//     var transporter = nodemailer.createTransport({
+//         host: 'smtp.freesmtpservers.com',
+//         port: 25,
+//         tls: { // do not fail on invalid certs
+//             rejectUnauthorized: false
+//         }
+//     });
 
     // export async function sendMail() {
     // var transporter = nodemailer.createTransport({
@@ -142,21 +142,20 @@ export async function sendMail() {
 
 
     // **magic email */
-    // export async function sendMail() {
-    // var transporter = nodemailer.createTransport({
-    //     host: 'smtp.mailgun.org',
-    //     port: 25,
-    //     auth: {
-    //       user: process.env.MAILGUN_USER,
-    //       pass: process.env.MAILGUN_PASS,
-    //     },
-    //     tls: {
-    //         // do not fail on invalid certs
-    //         rejectUnauthorized: false,
-    //       },
-    // });
+    export async function sendMail() {
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.mailgun.org',
+        port: 25,
+        auth: {
+          user: process.env.MAILGUN_USER,
+          pass: process.env.MAILGUN_PASS,
+        },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+          },
+    });
 
-    var email = 'admin@dinosaur.com'
 
     function mailerOptions(transferemail){
     var mailOptions = {
@@ -199,23 +198,30 @@ export async function sendMail() {
     //     }
     // });
     // }
-
     const loader = [
-        'admin@dinosaur.com',
-        'birdog2800@aol.com',
-        'admin@dinossaur.com',
-        'admin@dinosaur.com',
-        'admin@dinosaur.com',
+
+
+        
     ]
 
 
+    // const loader = [
+    //     'admin@dinosaur.com',
+    //     'birdog2800@aol.com',
+    //     'admin@dinossaur.com',
+    //     'admin@dinosaur.com',
+    //     'admin@dinosaur.com',
+    // ]
+
+
     let increment = 2000
+    let emailnumber = 1
 
     for (let x of loader) {
 
       setTimeout(() => handler(x), increment);
       //executeEmail(x)
-        increment = increment + 10000
+        increment = increment + 60000
 
         
     }
@@ -242,7 +248,8 @@ export async function sendMail() {
                         if (err) {
                             reject(err);
                         } else {
-                            console.log("Email Sent");
+                            console.log(emailnumber,email, "Email Sent");
+                            emailnumber = emailnumber + 1
                             resolve(response);
                         }
                     });

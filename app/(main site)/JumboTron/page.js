@@ -52,7 +52,7 @@ export default function JumboTron() {
       
     return (
         <Container maxWidth="xl"  >
-        <div className ="jumboparrent destinymom bg-slate-300 text-white lg:text-black  overlay">
+        <div className ="destinymom bg-slate-300 text-white lg:text-black  overlay">
         <Container /*maxWidth="xl"*/ >
         <div className="hero min-h-fit   pb-10 lg:pb-10" >
             <div className="hero-content flex-col lg:flex-row-reverse">
