@@ -21,4 +21,5 @@ model PhoneEmailUnsubscribe {
   id Int @id @default(autoincrement())
   email String @unique
   name String? //optional
+  reason String? //optional
 }

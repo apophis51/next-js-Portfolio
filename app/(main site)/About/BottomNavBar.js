@@ -36,6 +36,7 @@ CustomTabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
+//this a11yprops function was from materialui Basic tab example
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -82,7 +83,7 @@ export default function BottomNavBar(props) {
 
   return (
     <div>
-      <div className = 'canviswrap'>
+      <div className = 'granim-relative'>
     <canvas id="granim-canvas"></canvas>
     <Script src="granim.min.js" 
     strategy = 'beforeInteractive'

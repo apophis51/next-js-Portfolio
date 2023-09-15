@@ -42,3 +42,5 @@ __pycache__
 # emails
 
 /emails.txt
+
+/service/list.js
