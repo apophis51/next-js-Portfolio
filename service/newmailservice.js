@@ -1,7 +1,6 @@
 var nodemailer = require("nodemailer");
 import {prisma} from '@/lib/prisma';
 import { TIMEOUT } from 'dns';
-import { list } from './list';
 
 function message (inputemail){
 const htmlmessage = `<!DOCTYPE html>
@@ -199,7 +198,11 @@ return htmlmessage
     //     }
     // });
     // }
-    const loader = list //imort
+    const loader = [
+
+
+        
+    ]
 
 
     // const loader = [
