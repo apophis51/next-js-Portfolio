@@ -7,6 +7,8 @@ import Card from './Card'
 import BlogCards from '../BlogCards/page.js'
 import prism from '../BlogCards/prism.css'
 import About from '../About/page';
+import ContactForm from '../ContactForm/page'
+
 // import page from './page.css'
 
 
@@ -34,7 +36,7 @@ async function getData() {
     <div  >
     {/* <About/> */}
       {/* <h1 class = "text-4xl h-20 lg:pr-52 mt-0" style = {{backgroundColor: "#311b92",textAlign: "center",color:"white"}}>My Projects</h1> */}
-    <section className = "flex flex-wrap justify-evenly gap-5 bg-blue-900  pt-20">
+    <section className = "flex flex-wrap justify-evenly gap-5 bg-blue-900  pt-20 pb-10">
       <Script src = './prism.js'
       strategy='afterInteractive' />
     
@@ -54,7 +56,9 @@ async function getData() {
         </images>))}
       
       </section>
+      <ContactForm/>
       </div>
+
   
       )
 

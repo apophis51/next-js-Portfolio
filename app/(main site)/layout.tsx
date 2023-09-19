@@ -42,7 +42,7 @@ export default function RootLayout({
     
     <html lang="en">
       {/* <body className="bg-blue-500"> */}
-        <body>
+        <body className='h-[6000px]'>
       <Container maxWidth="xl" >
 
         <ThemeProvider theme={theme}>
