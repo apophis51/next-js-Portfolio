@@ -8,6 +8,20 @@ import Box from '@mui/material/Box';
 import About from '../About/About'
 import  ReactMarkdown  from "react-markdown"
 import Script from 'next/script';
+import { green, purple,yellow } from '@mui/material/colors';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+
+const theme2 = createTheme({
+  palette: {
+    primary: {
+      main: purple[500],
+    },
+    secondary: {
+      main: yellow[500],
+    },
+  },
+});
 
 
 function CustomTabPanel(props) {
@@ -92,10 +106,16 @@ export default function BottomNavBar(props) {
 
     <Box sx={{ width: '100%' }} className = " child">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ color: 'white'}} >
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'>
+        {/* Tab Features https://mui.com/material-ui/react-tabs/*/}
+        <ThemeProvider theme={theme2}>
+
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
+        textColor='secondary' indicatorColor='secondary'>
           <Tab label="About Me" {...a11yProps(0)} className = 'text-white text-3xl' />
           <Tab label="My Projects" {...a11yProps(1)} className = 'text-white text-3xl'/>
         </Tabs>
+        </ThemeProvider>
+
       </Box>
       <CustomTabPanel value={value} index={0}>
       {props.about}

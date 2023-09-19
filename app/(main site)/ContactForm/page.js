@@ -34,13 +34,13 @@ function ContactForm() {
 
   return (
     <div className="">
-      <h2 className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[120px] mr-[100px] ml-[100px]'>Contact Malcolm </h2>
+      <h2 className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[100px] pt-5 pb-5 mr-[180px] ml-[180px] text-4xl'>Contact Malcolm </h2>
       {submitted ? (
-        <div>
+        <div className='bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl'>
           <p>Thank you for your submission!</p>
         </div>
       ) : (
-        <div className="bg-white h-[320px] text-center ml-5 mr-5 pt-5 rounded-full">
+        <div className="bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl">
         <form onSubmit={handleSubmit}>
           <div className=''>
             <label htmlFor="name">Name</label>
@@ -76,7 +76,7 @@ function ContactForm() {
             <label htmlFor="message">Message:</label>
             <br></br>
             <textarea
-              className='border-black border-2'
+              className='border-black border-2 h-[200px] w-[400px]'
               placeholder='Enter Your Message'
               id="message"
               name="message"
@@ -84,8 +84,9 @@ function ContactForm() {
               onChange={handleInputChange}
               required
             />
+            <br></br>
           </div>
-          <button type="submit">Submit</button>
+          <button className='bg-indigo-700 text-white p-5 rounded-full' type="submit">Submit</button>
         </form>
         </div>
       )}
