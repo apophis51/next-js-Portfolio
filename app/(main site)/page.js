@@ -3,7 +3,6 @@
 import ProjectCards from './ProjectCards/page';
 import About from './About/page'
 import JumboTron from './JumboTron/page'
-import ContactForm from './ContactForm/page'
 
 // import { ProjectCards} from './ProjectCards/page'
 
@@ -60,7 +59,6 @@ export default function Home() {
      {/* <JumboTron/> */}
      <About/>
       {/* <ProjectCards/> */}
-    <ContactForm/>
 
     </main>
   )

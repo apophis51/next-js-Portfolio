@@ -199,8 +199,8 @@ return htmlmessage
     // });
     // }
     const loader = [
-
-
+        
+     
         
     ]
 
@@ -221,7 +221,7 @@ return htmlmessage
 
       setTimeout(() => handler(x), increment);
       //executeEmail(x)
-        increment = increment + 60000
+        increment = increment + 50000
 
         
     }
