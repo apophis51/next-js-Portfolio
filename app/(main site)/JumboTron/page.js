@@ -94,6 +94,7 @@ export default function JumboTron() {
             <Script src="granim.min.js" 
             strategy = 'beforeInteractive'
             ></Script>
+            
         </div> {/* {Gradient child div} */}
     {/* {Banner + Background + Return Div} */} </div>
         </Container>
