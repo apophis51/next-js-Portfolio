@@ -23,3 +23,10 @@ model PhoneEmailUnsubscribe {
   name String? //optional
   reason String? //optional
 }
+
+model RecievedEmails {
+  id Int @id @default(autoincrement())
+  email String?
+  name String? //optional
+  message String? //optional
+}
