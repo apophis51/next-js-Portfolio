@@ -142,7 +142,7 @@ return htmlmessage
 
 
     // **magic email */
-    export async function sendMail() {
+    export async function sendMail2(getEmail) {
     var transporter = nodemailer.createTransport({
         host: 'smtp.mailgun.org',
         port: 25,
