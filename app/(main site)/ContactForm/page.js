@@ -25,16 +25,29 @@ function ContactForm() {
     setFormData({ ...formData, [name]: value });
   };
 
+
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     // Perform form submission logic here, e.g., sending data to a server
     // For this example, we'll just set the "submitted" state to true
+
+    const newformData = new FormData();
+    newformData.append('name', formData.name);
+    newformData.append('email', formData.email)
+    newformData.append('message', formData.message)
+
+
+    fetch(`/contactEmailAPI`,{
+      method: 'POST',
+      body: newformData
+  })
     setSubmitted(true);
   };
 
   return (
     <div className="">
-      <h2 className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[100px] pt-5 pb-5 mr-[180px] ml-[180px] text-4xl'>Contact Malcolm </h2>
+      <h2 className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[100px] pt-5 pb-5 mr-[10%] ml-[10%] text-4xl'>Contact Malcolm </h2>
       {submitted ? (
         <div className='bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl'>
           <p>Thank you for your submission!</p>
@@ -46,7 +59,7 @@ function ContactForm() {
             <label htmlFor="name">Name</label>
             <br></br>
             <input
-              className='border-black border-2'
+              className='border-black border-2 max-w-[60%]'
               placeholder="Enter Your Name"
               type="text"
               id="name"
@@ -61,7 +74,7 @@ function ContactForm() {
             <label htmlFor="email">Email</label>
             <br></br>
             <input
-              className='border-black border-2'
+              className='border-black border-2 max-w-[90%]'
               placeholder='Enter Your Email'
               type="email"
               id="email"
@@ -76,7 +89,7 @@ function ContactForm() {
             <label htmlFor="message">Message:</label>
             <br></br>
             <textarea
-              className='border-black border-2 h-[200px] w-[400px]'
+              className='border-black border-2 h-[200px] w-[400px] max-w-[90%]'
               placeholder='Enter Your Message'
               id="message"
               name="message"

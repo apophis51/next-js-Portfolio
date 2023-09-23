@@ -1,11 +1,13 @@
 import { NextResponse } from 'next/server'
 import { sendMail } from "../../../service/newmailservice";
+import { sendMail2 } from "../../../service/newmailservice2";
+
 // import { sendMail } from "../../service/amazonservice";
 
 
 //The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
 export async function GET(req,res) {
-    
+  await sendMail2();
   return NextResponse.json("Get")
 }
 
