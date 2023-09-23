@@ -100,21 +100,21 @@ return htmlmessage
 }
 
 // -----------------------------------------------------------------------------
-export async function sendMail2(getEmail) {
-var transporter = nodemailer.createTransport({
-    service: "gmail",
-    //   port: 587,
-    // secure: true,
-    auth: {
-      user: process.env.GOOGLE_EMAIL_USER,
-      pass: process.env.GOOGLE_EMAIL_PASS
+// export async function sendMail2(getEmail) {
+// var transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     //   port: 587,
+//     // secure: true,
+//     auth: {
+//       user: process.env.GOOGLE_EMAIL_USER,
+//       pass: process.env.GOOGLE_EMAIL_PASS
 
-    },
-    tls: {
-        // do not fail on invalid certs
-        rejectUnauthorized: false,
-      },
-});
+//     },
+//     tls: {
+//         // do not fail on invalid certs
+//         rejectUnauthorized: false,
+//       },
+// });
 
 // **magic email */ https://www.wpoven.com/tools/free-smtp-server-for-testing#
 // export async function sendMail2(getEmail) {
@@ -142,19 +142,19 @@ var transporter = nodemailer.createTransport({
 
 
     // **magic email */
-    // export async function sendMail() {
-    // var transporter = nodemailer.createTransport({
-    //     host: 'smtp.mailgun.org',
-    //     port: 25,
-    //     auth: {
-    //       user: process.env.MAILGUN_USER,
-    //       pass: process.env.MAILGUN_PASS,
-    //     },
-    //     tls: {
-    //         // do not fail on invalid certs
-    //         rejectUnauthorized: false,
-    //       },
-    // });
+    export async function sendMail() {
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.mailgun.org',
+        port: 25,
+        auth: {
+          user: process.env.MAILGUN_USER,
+          pass: process.env.MAILGUN_PASS,
+        },
+        tls: {
+            // do not fail on invalid certs
+            rejectUnauthorized: false,
+          },
+    });
 
 
     function mailerOptions(transferemail){
