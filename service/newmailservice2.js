@@ -117,14 +117,14 @@ return htmlmessage
 // });
 
 // **magic email */ https://www.wpoven.com/tools/free-smtp-server-for-testing#
-// export async function sendMail2(getEmail) {
-//     var transporter = nodemailer.createTransport({
-//         host: 'smtp.freesmtpservers.com',
-//         port: 25,
-//         tls: { // do not fail on invalid certs
-//             rejectUnauthorized: false
-//         }
-//     });
+export async function sendMail2(getEmail) {
+    var transporter = nodemailer.createTransport({
+        host: 'smtp.freesmtpservers.com',
+        port: 25,
+        tls: { // do not fail on invalid certs
+            rejectUnauthorized: false
+        }
+    });
 
     // export async function sendMail() {
     // var transporter = nodemailer.createTransport({
@@ -142,19 +142,19 @@ return htmlmessage
 
 
     // **magic email */
-    export async function sendMail2(getEmail) {
-    var transporter = nodemailer.createTransport({
-        host: 'smtp.mailgun.org',
-        port: 25,
-        auth: {
-          user: process.env.MAILGUN_USER,
-          pass: process.env.MAILGUN_PASS,
-        },
-        tls: {
-            // do not fail on invalid certs
-            rejectUnauthorized: false,
-          },
-    });
+    // export async function sendMail2(getEmail) {
+    // var transporter = nodemailer.createTransport({
+    //     host: 'smtp.mailgun.org',
+    //     port: 25,
+    //     auth: {
+    //       user: process.env.MAILGUN_USER,
+    //       pass: process.env.MAILGUN_PASS,
+    //     },
+    //     tls: {
+    //         // do not fail on invalid certs
+    //         rejectUnauthorized: false,
+    //       },
+    // });
 
 
     function mailerOptions(transferemail){
