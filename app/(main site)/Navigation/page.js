@@ -17,7 +17,29 @@ import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
 
+import useSWR from 'swr'
+import { LoginButton, LogoutButton } from "../auth";  
 
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export function LogStatus() {
+  const { data, error, isLoading } = useSWR('/authentication', fetcher)
+  if (data) {
+    if(data.authenticated == true){
+  return (
+      <div className="text-2xl text-yellow-500">
+          <LogoutButton/>
+      </div>
+  )} else{
+    return(
+      <div className="text-2xl text-yellow-500">
+          <LoginButton/>          
+      </div>
+    )
+  }
+  }
+
+}
 
 
 let OldTheme = {name: 'Old Theme', href: 'https://malcolmvernon.info'};
@@ -139,12 +161,13 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-              <Link href="/BlogCards">BlogCards</Link>
+          <LogStatus/>
+              {/* <Link href="/AuthRouteTest">Login</Link> */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
-              </IconButton>
+              </IconButton> */}
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
