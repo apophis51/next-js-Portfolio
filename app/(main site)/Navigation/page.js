@@ -16,6 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
+import style from './style.css'
 
 import useSWR from 'swr'
 import { LoginButton, LogoutButton } from "../auth";  
@@ -27,14 +28,14 @@ export function LogStatus() {
   if (data) {
     if(data.authenticated == true){
   return (
-      <div className="text-2xl text-yellow-500">
+      <button className="text-2xl text-yellow-500 button">
           <LogoutButton/>
-      </div>
+      </button>
   )} else{
     return(
-      <div className="text-2xl text-yellow-500">
+      <button className="text-2xl text-yellow-500 button">
           <LoginButton/>          
-      </div>
+      </button>
     )
   }
   }
