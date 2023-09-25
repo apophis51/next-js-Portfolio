@@ -1,0 +1,83 @@
+/* body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
+  gap: 4em;
+} */
+
+/* .title {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 3em;
+} */
+
+/* Button */
+.button {
+  /* 1. position  */
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+
+  /*2. hidden overflow :before, :after  */
+  overflow: hidden;
+
+  /* 3. text */
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 100;
+  font-size: 1em;
+  color: rgb(187, 208, 25);
+
+  /* spacing */
+  padding: 0.75em 1em;
+
+  /* 4. border */
+  border: 0.15em solid rgb(176, 188, 13);
+  border-radius: 2em;
+
+  /*change property values smoothly  */
+  transition: 4s;
+}
+
+.button::before,
+.button::after {
+  content: "";
+  position: absolute;
+  top: -1.5em;
+  z-index: -1;
+
+  width: 200%;
+  aspect-ratio: 1;
+
+  border: none;
+  border-radius: 40%;
+
+  background-color: rgba(195, 227, 12, 0.25);
+
+  transition: 4s;
+}
+
+.button::before {
+  left: -80%;
+  transform: translate3d(0, 5em, 0) rotate(-340deg);
+}
+
+.button::after {
+  right: -80%;
+  transform: translate3d(0, 5em, 0) rotate(390deg);
+}
+.button:hover,
+.button:focus {
+  color: white;
+}
+
+.button:hover::before,
+.button:hover::after,
+.button:focus::before,
+.button:focus::after {
+  transform: none;
+  background-color: rgba(95, 5, 92, 0.75);
+}
