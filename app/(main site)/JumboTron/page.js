@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Script from 'next/script';
 import * as React from 'react';
 import MouseOverPopover from "./MouseOverPopover";
+import Link from 'next/link'
 
 
 
@@ -62,11 +63,15 @@ export default function JumboTron() {
                         width={250}
                         height={250}
                         className="max-w-sm rounded-lg shadow-2xl"/>
-                          <button className="btn btn-primary"
+                          {/* <button className="btn btn-primary"
                         onClick={() => alert("This Button does Not do anything yet, but it will soon! 😅")}
                         style={
                             {marginLeft:'35%',marginTop:20}
-                    }>Hire me</button>
+                    }>Hire me</button> */}
+                    <Link href='/PurchaseMenu'><button className="btn btn-primary"
+                        style={
+                            {marginLeft:'35%',marginTop:20}
+                    }>Hire Me</button></Link>
                 </div> {/* {Malcolm Vernon Image Div} */}
                 <div className="flex-col Text-Div"
                     style={
@@ -79,11 +84,15 @@ export default function JumboTron() {
 
                     <p className="py-6">I am a full stack web developer. I made this this <span className="text-red"><MouseOverPopover/></span>using Next.js, React, and MaterialUI. You can still see my <a href = "https://malcolmvernon.info">old portfolio site</a> which is built with Flask and Python. </p><p className='opacity-100 lg:opacity-0'style={{color: "red"}}>This site Is still Under Development so Please be patient</p> <p className='opacity-100 lg:opacity-0'>I'm subscribed to the <a href = "https://jamstack.org/headless-cms/">JamStack</a> philosophy of separating back-end conserns from the front-end, so content on this site is implemented with <a href = "https://strapi.io/">Strapi Headless CMS.</a> User storage is handled with PostgreSQL using Prisma  </p>
                     </div> {/* {Text Div} */}
-                    <button className="btn btn-primary opacity-100 lg:opacity-0"
+                    {/* <button className="btn btn-primary opacity-100 lg:opacity-0"
                         onClick={() => alert("This Button does Not do anything yet, but it will soon! 😅")}
                         style={
                             {margin: "auto"}
-                    }>Hire me</button>
+                    }>Hire me</button> */}
+                     <Link href='/PurchaseMenu'><button className="btn btn-primary opacity-100 lg:opacity-0"
+                        style={
+                            {margin: "auto"}
+                    }>Hire me</button></Link>
                 </div> {/* {Entire Text Div} */}
             </div> {/* {Entire Banner Div} */}
         </div>  {/* {Entire Banner Div Wrapper} */}
