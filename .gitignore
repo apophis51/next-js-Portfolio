@@ -43,3 +43,7 @@ __pycache__
 
 /emails.txt
 
+/scripts
+/contracts
+/cache
+/artifacts
