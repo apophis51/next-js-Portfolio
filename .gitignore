@@ -47,3 +47,5 @@ __pycache__
 /contracts
 /cache
 /artifacts
+
+/app/(mai site)/MetaMask2
