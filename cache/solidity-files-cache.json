@@ -35,6 +35,255 @@
       "artifacts": [
         "Faucet"
       ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Game1.sol": {
+      "lastModificationDate": 1696660027049,
+      "contentHash": "0779fbb6204455250c5df8033220c724",
+      "sourceName": "contracts/Game1.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Game1"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1694073362123,
+      "contentHash": "896f68942c3a20e9ae3c3c5bfd3add54",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Game3.sol": {
+      "lastModificationDate": 1696685752207,
+      "contentHash": "7f9ca2796892a363eaf8c87dc18638c3",
+      "sourceName": "contracts/Game3.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Game3"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Game2.sol": {
+      "lastModificationDate": 1696685746487,
+      "contentHash": "2943aa78abc92f6ad2c5e8ab894ed182",
+      "sourceName": "contracts/Game2.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Game2"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Game4.sol": {
+      "lastModificationDate": 1696685756659,
+      "contentHash": "933b4059fab14c5661e1625f2cf5abe3",
+      "sourceName": "contracts/Game4.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Game4"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Game5.sol": {
+      "lastModificationDate": 1696706939900,
+      "contentHash": "b4dac1679bb953807b676572c1ad2a4f",
+      "sourceName": "contracts/Game5.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Game5"
+      ]
+    },
+    "/home/apophis51/nextjs-flask/contracts/Gambling.sol": {
+      "lastModificationDate": 1696713791569,
+      "contentHash": "92a3e193b1a41dd80f3b7f0ae38a0f6c",
+      "sourceName": "contracts/Gambling.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.4"
+      ],
+      "artifacts": [
+        "Gambling"
+      ]
     }
   }
 }
