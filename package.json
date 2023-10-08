@@ -63,10 +63,7 @@
     "swr": "^2.2.0",
     "tailwindcss": "3.3.2",
     "three": "^0.154.0",
-    "typescript": "5.0.4",
-    "use-debounce": "^9.0.4",
-    "viem": "^1.16.0",
-    "wagmi": "^1.4.3"
+    "typescript": "5.0.4"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",
