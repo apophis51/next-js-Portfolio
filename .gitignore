@@ -43,10 +43,10 @@ __pycache__
 
 /emails.txt
 
-# /scripts
-# /contracts
-# /cache
-# /artifacts
+/scripts
+/contracts
+/cache
+/artifacts
 
 /app/(main site)/MetaMask2
 /app/(main site)/MetaMask3
