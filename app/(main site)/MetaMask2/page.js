@@ -4,7 +4,7 @@
 
 
 import { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+// import { ethers } from 'ethers';
 
 function WalletComponent() {
   const [provider, setProvider] = useState(null);
