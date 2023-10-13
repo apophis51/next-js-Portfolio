@@ -48,5 +48,5 @@ __pycache__
 /cache
 /artifacts
 
-/app/(main site)/MetaMask2
+# /app/(main site)/MetaMask2
 /app/(main site)/MetaMask3
