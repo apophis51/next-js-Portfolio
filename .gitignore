@@ -50,3 +50,4 @@ __pycache__
 
 # /app/(main site)/MetaMask2
 /app/(main site)/MetaMask3
+package-lock.json
