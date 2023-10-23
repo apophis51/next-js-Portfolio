@@ -297,7 +297,6 @@ let contractOwnerKey = process.env.PRIVATE_KEY;
 export default async function MetaMaskContainer() {
     return (
       <div>
-        {contractOwnerKey}
       <WalletComponent  propFunction = {ownerGameCall}/>
       </div>
     );
