@@ -127,7 +127,9 @@ function ResponsiveAppBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Link href="/BlogCards"><Typography textAlign="center">{page.name}</Typography></Link>
+                  {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
+                  <Typography textAlign="center"> {page.name}</Typography>
+    </Link>) : (<Link href={page.href}><Typography textAlign="center">{page.name}</Typography></Link>)}
                 </MenuItem>
               ))}
             </Menu>
@@ -159,7 +161,9 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block'}}
               >
-                <Link href={page.href}>{page.name}</Link>
+                {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
+      {page.name}
+    </Link>) : (<Link href={page.href}>{page.name}</Link>)}
               </Button>
             ))}
           </Box>
@@ -193,9 +197,7 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
-            <Link href="/Crypto/GuessTheNumber" prefetch={false}>
-      T
-    </Link>
+            
           </Box>
         </Toolbar>
       
