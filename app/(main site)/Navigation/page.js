@@ -193,8 +193,12 @@ function ResponsiveAppBar() {
                 </MenuItem>
               ))}
             </Menu>
+            <Link href="/Crypto/GuessTheNumber" prefetch={false}>
+      T
+    </Link>
           </Box>
         </Toolbar>
+      
       </Container>
       </div>
 
