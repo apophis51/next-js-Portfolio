@@ -25,8 +25,9 @@ async function getData() {
     const data = await getData()
 
    
-    return <Container maxWidth="xl" className = "bg-violet-200 ">
-    <section className = "flex flex-wrap justify-evenly gap-5 ">
+    return (<div><Container maxWidth="xl">
+      
+    <section className = "flex flex-wrap justify-evenly gap-5 bg-violet-200">
       <Script src = './prism.js'
       strategy='afterInteractive' />
     
@@ -41,6 +42,7 @@ async function getData() {
       
       </section>
       </Container>
+      </div>)
 
 
   }

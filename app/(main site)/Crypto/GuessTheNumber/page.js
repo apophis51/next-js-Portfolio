@@ -1,10 +1,12 @@
 import WalletComponent from '../MetaMask2/page'
 import { ethers } from 'ethers';
+import Container from '@mui/material/Container';
 
 
 async function ownerGameCall(wallet){
     'use server'
-    const gameAddr = '0x13c4Fb7EA496309000f78D4E2405fA21853Ac25C'
+    // const gameAddr = '0x13c4Fb7EA496309000f78D4E2405fA21853Ac25C'
+    const gameAddr = '0x4fF8570ca3A00Ff1B8087d7dA5C649fB8bBC1c8F'
     const abi = [
         {
           "inputs": [
@@ -259,7 +261,8 @@ async function ownerGameCall(wallet){
           "type": "receive"
         }
       ]
-    const url = process.env.GOERLI_URL;
+      const url = process.env.OPTIMISM_URL;
+    // const url = process.env.GOERLI_URL;
     let provider = new ethers.providers.JsonRpcProvider(url);
 
     const game = await new ethers.Contract(gameAddr, abi, provider.getSigner());
@@ -271,7 +274,15 @@ async function ownerGameCall(wallet){
     
     const ownerInstance = await new ethers.Contract(gameAddr, abi, ownerWallet);
 
-    const tx = await ownerInstance.playGame(7, wallet);
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    const randomInt = getRandomInt(1, 10);
+
+    const tx = await ownerInstance.playGame(randomInt, wallet);
     const receipt = await tx.wait();
     console.log('Game played:', tx.hash);
     const games = receipt.events[0].args.gamesPlayed._hex
@@ -279,7 +290,7 @@ async function ownerGameCall(wallet){
     let gameResult = await ownerInstance.result()
     console.log("the game result is", gameResult.toString())
 
-    return gameResult
+    return [gameResult, randomInt]
 }
 const testProp = async (data) => {
     'use server'
@@ -295,9 +306,15 @@ let contractOwnerKey = process.env.PRIVATE_KEY;
 
 
 export default async function MetaMaskContainer() {
+
+  
     return (
+
       <div>
+        <Container maxWidth="xl"  >
+
       <WalletComponent  propFunction = {ownerGameCall}/>
+      </Container>
       </div>
     );
   }

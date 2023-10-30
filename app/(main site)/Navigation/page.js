@@ -46,8 +46,9 @@ export function LogStatus() {
 let OldTheme = {name: 'Old Theme', href: 'https://malcolmvernon.info'};
 let WebDesignService = {name: 'Web Design Service', href: 'https://malcmind.com'};
 let ProgrammingBlogs = {name: 'Programming Blogs', href: '/BlogCards'};
+let CryptoGame = {name: 'Crypto Game', href: '/Crypto/GuessTheNumber'};
 
-const pages = [OldTheme, WebDesignService, ProgrammingBlogs];
+const pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -93,7 +94,7 @@ function ResponsiveAppBar() {
               
             }}
           >
-            MalcMind: Portfolio
+            MalcMind
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
