@@ -279,8 +279,13 @@ async function ownerGameCall(wallet){
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
+    // const tipInETH = 0.00000088;
+// const tipInWei = web3.utils.toWei(tipInETH.toString(), 'ether');
     
     const randomInt = getRandomInt(1, 10);
+
+    // const tx = await ownerInstance.playGame(randomInt, wallet, { gasPrice: 1, gasTip: tipInWei });
+
 
     const tx = await ownerInstance.playGame(randomInt, wallet);
     const receipt = await tx.wait();
