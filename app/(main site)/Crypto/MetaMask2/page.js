@@ -701,7 +701,7 @@ return formattedTime
       <br></br>
       <p className = 'text-xl'>This is a crypto gambling game built on the Ethereum blockchain.
 
-You must connect to your Ethereum Wallet and purchase a game token. Guess the winning number (1-10). You will win the current jackpot if you guess correctly. If an incorrect guess is made the house will keep 1/10th of the winnings and the rest will go to the jackpot. This game is in beta only playable on optimism. You will neeed Optimism ETH to play. The easiest way to get Optimism ETH, would be to buy normal ETH on oCinbase... and then use the coinbase wallet bridge to convert ETH into Optimism ETH</p><span className='text-3xl text-white bg-pink-600'>Please do not try to connect with any other network except for Optimism or you will lose funds.</span>
+You must connect to your Ethereum Wallet and purchase a game token. Guess the winning number (1-10). You will win the current jackpot if you guess correctly. If an incorrect guess is made the house will keep 1/10th of the winnings and the rest will go to the jackpot. This game is in beta only playable on optimism. You will neeed Optimism ETH to play. The easiest way to get Optimism ETH, would be to buy normal ETH on Coinbase... and then use the coinbase wallet bridge to convert ETH into Optimism ETH</p><span className='text-3xl text-white bg-pink-600'>Please do not try to connect with any other network except for Optimism or you will lose funds.</span>
 <br></br>
       <br></br>
       <h2 className="text-4xl">Current JackPot:<span className='bg-green-600 text-white'> {currentJackpot}</span></h2>
