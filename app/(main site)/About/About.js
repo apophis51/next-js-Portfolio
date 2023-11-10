@@ -21,8 +21,8 @@ export default async function About({ params }) {
       <div>
     <div style ={{padding:'20px'}} className='linedpaper' >
 
+    <ReactMarkdown>{data.data[8].attributes.Content}</ReactMarkdown>
         <ReactMarkdown>{data.data[9].attributes.Content}</ReactMarkdown>
-        <ReactMarkdown>{data.data[8].attributes.Content}</ReactMarkdown>
     </div>
     <ContactForm/>
     </div>)

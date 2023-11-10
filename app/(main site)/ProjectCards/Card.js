@@ -9,7 +9,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import * as React from 'react';
-import page from './page.css'
+import './page.css'
 import AOS from 'aos';
 import 'aos/dist/aos.css'
 
