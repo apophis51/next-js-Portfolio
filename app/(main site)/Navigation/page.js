@@ -126,11 +126,9 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
-                  <Typography textAlign="center"> {page.name}</Typography>
-    </Link>) : (<Link href={page.href} prefetch={false}><Typography textAlign="center">{page.name}</Typography></Link>)}
-                </MenuItem>
+                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                 <Link href="/BlogCards"><Typography textAlign="center">{page.name}</Typography></Link>
+               </MenuItem>
               ))}
             </Menu>
           </Box>
