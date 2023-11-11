@@ -163,7 +163,7 @@ function ResponsiveAppBar() {
               >
                 {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
       {page.name}
-    </Link>) : (<Link href={page.href} prefetch={false}>{page.name}</Link>)}
+    </Link>) : (<Link href={page.href}>{page.name}</Link>)}
               </Button>
             ))}
           </Box>
