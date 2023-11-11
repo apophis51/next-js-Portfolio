@@ -161,7 +161,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block'}}
               >
-                                <Link href={page.href}>{page.name}</Link>
+                                <Link href={page.href} prefetch={false}>{page.name}</Link>
 
     {/* non mobile menu */}
               </Button>
