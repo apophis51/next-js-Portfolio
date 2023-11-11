@@ -64,7 +64,8 @@
     "three": "^0.154.0",
     "typescript": "5.0.4",
     "use-debounce": "^9.0.4",
-    "viem": "^1.16.0"
+    "viem": "^1.16.0",
+    "web3": "^4.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.1",
