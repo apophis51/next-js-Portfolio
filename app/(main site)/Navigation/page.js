@@ -129,7 +129,7 @@ function ResponsiveAppBar() {
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
                   {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
                   <Typography textAlign="center"> {page.name}</Typography>
-    </Link>) : (<Link href={page.href}><Typography textAlign="center">{page.name}</Typography></Link>)}
+    </Link>) : (<Link href={page.href} prefetch={false}><Typography textAlign="center">{page.name}</Typography></Link>)}
                 </MenuItem>
               ))}
             </Menu>
@@ -161,8 +161,9 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block'}}
               >
-                                <Link href={page.href} prefetch={false}>{page.name}</Link>
-
+                {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
+      {page.name}
+    </Link>) : (<Link href={page.href} prefetch={false}>{page.name}</Link>)} 
     {/* non mobile menu */}
               </Button>
             ))}
