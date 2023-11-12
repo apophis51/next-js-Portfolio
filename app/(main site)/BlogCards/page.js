@@ -4,7 +4,7 @@ import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Card from './Card'
 import BlogCards from '../BlogCards/page.js'
-import prism from '../BlogCards/prism.css'
+// import '../BlogCards/prism.css'
 
 
  

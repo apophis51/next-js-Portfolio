@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Container from '@mui/material/Container';
 import Card from './Card'
 import BlogCards from '../BlogCards/page.js'
-import prism from '../BlogCards/prism.css'
+// import '../BlogCards/prism.css'
 import About from '../About/page';
 import ContactForm from '../ContactForm/page'
 
@@ -38,7 +38,7 @@ async function getData() {
       {/* <h1 class = "text-4xl h-20 lg:pr-52 mt-0" style = {{backgroundColor: "#311b92",textAlign: "center",color:"white"}}>My Projects</h1> */}
     <section className = "flex flex-wrap justify-evenly gap-5 bg-blue-900  pt-20 pb-10">
       <Script src = './prism.js'
-      strategy='afterInteractive' />
+      strategy='befInteractive' />
     
       
         {data.data.map((item) => (

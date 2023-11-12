@@ -1,10 +1,15 @@
+
+
 import  ReactMarkdown  from "react-markdown"
 import Link from 'next/link'
-import prism from '../prism.css'
+import '../prism.css'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
+import Highlighter from './highlighter'
 
- 
+
+ //https://www.calvintorra.com/blog/add-prism-js-code-highlighting-to-next-js
+ //https://www.dawsoncodes.com/posts/2/syntax-highlighting-with-prism-and-nextjs
 
 
 // export async function generateStaticParams() {
@@ -22,11 +27,13 @@ export default async function Post({ params }) {
   const post = await generateStaticParams(params)
     return (
               <Container maxWidth="xl"  >
-
     <div className = 'bg-white'>
-      <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
-      strategy="lazyOnload" />
+    {/* <link rel="stylesheet" href="prism.css" /> */}
+
+      {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
+      strategy="afterInteractive" /> */}
         <ReactMarkdown>{post.data.attributes.Content}</ReactMarkdown>
+        <Highlighter />
     </div>
     </Container>)
 //   return <PostLayout post={post} />
