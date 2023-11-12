@@ -53,6 +53,7 @@
     "pg-hstore": "^2.3.4",
     "postcss": "8.4.23",
     "prisma": "^5.2.0",
+    "prismjs": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.7",
