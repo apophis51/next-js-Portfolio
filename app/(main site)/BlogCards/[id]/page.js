@@ -6,7 +6,7 @@ import '../prism.css'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Highlighter from './highlighter'
-
+import '../blog.css'
 
  //https://www.calvintorra.com/blog/add-prism-js-code-highlighting-to-next-js
  //https://www.dawsoncodes.com/posts/2/syntax-highlighting-with-prism-and-nextjs
