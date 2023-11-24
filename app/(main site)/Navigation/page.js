@@ -47,8 +47,9 @@ let OldTheme = {name: 'Old Theme', href: 'https://malcolmvernon.info'};
 let WebDesignService = {name: 'Web Design Service', href: 'https://malcmind.com'};
 let ProgrammingBlogs = {name: 'Programming Blogs', href: '/BlogCards'};
 let CryptoGame = {name: 'Crypto Game', href: '/Crypto/GuessTheNumber'};
+let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
 
-const pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame];
+const pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -94,7 +95,7 @@ function ResponsiveAppBar() {
               
             }}
           >
-            MalcMind
+            <p>MalcMind   |</p>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
