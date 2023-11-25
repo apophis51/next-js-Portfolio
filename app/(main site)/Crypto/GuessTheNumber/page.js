@@ -1,6 +1,7 @@
 import WalletComponent from '../MetaMask2/page'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
+import Hero from '../../Components/Hero.js'
 
 
 async function ownerGameCall(wallet){
@@ -317,6 +318,7 @@ export default async function MetaMaskContainer() {
 
       <div>
         <Container maxWidth="xl"  >
+        <Hero contentNeeded = {'Crypto Games'}/>
 
       <WalletComponent  propFunction = {ownerGameCall}/>
       </Container>
