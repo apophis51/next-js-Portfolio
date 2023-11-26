@@ -14,6 +14,7 @@ async function getPost(params) {
   return data
 }
 
+
  
 export default async function About({ params }) {
   const data = await getPost(params)
@@ -21,11 +22,9 @@ export default async function About({ params }) {
       <div>
     <div style ={{padding:'20px'}} className='linedpaper' >
 
-    <ReactMarkdown>{data.data[8].attributes.Content}</ReactMarkdown>
-        <ReactMarkdown>{data.data[9].attributes.Content}</ReactMarkdown>
+    <ReactMarkdown>{data.data.filter((item) => item.attributes.Title == "TECHNICAL SKILLS")[0].attributes.Content}</ReactMarkdown>
+        <ReactMarkdown>{data.data.filter((item) => item.attributes.Title == "About")[0].attributes.Content}</ReactMarkdown>
     </div>
     <ContactForm/>
     </div>)
-    
-//   return <PostLayout post={post} />
-}
+  }
