@@ -23,6 +23,18 @@ async function generateStaticParams(params) {
  
 export default async function Post({ params }) {
   const post = await generateStaticParams(params)
+
+  const renderLink = (props) => (
+    <a style={{ color: 'red' }} {...props}>
+      {props.children}
+    </a>
+  );
+
+  const components = {
+    a: renderLink,
+  };
+
+
     return (
               <Container maxWidth="xl"  >
     <div className = 'bg-white'>
@@ -30,7 +42,7 @@ export default async function Post({ params }) {
 
       {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
       strategy="afterInteractive" /> */}
-        <ReactMarkdown>{post.data.attributes.Content}</ReactMarkdown>
+        <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown>
         <Highlighter />
     </div>
     </Container>)

@@ -4,13 +4,9 @@ import Script from 'next/script';
 import Link from 'next/link'
 import Container from '@mui/material/Container';
 import Card from './Card'
-import BlogCards from '../BlogCards/page.js'
-// import '../BlogCards/prism.css'
+import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
 import About from '../About/page';
 import ContactForm from '../ContactForm/page'
-
-// import page from './page.css'
-
 
  
 async function getData() {

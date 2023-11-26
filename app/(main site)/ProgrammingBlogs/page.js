@@ -4,8 +4,7 @@ import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Card from './Card'
 import Hero from '../Components/Hero.js'
-import BlogCards from '../BlogCards/page.js'
-// import '../BlogCards/prism.css'
+import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
 import './blog.css'
 import './prism.css'
 
@@ -38,7 +37,7 @@ async function getData() {
         {data.data.map((item) => (item.attributes.Blog_Type == "Programming" ?
         <images >
           <Card 
-                blogLink =  {`/BlogCards/${item.id}`}
+                blogLink =  {`/ProgrammingBlogs/${item.id}`}
                 blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,300) + '...'}</ReactMarkdown>}
           />
         </images> : null))}
