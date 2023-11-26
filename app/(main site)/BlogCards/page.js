@@ -6,6 +6,8 @@ import Card from './Card'
 import Hero from '../Components/Hero.js'
 import BlogCards from '../BlogCards/page.js'
 // import '../BlogCards/prism.css'
+import './blog.css'
+import './prism.css'
 
 
  
@@ -28,7 +30,7 @@ async function getData() {
    
     return (<div><Container maxWidth="xl">
       <Hero contentNeeded = {"Programming Blogs"} />
-    <section className = "flex flex-wrap justify-evenly gap-5 bg-violet-200">
+    <section className = "flex flex-wrap justify-evenly gap-5 bg-violet-200 p-8">
       <Script src = './prism.js'
       strategy='afterInteractive' />
     
@@ -37,7 +39,7 @@ async function getData() {
         <images >
           <Card 
                 blogLink =  {`/BlogCards/${item.id}`}
-                blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,350)}</ReactMarkdown>}
+                blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,300) + '...'}</ReactMarkdown>}
           />
         </images> : null))}
       
