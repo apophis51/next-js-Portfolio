@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Card from './Card'
+import Hero from '../Components/Hero.js'
 import BlogCards from '../BlogCards/page.js'
 // import '../BlogCards/prism.css'
 
@@ -26,7 +27,7 @@ async function getData() {
 
    
     return (<div><Container maxWidth="xl">
-      
+      <Hero contentNeeded = {"Programming Blogs"} />
     <section className = "flex flex-wrap justify-evenly gap-5 bg-violet-200">
       <Script src = './prism.js'
       strategy='afterInteractive' />
