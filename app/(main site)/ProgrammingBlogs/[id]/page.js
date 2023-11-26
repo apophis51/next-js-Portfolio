@@ -40,7 +40,7 @@ export default async function Post({ params }) {
 
     return (
               <Container maxWidth="xl"  >
-    <div className = 'bg-white'>
+    <div className = 'bg-white p-9'>
     {/* <link rel="stylesheet" href="prism.css" /> */}
 
       {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
