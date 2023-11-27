@@ -111,8 +111,8 @@ export default function BottomNavBar(props) {
 
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
         textColor='secondary' indicatorColor='secondary'>
-          <Tab label="About Me" {...a11yProps(0)} className = 'text-white text-3xl' />
-          <Tab label="My Projects" {...a11yProps(1)} className = 'text-white text-3xl'/>
+          <Tab label="About" {...a11yProps(0)} className = 'text-white text-3xl' />
+          <Tab label="Projects" {...a11yProps(1)} className = 'text-white text-3xl'/>
         </Tabs>
         </ThemeProvider>
 
