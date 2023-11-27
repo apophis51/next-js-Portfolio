@@ -43,11 +43,11 @@ export function LogStatus() {
 }
 
 
-let OldTheme = {name: 'Old Theme', href: 'https://malcolmvernon.info'};
-let WebDesignService = {name: 'Web Design Service', href: 'https://malcmind.com'};
-let ProgrammingBlogs = {name: 'Programming Blogs', href: '/ProgrammingBlogs'};
-let CryptoGame = {name: 'Crypto Game', href: '/Crypto/GuessTheNumber'};
-let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
+let OldTheme = {name: 'About', href: '/'};
+let WebDesignService = {name: 'Web Design Service (Comming Soon)', href: 'https://malcmind.com'};
+let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
+let CryptoGame = {name: 'Crypto', href: '/Crypto/GuessTheNumber'};
+let HackThis = {name: 'Hacking Firing Range', href: '/FiringRange'};
 
 const pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
