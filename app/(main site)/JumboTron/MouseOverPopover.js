@@ -23,7 +23,7 @@ export default function BasicModal() {
 
   return (
     <span>
-      <Button onClick={handleOpen}><b>JamStack Site</b></Button>
+      <Button onClick={handleOpen}><b className="text-blue-600">JamStack Site</b></Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -35,7 +35,7 @@ export default function BasicModal() {
             JamStack
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          <p >I'm subscribed to the <a href = "https://jamstack.org/headless-cms/">JamStack</a> philosophy of separating back-end conserns from the front-end, so content on this site was implemented with <a href = "https://strapi.io/">Strapi Headless CMS.</a> User storage is handled with PostgreSQL and Prisma  </p>
+          <p >I'm subscribed to the <a className="text-red-500" href = "https://jamstack.org/headless-cms/">JamStack</a> philosophy of separating back-end conserns from the front-end, so content on this site was implemented with <a href = "https://strapi.io/">Strapi Headless CMS.</a> User storage is handled with PostgreSQL and Prisma  </p>
           </Typography>
         </Box>
       </Modal>

@@ -6,7 +6,6 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import About from './About/page';
 import Container from '@mui/material/Container';
 import { Providers } from './providers'; //added 9/1/2023 everything that says providers in this doc
-// import './BlogCards/prism.css'
 
 
 const theme = createTheme({

@@ -45,7 +45,7 @@ export function LogStatus() {
 
 let OldTheme = {name: 'Old Theme', href: 'https://malcolmvernon.info'};
 let WebDesignService = {name: 'Web Design Service', href: 'https://malcmind.com'};
-let ProgrammingBlogs = {name: 'Programming Blogs', href: '/BlogCards'};
+let ProgrammingBlogs = {name: 'Programming Blogs', href: '/ProgrammingBlogs'};
 let CryptoGame = {name: 'Crypto Game', href: '/Crypto/GuessTheNumber'};
 let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
 
