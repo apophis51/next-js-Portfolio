@@ -9,7 +9,7 @@ export default function FiringRange() {
   return (
     <Container maxWidth="xl"  >
         <Hero contentNeeded = {"Hacker Firing Range"}/>
-        {/* <TerminalComponent /> */}
+        <TerminalComponent />
 
     </Container>
   )
