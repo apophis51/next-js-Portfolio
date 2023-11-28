@@ -48,3 +48,51 @@ export default function TerminalComponent() {
 
   return <div ref={terminalRef} />;
 }
+
+
+// import { useRef, useEffect,useState } from 'react';
+// import { Terminal } from 'xterm';
+// import 'xterm/css/xterm.css';
+
+// export default function TerminalComponent() {
+//   const [userInput, setUserInput] = useState('');
+//   const terminalRef = useRef(null);
+
+//   const handleEnterKeyPress = () => {
+//     console.log('User input:', userInput);
+//     console.log('Cool:', [userInput]);
+
+//     // Reset userInput after handling Enter key
+//     setUserInput('');
+//   };
+
+//   useEffect(() => {
+//     const terminal = new Terminal({
+//       cursorBlink: true,
+//     });
+
+//     terminal.open(terminalRef.current);
+//     terminal.focus();
+
+//     terminal.onKey((e) => {
+//       setUserInput((prevInput) => prevInput + e.key);
+
+//       if (e.domEvent.keyCode === 13) {
+//         // Call your custom function when Enter is pressed
+//         handleEnterKeyPress();
+
+//         // Move to a new line in the terminal
+//         terminal.writeln('');
+//       } else {
+//         // Write the key to the terminal for non-Enter keys
+//         terminal.write(e.key);
+//       }
+//     });
+
+//     return () => {
+//       terminal.dispose();
+//     };
+//   }, []); // Empty dependency array to run the effect only once when we added User Input to this line variable will save but not render
+
+//   return <div ref={terminalRef} />;
+// }
