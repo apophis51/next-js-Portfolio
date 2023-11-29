@@ -2,6 +2,9 @@
 
 import Prism from "prismjs";
 import { useEffect } from "react";
+import 'prismjs/components/prism-jsx';// Import the JSX language definition
+import 'prismjs/components/prism-markdown';// Import the Markdown language definition
+
 
 export default function Highlighter() {
   useEffect(() => {
