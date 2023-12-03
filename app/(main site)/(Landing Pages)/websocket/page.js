@@ -6,7 +6,7 @@ const client = new net.Socket();
 
 const PORT = 3000;
 const HOST = 'localhost';
-
+try {
 // Connect to the server
 client.connect(PORT, HOST, () => {
   console.log('Connected to server');
@@ -24,7 +24,10 @@ client.on('data', data => {
 client.on('close', () => {
   console.log('Connection closed');
 });
-
+}
+catch(err) {
+  console.log(err);
+}
 export default function socket() {
     return(
         <div className="bg-white">
