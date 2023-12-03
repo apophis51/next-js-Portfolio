@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Card from './Card'
-import Hero from '../Components/Hero.js'
+import Hero from '../Components/Hero'
 import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
 import './blog.css'
 import './prism.css'
