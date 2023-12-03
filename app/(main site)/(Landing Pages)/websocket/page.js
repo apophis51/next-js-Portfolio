@@ -4,7 +4,7 @@ const net = require('net');
 
 const client = new net.Socket();
 
-const PORT = 3000;
+const PORT = 3001;
 const HOST = 'localhost';
 try {
 // Connect to the server
@@ -14,6 +14,10 @@ client.connect(PORT, HOST, () => {
   // Send data to the server
   client.write('Hello, Mate!');
 });
+}
+catch(err) {
+  console.log(err);
+}
 
 // Handle data received from the server
 client.on('data', data => {
@@ -24,10 +28,7 @@ client.on('data', data => {
 client.on('close', () => {
   console.log('Connection closed');
 });
-}
-catch(err) {
-  console.log(err);
-}
+
 export default function socket() {
     return(
         <div className="bg-white">
