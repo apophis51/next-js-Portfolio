@@ -28,6 +28,8 @@
 // client.on('close', () => {
 //   console.log('Connection closed');
 // });
+
+function socketSession (){
 const io = require('socket.io-client');
 
 // Replace 'http://localhost:3000' with the actual URL of your Socket.IO server
@@ -59,7 +61,7 @@ socket.on('message', (data) => {
 socket.on('disconnect', () => {
   console.log('Disconnected from Socket.IO server');
 });
-
+}
 export default function sockett() {
     return(
         <div className="bg-white">
