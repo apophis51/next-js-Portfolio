@@ -32,48 +32,50 @@
 
 import SocketUi from './SocketUI'
 
-function socketSession (){
-const io = require('socket.io-client');
-
-// Replace 'http://localhost:3000' with the actual URL of your Socket.IO server
-// const socket = io('http://localhost:5000');
-const socket = io('https://filereadtest-production.up.railway.app/');
+let returnData = 'fill';
 
 
-// Listen for the 'connect' event, which is emitted when the connection is established
-socket.on('connect', () => {
-  console.log('Connected to Socket.IO server');
+async function socketSession() {
+    return new Promise((resolve, reject) => {
+      const io = require('socket.io-client');
+      const socket = io('https://filereadtest-production.up.railway.app/');
+  
+      socket.on('connect', () => {
+        console.log('Connected to Socket.IO server');
+        socket.emit('message', 'Hello from backend!');
+      });
+  
+      socket.on('message', (data) => {
+        console.log('Message from server:', data);
+        socket.disconnect();
+        resolve(data); // Resolve the promise with the received data
+      });
+  
+      socket.on('error', (error) => {
+        console.error('Socket.IO error:', error);
+        reject(error); // Reject the promise on error
+      });
+  
+      socket.on('disconnect', () => {
+        console.log('Disconnected from Socket.IO server');
+      });
+    });
+  }
 
-  // Emit a 'message' event to the server
-  socket.emit('message', 'Hello from backend!');
-});
 
-// Listen for the 'message' event from the server
-socket.on('message', (data) => {
-  console.log('Message from server:', data);
-
-  socket.on('error', (error) => {
-    console.error('Socket.IO error:', error);
-  });
-
-  // Close the connection after receiving a message (optional)
-  socket.disconnect();
-});
-
-// Listen for the 'disconnect' event, which is emitted when the connection is closed
-socket.on('disconnect', () => {
-  console.log('Disconnected from Socket.IO server');
-});
-}
-
-async function socketHandler() {
-    'use server'
-    console.log('this has been tripped')
-    await socketSession();
-
-}
 
 export default async function sockett() {
+
+    async function socketHandler() {
+        'use server'
+        try {
+            const returnData = await socketSession();
+            console.log('cool', returnData);
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+          return returnData
+        }
     return(
         <div className="bg-white">
             <SocketUi socketHandler={socketHandler}/>
