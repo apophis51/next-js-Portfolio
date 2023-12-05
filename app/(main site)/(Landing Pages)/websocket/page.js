@@ -29,6 +29,9 @@
 //   console.log('Connection closed');
 // });
 
+
+import SocketUi from './SocketUI'
+
 function socketSession (){
 const io = require('socket.io-client');
 
@@ -62,10 +65,18 @@ socket.on('disconnect', () => {
   console.log('Disconnected from Socket.IO server');
 });
 }
-export default function sockett() {
+
+async function socketHandler() {
+    'use server'
+    console.log('this has been tripped')
+    await socketSession();
+
+}
+
+export default async function sockett() {
     return(
         <div className="bg-white">
-            <h1>Socket</h1>
+            <SocketUi socketHandler={socketHandler}/>
         </div>
     )
 }
