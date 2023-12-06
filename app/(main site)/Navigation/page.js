@@ -21,6 +21,7 @@ import style from './style.css'
 import useSWR from 'swr'
 import { LoginButton, LogoutButton } from "../auth";  
 
+
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export function LogStatus() {
@@ -42,6 +43,9 @@ export function LogStatus() {
 
 }
 
+//admin page added 12/5/2023
+let WebSocket = {name: 'Admin-WebSocket', href: '/websocket'};
+//end admin page added 12/5/2023
 
 let OldTheme = {name: 'About', href: '/'};
 
@@ -50,12 +54,20 @@ let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
 let CryptoGame = {name: 'Crypto', href: '/Crypto/GuessTheNumber'};
 let HackThis = {name: 'Hacking Firing Range', href: '/FiringRange'};
 
-const pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
+let pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  //admin page added 12/5/2023
+  const { data, error, isLoading } = useSWR('/authentication', fetcher)
+  if (data) {
+    if(data.authenticated == true){
+      pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis, WebSocket]
+  } 
+  }//end admin page added 12/5/2023
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

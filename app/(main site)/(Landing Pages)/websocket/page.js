@@ -1,35 +1,3 @@
-
-// // TCP Client
-// const net = require('net');
-
-// const client = new net.Socket();
-
-// const PORT = 3001;
-// const HOST = 'localhost';
-// try {
-// // Connect to the server
-// client.connect(PORT, HOST, () => {
-//   console.log('Connected to server');
-
-//   // Send data to the server
-//   client.write('Hello, Mate!');
-// });
-// }
-// catch(err) {
-//   console.log(err);
-// }
-
-// // Handle data received from the server
-// client.on('data', data => {
-//   console.log(`Received from server: ${data}`);
-// });
-
-// // Handle server disconnection
-// client.on('close', () => {
-//   console.log('Connection closed');
-// });
-
-
 import SocketUi from './SocketUI'
 
 let returnData = 'fill';
@@ -48,6 +16,7 @@ async function socketSession() {
       socket.on('message', (data) => {
         console.log('Message from server:', data);
         socket.disconnect();
+        let results = data
         resolve(data); // Resolve the promise with the received data
       });
   
@@ -69,12 +38,13 @@ export default async function sockett() {
     async function socketHandler() {
         'use server'
         try {
-            const returnData = await socketSession();
+            let mydata = await socketSession();
             console.log('cool', returnData);
+            return mydata
           } catch (error) {
             console.error('An error occurred:', error);
           }
-          return returnData
+          
         }
     return(
         <div className="bg-white">
