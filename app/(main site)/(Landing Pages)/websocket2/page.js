@@ -9,7 +9,7 @@ const App = () => {
   useEffect(() => {
     // Create a WebSocket connection
     // const newSocket = new WebSocket('ws://localhost:3001');
-    const newSocket = new WebSocket('ws://filereadtest-production.up.railway.app');
+    const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
 
     // Set up event listeners for the WebSocket
