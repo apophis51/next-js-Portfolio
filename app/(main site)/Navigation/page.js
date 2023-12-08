@@ -44,7 +44,7 @@ export function LogStatus() {
 }
 
 //admin page added 12/5/2023
-let WebSocket = {name: 'Admin-WebSocket', href: '/websocket'};
+let WebSocket = {name: 'Admin-WebSocket', href: '/websocket2'};
 //end admin page added 12/5/2023
 
 let OldTheme = {name: 'About', href: '/'};
