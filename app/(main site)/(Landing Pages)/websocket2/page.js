@@ -5,11 +5,12 @@ const App = () => {
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [terminalEventData, setTerminalEventData] = useState('');
 
   useEffect(() => {
     // Create a WebSocket connection
     // const newSocket = new WebSocket('ws://localhost:3001');
-   const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
+         const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
 
     // Set up event listeners for the WebSocket
@@ -40,14 +41,23 @@ const App = () => {
   const sendMessage = () => {
     // Send a message to the WebSocket server
     if (socket && socket.readyState === WebSocket.OPEN) {
-        console.log('we are transmitting')
-      socket.send(JSON.stringify({ message: newMessage }));
+      console.log('Sending regular message');
+      socket.send(JSON.stringify({ type: 'message', message: newMessage }));
       setNewMessage('');
     }
-  }; 
+  };
+
+  const terminalEventSendMessage = () => {
+    // Send a message to the WebSocket server for the terminal event
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      console.log('Sending terminal event message');
+      socket.send(JSON.stringify({ type: 'terminalEvent', data: terminalEventData }));
+      setTerminalEventData('');
+    }
+  };
 
   return (
-    <div className = "bg-white">
+    <div className="bg-white">
       <h1>React WebSocket Client</h1>
       <div>
         <ul>
@@ -63,6 +73,14 @@ const App = () => {
           onChange={(e) => setNewMessage(e.target.value)}
         />
         <button onClick={sendMessage}>Send</button>
+      </div>
+      <div>
+        <input
+          type="text"
+          value={terminalEventData}
+          onChange={(e) => setTerminalEventData(e.target.value)}
+        />
+        <button onClick={terminalEventSendMessage}>Send to Terminal Event</button>
       </div>
     </div>
   );
