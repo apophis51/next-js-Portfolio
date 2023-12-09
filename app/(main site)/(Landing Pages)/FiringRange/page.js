@@ -15,9 +15,9 @@ export default function FiringRange() {
   return (
     <Container maxWidth="xl"  >
         <Hero contentNeeded = {"Hacker Firing Range"}/>
-        {/* <TerminalComponent /> */}
-        <div>Referer: {referer}</div>
-        <TerminalShell />
+        <TerminalComponent />
+        {/* <div>Referer: {referer}</div> */}
+        {/* <TerminalShell /> */}
     </Container>
   )
 }
