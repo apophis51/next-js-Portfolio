@@ -1,25 +1,18 @@
 
 import Container from '@mui/material/Container';
 import Hero from '../../Components/Hero'
-import TerminalComponent from './TerminalComponent.js';
-
+// import TerminalComponent from './TerminalComponent.js';
+import TerminalShell from './TerminalShell.js'
 
 
 export default function FiringRange() {
 
-  if (typeof window !== 'undefined') {
-    return ( 
-    <Container maxWidth="xl"  >
-    <Hero contentNeeded = {"Hacker Firing Range"}/>
-    <TerminalComponent />
-</Container>)
-  }
-  else{
+
   return (
     <Container maxWidth="xl"  >
         <Hero contentNeeded = {"Hacker Firing Range"}/>
-        <TerminalComponent />
+        {/* <TerminalComponent /> */}
+        <TerminalShell />
     </Container>
   )
-  }
 }
