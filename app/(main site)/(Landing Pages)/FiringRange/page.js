@@ -2,15 +2,13 @@
 import Container from '@mui/material/Container';
 import Hero from '../../Components/Hero'
 import TerminalComponent from './TerminalComponent.js';
-import TerminalShell from './TerminalShell.js'
-
-import { headers } from 'next/headers'
+import { headers } from 'next/headers' // this prevents ssr because we had an error reference https://nextjs.org/docs/app/building-your-application/rendering/server-components
 
 
 
 export default function FiringRange() {
-  const headersList = headers()
-  const referer = headersList.get('referer')
+  const headersList = headers() //prevents ssr
+  const referer = headersList.get('referer')  //prevents ssr
 
   return (
     <Container maxWidth="xl"  >
