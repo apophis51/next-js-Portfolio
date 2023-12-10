@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
+import TerminalComponent from '../FiringRange/TerminalComponent.js';
 
 const App = () => {
   const [socket, setSocket] = useState(null);
@@ -7,11 +8,18 @@ const App = () => {
   const [newMessage, setNewMessage] = useState('');
   const [terminalEventData, setTerminalEventData] = useState('');
 
+  function childHandler(data) {
+    console.log(data)
+    socket.send(JSON.stringify({ type: 'terminalEvent', data: data }));
+  }
+
+
   useEffect(() => {
     // Create a WebSocket connection
     const newSocket = new WebSocket('ws://localhost:3001');
         //  const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
+        console.log(terminalEventData)
 
     // Set up event listeners for the WebSocket
     newSocket.addEventListener('open', () => {
@@ -22,8 +30,9 @@ const App = () => {
       // Handle incoming messages
       console.log('WebSocket message received:', event);
       const message = JSON.parse(event.data);
+      console.log(message)
       setMessages((prevMessages) => [...prevMessages, message]);
-    });
+    }); 
 
     newSocket.addEventListener('close', () => {
       console.log('WebSocket connection closed');
@@ -37,6 +46,8 @@ const App = () => {
       newSocket.close();
     };
   }, []);
+
+  
 
   const sendMessage = () => {
     // Send a message to the WebSocket server
@@ -83,6 +94,7 @@ const App = () => {
         />
         <button onClick={terminalEventSendMessage}>Send to Terminal Event</button>
       </div>
+      <TerminalComponent webSocketMessage = {messages} childHandler={childHandler}/>
     </div>
   );
 };
