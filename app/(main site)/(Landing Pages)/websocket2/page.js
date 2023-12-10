@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import TerminalComponent from '../FiringRange/TerminalComponent.js';
-import { headers } from 'next/headers'
+
 
 const App = () => {
   const [socket, setSocket] = useState(null);
@@ -9,8 +9,7 @@ const App = () => {
   const [newMessage, setNewMessage] = useState('');
   const [terminalEventData, setTerminalEventData] = useState('');
 
-  const headersList = headers() //prevents ssr
-  const referer = headersList.get('referer')  //prevents ssr
+ 
 
   function childHandler(data) {
     console.log(data)
