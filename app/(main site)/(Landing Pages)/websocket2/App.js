@@ -1,23 +1,105 @@
-
-import Container from '@mui/material/Container';
-import Hero from '../../Components/Hero'
-import App from './App.js';
-import { headers } from 'next/headers' // this prevents ssr because we had an error reference https://nextjs.org/docs/app/building-your-application/rendering/server-components
+'use client'
+import React, { useEffect, useState } from 'react';
+import TerminalComponent from '../FiringRange/TerminalComponent.js';
 
 
+const App = () => {
+  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const [terminalEventData, setTerminalEventData] = useState('');
 
-export default function FiringRange() {
-  const headersList = headers() //prevents ssr
-  const referer = headersList.get('referer')  //prevents ssr
+ 
+
+  function childHandler(data) {
+    console.log(data)
+    socket.send(JSON.stringify({ type: 'terminalEvent', data: data }));
+  }
+
+
+  useEffect(() => {
+    // Create a WebSocket connection
+    const newSocket = new WebSocket('ws://localhost:3001');
+        //  const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
+
+        console.log(terminalEventData)
+
+    // Set up event listeners for the WebSocket
+    newSocket.addEventListener('open', () => {
+      console.log('WebSocket connection opened');
+    });
+
+    newSocket.addEventListener('message', (event) => {
+      // Handle incoming messages
+      console.log('WebSocket message received:', event);
+      const message = JSON.parse(event.data);
+      console.log(message)
+      setMessages((prevMessages) => [...prevMessages, message]);
+    }); 
+
+    newSocket.addEventListener('close', () => {
+      console.log('WebSocket connection closed');
+    });
+
+    // Save the WebSocket instance in the state
+    setSocket(newSocket);
+
+    // Clean up the WebSocket connection on component unmount
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
+  
+
+  const sendMessage = () => {
+    // Send a message to the WebSocket server
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      console.log('Sending regular message');
+      socket.send(JSON.stringify({ type: 'message', message: newMessage }));
+      setNewMessage('');
+    }
+  };
+
+  const terminalEventSendMessage = () => {
+    // Send a message to the WebSocket server for the terminal event
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      console.log('Sending terminal event message');
+      socket.send(JSON.stringify({ type: 'terminalEvent', data: terminalEventData }));
+      setTerminalEventData('');
+    }
+  };
 
   return (
-    <Container maxWidth="xl"  >
-        <Hero contentNeeded = {"Hacker Firing Range"}/>
-        <App />
-        {/* <div>Referer: {referer}</div> */}
-        {/* <TerminalShell /> */}
-    </Container>
-  )
-}
+    <div className="bg-white">
+      <h1>React WebSocket Client</h1>
+      <div>
+        <ul>
+          {messages.map((message, index) => (
+            // <li key={index} dangerouslySetInnerHTML={{ __html: message.message}} />
+            <li key={index}>{message.message}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <input
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        />
+        <button onClick={sendMessage}>Send</button>
+      </div>
+      <div>
+        <input
+          type="text"
+          value={terminalEventData}
+          onChange={(e) => setTerminalEventData(e.target.value)}
+        />
+        <button onClick={terminalEventSendMessage}>Send to Terminal Event</button>
+      </div>
+      <TerminalComponent webSocketMessage = {messages} childHandler={childHandler}/>
+    </div>
+  );
+};
 
-
+export default App;
