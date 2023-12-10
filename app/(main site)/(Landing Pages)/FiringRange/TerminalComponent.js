@@ -45,8 +45,7 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
         userInput = '';
 
         // Move to a new line in the terminal
-        terminal.writeln('');
-      }
+tr      }
     });
 
     return () => {

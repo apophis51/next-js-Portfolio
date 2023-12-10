@@ -19,8 +19,8 @@ const App = () => {
 
   useEffect(() => {
     // Create a WebSocket connection
-    const newSocket = new WebSocket('ws://localhost:3001');
-        //  const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
+    // const newSocket = new WebSocket('ws://localhost:3001');
+         const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
         console.log(terminalEventData)
 
@@ -74,12 +74,12 @@ const App = () => {
     <div className="bg-white">
       <h1>React WebSocket Client</h1>
       <div>
-        <ul>
+        {/* <ul>
           {messages.map((message, index) => (
             // <li key={index} dangerouslySetInnerHTML={{ __html: message.message}} />
             <li key={index}>{message.message}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <div>
         <input
