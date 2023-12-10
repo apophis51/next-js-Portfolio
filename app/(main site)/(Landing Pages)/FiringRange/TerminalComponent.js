@@ -21,9 +21,22 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     console.log('webSocketMessage', webSocketMessage)
     // terminal.write(webSocketMessage);
 
-    webSocketMessage.map((message, index) => (
-      terminal.write(message.message)
-    ))
+    // webSocketMessage.map((message, index) => (
+    //   terminal.write(message.message)
+    // ))
+    webSocketMessage.map((message, index, array) => {
+      if (index === array.length - 1) {
+        // This is the last element
+        terminal.write(message.message);
+      }
+      return null; // You need to return something from the map function
+    });
+
+
+    // if (webSocketMessage && webSocketMessage.length > 0) {
+
+    // terminal.write(webSocketMessage[webSocketMessage.length - 1])
+    
     terminal.open(terminalRef.current);
     terminal.focus();
 
@@ -45,7 +58,8 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
         userInput = '';
 
         // Move to a new line in the terminal
-tr      }
+        // terminal.writeln('');
+      }
     });
 
     return () => {

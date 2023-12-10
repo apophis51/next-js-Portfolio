@@ -5,7 +5,7 @@ import TerminalComponent from '../FiringRange/TerminalComponent.js';
 
 const App = () => {
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{message: '$'}]);
   const [newMessage, setNewMessage] = useState('');
   const [terminalEventData, setTerminalEventData] = useState('');
 
@@ -19,8 +19,8 @@ const App = () => {
 
   useEffect(() => {
     // Create a WebSocket connection
-    // const newSocket = new WebSocket('ws://localhost:3001');
-         const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
+    const newSocket = new WebSocket('ws://localhost:3001');
+        //  const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
         console.log(terminalEventData)
 
