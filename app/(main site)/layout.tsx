@@ -6,7 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import About from './About/page';
 import Container from '@mui/material/Container';
 import { Providers } from './providers'; //added 9/1/2023 everything that says providers in this doc
-
+import Script from 'next/script'
 
 const theme = createTheme({
   palette: {
@@ -42,6 +42,20 @@ export default function RootLayout({
   return (
     
     <html lang="en">
+      {/* <!-- Google tag (gtag.js) --> */}
+      <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"/>
+    <Script
+      id='google-analytics'
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YC0KB2YZ2W');
+        `,
+        }}
+    />
       {/* <body className="bg-blue-500"> */}
         <body className='h-[6000px]'>
       <Container maxWidth="xl" >
