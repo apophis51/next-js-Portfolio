@@ -1,17 +1,28 @@
 'use client'
 import React, { useEffect, useState } from 'react';
+import TerminalComponent from './TerminalComponent.js';
+
 
 const App = () => {
   const [socket, setSocket] = useState(null);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([{message: '$'}]);
   const [newMessage, setNewMessage] = useState('');
   const [terminalEventData, setTerminalEventData] = useState('');
 
+ 
+
+  function childHandler(data) {
+    console.log(data)
+    socket.send(JSON.stringify({ type: 'terminalEvent', data: data }));
+  }
+
+
   useEffect(() => {
     // Create a WebSocket connection
-    const newSocket = new WebSocket('ws://localhost:3001');
-        //  const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
+    // const newSocket = new WebSocket('ws://localhost:3001');
+         const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
+        console.log(terminalEventData)
 
     // Set up event listeners for the WebSocket
     newSocket.addEventListener('open', () => {
@@ -22,8 +33,9 @@ const App = () => {
       // Handle incoming messages
       console.log('WebSocket message received:', event);
       const message = JSON.parse(event.data);
+      console.log(message)
       setMessages((prevMessages) => [...prevMessages, message]);
-    });
+    }); 
 
     newSocket.addEventListener('close', () => {
       console.log('WebSocket connection closed');
@@ -37,6 +49,8 @@ const App = () => {
       newSocket.close();
     };
   }, []);
+
+  
 
   const sendMessage = () => {
     // Send a message to the WebSocket server
@@ -60,12 +74,12 @@ const App = () => {
     <div className="bg-white">
       <h1>React WebSocket Client</h1>
       <div>
-        <ul>
+        {/* <ul>
           {messages.map((message, index) => (
             // <li key={index} dangerouslySetInnerHTML={{ __html: message.message}} />
             <li key={index}>{message.message}</li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <div>
         <input
@@ -83,6 +97,7 @@ const App = () => {
         />
         <button onClick={terminalEventSendMessage}>Send to Terminal Event</button>
       </div>
+      <TerminalComponent webSocketMessage = {messages} childHandler={childHandler}/>
     </div>
   );
 };
