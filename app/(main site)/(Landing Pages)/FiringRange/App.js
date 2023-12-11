@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import TerminalComponent from '../FiringRange/TerminalComponent.js';
+import TerminalComponent from './TerminalComponent.js';
 
 
 const App = () => {
