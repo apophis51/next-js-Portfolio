@@ -8,7 +8,6 @@ const App = dynamic(() => import('./App.js'), { ssr: false })
 
 
 export default function FiringRange() {
-
   return (
     <Container maxWidth="xl"  >
         <Hero contentNeeded = {"Hacker Firing Range"}/>
