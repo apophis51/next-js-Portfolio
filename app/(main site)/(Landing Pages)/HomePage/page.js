@@ -49,7 +49,7 @@ const VideoBackground = () => {
         playsInline
         className="video-element w-full h-full object-cover"
       >
-        <source src="NavVid.mp4" type="video/mp4" />
+        <source src="code.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
@@ -58,15 +58,20 @@ const VideoBackground = () => {
 export default function HomePage() {
   return (
     <Container maxWidth="xl" >
-      <h1 className="bg-white">Version 1:</h1>
+      {/* <h1 className="bg-white">Version 1:</h1> */}
       <div className="relative">
         <Zero contentNeeded = {"MalcMind"}/>
         <div className= "absolute left-0 top-0 opacity-40 w-full h-full">
         <VideoBackground/>
-        </div>
-        </div>
-      <h1 className="bg-white">Version 2:</h1>
+        <div className= "absolute left-0 top-0 opacity-80 w-full h-full object-cover">
         <Hero contentNeeded = {"MalcMind"} />
+        </div>
+        </div>
+        </div>
+      {/* <h1 className="bg-white">Version 2:</h1> */}
+      {/* <div className= "absolute left-0 top-0 opacity-60 w-full h-full object-cover">
+        <Hero contentNeeded = {"MalcMind"} />
+        </div> */}
     </Container>
   )
 }
