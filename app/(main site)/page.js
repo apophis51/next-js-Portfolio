@@ -36,6 +36,7 @@ const VideoBackground = () => {
 };
 export default function HomePage() {
   return (
+    <a href="/About">
     <Container maxWidth="xl" >
       <div className="relative min-h-screen">
       <Hero contentNeeded={"MalcMind"} />
@@ -44,6 +45,7 @@ export default function HomePage() {
         </div>
       </div>
     </Container>
+    </a>
   )
 }
 
