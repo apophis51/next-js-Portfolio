@@ -47,7 +47,9 @@ export function LogStatus() {
 let WebSocket = {name: 'Admin-Homepage', href: '/HomePage'};
 //end admin page added 12/5/2023
 
+
 let OldTheme = {name: 'About', href: '/About'};
+
 let WebDesignService = {name: 'Web Design Service (Comming Soon)', href: 'https://malcmind.com'};
 let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
 let CryptoGame = {name: 'Crypto', href: '/Crypto/GuessTheNumber'};
