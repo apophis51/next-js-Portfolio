@@ -11,13 +11,17 @@ import ProjectCards from '../ProjectCards/page';
 import Container from '@mui/material/Container';
 
 
+import JumboTron from '../JumboTron/page'
+
+
 
  
 
 export default function FullBar() {
   return (
     <div>
-      <Container maxWidth="xl"  >
+    <JumboTron/>
+    <Container maxWidth="xl"  >
     <BottomNavBar about = {<About />} projects = {<ProjectCards />}/>
     </Container>
     </div>
