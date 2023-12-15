@@ -168,17 +168,17 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
+              <Link href={page.href} prefetch={false}>
               <Button
                 className = 'lg:ml-20'
                 key={page.name}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block'}}
-              >
-                {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
+              >       
       {page.name}
-    </Link>) : (<Link href={page.href} prefetch={false}>{page.name}</Link>)} 
     {/* non mobile menu */}
               </Button>
+              </Link>
             ))}
           </Box>
           <LogStatus/>
