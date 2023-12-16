@@ -1,8 +1,6 @@
 
 
 import  ReactMarkdown  from "react-markdown"
-import Link from 'next/link'
-import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Highlighter from './highlighter'
 import '../prism.css'
@@ -13,20 +11,35 @@ import '../blog.css'
  //https://www.calvintorra.com/blog/add-prism-js-code-highlighting-to-next-js
  //https://www.dawsoncodes.com/posts/2/syntax-highlighting-with-prism-and-nextjs
 
-
-// export async function generateStaticParams() {
-//   return [{ id: '1' }, { id: '2' }]
+ 
+// async function generateStaticParams(params) {
+//   const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${params.id}`)
+//   const post = await res.json()
+//   console.log(post)
+ 
+//   return post
 // }
- 
+
 async function generateStaticParams(params) {
-  const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${params.id}`)
-  const post = await res.json()
- 
+  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/`)
+  let post = await res.json()
+  let blogID = ''
+  for (let x of post.data){
+    if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)){
+      blogID = x.id
+    }
+  }
+   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+    post = await res.json()
   return post
 }
  
 export default async function Post({ params }) {
+  console.log(params)
+  
+  console.time('generateStaticParams Execution Speed')
   const post = await generateStaticParams(params)
+  console.timeEnd('generateStaticParams Execution Speed')
 
   const renderLink = (props) => (
     <a style={{ color: 'red' }} {...props}>

@@ -19,7 +19,8 @@ export default function BlogCollection({data}){
         {data.data.map((item) => (item.attributes.Blog_Type == "Programming" && (item.attributes.Title).toLowerCase().includes(blogFilter) ?
         <images >
           <Card 
-                blogLink =  {`/ProgrammingBlogs/${item.id}`}
+              //  blogLink =  {`/ProgrammingBlogs/${item.id}`}
+                blogLink =  {`/ProgrammingBlogs/${(item.attributes.Title).toLowerCase().split(' ').join('-')}`}
                 blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,300) + '...'}</ReactMarkdown>}
           />
         </images> : null))}
