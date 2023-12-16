@@ -16,6 +16,6 @@ export async function GET(request: Request) {
     }
     
     
-    console.log('Get API', session)
+    // console.log('Get API', session) - Diagnostics
     return NextResponse.json({ authenticated: !!session })
 }
