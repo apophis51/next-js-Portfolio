@@ -74,7 +74,7 @@ export const authOptions: NextAuthOptions = {     //deleted export because this 
   ],
   callbacks: {
     session: ({session,token}) => {
-       console.log('Session Callback', {session, token})
+      //  console.log('Session Callback', {session, token})  - diagnostics
       return {
         ...session,
         user: {
@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {     //deleted export because this 
 
     },
     jwt: ({token,user}) => {
-       console.log('JWT Callback', {token, user})
+      //  console.log('JWT Callback', {token, user}) - diagnostics
       if (user) {
         const u = user as unknown as any
       return {...token,

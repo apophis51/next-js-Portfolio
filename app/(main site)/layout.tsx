@@ -12,7 +12,7 @@ const theme = createTheme({
   palette: {
     primary: {
       light: '#757ce8',
-      main: '#311b92',
+      main: '#311b92', //this is the color of the nav bar
       dark: '#002884',
       contrastText: '#fff',
     },

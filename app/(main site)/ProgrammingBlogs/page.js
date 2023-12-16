@@ -1,12 +1,10 @@
           
-import ReactMarkdown from 'react-markdown'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
-import Card from './Card'
 import Hero from '../Components/Hero'
-import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
 import './blog.css'
 import './prism.css'
+import BlogCollection from './BlogCollection'
 
 
  
@@ -22,27 +20,16 @@ async function getData() {
     }
     return res.json()
   }
-   
+
+  
   export default async function Page() {
     const data = await getData()
-
    
     return (<div><Container maxWidth="xl">
-      <Hero contentNeeded = {"Programming Blogs"} />
-    <section className = "flex flex-wrap justify-evenly gap-5 bg-violet-200 p-8">
       <Script src = './prism.js'
       strategy='afterInteractive' />
-    
-      
-        {data.data.map((item) => (item.attributes.Blog_Type == "Programming" ?
-        <images >
-          <Card 
-                blogLink =  {`/ProgrammingBlogs/${item.id}`}
-                blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,300) + '...'}</ReactMarkdown>}
-          />
-        </images> : null))}
-      
-      </section>
+      <Hero contentNeeded = {"Programming Blogs"} />
+      <BlogCollection data={data}/>
       </Container>
       </div>)
 

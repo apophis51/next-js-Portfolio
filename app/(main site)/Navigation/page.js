@@ -168,7 +168,7 @@ function ResponsiveAppBar() {
           >
             MalcMind
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } } } className=" items-center">
             {pages.map((page) => (
               <Link href={page.href} prefetch={false}>
               <Button
