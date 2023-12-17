@@ -38,6 +38,7 @@ export default function BlogControl({setBlogFilter}) {
           <MenuItem value={'react'}>ReactBlogs</MenuItem>
           <MenuItem value={'nextjs'}>NextJS Blogs</MenuItem>
           <MenuItem value={'python'}>Python Blogs</MenuItem>
+          <MenuItem value={'docker'}>Docker Blogs</MenuItem>
         </Select>
         
       </FormControl>

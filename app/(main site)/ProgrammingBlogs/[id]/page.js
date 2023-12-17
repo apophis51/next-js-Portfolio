@@ -21,7 +21,7 @@ import '../blog.css'
 // }
 
 async function generateStaticParams(params) {
-  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/`)
+  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
   let blogID = ''
   for (let x of post.data){

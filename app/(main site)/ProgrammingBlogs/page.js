@@ -9,7 +9,8 @@ import BlogCollection from './BlogCollection'
 
  
 async function getData() {
-    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/')
+    // const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/')
+    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60')
     // The return value is *not* serialized
     // You can return Date, Map, Set, etc.
    
