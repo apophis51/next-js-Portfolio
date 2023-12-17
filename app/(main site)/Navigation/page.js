@@ -17,10 +17,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
 import style from './style.css'
-
 import useSWR from 'swr'
 import { LoginButton, LogoutButton } from "../auth";  
 
+import './fireLetters.css'
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
@@ -107,7 +107,7 @@ function ResponsiveAppBar() {
               
             }}
           >
-            <p>MalcMind   |</p>
+            <p >MalcMind   |</p>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

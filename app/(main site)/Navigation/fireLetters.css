@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+.animate_text_div {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(ellipse at bottom, #022227 0%, #000000 100%);
+}
+@keyframes shine {
+  from {
+    background-position: center 0;
+  }
+  to {
+    background-position: center 200%;
+  }
+}
+.animate_text_div {
+  color: #fff;
+  text-transform: uppercase;
+  background: url("https://cdn.pixabay.com/photo/2013/07/25/13/01/stones-167089_1280.jpg");
+  background-size: auto 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 8s linear infinite;
+}
