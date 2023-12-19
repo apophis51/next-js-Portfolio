@@ -38,9 +38,9 @@ export default function HomePage() {
   return (
     <a href="/About">
     <Container maxWidth="xl" >
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen ">
       <Hero contentNeeded={"MalcMind"} />
-        <div className="absolute left-0 top-0 w-full h-full opacity-10">
+        <div className="absolute left-0 top-0 w-full h-full opacity-10 ">
           <VideoBackground />
         </div>
       </div>
