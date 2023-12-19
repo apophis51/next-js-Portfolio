@@ -119,7 +119,7 @@ function ResponsiveAppBar() {
               
             }}
           >
-           <p className='content-center '>MalcMind</p>
+           <p className='content-center '>MalcMind - Beta Edition</p>
           </Typography></div>
           <Box 
           /* sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} */
