@@ -97,7 +97,7 @@ function ResponsiveAppBar() {
                           {/* <div className = "mt-10">          */}
 
       <Container maxWidth="xl">
-        <Toolbar disableGutters className='flex justify-between mt-10'>
+        <Toolbar disableGutters className='flex justify-between p-10 gap-5'>
         <div className='hover:shadow-[inset_0px_0px_20px_5px_rgba(255,255,255,0.9)] rounded-lg  h-20 flex items-center'>
           <Cottage
            /* sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} */
@@ -121,7 +121,7 @@ function ResponsiveAppBar() {
               
             }}
           >
-           <p className='content-center mr-10'>MalcMind</p>
+           <p className='content-center '>MalcMind</p>
           </Typography></div>
           <Box 
           /* sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} */
@@ -190,14 +190,14 @@ function ResponsiveAppBar() {
             MalcMind
           </Typography>
           <Box 
-          className = "hidden grow xl:flex justify-between items-center pr-10">
+          className = "hidden grow xl:flex justify-between items-center pr-10 gap-5">
             {pages.map((page) => (
               <Link href={page.href} prefetch={false}>
               <Button
-                className = ' bg-blue-900 bg-opacity-5 h-20  hover:bg-opacity-50 hover:shadow-[inset_0px_0px_10px_2px_rgba(255,255,255,0.9)] rounded-lg ' 
+                className = ' bg-blue-900 bg-opacity-5 pl-5 pr-5 h-20  hover:bg-opacity-50 hover:shadow-[inset_0px_0px_10px_2px_rgba(255,255,255,0.9)] rounded-lg ' 
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', boxShadow: 'inset 0px 0px 10px 1px rgba(255, 255, 255, 0.1)',}}
+                sx={{  color: 'white', display: 'block', boxShadow: 'inset 0px 0px 10px 1px rgba(255, 255, 255, 0.1)',}}
               >       
       <p>{page.name}</p>
     {/* non mobile menu */}
