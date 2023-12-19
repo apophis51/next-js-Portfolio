@@ -17,7 +17,7 @@ async function getData() {
     const buttonText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.SideInformation[0]?.Data
   
     return (
-        <div className="hero min-h-screen" style={{ backgroundImage: `url(${Image})` }}>
+        <div className="hero min-h-screen shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)] mt-4" style={{ backgroundImage: `url(${Image})` }}>
           <div className="hero-overlay bg-opacity-90"></div>
           <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">

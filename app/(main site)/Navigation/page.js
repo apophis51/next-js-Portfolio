@@ -53,7 +53,7 @@ let OldTheme = {name: 'About', href: '/About'};
 let WebDesignService = {name: 'Web Design Service (Comming Soon)', href: 'https://malcmind.com'};
 let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
 let CryptoGame = {name: 'Crypto', href: '/Crypto/GuessTheNumber'};
-let HackThis = {name: 'Hacking Firing Range', href: '/FiringRange'};
+let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
 
 let pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
