@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.MuiPopover-paper{
+    background-color: rgb(149, 0, 255,.25);
+    color: white;
+  }
