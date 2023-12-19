@@ -17,6 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
 import './LoginButton.css'
+import './MenuStyles.css'
 
 import useSWR from 'swr'
 import { LoginButton, LogoutButton } from "../auth";  
@@ -97,7 +98,7 @@ function ResponsiveAppBar() {
                           {/* <div className = "mt-10">          */}
 
       <Container maxWidth="xl">
-        <Toolbar disableGutters className='flex justify-between p-10 gap-5'>
+        <Toolbar disableGutters className='flex justify-between pt-10 md:p-10 md:gap-5'>
         <div className='hover:shadow-[inset_0px_0px_20px_5px_rgba(255,255,255,0.9)] rounded-lg  h-20 flex items-center'>
           <Cottage
            /* sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} */
@@ -157,7 +158,9 @@ function ResponsiveAppBar() {
               className="block xl:hidden"
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                <MenuItem 
+                sx = {{boxShadow: 'inset 0px 0px 10px 1px rgba(255, 255, 255, 0.1)'}}
+                key={page.name} onClick={handleCloseNavMenu}>
                   {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
                   <Typography textAlign="center"> {page.name}</Typography>
     </Link>) : (<Link href={page.href} prefetch={false}><Typography textAlign="center">{page.name}</Typography></Link>)}
