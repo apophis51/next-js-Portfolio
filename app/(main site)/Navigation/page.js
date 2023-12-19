@@ -16,7 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
-import style from './style.css'
+import './LoginButton.css'
+
 import useSWR from 'swr'
 import { LoginButton, LogoutButton } from "../auth";  
 
@@ -86,21 +87,31 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{height: 150, /*bgcolor: "black"*/}}>
-                          <div className = "mt-10">         
+    
+    <AppBar position="static" className='rounded-lg'sx={{
+      height: 150, 
+      marginBottom: '10px',
+      boxShadow: '4px 4px 3px black',
+      background: 'linear-gradient(45deg, purple, darkblue)'/*bgcolor: "black"*/}}>
+                          {/* <div className = "mt-10">          */}
 
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar disableGutters className='flex justify-between mt-10'>
 
-          <Cottage sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Cottage
+           /* sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} */
+
+           className = "hidden xl:flex mr-1"
+            />
              <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
+            className = "hidden xl:flex"
             sx={{
               mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              /* display: { xs: 'none', md: 'flex' },*/
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
@@ -109,9 +120,12 @@ function ResponsiveAppBar() {
               
             }}
           >
-            <p >MalcMind   |</p>
+            <p>MalcMind</p>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box 
+          /* sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} */
+          className = "flex grow xl:hidden"
+          >
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -136,9 +150,10 @@ function ResponsiveAppBar() {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
+              /*sx={{
                 display: { xs: 'block', md: 'none',  },
-              }}
+              }}*/
+              className="block xl:hidden"
             >
               {pages.map((page) => (
                 <MenuItem key={page.name} onClick={handleCloseNavMenu}>
@@ -149,7 +164,11 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <Cottage sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Cottage 
+          /*sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} */
+          
+          className = "flex xl:hidden mr-1"
+          />
           <Typography
             variant="h5"
             noWrap
@@ -157,7 +176,7 @@ function ResponsiveAppBar() {
             href="/"
             sx={{
               mr: 2,
-              display: { xs: 'flex', md: 'none' },
+              /* display: { xs: 'flex', md: 'none' }, */
               flexGrow: 1,
               fontFamily: 'monospace',
               fontWeight: 700,
@@ -165,19 +184,21 @@ function ResponsiveAppBar() {
               color: 'inherit',
               textDecoration: 'none',
             }}
+            className = "flex xl:hidden "
           >
             MalcMind
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } } } className=" items-center">
+          <Box 
+          className = "hidden grow xl:flex justify-between items-center gap-10 pr-10">
             {pages.map((page) => (
               <Link href={page.href} prefetch={false}>
               <Button
-                className = 'lg:ml-20'
+                className = ' bg-blue-900 bg-opacity-20 h-20  hover:bg-opacity-50 hover:shadow-[inset_0px_0px_10px_2px_rgba(255,255,255,0.9)] rounded-lg ' 
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block'}}
+                sx={{ my: 2, color: 'white', display: 'block', boxShadow: 'inset 0px 0px 10px 1px rgba(255, 255, 255, 0.1)',}}
               >       
-      {page.name}
+      <p>{page.name}</p>
     {/* non mobile menu */}
               </Button>
               </Link>
@@ -218,7 +239,7 @@ function ResponsiveAppBar() {
         </Toolbar>
       
       </Container>
-      </div>
+      {/* </div> */}
 
     </AppBar>
   );
