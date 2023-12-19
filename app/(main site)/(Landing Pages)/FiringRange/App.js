@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import TerminalComponent from './TerminalComponent.js';
 
 
@@ -8,6 +8,7 @@ const App = () => {
   const [messages, setMessages] = useState([{message: '$'}]);
   const [newMessage, setNewMessage] = useState('');
   const [terminalEventData, setTerminalEventData] = useState('');
+  const hasSetMessagesBeenCalled = useRef(false);
 
  
 
@@ -19,6 +20,7 @@ const App = () => {
 
   useEffect(() => {
     // Create a WebSocket connection
+    
     // const newSocket = new WebSocket('ws://localhost:3001');
          const newSocket = new WebSocket('wss://filereadtest-production.up.railway.app');
 
@@ -33,6 +35,8 @@ const App = () => {
       // Handle incoming messages
       console.log('WebSocket message received:', event);
       const message = JSON.parse(event.data);
+      
+
       console.log(message)
       setMessages((prevMessages) => [...prevMessages, message]);
     }); 
@@ -85,6 +89,7 @@ const App = () => {
         <input
           type="text"
           value={newMessage}
+          // onChange={(e) => setNewMessage(e.target.value)}
           onChange={(e) => setNewMessage(e.target.value)}
         />
         <button onClick={sendMessage}>Send</button>
