@@ -25,10 +25,10 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     //   terminal.write(message.message)
     // ))
     webSocketMessage.map((message, index, array) => {
-      if (index === array.length - 1) {
+      // if (index === array.length - 1) {
         // This is the last element
         terminal.write(message.message);
-      }
+      // }
       return null; // You need to return something from the map function
     });
 
