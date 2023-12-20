@@ -10,7 +10,7 @@ async function getData() {
   
   //The props.contentNeeded is the title of the blog post thats on strappi
   
-  export default async function Hero({contentNeeded} : {contentNeeded: string}) {
+  export default async function Hero({contentNeeded, buttonLink} : {contentNeeded: string, buttonLink: string}) {
     const HeaderContent = await getData()
     const MainText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.Content
     const Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.FrontImage.data.attributes.formats.large.url

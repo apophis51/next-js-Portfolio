@@ -5,11 +5,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import About from '../About/About'
-import  ReactMarkdown  from "react-markdown"
 import Script from 'next/script';
 import { green, purple,yellow } from '@mui/material/colors';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
+import { use } from 'chai';
+
 
 
 const theme2 = createTheme({
@@ -26,7 +29,7 @@ const theme2 = createTheme({
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
-
+console.log(props)
   return (
     <div
       role="tabpanel"
@@ -61,9 +64,15 @@ function a11yProps(index) {
 
 export default function BottomNavBar(props) {
   
-  const [value, setValue] = React.useState(0);
- 
+  const [value, setValue] = React.useState(props.pageToStartAt);
+  const [aboutColor, setAboutColor] = React.useState('text-white');
+  const [projectsColor, setProjectsColor] = React.useState('text-white');
+  const params = useParams().About
 
+  React.useEffect(() => {
+    if (params == 'Projects'){setProjectsColor('text-yellow-300')}
+    if (params == 'About'){setAboutColor('text-yellow-300')}
+  }, [])
   
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -111,8 +120,8 @@ export default function BottomNavBar(props) {
 
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
         textColor='secondary' indicatorColor='secondary'>
-          <Tab label="About" {...a11yProps(0)} className = 'text-white text-3xl' />
-          <Tab label="Projects" {...a11yProps(1)} className = 'text-white text-3xl'/>
+          <Link href='/About' scroll={false}><Tab label="About" {...a11yProps(0)} className = {`${aboutColor} text-3xl`} /></Link>
+          <Link href='/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`} onClick={()=>setTextColor('text-yellow-300')}/></Link>
         </Tabs>
         </ThemeProvider>
 

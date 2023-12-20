@@ -18,30 +18,21 @@ export default function BlogControl({setBlogFilter}) {
 
   return (
     <div >
-      
-      <FormControl sx={{ m: 1, minWidth: 180}} className="bg-white">
-        <InputLabel id="demo-simple-select-autowidth-label" sx={{ backgroundColor: 'white'}}>Blog Filter</InputLabel>
-        
-        <Select
-          labelId="demo-simple-select-autowidth-label"
-          id="demo-simple-select-autowidth"
+              
+        <select
+          className="select select-lg w-full max-w-xs"
           value={filter}
           onChange={handleChange}
           autoWidth
-          label="Blog Filter"
-          
         >
-       
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={'react'}>ReactBlogs</MenuItem>
-          <MenuItem value={'nextjs'}>NextJS Blogs</MenuItem>
-          <MenuItem value={'python'}>Python Blogs</MenuItem>
-          <MenuItem value={'docker'}>Docker Blogs</MenuItem>
-        </Select>
+          <option value={''}>Filter Blogs</option>
+          <option value={'react'}>ReactBlogs</option>
+          <option value={'nextjs'}>NextJS Blogs</option>
+          <option value={'python'}>Python Blogs</option>
+          <option value={'docker'}>Docker Blogs</option>
+        </select>
         
-      </FormControl>
+   
     </div>
   );
 }
