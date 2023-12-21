@@ -6,7 +6,6 @@ import './blog.css'
 import './prism.css'
 import BlogCollection from './BlogCollection'
 
-
  
 async function getData() {
     // const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/')

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Container from '@mui/material/Container';
 import Card from './Card'
 import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
-import About from '../About/page';
+import About from '../[About]/page';
 import ContactForm from '../ContactForm/page'
 
  
