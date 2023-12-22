@@ -11,7 +11,7 @@ export default function BlogCollection({data}){
     const [blogFilter, setBlogFilter] = useState('')
 
     return(
-        <div className="bg-violet-400">
+        <div className="bg-violet-400 mt-4">
             <div className="flex justify-center items-center">
             <BlogControl setBlogFilter={setBlogFilter}/>
             </div>
@@ -21,7 +21,7 @@ export default function BlogCollection({data}){
           <Card 
               //  blogLink =  {`/ProgrammingBlogs/${item.id}`}
                 blogLink =  {`/ProgrammingBlogs/${(item.attributes.Title).toLowerCase().split(' ').join('-')}`}
-                blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,300) + '...'}</ReactMarkdown>}
+                blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,280) + '...'}</ReactMarkdown>}
           />
         </images> : null))}
       

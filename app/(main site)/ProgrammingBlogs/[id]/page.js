@@ -59,8 +59,11 @@ export default async function Post({ params }) {
 
       {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
       strategy="afterInteractive" /> */}
+      <div className='prose  prose-sm max-w-none'>
+        {/* Our ReactMarkdown is generating content from our strapi CMS data object */}
         <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown>
         <Highlighter />
+        </div>
     </div>
     </Container>)
 //   return <PostLayout post={post} />

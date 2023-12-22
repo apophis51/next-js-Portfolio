@@ -29,7 +29,9 @@ async function getData() {
       <Script src = './prism.js'
       strategy='afterInteractive' />
       <Hero contentNeeded = {"Programming Blogs"} />
+      <div className="prose max-w-none prose-sm prose-a:no-underline prose-h1:text-blue-500">
       <BlogCollection data={data}/>
+      </div>
       </Container>
       </div>)
 
