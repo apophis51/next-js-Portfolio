@@ -13,6 +13,8 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     childHandler(userInput);;
   };
 
+
+
   useEffect(() => {
     const terminal = new Terminal({
       cursorBlink: true,
@@ -40,11 +42,43 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     terminal.focus();
 
     let userInput = '';
+    // let cursor = terminal.buffer.active.cursorX;
+  
+    let positionalChange = []
+    let initial = null
+    console.log(initial)
+    terminal.onKey(e => {
+      console.log(e.domEvent.keyCode)
+      // Check if the pressed key is the Backspace key
+      if (e.domEvent.keyCode == 8) {
+        console.log('backspace')
+          console.log('backspace')
+          // Get the current cursor position
+          let cursor = terminal.buffer.active.cursorX;
+
+          console.log(cursor)
+  console.log(positionalChange)
+          // Check if the cursor is not at the beginning of the line
+         if (cursor > positionalChange[0]) {
+              // Move the cursor back by one position
+              terminal.write('\b');
+  
+              // Clear the character at the current cursor position
+              terminal.write(' ');
+  
+
+              // Move the cursor back again
+              terminal.write('\b');
+           }
+        }});
+
 
     terminal.onData((data) => {
       // Capture user input
       userInput += data;
-      
+      //get cursor position
+      positionalChange.push(terminal.buffer.active.cursorX);
+      console.log(positionalChange)
       // Write the data to the terminal
       terminal.write(data);
 
@@ -52,6 +86,8 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
       if (data.charCodeAt(0) === 13) {
         // Handle Enter key
         handleEnterKeyPress(userInput);
+       
+
 
         // Clear user input
         userInput = '';
@@ -59,6 +95,7 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
         // Move to a new line in the terminal
         // terminal.writeln('');
       }
+      
     });
 
     return () => {
