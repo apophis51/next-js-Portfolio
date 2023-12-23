@@ -45,8 +45,6 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     // let cursor = terminal.buffer.active.cursorX;
   
     let positionalChange = []
-    let initial = null
-    console.log(initial)
     terminal.onKey(e => {
       console.log(e.domEvent.keyCode)
       // Check if the pressed key is the Backspace key
