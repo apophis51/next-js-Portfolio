@@ -12,12 +12,12 @@ import Link from 'next/link'
 export default function MediaCard(props) {
     const{ blogTitle, blogLink, blogContent} = props
   return (
+    <div className='shadow-[0px_0px_10px_1px_rgba(255,255,255,0.5)]'>
     <Card sx={{ maxWidth: 400,
-                maxHeight: 620,
-                minHeight: 620,
+                maxHeight: 720, //used to be 620
+                minHeight: 720, //used to be 620
                 Display: 'flex',
                 }}>
-      
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {blogTitle}
@@ -30,6 +30,6 @@ export default function MediaCard(props) {
         <Button size="small" >Learn More</Button>
       </CardActions>
     </Card>
-   
+    </div>
   );
 }
