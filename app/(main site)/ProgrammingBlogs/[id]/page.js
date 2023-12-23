@@ -35,8 +35,6 @@ async function generateStaticParams(params) {
 }
  
 export default async function Post({ params }) {
-  console.log(params)
-  
   console.time('generateStaticParams Execution Speed')
   const post = await generateStaticParams(params)
   console.timeEnd('generateStaticParams Execution Speed')

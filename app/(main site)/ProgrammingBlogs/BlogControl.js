@@ -4,15 +4,30 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+
 
 import { useState} from 'react';
 
 export default function BlogControl({setBlogFilter}) {
   const [filter, setFilter] = useState('');
+  
+  const params = (useSearchParams()).get('filter')
+  const router = useRouter()
+
 
   const handleChange = (event) => {
     setFilter(event.target.value);
     setBlogFilter(event.target.value)
+    if(event.target.value ==''){
+      if (params){
+        router.push(`/ProgrammingBlogs/`,  { scroll: false })
+      }
+    }
+    else{
+    router.push(`/ProgrammingBlogs/?filter=${event.target.value}`,  { scroll: false })
+    }
   };
 
 
