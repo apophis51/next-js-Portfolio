@@ -31,6 +31,7 @@ async function generateStaticParams(params) {
   for (let x of post.data){
     if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)){
       blogID = x.id
+      console.log('TestRed',blogID)
     }
   }
    res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
@@ -69,7 +70,7 @@ export default async function Post({ params }) {
     a: renderLink,
     p: swapLink,
   };
-  console.log('check it out' , post.data)
+  console.log('TestRed' , post.data)
 
 
     return (
