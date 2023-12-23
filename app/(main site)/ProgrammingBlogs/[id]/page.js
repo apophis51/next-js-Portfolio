@@ -3,8 +3,12 @@
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
 import Highlighter from './highlighter'
+import dynamic from 'next/dynamic'
+
 import '../prism.css'
 import '../blog.css'
+
+const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 
 
 
@@ -45,8 +49,25 @@ export default async function Post({ params }) {
     </a>
   );
 
+  const swapLink = (props) => {
+    const { children } = props;
+  
+    // Check if the content of the paragraph contains the string '{{terminal}}'
+    const hasTerminalPlaceholder = children.includes('{{terminal}}');
+  
+    if (hasTerminalPlaceholder) {
+      // If true, render your custom terminal component
+      // return <YourTerminalComponent />;
+      return <p><App /></p>
+    }
+  
+    // If false, render the default paragraph
+    return <p>{children}</p>;
+  };
+
   const components = {
     a: renderLink,
+    p: swapLink,
   };
 
 
