@@ -69,6 +69,7 @@ export default async function Post({ params }) {
     a: renderLink,
     p: swapLink,
   };
+  console.log('check it out' , post.data)
 
 
     return (
