@@ -28,6 +28,7 @@ async function generateStaticParams(params) {
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
   let blogID = ''
+  console.log('TestRed', params.id)
   for (let x of post.data){
     if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)){
       blogID = x.id
