@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
@@ -28,15 +28,6 @@ export function generateStaticParams() {
   return [{ id: 'http://localhost:3000/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: 'http://localhost:3000/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: 'http://localhost:3000/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
 }
  
-// Three versions of this page will be statically generated
-// using the `params` returned by `generateStaticParams`
-// - /product/1
-// - /product/2
-// - /product/3
-export default function Page({ params }) {
-  const { id } = params
-  // ...
-}
 
 async function fgenerateStaticParams(params) {
   console.time('internal speed')
@@ -63,8 +54,8 @@ async function fgenerateStaticParams(params) {
  
 export default async function Post({ params }) {
   console.time('fgenerateStaticParams Execution Speed')
-  const post = await generateStaticParams(params)
-  console.timeEnd('generateStaticParams Execution Speed')
+  const post = await fgenerateStaticParams(params)
+  console.timeEnd('fgenerateStaticParams Execution Speed')
 
   const renderLink = (props) => (
     <a style={{ color: 'red' }} {...props}>
