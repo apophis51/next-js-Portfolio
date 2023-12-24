@@ -31,9 +31,10 @@ async function generateStaticParams(params) {
   console.log('testred', res)
   console.log('testred', post)
   console.log('TestRed', params.id)
+  console.log('TestRed', post.data)
 
   for (let x of post.data){
-    console.log('testBlue', x.attributes.Title)
+    console.log('testBlue', x.attributes.Title.toLowerCase().split(' ').join('-'))
     if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)){
       blogID = x.id
       console.log('TestRed',blogID)
