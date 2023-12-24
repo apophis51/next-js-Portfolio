@@ -1,4 +1,4 @@
-// 'use client'
+'use client'
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
@@ -24,9 +24,9 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 //   return post
 // }
 
-export function generateStaticParams() {
-  return [{ id: '/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: '/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: '/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
-}
+// export function generateStaticParams() {
+//   return [{ id: '/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: '/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: '/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
+// }
  
 
 async function fgenerateStaticParams(params) {
