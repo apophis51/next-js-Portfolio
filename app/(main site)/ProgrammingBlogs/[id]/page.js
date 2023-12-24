@@ -1,4 +1,4 @@
-
+'use client'
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
@@ -24,7 +24,7 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 //   return post
 // }
 
-async function fgenerateStaticParams(params) {
+async function generateStaticParams(params) {
   console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
@@ -49,7 +49,7 @@ async function fgenerateStaticParams(params) {
  
 export default async function Post({ params }) {
   console.time('generateStaticParams Execution Speed')
-  const post = await fgenerateStaticParams(params)
+  const post = await generateStaticParams(params)
   console.timeEnd('generateStaticParams Execution Speed')
 
   const renderLink = (props) => (
