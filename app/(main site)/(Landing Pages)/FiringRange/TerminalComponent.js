@@ -47,6 +47,7 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     let positionalChange = []
     terminal.onKey(e => {
       console.log(e.domEvent.keyCode)
+      const { domEvent } = e;
       // Check if the pressed key is the Backspace key
       if (e.domEvent.keyCode == 8) {
         console.log('backspace')
@@ -55,7 +56,7 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
           let cursor = terminal.buffer.active.cursorX;
 
           console.log(cursor)
-  console.log(positionalChange)
+           console.log(positionalChange)
           // Check if the cursor is not at the beginning of the line
          if (cursor > positionalChange[0]) {
               // Move the cursor back by one position
@@ -68,7 +69,16 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
               // Move the cursor back again
               terminal.write('\b');
            }
-        }});
+        }
+        
+
+        //Check if Ctrl+C is pressed
+        if (domEvent.ctrlKey && domEvent.keyCode === 67) {
+          console.log('Ctrl+C pressed');
+          handleEnterKeyPress('\x03')
+        }
+      
+      });
 
 
     terminal.onData((data) => {
