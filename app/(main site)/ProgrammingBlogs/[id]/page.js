@@ -41,7 +41,7 @@ async function generateStaticParams(params) {
       console.log('TestRed',blogID)
     }
   }
-   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${32}`)
     post = await res.json()
     console.timeEnd('internal speed')
   return post
