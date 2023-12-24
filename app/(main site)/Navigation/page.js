@@ -193,7 +193,7 @@ function ResponsiveAppBar() {
           <Box 
           className = "hidden grow xl:flex justify-between items-center pr-10 gap-5">
             {pages.map((page) => (
-              <Link href={page.href} prefetch={false}>
+              <Link href={page.href} prefetch={true}>
               <Button
                 className = ' bg-blue-900 bg-opacity-5 pl-5 pr-5 h-20  hover:bg-opacity-50 hover:shadow-[inset_0px_0px_10px_2px_rgba(255,255,255,0.9)] rounded-lg ' 
                 key={page.name}
