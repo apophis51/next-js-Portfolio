@@ -1,54 +1,41 @@
 // This Module was inspired by https://daisyui.com/components/hero/
 
-async function getData() {
-    const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?populate=*`)
-    const res2 = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?populate=*`)
-console.log(res2)
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-    return res.json()
+
+
+
+async function getData2() {
+  const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?populate=*`)
+  console.log(res)
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
   }
+  return res.json()
+}
 
 
-  async function getData2() {
-    const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?populate=*`)
-console.log(res)
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-    return res.json()
+//The props.contentNeeded is the title of the blog post thats on strappi
+
+export default async function Hero({ contentNeeded, buttonLink }: { contentNeeded: string, buttonLink: string }) {
+  const HeaderContent = await getData2()
+  const MainText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.headerContent
+  let Image = ''
+  try {
+    Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.LandingPageImage.data.attributes.formats.large.url
   }
-  
-  
-  //The props.contentNeeded is the title of the blog post thats on strappi
-
-  export default async function Hero({contentNeeded, buttonLink} : {contentNeeded: string, buttonLink: string}) {
-    const HeaderContent = await getData2()
-    console.log(HeaderContent.data)
-    const MainText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.headerContent
-    const Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.LandingPageImage.data.attributes.formats.large.url
-    const buttonText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.ButtonText
-    // const Image = HeaderContent.data.filter((item: any) => item.attributes.Image == contentNeeded)[0].attributes.FrontImage.data.attributes.formats.large.url
-    // const buttonText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.SideInformation[0]?.Data
-  
-  // export default async function Hero({contentNeeded, buttonLink} : {contentNeeded: string, buttonLink: string}) {
-  //   const HeaderContent = await getData()
-  //   const MainText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.Content
-  //   const Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.FrontImage.data.attributes.formats.large.url
-  //   const buttonText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.SideInformation[0]?.Data
-  
-    return (
-        <div className="hero min-h-screen shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)] mt-4" style={{ backgroundImage: `url(${Image})` }}>
-          <div className="hero-overlay bg-opacity-90"></div>
-          <div className="hero-content text-center text-neutral-content">
-          <div className="max-w-md">
-              <h1 className="mb-5 text-5xl font-bold animate_text_div">{contentNeeded}</h1>
-              <p className="mb-5">{MainText} </p>
-              <button className="btn btn-primary">{buttonText}</button>
-            </div>
-          </div>
+  catch {
+    Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.LandingPageImage.data.attributes.url
+  }
+  const buttonText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.ButtonText
+  return (
+    <div className="hero min-h-screen shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)] mt-4" style={{ backgroundImage: `url(${Image})` }}>
+      <div className="hero-overlay bg-opacity-90"></div>
+      <div className="hero-content text-center text-neutral-content">
+        <div className="max-w-md">
+          <h1 className="mb-5 text-5xl font-bold animate_text_div">{contentNeeded}</h1>
+          <p className="mb-5">{MainText} </p>
+          <button className="btn btn-primary">{buttonText}</button>
         </div>
-    )
-  }
-  
+      </div>
+    </div>
+  )
+}
