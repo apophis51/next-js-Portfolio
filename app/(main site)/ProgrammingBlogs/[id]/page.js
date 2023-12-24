@@ -25,6 +25,7 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 // }
 
 async function generateStaticParams(params) {
+  console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
   let blogID = ''
@@ -42,6 +43,7 @@ async function generateStaticParams(params) {
   }
    res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
     post = await res.json()
+    console.timeEnd('internal speed')
   return post
 }
  
