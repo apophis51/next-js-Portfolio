@@ -4,7 +4,7 @@ import Hero from '../Components/Hero'
 import './blog.css'
 import './prism.css'
 import BlogCollection from './BlogCollection'
-import { useSearchParams } from 'next/navigation'
+// import { useSearchParams } from 'next/navigation'
 
 
 async function getData() {
