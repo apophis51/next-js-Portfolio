@@ -25,7 +25,7 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 // }
 
 export function generateStaticParams() {
-  return [{ id: 'http://localhost:3000/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: 'http://localhost:3000/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: 'http://localhost:3000/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
+  return [{ id: '/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: '/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: '/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
 }
  
 
