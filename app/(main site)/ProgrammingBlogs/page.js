@@ -6,6 +6,7 @@ import './blog.css'
 import './prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
+import { headers } from 'next/headers'
 
 
 async function getData() {
@@ -24,6 +25,9 @@ async function getData() {
 
 
 export default async function Page({searchParams}) {
+  const headersList = headers()
+  const referer = headersList.get('referer')
+
   const data = await getData()
   let contentNeeded = 'Programming Blogs'
   console.log('these are the search params', searchParams)
