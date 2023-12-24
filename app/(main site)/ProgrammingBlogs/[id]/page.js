@@ -1,9 +1,11 @@
-'use client'
+
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
 import Highlighter from './highlighter'
 import dynamic from 'next/dynamic'
+import { headers } from 'next/headers'
+
 
 import '../prism.css'
 import '../blog.css'
@@ -53,6 +55,9 @@ async function fgenerateStaticParams(params) {
 }
  
 export default async function Post({ params }) {
+  const headersList = headers()
+  const referer = headersList.get('referer')
+
   console.time('fgenerateStaticParams Execution Speed')
   const post = await fgenerateStaticParams(params)
   console.timeEnd('fgenerateStaticParams Execution Speed')
