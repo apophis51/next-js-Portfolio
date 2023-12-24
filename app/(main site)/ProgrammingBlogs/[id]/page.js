@@ -24,7 +24,7 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 //   return post
 // }
 
-async function generateStaticParams(params) {
+async function fgenerateStaticParams(params) {
   console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
@@ -41,7 +41,7 @@ async function generateStaticParams(params) {
       console.log('TestRed',blogID)
     }
   }
-   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${32}`)
+   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
     post = await res.json()
     console.timeEnd('internal speed')
   return post
@@ -49,7 +49,7 @@ async function generateStaticParams(params) {
  
 export default async function Post({ params }) {
   console.time('generateStaticParams Execution Speed')
-  const post = await generateStaticParams(params)
+  const post = await fgenerateStaticParams(params)
   console.timeEnd('generateStaticParams Execution Speed')
 
   const renderLink = (props) => (
