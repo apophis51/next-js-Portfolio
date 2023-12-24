@@ -26,6 +26,7 @@ async function getData() {
 export default async function Page({searchParams}) {
   const data = await getData()
   let contentNeeded = 'Programming Blogs'
+  console.log('these are the search params', searchParams)
 
   if (Object.keys(searchParams).length) {
     contentNeeded = searchParams.filter
