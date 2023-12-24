@@ -77,6 +77,10 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
           console.log('Ctrl+C pressed');
           handleEnterKeyPress('\x03')
         }
+        if (domEvent.ctrlKey && domEvent.keyCode === 88) {
+          console.log('Ctrl+C pressed');
+          handleEnterKeyPress('\x18')
+        }
       
       });
 
