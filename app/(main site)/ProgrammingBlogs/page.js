@@ -1,3 +1,4 @@
+'use server'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Hero from '../Components/Hero'
@@ -22,7 +23,7 @@ async function getData() {
 }
 
 
-export default async function Page({ searchParams }) {
+export default async function Page({searchParams}) {
   const data = await getData()
   let contentNeeded = 'Programming Blogs'
 
@@ -31,6 +32,14 @@ export default async function Page({ searchParams }) {
     console.log(searchParams.filter)
   }
 
+  // const searchParams2 = useSearchParams()
+  // console.log(searchParams2)   
+
+  //   if (Object.keys(searchParams2).length) {
+  //   contentNeeded = searchParams2.get('filter')
+  //   console.log(searchParams2.filter)
+  // }
+ 
 
   return (<div><Container maxWidth="xl">
     <Script src='./prism.js'
