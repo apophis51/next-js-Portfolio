@@ -24,7 +24,21 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 //   return post
 // }
 
-async function generateStaticParams(params) {
+export function generateStaticParams() {
+  return [{ id: 'http://localhost:3000/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: 'http://localhost:3000/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: 'http://localhost:3000/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
+}
+ 
+// Three versions of this page will be statically generated
+// using the `params` returned by `generateStaticParams`
+// - /product/1
+// - /product/2
+// - /product/3
+export default function Page({ params }) {
+  const { id } = params
+  // ...
+}
+
+async function fgenerateStaticParams(params) {
   console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
@@ -48,7 +62,7 @@ async function generateStaticParams(params) {
 }
  
 export default async function Post({ params }) {
-  console.time('generateStaticParams Execution Speed')
+  console.time('fgenerateStaticParams Execution Speed')
   const post = await generateStaticParams(params)
   console.timeEnd('generateStaticParams Execution Speed')
 
