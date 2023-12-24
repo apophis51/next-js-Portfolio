@@ -1,3 +1,4 @@
+'use client'
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
