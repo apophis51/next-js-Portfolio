@@ -1,4 +1,4 @@
-
+'use client'
 
 import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
@@ -25,16 +25,25 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 // }
 
 async function generateStaticParams(params) {
+  console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
   let blogID = ''
+  console.log('testred', res)
+  console.log('testred', post)
+  console.log('TestRed', params.id)
+  console.log('TestRed', post.data)
+
   for (let x of post.data){
+    console.log('testBlue', x.attributes.Title.toLowerCase().split(' ').join('-'))
     if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)){
       blogID = x.id
+      console.log('TestRed',blogID)
     }
   }
    res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
     post = await res.json()
+    console.timeEnd('internal speed')
   return post
 }
  
@@ -69,6 +78,7 @@ export default async function Post({ params }) {
     a: renderLink,
     p: swapLink,
   };
+  console.log('TestRed' , post.data)
 
 
     return (
