@@ -1,3 +1,4 @@
+'use server'
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Hero from '../Components/Hero'
@@ -5,6 +6,7 @@ import './blog.css'
 import './prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
+import { headers } from 'next/headers'
 
 
 async function getData() {
@@ -22,15 +24,27 @@ async function getData() {
 }
 
 
-export default async function Page({ searchParams }) {
+export default async function Page({searchParams}) {
+  const headersList = headers()
+  const referer = headersList.get('referer')
+
   const data = await getData()
   let contentNeeded = 'Programming Blogs'
+  console.log('these are the search params', searchParams)
 
   if (Object.keys(searchParams).length) {
     contentNeeded = searchParams.filter
     console.log(searchParams.filter)
   }
 
+  // const searchParams2 = useSearchParams()
+  // console.log(searchParams2)   
+
+  //   if (Object.keys(searchParams2).length) {
+  //   contentNeeded = searchParams2.get('filter')
+  //   console.log(searchParams2.filter)
+  // }
+ 
 
   return (<div><Container maxWidth="xl">
     <Script src='./prism.js'

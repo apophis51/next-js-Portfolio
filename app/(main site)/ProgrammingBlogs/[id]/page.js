@@ -24,7 +24,12 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 //   return post
 // }
 
-async function generateStaticParams(params) {
+// export function generateStaticParams() {
+//   return [{ id: '/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: '/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: '/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
+// }
+ 
+
+async function fgenerateStaticParams(params) {
   console.time('internal speed')
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=60`)
   let post = await res.json()
@@ -48,9 +53,9 @@ async function generateStaticParams(params) {
 }
  
 export default async function Post({ params }) {
-  console.time('generateStaticParams Execution Speed')
-  const post = await generateStaticParams(params)
-  console.timeEnd('generateStaticParams Execution Speed')
+  console.time('fgenerateStaticParams Execution Speed')
+  const post = await fgenerateStaticParams(params)
+  console.timeEnd('fgenerateStaticParams Execution Speed')
 
   const renderLink = (props) => (
     <a style={{ color: 'red' }} {...props}>
