@@ -32,7 +32,7 @@ export default function BlogControl({setBlogFilter}) {
 
 
   return (
-    <div >
+    <div className='p-2'>
               
         <select
           className="select select-lg w-full max-w-xs"
