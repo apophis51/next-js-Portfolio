@@ -18,7 +18,7 @@ import JumboTron from '../JumboTron/page'
  
 
 export default function FullBar(props) {
-
+//
   // console.log(props.params.About)
   let pageToStartAt = 0
   

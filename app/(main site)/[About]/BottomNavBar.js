@@ -121,7 +121,7 @@ export default function BottomNavBar(props) {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
         textColor='secondary' indicatorColor='secondary'>
           <Link href='/About' scroll={false}><Tab label="About" {...a11yProps(0)} className = {`${aboutColor} text-3xl`} /></Link>
-          <Link href='/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`} onClick={()=>setTextColor('text-yellow-300')}/></Link>
+          <Link href='/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`}/></Link>
         </Tabs>
         </ThemeProvider>
 
