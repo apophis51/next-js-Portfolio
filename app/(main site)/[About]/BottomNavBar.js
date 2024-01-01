@@ -101,7 +101,7 @@ export default function BottomNavBar(props) {
   }
 
   React.useEffect(() => {
-    // mygranium()
+    mygranium()
   
   }, [])
 

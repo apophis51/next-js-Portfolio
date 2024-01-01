@@ -3,7 +3,6 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import Navigation from '@/app/(main site)/Navigation/page'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import About from './About/page';
 import Container from '@mui/material/Container';
 import { Providers } from './providers'; //added 9/1/2023 everything that says providers in this doc
 import Script from 'next/script'
@@ -57,7 +56,7 @@ export default function RootLayout({
         }}
     />
       {/* <body className="bg-blue-500"> */}
-        <body className='h-[6000px]'>
+        <body className='h-[10000px]'>
       <Container maxWidth="xl" >
 
         <ThemeProvider theme={theme}>
