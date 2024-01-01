@@ -98,10 +98,11 @@ export default function BottomNavBar(props) {
 
   }
   }
-
+  mygranium()
 
   React.useEffect(() => {
-    mygranium()
+    // mygranium()
+  
   }, [])
 
   return (
@@ -109,7 +110,7 @@ export default function BottomNavBar(props) {
       <div className = 'granim-relative'>
     <canvas id="granim-canvas"></canvas>
     <Script src="granim.min.js" 
-    strategy = 'beforeInteractive'
+    strategy = 'afterInteractive' defer
     ></Script>
    {/* {mygranium()} */}
 
