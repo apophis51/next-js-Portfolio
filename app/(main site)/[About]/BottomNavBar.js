@@ -78,6 +78,7 @@ export default function BottomNavBar(props) {
     setValue(newValue);
   };
   const mygranium = () => {
+    console.log('triggered')
     try {
     var granimInstance = new Granim({
        element: '#granim-canvas',
@@ -98,7 +99,6 @@ export default function BottomNavBar(props) {
 
   }
   }
-  mygranium()
 
   React.useEffect(() => {
     // mygranium()
@@ -107,6 +107,7 @@ export default function BottomNavBar(props) {
 
   return (
     <div>
+      {mygranium()}
       <div className = 'granim-relative'>
     <canvas id="granim-canvas"></canvas>
     <Script src="granim.min.js" 
