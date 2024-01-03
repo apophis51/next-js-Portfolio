@@ -295,14 +295,37 @@ const testProp = async (data) => {
   return result;
 };
 let contractOwnerKey = process.env.PRIVATE_KEY;
+
+let ethData = ''
+async function fetchprediction() {
+  await fetch('https://cryptoai-production.up.railway.app/currentethprediction')
+      .then(response => response.json())
+      .then(data => {
+          // Handle the data here
+          console.log(data);
+          console.log(data.ethprediction);
+          ethData = data.ethprediction
+          console.log(ethData)
+          return data.ethprediction;
+      })
+      .catch(error => {
+          // Handle errors here
+          console.error('Error fetching data:', error);
+          throw error; // Re-throw the error if needed
+      });
+}
+
 export default async function MetaMaskContainer({ params }) {
   let webSiteName = params.page[0].replace(/-/g, ' ')
   console.log(webSiteName)
   let landingpage = '/Crypto/' + params.page[0]
+  await fetchprediction()
+  console.log(ethData)
 
   return (
     <div>
       <Container maxWidth="xl"  >
+        <p>{ethData}</p>
         <Hero contentNeeded={webSiteName} />
         <ContentController tabContent={[
           {
@@ -312,7 +335,7 @@ export default async function MetaMaskContainer({ params }) {
           },
           {
             TabName: 'Crypto Predictions',
-            Content: <CryptoPredictions />,
+            Content: <CryptoPredictions ethData={ethData}/>,
             landingPage: '/Crypto/Crypto-Predictions'
           },
         ]} landingpage={landingpage} />
