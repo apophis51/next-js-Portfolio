@@ -298,14 +298,12 @@ let contractOwnerKey = process.env.PRIVATE_KEY;
 
 let ethData = ''
 async function fetchprediction() {
-  await fetch('https://cryptoai-production.up.railway.app/currentethprediction')
+  await fetch('https://cryptoai-production.up.railway.app/currentethprediction', { cache: 'no-store' })
       .then(response => response.json())
       .then(data => {
           // Handle the data here
           console.log(data);
-          console.log(data.ethprediction);
-          ethData = data.ethprediction
-          console.log(ethData)
+          ethData = data
           return data.ethprediction;
       })
       .catch(error => {
@@ -325,7 +323,6 @@ export default async function MetaMaskContainer({ params }) {
   return (
     <div>
       <Container maxWidth="xl"  >
-        <p>{ethData}</p>
         <Hero contentNeeded={webSiteName} />
         <ContentController tabContent={[
           {
