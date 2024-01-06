@@ -2,7 +2,8 @@ import GuessTheNumberGame from './GuessTheNumberGame'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
 import Hero from '../../Components/Hero'
-import { prisma } from '@/lib/prisma';
+import { fetchprediction, updateDatabase, fetchNewPrediction } from './pageUtils'
+import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
 
 import ContentController from '../../Components/ContentController'
@@ -298,41 +299,21 @@ const testProp = async (data) => {
 };
 let contractOwnerKey = process.env.PRIVATE_KEY;
 
-async function fetchprediction() {
-  let res = await fetch('https://cryptoai-production.up.railway.app/currentethprediction', { cache: 'no-store' })
-  console.log(res);
-  if (!res.ok) {
-    throw new Error('Failed to fetch Data');
-  }
-  return (res.json())
-}
-async function updateDatabase(data) {
-  console.log(data)
-  try {
-    await prisma.EthPredictionData.upsert({
-      where: {
-        dateUnEdited: data.dateUnEdited,
-      },
-      update: {},
-      create: {
-        dateUnEdited: data.dateUnEdited,
-        recentDate: data.recentDate,
-        recentprice: data.recentprice,
-        ethprediction: data.ethprediction
-      }
-    });
-  }
-  catch(error) { console.log('there was an error', error)}
-}
+
 
 export default async function MetaMaskContainer({ params }) {
   let webSiteName = params.page[0].replace(/-/g, ' ')
   console.log(webSiteName)
   let landingpage = '/Crypto/' + params.page[0]
-  let ethData = await fetchprediction()
-  updateDatabase(ethData)
-  console.log(ethData)
 
+  let ethData = await fetchprediction()
+  const epochTime = new EpochTime();
+  if ((epochTime.currentEpoch - ethData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
+    ethData = await fetchNewPrediction()
+  }
+
+  
+  updateDatabase(ethData)
   return (
     <div>
       <Container maxWidth="xl"  >
