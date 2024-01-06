@@ -2,6 +2,8 @@ import GuessTheNumberGame from './GuessTheNumberGame'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
 import Hero from '../../Components/Hero'
+import { prisma } from '@/lib/prisma';
+
 
 import ContentController from '../../Components/ContentController'
 import CryptoPredictions from './CryptoPredictions'
@@ -296,28 +298,39 @@ const testProp = async (data) => {
 };
 let contractOwnerKey = process.env.PRIVATE_KEY;
 
-let ethData = ''
 async function fetchprediction() {
-  await fetch('https://cryptoai-production.up.railway.app/currentethprediction', { cache: 'no-store' })
-      .then(response => response.json())
-      .then(data => {
-          // Handle the data here
-          console.log(data);
-          ethData = data
-          return data.ethprediction;
-      })
-      .catch(error => {
-          // Handle errors here
-          console.error('Error fetching data:', error);
-          throw error; // Re-throw the error if needed
-      });
+  let res = await fetch('https://cryptoai-production.up.railway.app/currentethprediction', { cache: 'no-store' })
+  console.log(res);
+  if (!res.ok) {
+    throw new Error('Failed to fetch Data');
+  }
+  return (res.json())
+}
+async function updateDatabase(data) {
+  console.log(data)
+  try {
+    await prisma.EthPredictionData.upsert({
+      where: {
+        dateUnEdited: data.dateUnEdited,
+      },
+      update: {},
+      create: {
+        dateUnEdited: data.dateUnEdited,
+        recentDate: data.recentDate,
+        recentprice: data.recentprice,
+        ethprediction: data.ethprediction
+      }
+    });
+  }
+  catch(error) { console.log('there was an error', error)}
 }
 
 export default async function MetaMaskContainer({ params }) {
   let webSiteName = params.page[0].replace(/-/g, ' ')
   console.log(webSiteName)
   let landingpage = '/Crypto/' + params.page[0]
-  await fetchprediction()
+  let ethData = await fetchprediction()
+  updateDatabase(ethData)
   console.log(ethData)
 
   return (
@@ -332,7 +345,7 @@ export default async function MetaMaskContainer({ params }) {
           },
           {
             TabName: 'Crypto Predictions',
-            Content: <CryptoPredictions ethData={ethData}/>,
+            Content: <CryptoPredictions ethData={ethData} />,
             landingPage: '/Crypto/Crypto-Predictions'
           },
         ]} landingpage={landingpage} />
