@@ -19,6 +19,7 @@ export default function ClickerGame() {
     const [job, setJob] = useState('begger');
     const [fulltime, setFulltime] = useState(false);
     const [manager, setManager] = useState(false);
+    const [house, setHouse] = useState(false);
     const [pay, setPay] = useState(0);
 
     const handleClick = () => {
@@ -26,6 +27,15 @@ export default function ClickerGame() {
         let ammount = money + 2
         setMoney(Number(ammount.toFixed(2)));
     };
+
+    const handleFoodClick = (upgrade) => {
+        setMoney(money - 30);
+        setHunger(hunger + 10);
+    }
+    
+    const handleHouseClick = (upgrade) => {
+        console.log('null')
+    }
 
     const handlePowerUpClick = (upgrade) => {
         setJob(upgrade)
@@ -116,14 +126,14 @@ export default function ClickerGame() {
                         {clicks >= 10 && (job == 'begger') && (
                             <UpgradeCollection
                                 collection={['driver', 'retail', 'food', 'warehouse']}
-                                handlePowerUpClick={handlePowerUpClick} />
+                                functionHandler={handlePowerUpClick} />
                         )}
                     </div>
                     <div onClick={() => setFulltime(true)}>
                         {clicks >= 15 && (fulltime == false) && (
                             <UpgradeCollection
                                 collection={['Full Time Driver', 'Full Time Retail', 'Full Time Food', 'Full Time Warehouse']}
-                                handlePowerUpClick={handlePowerUpClick}
+                                functionHandler={handlePowerUpClick}
 
                             />
                         )}
@@ -132,10 +142,23 @@ export default function ClickerGame() {
                         {clicks >= 30 && (manager == false) && (
                             <UpgradeCollection
                                 collection={['Restaurant Manager', 'Retail Manager', 'Restaurant Manager', 'Warehouse Manager']}
-                                handlePowerUpClick={handlePowerUpClick} />
+                                functionHandler={handlePowerUpClick} />
                         )}
                     </div>
-                    <p>Auto Increment: {pay}</p>
+                    <div>
+                        {(true == true) && (
+                            <UpgradeCollection
+                                collection={['burger', 'carrot', 'vegies']}
+                                functionHandler={handleFoodClick} />
+                        )}
+                    </div>
+                    <div onClick={() => setHouse(true)}>
+                        {(house == false) && (
+                            <UpgradeCollection
+                                collection={['broke house','medium house', 'rich house']}
+                                functionHandler={handleHouseClick} />
+                        )}
+                    </div>
                 </header>
             </div>
         </Container>

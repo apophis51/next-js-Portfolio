@@ -2,27 +2,27 @@
 
 import Image from 'next/image'
 
-export function UpgradeCollection({handlePowerUpClick,collection}) {
+export function UpgradeCollection({functionHandler,collection}) {
   return(
   <div className='border-4'>
     <p className='mt-5 '>Get a Real Job for Daily Minimum Wage + $50 per/day </p>
     <br></br>
     <div className="flex items-center justify-center gap-4">
       {collection.map((upgrade) => (
-        <Upgrade upgrade={upgrade} handlePowerUpClick={handlePowerUpClick} />
+        <Upgrade upgrade={upgrade} functionHandler={functionHandler} />
       ))}
     </div>
   </div>)
 }
 
 
-export function Upgrade({ upgrade, handlePowerUpClick }) {
+export function Upgrade({ upgrade, functionHandler }) {
   return (
     <div>
       <Image src={`/clickerGame/${upgrade}.jpg`}
         width={100}
         height={100}
-        onClick={() => handlePowerUpClick(upgrade)}
+        onClick={() => functionHandler(upgrade)}
       />
       <p>{upgrade}</p>
     </div>
