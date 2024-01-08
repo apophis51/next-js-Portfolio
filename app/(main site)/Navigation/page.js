@@ -52,7 +52,8 @@ let WebSocket = {name: 'Admin-Homepage', href: '/HomePage'};
 
 let OldTheme = {name: 'About', href: '/About'};
 
-let WebDesignService = {name: 'Web Design Service (Comming Soon)', href: 'https://malcmind.com'};
+let WebDesignService = {name: 'Web Apps', href: '/Web-Apps'};
+
 let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
 let CryptoGame = {name: 'Crypto', href: '/Crypto/Crypto-Games-and-Predictions'};
 let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
