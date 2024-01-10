@@ -36,14 +36,6 @@ export default async function Page({searchParams}) {
     contentNeeded = searchParams.filter
     console.log(searchParams.filter)
   }
-
-  // const searchParams2 = useSearchParams()
-  // console.log(searchParams2)   
-
-  //   if (Object.keys(searchParams2).length) {
-  //   contentNeeded = searchParams2.get('filter')
-  //   console.log(searchParams2.filter)
-  // }
  
 
   return (<div><Container maxWidth="xl">

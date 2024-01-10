@@ -32,7 +32,7 @@ export default function ClickerGame() {
         setMoney(money - 30);
         setHunger(hunger + 10);
     }
-    
+
     const handleHouseClick = (upgrade) => {
         console.log('null')
     }
@@ -72,23 +72,25 @@ export default function ClickerGame() {
                     <br></br>
                     <h3 className='text-2xl'>  Do you have what it Takes to be a Software Developer?</h3>
                     <br></br>
-                    <div className='collapse collapse-arrow bg-base-200 border-base-300 text-black'>
-                        <input type='checkbox'  />
-                        <p className='text-4xl collapse-title '>Instructions:</p>
-                        <br></br>
-                        <div className='collapse-content'>
-                            <p >  To Win - Become A Software Developer in 1460 days (4 years).</p>
+                    <div className="flex items-center justify-center">
+                        <div className='collapse collapse-arrow bg-base-200 max-w-md  text-black'>
+                            <input type='checkbox' />
+                            <p className='text-4xl collapse-title'>Instructions:</p>
                             <br></br>
-                            <p> If your Entertainment or Hunger Drops to Zero you will die.</p>
-                            <br></br>
-                            <p> If you Run out of Money You will die.</p>
-                            <p>Be sure to pay your bills before they reach 100%!</p>
-                            <br></br>
-                            <p>Take Time to Search For Software Jobs - Be warned Your bills will continue to pileup if you search for jobs Instead of working</p>
-                            <br></br>
-                            <p>Searching for Software Jobs will result in temporary 50% penality to you income</p>
-                            <br></br>
-                            <p>Your software skill will drop slowly overtime if you dont take time to keep learning</p>
+                            <div className='collapse-content'>
+                                <p >  To Win - Become A Software Developer in 1460 days (4 years).</p>
+                                <br></br>
+                                <p> If your Entertainment or Hunger Drops to Zero you will die.</p>
+                                <br></br>
+                                <p> If you Run out of Money You will die.</p>
+                                <p>Be sure to pay your bills before they reach 100%!</p>
+                                <br></br>
+                                <p>Take Time to Search For Software Jobs - Be warned Your bills will continue to pileup if you search for jobs Instead of working</p>
+                                <br></br>
+                                <p>Searching for Software Jobs will result in temporary 50% penality to you income</p>
+                                <br></br>
+                                <p>Your software skill will drop slowly overtime if you dont take time to keep learning</p>
+                            </div>
                         </div>
                     </div>
                     <br></br>
@@ -155,7 +157,7 @@ export default function ClickerGame() {
                     <div onClick={() => setHouse(true)}>
                         {(house == false) && (
                             <UpgradeCollection
-                                collection={['broke house','medium house', 'rich house']}
+                                collection={['broke house', 'medium house', 'rich house']}
                                 functionHandler={handleHouseClick} />
                         )}
                     </div>

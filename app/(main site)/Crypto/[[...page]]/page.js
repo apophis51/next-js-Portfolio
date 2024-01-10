@@ -308,7 +308,9 @@ export default async function MetaMaskContainer({ params }) {
 
   let ethData = await fetchprediction()
   const epochTime = new EpochTime();
+  console.log(epochTime.currentEpoch - ethData.dateUnEdited)  
   if ((epochTime.currentEpoch - ethData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
+    console.log('fetching new prediction')
     ethData = await fetchNewPrediction()
   }
 
