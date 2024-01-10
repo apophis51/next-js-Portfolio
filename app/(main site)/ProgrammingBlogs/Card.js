@@ -19,9 +19,11 @@ export default function MediaCard(props) {
                 Display: 'flex',
                 }}>
       <CardContent>
+        {/* <div className ='bg-blue-900'>
         <Typography gutterBottom variant="h5" component="div">
           {blogTitle}
         </Typography>
+        </div> */}
         <Typography variant="body2" color="text.secondary">
           <Link href = {blogLink}>{blogContent}</Link>
         </Typography>

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 
+
 export function UpgradeCollection({functionHandler,collection}) {
   return(
   <div className='border-4'>

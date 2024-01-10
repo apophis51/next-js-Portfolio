@@ -20,6 +20,7 @@ export default function BlogCollection({data}){
         <images >
           <Card 
               //  blogLink =  {`/ProgrammingBlogs/${item.id}`}
+                blogTitle = {item.attributes.Title}
                 blogLink =  {`/ProgrammingBlogs/${(item.attributes.Title).toLowerCase().split(' ').join('-')}`}
                 blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,280) + '...'}</ReactMarkdown>}
           />
