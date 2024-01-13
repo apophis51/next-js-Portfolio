@@ -1,4 +1,7 @@
 'use client'
+
+import { atom, useAtom, Provider } from 'jotai'
+
 import Container from '@mui/material/Container';
 import { Upgrade, UpgradeCollection, BarStats } from './Upgrade'
 
@@ -12,12 +15,16 @@ import dynamic from 'next/dynamic'
 const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
 import GameIntro from './GameIntro';
 
+export const textAtom = atom('fuck yeah')
+
+
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
     const [daysElapsed, setDaysElapsed] = useState(0);
     const [entertainment, setEntertainment] = useState(50);
     const [health, setHealth] = useState(50);
     const [hunger, setHunger] = useState(90);
+    
 
     const[healthDrain, setHealthDrain] = useState(1);
     const[entertainmentDrain, setEntertainmentDrain] = useState(1);
@@ -33,6 +40,11 @@ export default function ClickerGame() {
     const [manager, setManager] = useState(false);
     const [house, setHouse] = useState(false);
     const [pay, setPay] = useState(0);
+
+
+    const [myAtom, setmyAtom] = useAtom(textAtom)
+
+
 
     const handleClick = () => {
         setClicks(clicks + 1);
@@ -70,8 +82,11 @@ export default function ClickerGame() {
     return (
         <Container maxWidth="xl"  >
             <div className="App ">
+                <p>{myAtom}</p>
                 <header className="App-header">
-                <GameIntro />
+                    
+                        <GameIntro />
+                    
                     <div className="flex  justify-center gap-5">
                         <div >
                             <AudioPlayer />
