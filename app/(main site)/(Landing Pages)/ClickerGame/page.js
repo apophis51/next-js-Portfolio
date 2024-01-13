@@ -6,7 +6,10 @@ import Image from 'next/image'
 
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import AudioPlayer from './AudioPlayer';
+
+import dynamic from 'next/dynamic'
+
+const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
 import GameIntro from './GameIntro';
 
 export default function ClickerGame() {
