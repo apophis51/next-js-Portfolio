@@ -7,6 +7,11 @@ import Image from 'next/image'
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+import dynamic from 'next/dynamic'
+
+const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
+import GameIntro from './GameIntro';
+
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
     const [daysElapsed, setDaysElapsed] = useState(0);
@@ -66,8 +71,10 @@ export default function ClickerGame() {
         <Container maxWidth="xl"  >
             <div className="App ">
                 <header className="App-header">
+                <GameIntro />
                     <div className="flex  justify-center gap-5">
                         <div >
+                            <AudioPlayer />
                             <h2 className='text-4xl'> The WebDeveloper Game</h2>
                             <br></br>
                             <p className='text-2xl'>(strategy clicker game)</p>
