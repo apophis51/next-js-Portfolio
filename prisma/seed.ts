@@ -24,7 +24,7 @@ async function main() {
         update: {},
         create: {
             email: 'admin@admin.com',
-            name: 'admin',
+            name: 'adminn',
             password: await hash('admin', 12)
         },
     })

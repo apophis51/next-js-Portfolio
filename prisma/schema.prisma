@@ -10,13 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model EthPredictionData {
+model CryptoPredictionData {
     id Int @id @default(autoincrement())
-    ethprediction Float
+    crypto String
+    predictionDays Int
+    cryptoprediction Float 
     recentprice Float
     recentDate String
     dateUnEdited BigInt @unique
 }
+
+// model EthPredictionData {
+//     id Int @id @default(autoincrement())
+//     ethprediction Float
+//     recentprice Float
+//     recentDate String
+//     dateUnEdited BigInt @unique
+// }
 
 model User {
   id Int @id @default(autoincrement())

@@ -307,6 +307,7 @@ export default async function MetaMaskContainer({ params }) {
   let landingpage = '/Crypto/' + params.page[0]
 
   let ethData = await fetchprediction()
+  console.log(ethData)
   const epochTime = new EpochTime();
   console.log(epochTime.currentEpoch - ethData.dateUnEdited)  
   if ((epochTime.currentEpoch - ethData.dateUnEdited) > epochTime.oneDayInMilliseconds) {

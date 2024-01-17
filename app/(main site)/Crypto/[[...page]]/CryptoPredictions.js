@@ -43,7 +43,7 @@ export default function CryptoPredictions({ ethData }) {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </div>
           <div className="stat-title">{day} Etherium Price Prediction</div>
-          <div className="stat-value text-secondary">${ethData.ethprediction.toFixed(2)}</div>
+          <div className="stat-value text-secondary">${ethData.cryptoprediction.toFixed(2)}</div>
           <div className="stat-desc">Beta Text</div>
         </div>
 
@@ -66,7 +66,7 @@ export default function CryptoPredictions({ ethData }) {
       {/* break */}
 
 
-      <p>By {day} eth is predicted to be worth ${ethData.ethprediction.toFixed(2)} U.S Dollars</p>
+      <p>By {day} eth is predicted to be worth ${ethData.cryptoprediction.toFixed(2)} U.S Dollars</p>
       <p><b>This is Not Financial Advice</b></p>
     </div>
   );
