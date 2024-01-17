@@ -1,7 +1,9 @@
 import { prisma } from '@/lib/prisma';
+import { DataTexture } from 'three';
 
 export async function fetchprediction() {
-  let res = await fetch('https://cryptoai-production.up.railway.app/currentethprediction', { cache: 'no-store' })
+  let res = await fetch('https://cryptoai-production.up.railway.app/current/ethereum/1', { cache: 'no-store' })
+  console.log('data fetched')
   if (!res.ok) {
     throw new Error('Failed to fetch Data');
   }
@@ -9,7 +11,9 @@ export async function fetchprediction() {
 }
 
 export async function fetchNewPrediction() {
-  let res = await fetch('https://cryptoai-production.up.railway.app/newethprediction', { cache: 'no-store' })
+  console.log('fetching new prediction')
+  let res = await fetch('https://cryptoai-production.up.railway.app/new/ethereum/1', { cache: 'no-store' })
+  console.log('data fetched')
   if (!res.ok) {
     throw new Error('Failed to fetch Data');
   }
@@ -29,16 +33,18 @@ export async function fetchNewPrediction() {
 export async function updateDatabase(data) {
   console.log(data)
   try {
-    await prisma.EthPredictionData.upsert({
+    await prisma.cryptoPredictionData.upsert({
       where: {
-        dateUnEdited: data.dateUnEdited,
+        dateUnEdited: data.dateUnEdited
       },
       update: {},
       create: {
-        dateUnEdited: data.dateUnEdited,
-        recentDate: data.recentDate,
-        recentprice: data.recentprice,
-        ethprediction: data.ethprediction
+        crypto: 'fsfsdff',
+        predictionDays: 42,
+        cryptoprediction: 34,
+        recentprice: 23,
+        recentDate: 'asdf',
+        dateUnEdited: 535545
       }
     });
   }
