@@ -12,12 +12,13 @@ datasource db {
 
 model CryptoPredictionData {
     id Int @id @default(autoincrement())
+    uniqueId String @unique
     crypto String
     predictionDays Int
     cryptoprediction Float 
     recentprice Float
     recentDate String
-    dateUnEdited BigInt @unique
+    dateUnEdited BigInt
 }
 
 // model EthPredictionData {

@@ -1,5 +1,4 @@
 import { prisma } from '@/lib/prisma';
-import { DataTexture } from 'three';
 
 export async function fetchprediction() {
   let res = await fetch('https://cryptoai-production.up.railway.app/current/ethereum/1', { cache: 'no-store' })
@@ -32,19 +31,22 @@ export async function fetchNewPrediction() {
 
 export async function updateDatabase(data) {
   console.log(data)
+  const smashedDataTypes = data.dateUnEdited +  data.crypto + data.predictionDays
+  console.log(smashedDataTypes)
   try {
     await prisma.cryptoPredictionData.upsert({
       where: {
-        dateUnEdited: data.dateUnEdited
+        uniqueId: smashedDataTypes
       },
       update: {},
       create: {
-        crypto: 'fsfsdff',
-        predictionDays: 42,
-        cryptoprediction: 34,
-        recentprice: 23,
-        recentDate: 'asdf',
-        dateUnEdited: 535545
+        uniqueId: smashedDataTypes,
+        crypto: data.crypto,
+        predictionDays: data.predictionDays,
+        cryptoprediction: data.cryptoprediction,
+        recentprice: data.recentprice,
+        recentDate: data.recentDate,
+        dateUnEdited: data.dateUnEdited
       }
     });
   }
