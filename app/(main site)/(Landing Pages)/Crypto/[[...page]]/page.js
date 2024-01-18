@@ -305,17 +305,29 @@ export default async function MetaMaskContainer({ params }) {
   console.log(webSiteName)
   let landingpage = '/Crypto/' + params.page[0]
 
-  let ethData = await fetchprediction()
-  console.log(ethData)
-  const epochTime = new EpochTime();
-  console.log(epochTime.currentEpoch - ethData.dateUnEdited)
-  if ((epochTime.currentEpoch - ethData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
-    console.log('fetching new prediction')
-    ethData = await fetchNewPrediction()
+  async function fetchPredictionHandler(input='ethereum'){
+    "use server"
+    console.log(input)
+
+    let cryptoData = await fetchprediction(input)
+    console.log(cryptoData)
+    return cryptoData
   }
 
+  //  let cryptoData = await fetchprediction('ethereum')
+  // let cryptoData = await fetchPredictionHandler()
+  // console.log(cryptoData) //
+   //we need to bring this function back
+  const epochTime = new EpochTime();
+  // console.log(epochTime.currentEpoch - cryptoData.dateUnEdited)
+ 
+  // if ((epochTime.currentEpoch - cryptoData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
+  //   console.log('fetching new prediction')
+  //   cryptoData = await fetchNewPrediction()
+  // }
+
   
-  updateDatabase(ethData)
+  // updateDatabase(cryptoData)
   return (
     <div>
       <Container maxWidth="xl"  >
@@ -323,12 +335,12 @@ export default async function MetaMaskContainer({ params }) {
         <ContentController tabContent={[
           {
             TabName: 'Games',
-            Content: <GuessTheNumberGame propFunction={ownerGameCall} />,
+            Content: <GuessTheNumberGame propFunction={ownerGameCall}  />,
             landingPage: '/Crypto/Crypto-Games-and-Predictions'
           },
           {
             TabName: 'Crypto Predictions',
-            Content: <CryptoPredictions ethData={ethData} />,
+            Content: <CryptoPredictions /*cryptoData={cryptoData}*/ fetchprediction={fetchPredictionHandler}/>,
             landingPage: '/Crypto/Crypto-Predictions'
           },
         ]} landingpage={landingpage} />

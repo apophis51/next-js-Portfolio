@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/prisma';
 
-export async function fetchprediction() {
-  let res = await fetch('https://cryptoai-production.up.railway.app/current/ethereum/1', { cache: 'no-store' })
+export async function fetchprediction(coin) {
+  let res = await fetch(`https://cryptoai-production.up.railway.app/current/${coin}/1`, { cache: 'no-store' })
+  console.log(res)
   console.log('data fetched')
   if (!res.ok) {
     throw new Error('Failed to fetch Data');
