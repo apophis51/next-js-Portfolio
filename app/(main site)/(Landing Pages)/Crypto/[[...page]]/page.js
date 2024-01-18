@@ -1,12 +1,11 @@
 import GuessTheNumberGame from './GuessTheNumberGame'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
-import Hero from '../../Components/Hero'
+import Hero from '@/app/(main site)/Components/Hero'
 import { fetchprediction, updateDatabase, fetchNewPrediction } from './pageUtils'
 import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
-
-import ContentController from '../../Components/ContentController'
+import ContentController from '@/app/(main site)/Components/ContentController'
 import CryptoPredictions from './CryptoPredictions'
 
 async function ownerGameCall(wallet) {
