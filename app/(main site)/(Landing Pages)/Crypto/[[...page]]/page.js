@@ -2,8 +2,8 @@ import GuessTheNumberGame from './GuessTheNumberGame'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
 import Hero from '@/app/(main site)/Components/Hero'
-import { fetchprediction, updateDatabase, fetchNewPrediction } from './pageUtils'
-import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
+import { fetchprediction, updateDatabase} from './pageUtils'
+// import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
 import ContentController from '@/app/(main site)/Components/ContentController'
 import CryptoPredictions from './CryptoPredictions'
@@ -318,13 +318,12 @@ export default async function MetaMaskContainer({ params }) {
   // let cryptoData = await fetchPredictionHandler()
   // console.log(cryptoData) //
    //we need to bring this function back
-  const epochTime = new EpochTime();
-  // console.log(epochTime.currentEpoch - cryptoData.dateUnEdited)
- 
-  // if ((epochTime.currentEpoch - cryptoData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
-  //   console.log('fetching new prediction')
-  //   cryptoData = await fetchNewPrediction()
-  // }
+  //  let epochTime = new EpochTime();
+  //  console.log(epochTime.currentEpoch - cryptoData.dateUnEdited)
+//    if ((epochTime.currentEpoch - cryptoData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
+//    console.log('fetching new prediction')
+//   //   cryptoData = await fetchNewPrediction()
+//    }
 
   
   // updateDatabase(cryptoData)
