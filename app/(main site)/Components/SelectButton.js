@@ -10,42 +10,48 @@ import { useSearchParams } from 'next/navigation'
 
 import { useState} from 'react';
 
-export default function BlogControl({setBlogFilter}) {
+export default function SelectControl({setFilterFunction,selectionmenu}) {
   const [filter, setFilter] = useState('');
-  
+  console.log(selectionmenu)
   const params = (useSearchParams()).get('filter')
   console.log(params)
   const router = useRouter()
 
 
   const handleChange = (event) => {
+    console.log(event.target.value)
     setFilter(event.target.value);
-    setBlogFilter(event.target.value)
+    setFilterFunction(event.target.value)
+    console.log('triggered')
     if(event.target.value ==''){
+      console.log('triggered')
       if (params){
-        router.push(`/ProgrammingBlogs/`,  { scroll: false })
+        // router.push(`/ProgrammingBlogs/`,  { scroll: false })
+        router.push(`/Crypto/Crypto-Predictions/`,  { scroll: false })
       }
     }
     else{
-    router.push(`/ProgrammingBlogs/?filter=${event.target.value}`,  { scroll: false })
+      console.log('triggered')
+    // router.push(`/ProgrammingBlogs/?filter=${event.target.value}`,  { scroll: false })
+    router.push(`/Crypto/Crypto-Predictions/?filter=${event.target.value}`,  { scroll: false })
+
     }
   };
 
 
   return (
-    <div className='p-2'>
+    <div className='p-2' >
               
         <select
-          className="select select-lg w-full max-w-xs"
+          className="select select-lg w-full max-w-xs bg-black"
           value={filter}
           onChange={handleChange}
           autoWidth
         >
-          <option value={''}>Filter Blogs</option>
-          <option value={'react'}>ReactBlogs</option>
-          <option value={'nextjs'}>NextJS Blogs</option>
-          <option value={'python'}>Python Blogs</option>
-          <option value={'docker'}>Docker Blogs</option>
+          {selectionmenu.map(({Value,Label}) => (
+            <option value={Value}>{Label}</option>
+          )
+          )}
         </select>
         
    
