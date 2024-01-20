@@ -8,6 +8,8 @@ import SelectButton from '@/app/(main site)/Components/SelectButton'
 export default function CryptoPredictions({ fetchprediction }) {
   const [cryptoData, setCryptoData] = useState(null)
   const [forcast, setForecast] = useState(1)
+  const [gains, setGains] = useState(null)
+  const [priceDirection, setPriceDirection] = useState(null)
 
 
   async function fetch10PredictionMiddleWare() {
@@ -16,6 +18,7 @@ export default function CryptoPredictions({ fetchprediction }) {
     let predictiondate = 10
     let Data10 = await fetchprediction(coin,predictiondate)
     console.log(Data10)
+    priceDirectionHandler(Data10)
     setCryptoData(Data10)
     setForecast(10)
   }
@@ -26,14 +29,31 @@ export default function CryptoPredictions({ fetchprediction }) {
     let predictiondate = 1
     let Data10 = await fetchprediction(coin,predictiondate)
     console.log(Data10)
+    priceDirectionHandler(Data10)
     setCryptoData(Data10)
     setForecast(1)
   }
 
-  async function fetchPredictionMiddleWare(coin,predictiondate=1) { //this works when set to 10 :)
+  async function priceDirectionHandler(data){
+    let priceGain = ((1 - (data.recentprice / data.cryptoprediction))*100).toFixed(2) + '%'
+    console.log(priceGain)
+    if (priceGain.includes('-')){
+      setGains(priceGain)
+      setPriceDirection('down')
+    }
+    else{
+      setGains(priceGain)
+      setPriceDirection('up')
+    }
+    console.log(gains)
+    console.log(priceDirection)
+  }
+
+  async function fetchPredictionMiddleWare(coin,predictiondate=1) { 
     console.log(coin)
     let newData = await fetchprediction(coin,predictiondate)
     console.log(newData)
+    priceDirectionHandler(newData)
     setCryptoData(newData)
   }
 
@@ -63,20 +83,20 @@ export default function CryptoPredictions({ fetchprediction }) {
   return (
     <div className=' text-white '>
       <div>
-        <h1 className='text-4xl flex items-center justify-center p-10'>Crypto Predictions - Beta</h1>
+        <h1 className='text-4xl   md:text-4xl flex items-center justify-center p-10 '>Crypto Predictions - Beta</h1>
       </div>
       <br></br>
       <div className='flex items-center justify-center'>
         <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />
       </div>
-      <div className='flex items-center justify-center gap-5 mb-3'>
+      <div className='flex items-center justify-center gap-5 mb-3 flex-wrap'>
         <button className='btn' onClick={fetch1PredictionMiddleWare}>One Day ForeCast</button>
         <button className='btn' onClick={fetch10PredictionMiddleWare}>Ten Day ForeCast</button>
       </div>
 
-      <div className="stats shadow flex items-center justify-center">
+      <div className="stats shadow flex flex-col items-center justify-center ml-[1%] mr-[1%] mt-[2%] md:ml-[30%] md:mr-[30%] xl:pl-[5%] xl:pr-[15%] ">
 
-        <div className="stat">
+        <div className="stat    ">
           <div className="stat-figure text-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
           </div>
@@ -85,21 +105,22 @@ export default function CryptoPredictions({ fetchprediction }) {
           <div className="stat-desc">Current Price</div>
         </div>
 
-        <div className="stat">
+        <div className="stat    ">
           <div className="stat-figure text-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </div>
-          <div className="stat-title">{day} in {forcast} days {cryptoData?.crypto} Price Estimation</div>
+          <div className="stat-title">{day} in ({forcast} days) {cryptoData?.crypto} Price Estimation</div>
           <div className="stat-value text-secondary">${cryptoData?.cryptoprediction.toFixed(2)}</div>
           <div className="stat-desc">Estimated Price</div>
         </div>
 
-        <div className="stat">
+        <div className="stat ">
           <div className="stat-figure text-secondary">
           </div>
-          <div className="stat-value">--</div>
-          <div className="stat-title">Beta Block</div>
-          <div className="stat-desc text-secondary">Beta Note</div>
+          {priceDirection == 'up' && <div className="stat-value text-green-400">{gains} - Gain</div>}
+          {priceDirection == 'down' && <div className="stat-value text-red-400">20% - Loss</div>}
+          <div className="stat-title">Price Direction</div>
+          <div className="stat-desc text-secondary">Your Money will go {priceDirection}</div>
         </div>
 
       </div>
@@ -107,14 +128,12 @@ export default function CryptoPredictions({ fetchprediction }) {
       <br></br>
       <br></br>
 
-      <br></br>
-      <br></br>
-
       {/* break */}
 
-
-      <p>By {day} {cryptoData?.crypto} is predicted to be worth ${cryptoData?.cryptoprediction.toFixed(2)} U.S Dollars</p>
-      <p><b>This is Not Financial Advice</b></p>
+<div className='flex flex-col items-center gap-10 justify-center pl-[10%] pr-[10%] pb-[10%] text-lg'>
+  <div><p>By {day} {cryptoData?.crypto} is predicted to be worth ${cryptoData?.cryptoprediction.toFixed(2)} U.S Dollars</p></div>
+  <div><p><b>This is Not Financial Advice</b></p></div>
+      </div>
     </div>
   );
 }
