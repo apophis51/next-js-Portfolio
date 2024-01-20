@@ -2,8 +2,8 @@ import { prisma } from '@/lib/prisma';
  import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
 
- export async function fetchprediction(coin, time='current') {
-  let res = await calculatePrediction(coin, time)
+ export async function fetchprediction(coin,predictionDate) {
+  let res = await calculatePrediction(coin, 'current',predictionDate)
   let epochTime = new EpochTime();
    console.log(epochTime.currentEpoch - res.dateUnEdited)
    if ((epochTime.currentEpoch - res.dateUnEdited) > epochTime.oneDayInMilliseconds) {
@@ -15,8 +15,9 @@ console.log(res)
  return (res)
  }
 
-export async function calculatePrediction(coin, time='current') {
-  let res = await fetch(`https://cryptoai-production.up.railway.app/${time}/${coin}/1`, { cache: 'no-store' })
+export async function calculatePrediction(coin, time='current',predictionDate) {
+  console.log(predictionDate)
+  let res = await fetch(`https://cryptoai-production.up.railway.app/${time}/${coin}/${predictionDate}`, { cache: 'no-store' })
   console.log(time)
  
 
