@@ -9,8 +9,28 @@ export default function CryptoPredictions({ fetchprediction }) {
   const [cryptoData, setCryptoData] = useState(null)
   const [forcast, setForecast] = useState(1)
 
-  async function fetchPredictionMiddleWare(coin) {
-    let newData = await fetchprediction(coin)
+
+  async function fetch10PredictionMiddleWare() {
+    console.log('triggered')
+    let coin = cryptoData.crypto
+    let predictiondate = 10
+    let Data10 = await fetchprediction(coin,predictiondate)
+    console.log(Data10)
+    setCryptoData(Data10)
+  }
+
+  async function fetch1PredictionMiddleWare() {
+    console.log('triggered')
+    let coin = cryptoData.crypto
+    let predictiondate = 1
+    let Data10 = await fetchprediction(coin,predictiondate)
+    console.log(Data10)
+    setCryptoData(Data10)
+  }
+
+  async function fetchPredictionMiddleWare(coin,predictiondate=1) { //this works when set to 10 :)
+    console.log(coin)
+    let newData = await fetchprediction(coin,predictiondate)
     console.log(newData)
     setCryptoData(newData)
   }
@@ -41,8 +61,8 @@ export default function CryptoPredictions({ fetchprediction }) {
         <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />
       </div>
       <div className='flex items-center justify-center gap-5 mb-3'>
-        <button className='btn'>One Day ForeCast</button>
-        <button className='btn'>Ten Day ForeCast</button>
+        <button className='btn' onClick={fetch1PredictionMiddleWare}>One Day ForeCast</button>
+        <button className='btn' onClick={fetch10PredictionMiddleWare}>Ten Day ForeCast</button>
       </div>
 
       <div className="stats shadow flex items-center justify-center">
