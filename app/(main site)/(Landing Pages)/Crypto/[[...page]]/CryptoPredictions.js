@@ -17,6 +17,7 @@ export default function CryptoPredictions({ fetchprediction }) {
     let Data10 = await fetchprediction(coin,predictiondate)
     console.log(Data10)
     setCryptoData(Data10)
+    setForecast(10)
   }
 
   async function fetch1PredictionMiddleWare() {
@@ -26,6 +27,7 @@ export default function CryptoPredictions({ fetchprediction }) {
     let Data10 = await fetchprediction(coin,predictiondate)
     console.log(Data10)
     setCryptoData(Data10)
+    setForecast(1)
   }
 
   async function fetchPredictionMiddleWare(coin,predictiondate=1) { //this works when set to 10 :)
@@ -37,9 +39,16 @@ export default function CryptoPredictions({ fetchprediction }) {
 
   const currentTimeStamp = cryptoData?.dateUnEdited
   const currentDate = new Date(currentTimeStamp)
-  const targetDate = new Date(currentDate.getTime() + 2 * 24 * 60 * 60 * 1000);
-  const dayOfWeek = targetDate.getDay();
-  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let targetDate = forcast
+  if (forcast==1){
+  targetDate = new Date(currentDate.getTime() + 1 * 24 * 60 * 60 * 1000);
+  }
+  if (forcast==10){
+  targetDate = new Date(currentDate.getTime() + 1 * 264 * 60 * 60 * 1000);
+
+  }
+  let dayOfWeek = targetDate.getDay();
+  let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   useEffect(() => {
     console.log(null)
@@ -80,9 +89,9 @@ export default function CryptoPredictions({ fetchprediction }) {
           <div className="stat-figure text-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
           </div>
-          <div className="stat-title">{day} {cryptoData?.crypto} Price Prediction</div>
+          <div className="stat-title">{day} in {forcast} days {cryptoData?.crypto} Price Estimation</div>
           <div className="stat-value text-secondary">${cryptoData?.cryptoprediction.toFixed(2)}</div>
-          <div className="stat-desc">Predicted Price</div>
+          <div className="stat-desc">Estimated Price</div>
         </div>
 
         <div className="stat">
