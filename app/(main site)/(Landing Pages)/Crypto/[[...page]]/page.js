@@ -307,7 +307,6 @@ export default async function MetaMaskContainer({ params }) {
 
   async function fetchPredictionHandler(input='ethereum'){
     "use server"
-    console.log(input)
 
     let cryptoData = await fetchprediction(input)
     console.log(cryptoData)
