@@ -1,11 +1,11 @@
           
-import ReactMarkdown from 'react-markdown'
+// import ReactMarkdown from 'react-markdown'
 import Script from 'next/script';
-import Link from 'next/link'
-import Container from '@mui/material/Container';
+// import Link from 'next/link'
+// import Container from '@mui/material/Container';
 import Card from './Card'
-import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
-import About from '../[About]/page';
+// import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
+// import About from '../About/[[...Location]]/page.js';
 import ContactForm from '../ContactForm/page'
 
  

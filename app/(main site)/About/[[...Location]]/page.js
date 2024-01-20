@@ -4,14 +4,14 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import About from './About'
+import About from '../About'
 import BottomNavBar from './BottomNavBar';
-import './markdown.css'
-import ProjectCards from '../ProjectCards/page';
+import '../markdown.css'
+import ProjectCards from '../../ProjectCards/page';
 import Container from '@mui/material/Container';
 
 
-import JumboTron from '../JumboTron/page'
+import JumboTron from '../../JumboTron/page'
 
 
 
@@ -19,13 +19,13 @@ import JumboTron from '../JumboTron/page'
 
 export default function FullBar(props) {
 //
-  // console.log(props.params.About)
+   console.log(props.params.Location)
   let pageToStartAt = 0
   
-  if(props.params.About == 'About'){
+  if(props.params.Location == 'About'){
     pageToStartAt = 0
   }
-  if(props.params.About == 'Projects'){
+  if(props.params.Location == 'Projects'){
     pageToStartAt = 1
   }
 

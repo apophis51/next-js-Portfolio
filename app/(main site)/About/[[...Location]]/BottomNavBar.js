@@ -67,7 +67,7 @@ export default function BottomNavBar(props) {
   const [value, setValue] = React.useState(props.pageToStartAt);
   const [aboutColor, setAboutColor] = React.useState('text-white');
   const [projectsColor, setProjectsColor] = React.useState('text-white');
-  const params = useParams().About
+  const params = useParams().Location
 
   React.useEffect(() => {
     if (params == 'Projects'){setProjectsColor('text-yellow-300')}
@@ -123,7 +123,7 @@ export default function BottomNavBar(props) {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
         textColor='secondary' indicatorColor='secondary'>
           <Link href='/About' scroll={false}><Tab label="About" {...a11yProps(0)} className = {`${aboutColor} text-3xl`} /></Link>
-          <Link href='/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`}/></Link>
+          <Link href='/About/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`}/></Link>
         </Tabs>
         </ThemeProvider>
 
