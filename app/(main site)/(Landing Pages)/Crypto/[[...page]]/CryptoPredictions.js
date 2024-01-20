@@ -119,7 +119,7 @@ export default function CryptoPredictions({ fetchprediction }) {
           </div>
           {priceDirection == 'up' && <div className="stat-value text-green-400">{gains} - Gain</div>}
           {priceDirection == 'down' && <div className="stat-value text-red-400">20% - Loss</div>}
-          <div className="stat-title">Price Direction</div>
+          <div className="stat-title">Price</div>
           <div className="stat-desc text-secondary">Your Money will go {priceDirection}</div>
         </div>
 

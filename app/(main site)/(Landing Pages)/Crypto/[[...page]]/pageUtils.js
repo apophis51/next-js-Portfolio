@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma';
  export async function fetchprediction(coin,predictionDate) {
   let res = await calculatePrediction(coin, 'current',predictionDate)
   let epochTime = new EpochTime();
+  let cool = epochTime.oneDayInMilliseconds
    console.log(epochTime.currentEpoch - res.dateUnEdited)
    if ((epochTime.currentEpoch - res.dateUnEdited) > epochTime.oneDayInMilliseconds) {
         console.log('fetching new prediction')
@@ -15,8 +16,14 @@ console.log(res)
  return (res)
  }
 
+/**
+ * Calculates the prediction for a given coin and time.
+ * @param {string} coin - The name of the coin.
+ * @param {string} [time='current'] - The time period for the prediction. Defaults to 'current'.
+ * @param {string} predictionDate - The date for the prediction.
+ * @returns {Promise<Object>} - A promise that resolves to the prediction data.
+ */
 export async function calculatePrediction(coin, time='current',predictionDate) {
-  console.log(predictionDate)
   let res = await fetch(`https://cryptoai-production.up.railway.app/${time}/${coin}/${predictionDate}`, { cache: 'no-store' })
   console.log(time)
  
