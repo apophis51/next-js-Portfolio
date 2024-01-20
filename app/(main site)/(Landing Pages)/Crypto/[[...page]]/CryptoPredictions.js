@@ -5,25 +5,21 @@ import SelectButton from '@/app/(main site)/Components/SelectButton'
 
 
 
-export default function CryptoPredictions({  fetchprediction }) {
-   const [cryptoData, setCryptoData] = useState(null)
+export default function CryptoPredictions({ fetchprediction }) {
+  const [cryptoData, setCryptoData] = useState(null)
+  const [forcast, setForecast] = useState(1)
 
-async function fetchPredictionMiddleWare(coin){
-let newData = await fetchprediction(coin)
-console.log(newData)
-setCryptoData(newData)
-}
+  async function fetchPredictionMiddleWare(coin) {
+    let newData = await fetchprediction(coin)
+    console.log(newData)
+    setCryptoData(newData)
+  }
 
-  console.log(cryptoData)
   const currentTimeStamp = cryptoData?.dateUnEdited
-  console.log(currentTimeStamp)
   const currentDate = new Date(currentTimeStamp)
   const targetDate = new Date(currentDate.getTime() + 2 * 24 * 60 * 60 * 1000);
-  console.log(targetDate)
   const dayOfWeek = targetDate.getDay();
-  console.log(dayOfWeek)
   const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  console.log(daysOfWeek[dayOfWeek])
 
   useEffect(() => {
     console.log(null)
@@ -32,18 +28,22 @@ setCryptoData(newData)
 
   const [day, setDay] = useState(daysOfWeek[dayOfWeek])
   // const [date, setDate] = useState(targetDate)
-  const selections = [{Value:'', Label:'Select Crypto'},{Value:'ethereum',Label:'Ethereum'},{Value:'bitcoin',Label:'Bitcoin'},{Value:'cardano',Label:'Cardano'},{Value:'polkadot',Label:'Polkadot'},{Value:'solana',Label:'Solana'}]
+  const selections = [{ Value: '', Label: 'Select Crypto' }, { Value: 'ethereum', Label: 'Ethereum' }, { Value: 'bitcoin', Label: 'Bitcoin' }, { Value: 'cardano', Label: 'Cardano' }, { Value: 'polkadot', Label: 'Polkadot' }, { Value: 'solana', Label: 'Solana' }]
 
 
   return (
     <div className=' text-white '>
       <div>
-      <h1 className='text-4xl flex items-center justify-center p-10'>Crypto Predictions - Beta</h1>
+        <h1 className='text-4xl flex items-center justify-center p-10'>Crypto Predictions - Beta</h1>
       </div>
       <br></br>
       <div className='flex items-center justify-center'>
-      <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare}/>
-</div>
+        <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />
+      </div>
+      <div className='flex items-center justify-center gap-5 mb-3'>
+        <button className='btn'>One Day ForeCast</button>
+        <button className='btn'>Ten Day ForeCast</button>
+      </div>
 
       <div className="stats shadow flex items-center justify-center">
 
@@ -53,7 +53,7 @@ setCryptoData(newData)
           </div>
           <div className="stat-title">{cryptoData?.crypto} Price on {cryptoData?.recentDate} </div>
           <div className="stat-value text-primary">${cryptoData?.recentprice.toFixed(2)}</div>
-          <div className="stat-desc">Beta Text</div>
+          <div className="stat-desc">Current Price</div>
         </div>
 
         <div className="stat">
@@ -62,7 +62,7 @@ setCryptoData(newData)
           </div>
           <div className="stat-title">{day} {cryptoData?.crypto} Price Prediction</div>
           <div className="stat-value text-secondary">${cryptoData?.cryptoprediction.toFixed(2)}</div>
-          <div className="stat-desc">Beta Text</div>
+          <div className="stat-desc">Predicted Price</div>
         </div>
 
         <div className="stat">
