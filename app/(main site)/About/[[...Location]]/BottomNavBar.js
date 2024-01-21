@@ -68,10 +68,11 @@ export default function BottomNavBar(props) {
   const [aboutColor, setAboutColor] = React.useState('text-white');
   const [projectsColor, setProjectsColor] = React.useState('text-white');
   const params = useParams().Location
+  console.log(params)
 
   React.useEffect(() => {
     if (params == 'Projects'){setProjectsColor('text-yellow-300')}
-    if (params == 'About'){setAboutColor('text-yellow-300')}
+    if (params == undefined){setAboutColor('text-yellow-300')}
   }, [])
   
   const handleChange = (event, newValue) => {
@@ -116,14 +117,21 @@ export default function BottomNavBar(props) {
    {/* {mygranium()} */}
 
     <Box sx={{ width: '100%' }} className = " child">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }} style={{ color: 'white'}} >
+      <Box sx={{ borderBottom: 1, borderColor: 'divider'}} style={{ color: 'white'}} >
         {/* Tab Features https://mui.com/material-ui/react-tabs/*/}
         <ThemeProvider theme={theme2}>
 
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered style = {{minHeight: "80px"}} className='flex  justify-center items-center lg:pr-52'
         textColor='secondary' indicatorColor='secondary'>
-          <Link href='/About' scroll={false}><Tab label="About" {...a11yProps(0)} className = {`${aboutColor} text-3xl`} /></Link>
-          <Link href='/About/Projects' scroll={false}><Tab label="Projects" {...a11yProps(1)} className = {`${projectsColor} text-3xl`}/></Link>
+          {aboutColor == 'text-yellow-300' && <Link href='/About' scroll={false}><Tab sx={{fontSize:'1.87rem', color:'yellow'}} label="About" {...a11yProps(0)}  /></Link>}
+          {aboutColor == 'text-white' && <Link href='/About' scroll={false}><Tab sx={{fontSize:'1.87rem', color:'white'}} label="About" {...a11yProps(0)}  /></Link>}
+          
+          {projectsColor == 'text-yellow-300' && <Link href='/About/Projects' scroll={false}><Tab label="Projects" sx={{fontSize:'1.87rem', color:'yellow'}} {...a11yProps(1)} /></Link>}
+
+          {projectsColor == 'text-white' && <Link href='/About/Projects' scroll={false}><Tab label="Projects" sx={{fontSize:'1.87rem', color:'white'}} {...a11yProps(1)} /></Link>}
+
+
+          {projectsColor == 'deprecated' && <Link href='/About/Projects' scroll={false}><Tab label="Projects" sx={{fontSize:'1.87rem'}} {...a11yProps(1)} className = {`${projectsColor}`}/></Link>}
         </Tabs>
         </ThemeProvider>
 
