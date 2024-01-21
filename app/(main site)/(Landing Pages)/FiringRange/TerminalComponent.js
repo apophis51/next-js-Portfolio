@@ -1,16 +1,34 @@
 'use client'
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,useState} from 'react';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 
 
+// function idHolder(value){
+// let idHolder = null
+// console.log(idHolder)
+// return function(){
+// idHolder = value
+// return idHolder
+// }
+// }
+
+let isActive = [null]
+
 export default function TerminalComponent({webSocketMessage, childHandler}) {
-  const terminalRef = useRef(null);
 
 
+  const terminalIdRef = useRef(`terminal_${Math.random().toString(36).substr(2, 9)}`);
+    const terminalRef = useRef(null);
+    const isInitialized = useRef(0)
+    // const isActive = useRef([])
+    const idHolder = useRef(null)
+
+ console.log(terminalIdRef)
   const handleEnterKeyPress = (userInput) => {
     console.log('User input:', userInput.trim());
     childHandler(userInput);;
+    
   };
 
 
@@ -25,27 +43,45 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
     // webSocketMessage.map((message, index) => (
     //   terminal.write(message.message)
     // ))
+
+    console.log(isInitialized)
+    // if (terminalRef.current.id == idHolder.current || isInitialized.current < 3) {
+console.log(isActive[isActive.length - 1])
+    // if (terminalRef.current.id == isActive.current[0] || isInitialized.current < 3) {
+      if (terminalRef.current.id == isActive[isActive.length - 1] || isInitialized.current < 3) {
+
+console.log('triggered', terminalRef.current.id)
     webSocketMessage.map((message, index, array) => {
       // if (index === array.length - 1) {
         // This is the last element
         terminal.write(message.message);
       // }
+      isInitialized.current++
       return null; // You need to return something from the map function
     });
-
-
+    }
+  
     // if (webSocketMessage && webSocketMessage.length > 0) {
 
     // terminal.write(webSocketMessage[webSocketMessage.length - 1])
-    
-    terminal.open(terminalRef.current);
-    terminal.focus();
 
+    terminal.open(terminalRef.current);
+
+      if (terminalRef.current.id == idHolder.current) {
+console.log('triggered', terminalRef.current.id)
+    terminal.focus();
+    
+    console.log(idHolder.current)
+    }
+    
     let userInput = '';
     // let cursor = terminal.buffer.active.cursorX;
-  
+    console.log(idHolder.current)
+
     let positionalChange = []
     terminal.onKey(e => {
+      if (terminalRef.current.id == isActive[isActive.length - 1] || isInitialized.current < 3) {
+   
       console.log(e.domEvent.keyCode)
       const { domEvent } = e;
       // Check if the pressed key is the Backspace key
@@ -81,10 +117,13 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
           console.log('Ctrl+C pressed');
           handleEnterKeyPress('\x18')
         }
-      
+      }
       });
 
+    console.log(terminalRef.current.id)
+    console.log(idHolder)
 
+    
     terminal.onData((data) => {
       // Capture user input
       userInput += data;
@@ -110,12 +149,28 @@ export default function TerminalComponent({webSocketMessage, childHandler}) {
       
     });
 
+
     return () => {
       terminal.dispose();
     };
   }, [webSocketMessage]);
 
-  return <div ref={terminalRef} />;
+  const handleMouseOut = () => {
+    // idHolder.current = null
+  }
+
+  const handleClick = () => {
+    // Set terminalRef to the clicked div's ref]
+    console.log('clicked',terminalRef.current.id)
+    idHolder.current = terminalRef.current.id
+    isActive.push(terminalRef.current.id)
+
+    // isActive.current.push(terminalRef.current.id)
+    console.log(isActive)
+    // terminalRef.current = terminalRef.current;
+  };
+
+  return <div ref={terminalRef} id={terminalIdRef.current} onClick={handleClick} onMouseOut={handleMouseOut}/>;
 }
 
 
