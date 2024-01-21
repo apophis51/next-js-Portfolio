@@ -4,8 +4,12 @@ import TerminalComponent from './TerminalComponent.js';
 
 import Chat from './Chat.js'; 
 
+import { usePathname } from 'next/navigation'
+
 
 const App = () => {
+  let pathname = usePathname()
+  console.log(pathname)
   const [socket, setSocket] = useState(null);
   const [messages, setMessages] = useState([{ message: '$ Enter Starts The Terminal Session' }]);
 
@@ -82,7 +86,7 @@ const App = () => {
   return (
     <div data-Section='terminal Wraper' className='mt-5 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.2)]'>
       <div data-Section='chat display' className="bg-white border mb-10" >
-        <Chat  webSocketMessage={chatMessages} chatHandler={chatHandler} inputRef={inputRef}/>
+        {pathname.includes('/FiringRange') && <Chat  webSocketMessage={chatMessages} chatHandler={chatHandler} inputRef={inputRef}/>}
         </div>
       <h1 className='bg-slate-500 text-white h-8 flex items-center border p-1'><b>{">_ Terminal - By MalcMind"}</b></h1>
       <div data-Section='terminal display' className="bg-white border" >
