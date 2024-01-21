@@ -35,7 +35,7 @@ const App = () => {
       console.log('WebSocket connection opened');
     });
 
-    inputRef.current.focus();
+    // inputRef.current.focus();
 
     newSocket.addEventListener('message', (event) => {
    
@@ -46,7 +46,7 @@ const App = () => {
       //chat message logic
       const duplicateMessage = JSON.parse(event.data);
       try{
-        inputRef.current.focus();
+        // inputRef.current.focus();
 
     if (message.message.type.includes('chatMessage')) {
          console.log('fuck yeah nigga')
