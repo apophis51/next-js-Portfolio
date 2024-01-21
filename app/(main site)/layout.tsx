@@ -7,6 +7,8 @@ import Container from '@mui/material/Container';
 import { Providers } from './providers'; //added 9/1/2023 everything that says providers in this doc
 import Script from 'next/script'
 
+import Head from 'next/head'
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -57,6 +59,8 @@ export default function RootLayout({
     />
       {/* <body className="bg-blue-500"> */}
         <body className='h-[10000px]'>
+          <head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3170313872835503"
+     crossOrigin="anonymous"></script></head>
       <Container maxWidth="xl" >
 
         <ThemeProvider theme={theme}>
