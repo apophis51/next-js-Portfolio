@@ -88,7 +88,7 @@ const App = () => {
       <div data-Section='chat display' className="bg-white border mb-10" >
         {pathname.includes('/FiringRange') && <Chat  webSocketMessage={chatMessages} chatHandler={chatHandler} inputRef={inputRef}/>}
         </div>
-      <h1 className='bg-slate-500 text-white h-8 flex items-center border p-1'><b>{">_ Terminal - By MalcMind"}</b></h1>
+      <p className='bg-slate-500 text-white h-8 flex items-center border p-1'><b>{">_ Terminal - By MalcMind"}</b></p>
       <div data-Section='terminal display' className="bg-white border" >
         <TerminalComponent webSocketMessage={messages} childHandler={childHandler} />
       </div>

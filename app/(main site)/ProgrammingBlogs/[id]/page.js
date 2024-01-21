@@ -8,7 +8,7 @@ import { headers } from 'next/headers'
 
 
 import '../prism.css'
-import '../blog.css'
+// import '../blog.css'
 
 const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 
@@ -93,13 +93,13 @@ export default async function Post({ params }) {
 
     return (
               <Container maxWidth="xl"  >
-    <div className = 'bg-white p-9'>
+    <div className = 'bg-white p-9 md:flex flex-col items-center justify-center'>
     {/* <link rel="stylesheet" href="prism.css" /> */}
 
       {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
       strategy="afterInteractive" /> */}
-      <div className='prose  prose-sm max-w-none'>
-        {/* Our ReactMarkdown is generating content from our strapi CMS data object */}
+      {/* <div className='prose  prose-sm max-w-none flex flex-col items-center justify-center'> */}
+      <div className='prose prose-sm lg:prose-xl '>
         <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown>
         <Highlighter />
         </div>
