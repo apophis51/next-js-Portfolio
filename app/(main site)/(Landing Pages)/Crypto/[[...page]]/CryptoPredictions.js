@@ -34,9 +34,11 @@ export default function CryptoPredictions({ fetchprediction }) {
     setForecast(1)
   }
 
+  console.log(gains)
   async function priceDirectionHandler(data){
     let priceGain = ((1 - (data.recentprice / data.cryptoprediction))*100).toFixed(2) + '%'
     console.log(priceGain)
+    console.log(priceGain + '%')
     if (priceGain.includes('-')){
       setGains(priceGain)
       setPriceDirection('down')
@@ -45,8 +47,6 @@ export default function CryptoPredictions({ fetchprediction }) {
       setGains(priceGain)
       setPriceDirection('up')
     }
-    console.log(gains)
-    console.log(priceDirection)
   }
 
   async function fetchPredictionMiddleWare(coin,predictiondate=1) { 
@@ -118,7 +118,7 @@ export default function CryptoPredictions({ fetchprediction }) {
           <div className="stat-figure text-secondary">
           </div>
           {priceDirection == 'up' && <div className="stat-value text-green-400">{gains} - Gain</div>}
-          {priceDirection == 'down' && <div className="stat-value text-red-400">20% - Loss</div>}
+          {priceDirection == 'down' && <div className="stat-value text-red-400">{gains}</div>}
           <div className="stat-title">Price</div>
           <div className="stat-desc text-secondary">Your Money will go {priceDirection}</div>
         </div>
