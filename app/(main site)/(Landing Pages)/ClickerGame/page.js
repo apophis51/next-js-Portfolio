@@ -15,8 +15,14 @@ import dynamic from 'next/dynamic'
 const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
 import GameIntroOutro from './GameIntroOutro';
 
+
+      /**
+ * These are the Atoms that are used to keep track of the game state
+ */
 export const textAtom = atom('Developers Clicker Game') /////////////////////////////////////////////////////
 export const deadAtom = atom(false)
+
+
 
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
@@ -42,10 +48,16 @@ export default function ClickerGame() {
     const [pay, setPay] = useState(0);
 
 
+      /**
+ * These are the Atoms that are used to keep track of the game state
+ */
     const [myAtom, setmyAtom] = useAtom(textAtom)///////////////////////////////////////////////////
     const [dead, setDead] = useAtom(deadAtom)
 
-    console.log(money)
+
+    /**
+ * keeps track of death conditions
+ */
     if (hunger <=0 || entertainment <=0 || health <= 0 || money <= -1)  {
         setDead(true)
         console.log('you died')
