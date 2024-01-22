@@ -1,5 +1,5 @@
 'use client'
-
+import  * as gameFunctions from './Upgrade'
 import { atom, useAtom, Provider } from 'jotai'
 
 import Container from '@mui/material/Container';
@@ -13,10 +13,10 @@ import './App.css';
 import dynamic from 'next/dynamic'
 
 const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
-import GameIntro from './GameIntro';
+import GameIntroOutro from './GameIntroOutro';
 
-export const textAtom = atom('fuck yeah')
-
+export const textAtom = atom('Developers Clicker Game') /////////////////////////////////////////////////////
+export const deadAtom = atom(false)
 
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
@@ -42,9 +42,14 @@ export default function ClickerGame() {
     const [pay, setPay] = useState(0);
 
 
-    const [myAtom, setmyAtom] = useAtom(textAtom)
+    const [myAtom, setmyAtom] = useAtom(textAtom)///////////////////////////////////////////////////
+    const [dead, setDead] = useAtom(deadAtom)
 
-
+    console.log(money)
+    if (hunger <=0 || entertainment <=0 || health <= 0 || money <= -1)  {
+        setDead(true)
+        console.log('you died')
+    }
 
     const handleClick = () => {
         setClicks(clicks + 1);
@@ -82,11 +87,11 @@ export default function ClickerGame() {
     return (
         <Container maxWidth="xl"  >
             <div className="App ">
-                <p>{myAtom}</p>
+                <p className='bg-white'>{myAtom}</p>
                 <header className="App-header">
                     
-                        <GameIntro />
-                    
+                        <GameIntroOutro />
+                    {dead && <GameIntroOutro />}
                     <div className="flex  justify-center gap-5">
                         <div >
                             <AudioPlayer />
@@ -137,31 +142,12 @@ export default function ClickerGame() {
                                 <button className='btn btn-sm'>Entertainment</button>
                             </div>
                             <br></br>
-                            <div className="flex items-center justify-center">
-                                <div className='collapse collapse-arrow bg-base-200 max-w-md  text-black'>
-                                    <input type='checkbox' />
-                                    <p className='text-4xl collapse-title'>Instructions:</p>
-                                    <br></br>
-                                    <div className='collapse-content'>
-                                        <p >  To Win - Become A Software Developer in 1460 days (4 years).</p>
-                                        <br></br>
-                                        <p> If your Entertainment or Hunger Drops to Zero you will die.</p>
-                                        <br></br>
-                                        <p> If you Run out of Money You will die.</p>
-                                        <p>Be sure to pay your bills before they reach 100%!</p>
-                                        <br></br>
-                                        <p>Take Time to Search For Software Jobs - Be warned Your bills will continue to pileup if you search for jobs Instead of working</p>
-                                        <br></br>
-                                        <p>Searching for Software Jobs will result in temporary 50% penality to you income</p>
-                                        <br></br>
-                                        <p>Your software skill will drop slowly overtime if you dont take time to keep learning</p>
-                                    </div>
-                                </div>
-                            </div>
+                            
                            
                             
                         </div>
                         <div className='self-end min-w-[600px]'>
+                            <gameFunctions.Instructions />
                             <br></br>
                             <div>
                                 {clicks >= 10 && (job == 'begger') && (
