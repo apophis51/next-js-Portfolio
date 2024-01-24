@@ -48,7 +48,7 @@ export function UpgradeCollection2({  collection, functionHandler, upgradeText }
       <div className='flex items-center justify-center gap-4 flex-wrap'>
         {collection.map((obj) => {
           const keys = Object.keys(obj);
-          const restOfKeys = keys.slice(1); // Skip the first key
+          const restOfKeys = keys.slice(2); // Skip the first two keys
 
           const newObj = {};
           restOfKeys.forEach((key) => {
@@ -56,15 +56,13 @@ export function UpgradeCollection2({  collection, functionHandler, upgradeText }
           });
           console.log(newObj)
           let money = newObj['cost']
-          console.log(money)
           console.log(newObj)
           // let healthPoints = 100
           return (
             <div key={obj.Name} className=''>
               <div>
-                {money}
                 <p>{obj.Name}</p>
-                <div onClick={() => functionHandler({...newObj})}>
+                <div className= 'flex items-center justify-center' onClick={() => functionHandler({...newObj})}>
                 <Image src={`/clickerGame/${obj.Image}.jpg`}
                   width={100}
                   height={100}

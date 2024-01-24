@@ -1,5 +1,5 @@
 'use client'
-import  * as gameFunctions from './Upgrade'
+import * as gameFunctions from './Upgrade'
 import { atom, useAtom, Provider } from 'jotai'
 
 import Container from '@mui/material/Container';
@@ -16,9 +16,9 @@ const AudioPlayer = dynamic(() => import('./AudioPlayer'), { ssr: false })
 import GameIntroOutro from './GameIntroOutro';
 
 
-      /**
- * These are the Atoms that are used to keep track of the game state
- */
+/**
+* These are the Atoms that are used to keep track of the game state
+*/
 export const textAtom = atom('Developers Clicker Game') /////////////////////////////////////////////////////
 export const deadAtom = atom(false)
 
@@ -27,15 +27,15 @@ export const deadAtom = atom(false)
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
     const [daysElapsed, setDaysElapsed] = useState(0);
-    
+
 
     //delete all these const at some point
     const [health, setHealth] = useState(50);
-    const[healthDrain, setHealthDrain] = useState(1);
+    const [healthDrain, setHealthDrain] = useState(1);
     const [entertainment, setEntertainment] = useState(50);
-    const[entertainmentDrain, setEntertainmentDrain] = useState(1);
+    const [entertainmentDrain, setEntertainmentDrain] = useState(1);
     const [hunger, setHunger] = useState(90);
-    const[hungerDrain, setHungerDrain] = useState(1);
+    const [hungerDrain, setHungerDrain] = useState(1);
     const [pay, setPay] = useState(0);
     const [money, setMoney] = useState(0);
     const [bills, setBills] = useState(0);
@@ -45,30 +45,30 @@ export default function ClickerGame() {
 
 
     const [gameStat, setGameStat] = useState({
-        health: {points: 50, drain:1},
-        entertainment: {points: 50, drain:1},
-        hunger: {points: 90, drain:1},
-        money: {points: 0, drain:0},
-        softwareSkills: {points: 1, drain:0},
-        applications: {points: 0, drain:0},
-        bills: {points: 0, drain:0},
+        health: { points: 50, drain: 1 },
+        entertainment: { points: 50, drain: 1 },
+        hunger: { points: 90, drain: 1 },
+        money: { points: 0, drain: 0 },
+        softwareSkills: { points: 1, drain: 0 },
+        applications: { points: 0, drain: 0 },
+        bills: { points: 0, drain: 0 },
     }
-        )
-
-
-    
+    )
 
 
 
+
+
+    const [functionActivator, SetFunctionActivator] = useState(false);
     const [job, setJob] = useState('begger');
     const [fulltime, setFulltime] = useState(false);
     const [manager, setManager] = useState(false);
     const [house, setHouse] = useState(false);
 
 
-      /**
- * These are the Atoms that are used to keep track of the game state
- */
+    /**
+* These are the Atoms that are used to keep track of the game state
+*/
     const [myAtom, setmyAtom] = useAtom(textAtom)///////////////////////////////////////////////////
     const [dead, setDead] = useAtom(deadAtom)
 
@@ -76,11 +76,11 @@ export default function ClickerGame() {
     /**
  * keeps track of death conditions
  */
-    if (hunger <=0 || entertainment <=0 || health <= 0 || money <= -1)  {
+    if (hunger <= 0 || entertainment <= 0 || health <= 0 || money <= -1) {
         // setDead(true)
         console.log('you died')
     }
-       // health: {points: 50, drain:1},
+    // health: {points: 50, drain:1},
     // entertainment: {points: 50, drain:1},
     // hunger: {points: 90, drain:1},
     // money: {points: 0, drain:0},
@@ -88,78 +88,70 @@ export default function ClickerGame() {
     // applications: {points: 0, drain:0},
     // bills: {points: 0, drain:0},
     const handleStats = ({
-        health=0,  //healthPoints
-        entertainment=0, //entertainmentPoints
-        entertainmentDrain=0,
-        hunger=0, //hungerPoints  
-        hungerDrain=0,
-        cost=0,  //moneyPoints
-        moneyDrain=0,
-        softwareSkillsPoints=0,
-        softwareSkillsDrain=0,
-        applicationsPoints=0,
-        applicationsDrain=0,
-        billsPoints=0,
-        billsDrain=0,
+        health = 0,  //healthPoints
+        entertainment = 0, //entertainmentPoints
+        entertainmentDrain = 0,
+        hunger = 0, //hungerPoints  
+        hungerDrain = 0,
+        cost = 0,  //moneyPoints
+        moneyDrain = 0,
+        softwareSkillsPoints = 0,
+        softwareSkillsDrain = 0,
+        applicationsPoints = 0,
+        applicationsDrain = 0,
+        billsPoints = 0,
+        billsDrain = 0,
     }) => {
         health = health + gameStat.health.points
         entertainment = entertainment + gameStat.entertainment.points
         hunger = hunger + gameStat.hunger.points
         hungerDrain = hungerDrain + gameStat.hunger.drain
-        cost = gameStat.money.points-cost
+        cost = gameStat.money.points - cost
         console.log(cost)
-        moneyDrain = moneyDrain - gameStat.money.drain
+        moneyDrain = moneyDrain + gameStat.money.drain
         softwareSkillsPoints = softwareSkillsPoints + gameStat.softwareSkills.points
         softwareSkillsDrain = softwareSkillsDrain + gameStat.softwareSkills.drain
         applicationsPoints = applicationsPoints + gameStat.applications.points
         applicationsDrain = applicationsDrain + gameStat.applications.drain
         billsPoints = billsPoints + gameStat.bills.points
         billsDrain = billsDrain + gameStat.bills.drain
-         // health: {points: 50, drain:1},
-    // entertainment: {points: 50, drain:1},
-    // hunger: {points: 90, drain:1},
-    // money: {points: 0, drain:0},
-    // softwareSkills: {points: 1, drain:0},
-    // applications: {points: 0, drain:0},
-    // bills: {points: 0, drain:0},
-            console.log (gameStat.hunger.points)
-            console.log(gameStat)
-        setGameStat(prevState => ({...prevState, money: {points: cost, drain: moneyDrain}, hunger: {points: hunger, drain: hungerDrain}, entertainment: {points: entertainment, drain: entertainmentDrain}, health: {points: health, drain: healthDrain}, softwareSkills: {points: softwareSkillsPoints, drain: softwareSkillsDrain}, applications: {points: applicationsPoints, drain: applicationsDrain}, bills: {points: billsPoints, drain: billsDrain}}))
-            // setGameStat({
-        //     health: {points: health, drain: healthDrain},
-        //     entertainment: {points: entertainment, drain: entertainmentDrain},
-        //     hunger: {points: hunger, drain: hungerDrain},
-        //     money: {points: cost, drain: moneyDrain},
-        //     softwareSkills: {points: softwareSkillsPoints, drain: softwareSkillsDrain},
-        //     applications: {points: applicationsPoints, drain: applicationsDrain},
-        //     bills: {points: billsPoints, drain: billsDrain},
-        // })
+        setGameStat(prevState => ({
+            ...prevState,
+            money: { points: cost, drain: moneyDrain },
+            hunger: { points: hunger, drain: hungerDrain },
+            entertainment: { points: entertainment, drain: entertainmentDrain },
+            health: { points: health, drain: healthDrain },
+            softwareSkills: { points: softwareSkillsPoints, drain: softwareSkillsDrain },
+            applications: { points: applicationsPoints, drain: applicationsDrain },
+            bills: { points: billsPoints, drain: billsDrain }
+        }))
         console.log(gameStat)
     }
 
     const handleClick = () => {
         setClicks(clicks + 1);
         let ammount = gameStat.money.points + 2
-        setGameStat(prevState => ({...prevState, money: {points: ammount, drain: 0}}))
+        setGameStat(prevState => ({ ...prevState, money: { points: ammount, drain: gameStat.money.drain } }))
     };
-
+    const handleJobClick = ({ Daily_Pay = 0 }) => {
+        // setJob(upgrade)
+        console.log('triggered')
+        Daily_Pay = Daily_Pay
+        console.log(Daily_Pay)
+        setGameStat(prevState => ({ ...prevState, money: { points: 0, drain: Daily_Pay } }))
+    };
 
     const handleHouseClick = (upgrade) => {
         console.log('null')
     }
 
-    const handlePowerUpClick = (upgrade) => {
-        setJob(upgrade)
-        setPay(pay + 50);
-        setMoney(money - 5);
-    };
+
 
     console.log('triggered')
     console.log(gameStat)
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setGameStat((prevState) => ({...prevState, health: {points: prevState.health.points - prevState.health.drain, drain: prevState.health.drain}, entertainment: {points: prevState.entertainment.points - prevState.entertainment.drain, drain: prevState.entertainment.drain}, hunger: {points: prevState.hunger.points - prevState.hunger.drain, drain: prevState.hunger.drain}, money: {points: prevState.money.points + pay, drain: prevState.money.drain}, softwareSkills: {points: prevState.softwareSkills.points - prevState.softwareSkills.drain, drain: prevState.softwareSkills.drain}, applications: {points: prevState.applications.points - prevState.applications.drain, drain: prevState.applications.drain}, bills: {points: prevState.bills.points - prevState.bills.drain, drain: prevState.bills.drain}}))
-            // setMoney((prevClicks) => prevClicks + pay);
+            setGameStat((prevState) => ({ ...prevState, health: { points: prevState.health.points - prevState.health.drain, drain: prevState.health.drain }, entertainment: { points: prevState.entertainment.points - prevState.entertainment.drain, drain: prevState.entertainment.drain }, hunger: { points: prevState.hunger.points - prevState.hunger.drain, drain: prevState.hunger.drain }, money: { points: prevState.money.points + pay + prevState.money.drain, drain: prevState.money.drain }, softwareSkills: { points: prevState.softwareSkills.points - prevState.softwareSkills.drain, drain: prevState.softwareSkills.drain }, applications: { points: prevState.applications.points - prevState.applications.drain, drain: prevState.applications.drain }, bills: { points: prevState.bills.points - prevState.bills.drain, drain: prevState.bills.drain } }))
             setDaysElapsed((prevClicks) => prevClicks + 1);
             setEntertainment((prevClicks) => prevClicks - 1);
             setHealth((prevClicks) => prevClicks - 1);
@@ -174,8 +166,8 @@ export default function ClickerGame() {
             <div className="App ">
                 <p className='bg-white'>{myAtom}</p>
                 <header className="App-header">
-                    
-                        <GameIntroOutro />
+
+                    <GameIntroOutro />
                     {dead && <GameIntroOutro />}
                     <div className="flex  justify-center gap-5">
                         <div >
@@ -227,9 +219,9 @@ export default function ClickerGame() {
                                 <button className='btn btn-sm'>Entertainment</button>
                             </div>
                             <br></br>
-                            
-                           
-                            
+
+
+
                         </div>
                         <div className='self-end min-w-[600px]'>
                             <gameFunctions.Instructions />
@@ -254,19 +246,33 @@ export default function ClickerGame() {
                                 {clicks >= 30 && (manager == false) && (
                                     <UpgradeCollection
                                         collection={['Restaurant Manager', 'Retail Manager', 'Restaurant Manager', 'Warehouse Manager']}
-                                        functionHandler={handlePowerUpClick} />
+                                        functionHandler={handleJobClick} />
                                 )}
-                            </div>   
+                            </div>
+                            <div onClick={()=>SetFunctionActivator('A9')}>
+                                {
+                                    <gameFunctions.UpgradeCollection2
+                                        collection={[
+                                            { Image: 'Restaurant Manager', Name: 'Restaurant Manager', Daily_Pay: 200 },
+                                            { Image: 'Retail Manager', Name: 'Retail Manager', Daily_Pay: 200 },
+                                            { Image: 'Warehouse Manager', Name: 'Warehouse Manager', Daily_Pay: 200 },
+                                            { Image: 'Driver Manager', Name: 'Driver Manager', Daily_Pay: 200 }
+
+                                        ]}
+                                        functionHandler={handleJobClick}
+                                        upgradeText={'Click A Food Item to Eat it'} />
+                                }
+                            </div>
                             <div>
                                 {
                                     <gameFunctions.UpgradeCollection2
                                         collection={[
-                                            {Image:'burger', Name: 'burger', cost: 30, hunger: 2, health: -2, entertainment: 2},
-                                            {Image:'carrot', Name: 'carrot', cost: 10, hunger: 1, health: +1, entertainment: 0},
-                                            {Image:'vegies', Name: 'Fancy Vegies', cost: 20, hunger: 2, health: +1, entertainment: 1}
-                                            ]}
-                                        functionHandler={handleStats} 
-                                        upgradeText ={'Click A Food Item to Eat it'}/>
+                                            { Image: 'burger', Name: 'burger', cost: 30, hunger: 2, health: -2, entertainment: 2 },
+                                            { Image: 'carrot', Name: 'carrot', cost: 10, hunger: 1, health: +1, entertainment: 0 },
+                                            { Image: 'vegies', Name: 'Fancy Vegies', cost: 20, hunger: 2, health: +1, entertainment: 1 }
+                                        ]}
+                                        functionHandler={handleStats}
+                                        upgradeText={'Click A Food Item to Eat it'} />
                                 }
                             </div>
                             <div onClick={() => setHouse(true)}>
