@@ -17,9 +17,9 @@ const AudioPlayer = () => {
     let audio = useRef(null);
     const [musicInit, setMusicInit] = useState(false)
     const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
-
+console.log(audio)
     console.log(isPlaying)
-  
+  //
     if(isPlaying && !musicInit){
       audio = new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3')
       // setAudio(new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3'))
