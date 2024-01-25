@@ -48,23 +48,21 @@ export function UpgradeCollection2({  collection, functionHandler, upgradeText }
       <div className='flex items-center justify-center gap-4 flex-wrap'>
         {collection.map((obj) => {
           const keys = Object.keys(obj);
-          const restOfKeys = keys.slice(1); // Skip the first key
-
+          const restOfKeys = keys.slice(2); // Skip the first two keys
+console.log(obj)
           const newObj = {};
           restOfKeys.forEach((key) => {
             newObj[key] = obj[key];
           });
           console.log(newObj)
           let money = newObj['cost']
-          console.log(money)
           console.log(newObj)
           // let healthPoints = 100
           return (
             <div key={obj.Name} className=''>
               <div>
-                {money}
                 <p>{obj.Name}</p>
-                <div onClick={() => functionHandler({...newObj})}>
+                <div className= 'flex items-center justify-center' onClick={() => functionHandler({...obj})}>
                 <Image src={`/clickerGame/${obj.Image}.jpg`}
                   width={100}
                   height={100}
@@ -74,7 +72,7 @@ export function UpgradeCollection2({  collection, functionHandler, upgradeText }
                 {/* Render the values from the modified object */}
                 {Object.entries(newObj).map(([key,value]) => (
                   <div>
-                  {key=='Name' && <p>{value}</p>}
+                  {key=='Name' || key=='Job' && <p>{value}</p>}
                   {key!='Name' && value > 0 && <p key={key}>+ {value} {key}</p>}
                   {key!='Name' && value <= 0 && <p key={key}>{value} {key}</p>}
                   </div>
