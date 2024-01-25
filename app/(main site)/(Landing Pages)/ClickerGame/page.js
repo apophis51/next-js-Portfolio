@@ -27,9 +27,6 @@ export const deadAtom = atom(false)
 export default function ClickerGame() {
     const [clicks, setClicks] = useState(0);
     const [daysElapsed, setDaysElapsed] = useState(0);
-
-
-    //delete all these const at some point
     const [health, setHealth] = useState(50);
     const [healthDrain, setHealthDrain] = useState(1);
     const [entertainment, setEntertainment] = useState(50);
@@ -41,6 +38,12 @@ export default function ClickerGame() {
     const [bills, setBills] = useState(0);
     const [softwareSkills, setSoftwareSkills] = useState(1);
     const [applications, setApplications] = useState(0);
+    const [job, setJob] = useState('begger');
+    const [manager, setManager] = useState(false);
+    const [fulltime, setFulltime] = useState(false);
+    const [house, setHouse] = useState(false);
+    const [functionActivator, SetFunctionActivator] = useState(false);
+
 
 
 
@@ -52,6 +55,12 @@ export default function ClickerGame() {
         softwareSkills: { points: 1, drain: 0 },
         applications: { points: 0, drain: 0 },
         bills: { points: 0, drain: 0 },
+        job: { title: 'begger'},
+        manager: false,
+        fulltime: false,
+        house: false,
+        clicks: 0,
+        daysElapsed: 0,
     }
     )
 
@@ -59,11 +68,6 @@ export default function ClickerGame() {
 
 
 
-    const [functionActivator, SetFunctionActivator] = useState(false);
-    const [job, setJob] = useState('begger');
-    const [fulltime, setFulltime] = useState(false);
-    const [manager, setManager] = useState(false);
-    const [house, setHouse] = useState(false);
 
 
     /**
@@ -94,13 +98,19 @@ export default function ClickerGame() {
         hunger = 0, //hungerPoints  
         hungerDrain = 0,
         cost = 0,  //moneyPoints
-        moneyDrain = 0,
+        Daily_Pay = 0, // this is the daily pay
         softwareSkillsPoints = 0,
         softwareSkillsDrain = 0,
         applicationsPoints = 0,
         applicationsDrain = 0,
         billsPoints = 0,
         billsDrain = 0,
+        Job = gameStat.job.title,  // initial is begger
+        manager = gameStat.manager, // initial is false
+        fulltime = gameStat.fulltime, // initial is false
+        house = gameStat.house, // initial is false
+        clicks = gameStat.clicks, // initial is 0
+        daysElapsed = gameStat.daysElapsed, // initial is 0
     }) => {
         health = health + gameStat.health.points
         entertainment = entertainment + gameStat.entertainment.points
@@ -108,7 +118,7 @@ export default function ClickerGame() {
         hungerDrain = hungerDrain + gameStat.hunger.drain
         cost = gameStat.money.points - cost
         console.log(cost)
-        moneyDrain = moneyDrain + gameStat.money.drain
+        Daily_Pay = Daily_Pay + gameStat.money.drain
         softwareSkillsPoints = softwareSkillsPoints + gameStat.softwareSkills.points
         softwareSkillsDrain = softwareSkillsDrain + gameStat.softwareSkills.drain
         applicationsPoints = applicationsPoints + gameStat.applications.points
@@ -117,13 +127,14 @@ export default function ClickerGame() {
         billsDrain = billsDrain + gameStat.bills.drain
         setGameStat(prevState => ({
             ...prevState,
-            money: { points: cost, drain: moneyDrain },
+            money: { points: cost, drain: Daily_Pay },
             hunger: { points: hunger, drain: hungerDrain },
             entertainment: { points: entertainment, drain: entertainmentDrain },
             health: { points: health, drain: healthDrain },
             softwareSkills: { points: softwareSkillsPoints, drain: softwareSkillsDrain },
             applications: { points: applicationsPoints, drain: applicationsDrain },
-            bills: { points: billsPoints, drain: billsDrain }
+            bills: { points: billsPoints, drain: billsDrain },
+            job: { title: Job }
         }))
         console.log(gameStat)
     }
@@ -133,13 +144,13 @@ export default function ClickerGame() {
         let ammount = gameStat.money.points + 2
         setGameStat(prevState => ({ ...prevState, money: { points: ammount, drain: gameStat.money.drain } }))
     };
-    const handleJobClick = ({ Daily_Pay = 0 }) => {
-        // setJob(upgrade)
-        console.log('triggered')
-        Daily_Pay = Daily_Pay
-        console.log(Daily_Pay)
-        setGameStat(prevState => ({ ...prevState, money: { points: 0, drain: Daily_Pay } }))
-    };
+    // const handleJobClick = ({ Daily_Pay = 0 }) => {
+    //     // setJob(upgrade)
+    //     console.log('triggered')
+    //     Daily_Pay = Daily_Pay
+    //     console.log(Daily_Pay)
+    //     setGameStat(prevState => ({ ...prevState, money: { points: 0, drain: Daily_Pay } }))
+    // };
 
     const handleHouseClick = (upgrade) => {
         console.log('null')
@@ -178,7 +189,7 @@ export default function ClickerGame() {
                             <br></br>
 
                             <div className="flex items-center justify-center">
-                                <Image src={`/clickerGame/${job}.jpg`}
+                                <Image src={`/clickerGame/${gameStat.job.title}.jpg`}
                                     alt="homeless"
                                     width={300}
                                     height={300}
@@ -249,18 +260,18 @@ export default function ClickerGame() {
                                         functionHandler={handleJobClick} />
                                 )}
                             </div>
-                            <div onClick={()=>SetFunctionActivator('A9')}>
+                            <div >
                                 {
                                     <gameFunctions.UpgradeCollection2
                                         collection={[
-                                            { Image: 'Restaurant Manager', Name: 'Restaurant Manager', Daily_Pay: 200 },
-                                            { Image: 'Retail Manager', Name: 'Retail Manager', Daily_Pay: 200 },
-                                            { Image: 'Warehouse Manager', Name: 'Warehouse Manager', Daily_Pay: 200 },
-                                            { Image: 'Driver Manager', Name: 'Driver Manager', Daily_Pay: 200 }
+                                            { Image: 'Restaurant Manager', Job: 'Restaurant Manager', Daily_Pay: 200 },
+                                            { Image: 'Retail Manager', Job: 'Retail Manager', Daily_Pay: 200 },
+                                            { Image: 'Warehouse Manager', Job: 'Warehouse Manager', Daily_Pay: 200 },
+                                            { Image: 'Driver Manager', Job: 'Driver Manager', Daily_Pay: 200 }
 
                                         ]}
-                                        functionHandler={handleJobClick}
-                                        upgradeText={'Click A Food Item to Eat it'} />
+                                        functionHandler={handleStats}
+                                        upgradeText={'You Have Been Promoted to Manager!'} />
                                 }
                             </div>
                             <div>

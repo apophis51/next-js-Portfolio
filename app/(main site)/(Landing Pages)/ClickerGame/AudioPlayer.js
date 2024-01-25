@@ -6,10 +6,13 @@ import { Provider, atom, useAtom } from 'jotai'
 
 export const isPlayingAtom = atom(false)
 
+let newAudio = new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3')
+
 const AudioPlayer = () => {
     // State to track the audio element and playback status
     //music is from https://www.premiumbeat.com/royalty-free-music-genre/games?page=5
-    const [audio, setAudio] = useState(new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3'));
+    // const [audio, setAudio] = useState(new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3'));
+    const [audio, setAudio] = useState(newAudio);
     const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
 
     console.log(isPlaying)
