@@ -25,24 +25,16 @@ export const deadAtom = atom(false)
 
 
 export default function ClickerGame() {
-    const [clicks, setClicks] = useState(0);
-    const [daysElapsed, setDaysElapsed] = useState(0);
     const [health, setHealth] = useState(50);
     const [healthDrain, setHealthDrain] = useState(1);
     const [entertainment, setEntertainment] = useState(50);
-    const [entertainmentDrain, setEntertainmentDrain] = useState(1);
     const [hunger, setHunger] = useState(90);
-    const [hungerDrain, setHungerDrain] = useState(1);
     const [pay, setPay] = useState(0);
     const [money, setMoney] = useState(0);
-    const [bills, setBills] = useState(0);
-    const [softwareSkills, setSoftwareSkills] = useState(1);
-    const [applications, setApplications] = useState(0);
     const [job, setJob] = useState('begger');
     const [manager, setManager] = useState(false);
     const [fulltime, setFulltime] = useState(false);
     const [house, setHouse] = useState(false);
-    const [functionActivator, SetFunctionActivator] = useState(false);
 
 
 
@@ -51,7 +43,7 @@ export default function ClickerGame() {
         health: { points: 50, drain: 1 },
         entertainment: { points: 50, drain: 1 },
         hunger: { points: 90, drain: 1 },
-        money: { points: 0, drain: 0 },
+        money: { points: 0, drain: 2 },
         softwareSkills: { points: 1, drain: 0 },
         applications: { points: 0, drain: 0 },
         bills: { points: 0, drain: 0 },
@@ -141,33 +133,23 @@ export default function ClickerGame() {
     }
 
     const handleClick = () => {
-        setClicks(clicks + 1);
-        let ammount = gameStat.money.points + 2
-        setGameStat(prevState => ({ ...prevState, money: { points: ammount, drain: gameStat.money.drain } }))
+        setGameStat(prevState => ({ ...prevState, money: { points: (prevState.money.points + gameStat.money.drain), drain: gameStat.money.drain },
+        clicks: prevState.clicks + 1 }))
     };
-    // const handleJobClick = ({ Daily_Pay = 0 }) => {
-    //     // setJob(upgrade)
-    //     console.log('triggered')
-    //     Daily_Pay = Daily_Pay
-    //     console.log(Daily_Pay)
-    //     setGameStat(prevState => ({ ...prevState, money: { points: 0, drain: Daily_Pay } }))
-    // };
+ 
 
     const handleHouseClick = (upgrade) => {
         console.log('null')
     }
 
-
-
-    console.log('triggered')
-    console.log(gameStat)
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setGameStat((prevState) => ({ ...prevState, health: { points: prevState.health.points - prevState.health.drain, drain: prevState.health.drain }, entertainment: { points: prevState.entertainment.points - prevState.entertainment.drain, drain: prevState.entertainment.drain }, hunger: { points: prevState.hunger.points - prevState.hunger.drain, drain: prevState.hunger.drain }, money: { points: prevState.money.points + pay + prevState.money.drain, drain: prevState.money.drain }, softwareSkills: { points: prevState.softwareSkills.points - prevState.softwareSkills.drain, drain: prevState.softwareSkills.drain }, applications: { points: prevState.applications.points - prevState.applications.drain, drain: prevState.applications.drain }, bills: { points: prevState.bills.points - prevState.bills.drain, drain: prevState.bills.drain } }))
-            setDaysElapsed((prevClicks) => prevClicks + 1);
-            setEntertainment((prevClicks) => prevClicks - 1);
-            setHealth((prevClicks) => prevClicks - 1);
-            setHunger((prevClicks) => prevClicks - 1);
+            setGameStat((prevState) => ({ ...prevState, 
+                daysElapsed: (prevState.daysElapsed + 1),
+                hunger: { points: (prevState.hunger.points - 1), drain: prevState.hunger.drain },
+                entertainment: { points: (prevState.entertainment.points - 1), drain: prevState.entertainment.drain },
+                health: { points: (prevState.health.points - 1), drain: prevState.health.drain },
+            }))
         }, 1000);
 
         return () => clearInterval(intervalId);
@@ -219,13 +201,13 @@ export default function ClickerGame() {
                             <br></br>
                             <br></br>
                             <p>You currently work as a {job} person.</p>
-                            <p>Current Pay: ${pay}</p>
+                            <p>Current Pay: ${gameStat.money.drain}</p>
                             <br></br>
-                            <p>Days Elapsed: {daysElapsed} </p>
+                            <p>Days Elapsed: {gameStat.daysElapsed} </p>
                             <p>Software Applications: {gameStat.applications.points}</p>
-                            <p>Rent and Bills: {bills}</p>
+                            <p>Rent and Bills: {gameStat.bills.points}</p>
                             <br></br>
-                            <p>Total Clicks: {clicks}</p>
+                            <p>Total Clicks: {gameStat.clicks}</p>
                             <p>Money earned: ${gameStat.money.points}</p>
                             <br></br>
                             <button onClick={handleClick} className='btn'>Work</button>
@@ -246,15 +228,23 @@ export default function ClickerGame() {
                         <div className='self-end min-w-[600px]'>
                             <gameFunctions.Instructions />
                             <br></br>
-                            <div>
-                                {clicks >= 10 && (job == 'begger') && (
-                                    <UpgradeCollection
-                                        collection={['driver', 'retail', 'food', 'warehouse']}
-                                        functionHandler={handlePowerUpClick} />
-                                )}
-                            </div>
+                            {gameStat.clicks >= 10 && (gameStat.job.title == 'begger') && (
+                            <div >
+                                {
+                                    <gameFunctions.UpgradeCollection2
+                                        collection={[
+                                            { Image: 'driver', Job: 'driver', Daily_Pay: 50 },
+                                            { Image: 'retail', Job: 'retail', Daily_Pay: 50 },
+                                            { Image: 'food', Job: 'food', Daily_Pay: 50 },
+                                            { Image: 'warehouse', Job: 'warehouse', Daily_Pay: 50 }
+
+                                        ]}
+                                        functionHandler={handleStats}
+                                        upgradeText={'Get a Part Time Job'} />
+                                }
+                            </div>)}
                             <div onClick={() => setFulltime(true)}>
-                                {clicks >= 15 && (fulltime == false) && (
+                                {gameStat.clicks >= 15 && (fulltime == false) && (
                                     <UpgradeCollection
                                         collection={['Full Time Driver', 'Full Time Retail', 'Full Time Food', 'Full Time Warehouse']}
                                         functionHandler={handlePowerUpClick}
@@ -263,7 +253,7 @@ export default function ClickerGame() {
                                 )}
                             </div>
                             <div onClick={() => setManager(true)}>
-                                {clicks >= 30 && (manager == false) && (
+                                {gameStat.clicks >= 30 && (manager == false) && (
                                     <UpgradeCollection
                                         collection={['Restaurant Manager', 'Retail Manager', 'Restaurant Manager', 'Warehouse Manager']}
                                         functionHandler={handleJobClick} />
