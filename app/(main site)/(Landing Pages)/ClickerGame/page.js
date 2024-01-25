@@ -55,12 +55,13 @@ export default function ClickerGame() {
         softwareSkills: { points: 1, drain: 0 },
         applications: { points: 0, drain: 0 },
         bills: { points: 0, drain: 0 },
-        job: { title: 'begger'},
+        job: { title: 'begger' },
         manager: false,
         fulltime: false,
         house: false,
         clicks: 0,
         daysElapsed: 0,
+        musicInit: false
     }
     )
 
@@ -183,6 +184,14 @@ export default function ClickerGame() {
                     <div className="flex  justify-center gap-5">
                         <div >
                             <AudioPlayer />
+                            {/* {gameStat.musicInit ==  && (
+                                <>
+                                    <AudioPlayer />
+                                    {console.log(gameStat.musicInit)}
+                                    {setGameStat(prevState => ({ ...prevState, musicInit: true }))}
+                                    {console.log(gameStat.musicInit)}
+                                </>
+                            )} */}
                             <h2 className='text-4xl'> The WebDeveloper Game</h2>
                             <br></br>
                             <p className='text-2xl'>(strategy clicker game)</p>

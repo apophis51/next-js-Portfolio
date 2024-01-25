@@ -1,25 +1,31 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import { Provider, atom, useAtom } from 'jotai'
 
 export const isPlayingAtom = atom(false)
 
-const newAudio = new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3')
+
 
 
 const AudioPlayer = () => {
     // State to track the audio element and playback status
     //music is from https://www.premiumbeat.com/royalty-free-music-genre/games?page=5
-    const [audio, setAudio] = useState(newAudio);
+    // const [audio, setAudio] = useState(new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3'));
+    // const [audio, setAudio] = useState({placeholder: 'placeholder'});
+    let audio = useRef(null);
+    const [musicInit, setMusicInit] = useState(false)
     const [isPlaying, setIsPlaying] = useAtom(isPlayingAtom);
 
     console.log(isPlaying)
   
-    if(isPlaying){
+    if(isPlaying && !musicInit){
+      audio = new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3')
+      // setAudio(new Audio('/clickerGame/Widget_By_Harrison_Amer.mp3'))
       audio.play();
       audio.loop = true;
+      setMusicInit(true)
     }
 
     // Function to handle play/pause
