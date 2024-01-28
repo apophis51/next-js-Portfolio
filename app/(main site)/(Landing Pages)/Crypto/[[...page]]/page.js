@@ -2,7 +2,7 @@ import GuessTheNumberGame from './GuessTheNumberGame'
 import { ethers } from 'ethers';
 import Container from '@mui/material/Container';
 import Hero from '@/app/(main site)/Components/Hero'
-import { fetchprediction, updateDatabase} from './pageUtils'
+import { fetchprediction, updateDatabase, fetchCryptoPriceData} from './pageUtils'
 // import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
 import ContentController from '@/app/(main site)/Components/ContentController'
@@ -307,10 +307,18 @@ export default async function MetaMaskContainer({ params }) {
 
   async function fetchPredictionHandler(input='ethereum',predictionDate){
     "use server"
-
     let cryptoData = await fetchprediction(input,predictionDate)
     console.log(cryptoData)
     return cryptoData
+  }
+
+
+  async function fetchCryptoPriceDataHandler(coin){
+    "use server"
+    console.log(coin)
+    let priceData = await fetchCryptoPriceData(coin)
+    console.log(priceData)
+    return priceData
   }
 
   //  let cryptoData = await fetchprediction('ethereum')
@@ -338,7 +346,7 @@ export default async function MetaMaskContainer({ params }) {
           },
           {
             TabName: 'Crypto Predictions',
-            Content: <CryptoPredictions /*cryptoData={cryptoData}*/ fetchprediction={fetchPredictionHandler}/>,
+            Content: <CryptoPredictions /*cryptoData={cryptoData}*/ fetchprediction={fetchPredictionHandler} fetchCryptoPriceData={fetchCryptoPriceDataHandler}/>,
             landingPage: '/Crypto/Crypto-Predictions'
           },
         ]} landingpage={landingpage} />

@@ -5,14 +5,28 @@ import SelectButton from '@/app/(main site)/Components/SelectButton'
 
 
 
-export default function CryptoPredictions({ fetchprediction }) {
+export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceData }) {
   const [cryptoData, setCryptoData] = useState(null)
   const [forcast, setForecast] = useState(1)
   const [gains, setGains] = useState(null)
   const [priceDirection, setPriceDirection] = useState(null)
+  const [historicalData, setHistoricalData] = useState(null)
+
+  async function fetchHistoricalDataHandler(){
+    console.log('triggered')
+    let coin =cryptoData.crypto
+    console.log(coin)
+    let result = await fetchCryptoPriceData(coin)
+    console.log(result)
+    setHistoricalData(result)
+  
+  }
+
+
 
 
   async function fetch10PredictionMiddleWare() {
+    fetchHistoricalDataHandler()
     console.log('triggered')
     let coin = cryptoData.crypto
     let predictiondate = 10
@@ -85,6 +99,7 @@ export default function CryptoPredictions({ fetchprediction }) {
       <div>
         <h1 className='text-4xl   md:text-4xl flex items-center justify-center p-10 '>Crypto Predictions - Beta</h1>
       </div>
+      {historicalData}
       <br></br>
       <div className='flex items-center justify-center'>
         <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />
