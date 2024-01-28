@@ -86,47 +86,6 @@ console.log(obj)
     </div>)
 }
 
-export function UpgradeCollection({ functionHandler, collection }) {
-  console.log('activated')
-  return (
-    <div className='border-4'>
-      <p className='mt-5 '>Get a Real Job for Daily Minimum Wage + $50 per/day </p>
-      <br></br>
-      <div className="flex items-center justify-center gap-4">
-        {collection.map((upgrade) => (
-          <Upgrade upgrade={upgrade} functionHandler={functionHandler} />
-        ))}
-      </div>
-    </div>)
-}
-
-
-/**
- * Renders The picture and attaches the image to the upgrade 
- *
- * @param {Object} props - The component props.
- * @param {string} props.upgrade - The upgrade name.
- * @param {Function} props.functionHandler - The function handler for the upgrade.
- * @returns {JSX.Element} The upgrade component.
- */
-export function Upgrade({ upgrade, functionHandler, stats }) {
-  return (
-    <div>
-      <Image src={`/clickerGame/${upgrade}.jpg`}
-        width={100}
-        height={100}
-        onClick={() => functionHandler(upgrade)}
-      />
-      <p>{upgrade}</p>
-      <p>{stats}</p>
-      <p>+1 health</p>
-      <p>+1 hunger</p>
-      <p>30 Cost</p>
-      <p>+1 entertainment</p>
-    </div>
-  )
-}
-
 export function BarStats({ percent = 100, stat }) {
   return (
     <div className="flex items-center justify-center">
