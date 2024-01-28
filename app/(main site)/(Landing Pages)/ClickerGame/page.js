@@ -3,7 +3,7 @@ import * as gameFunctions from './Upgrade'
 import { atom, useAtom, Provider } from 'jotai'
 
 import Container from '@mui/material/Container';
-import {  BarStats } from './Upgrade'
+import { BarStats } from './Upgrade'
 
 import Image from 'next/image'
 
@@ -74,10 +74,10 @@ export default function ClickerGame() {
         console.log('you died')
     }
 
-    
 
-    
-   
+
+
+
 
 
 
@@ -89,7 +89,7 @@ export default function ClickerGame() {
         health = 0,  //healthPoints
         healthDrain = 0,
         entertainment = 0, //entertainmentPoints
-        Daily_Entertainment= 0,
+        Daily_Entertainment = 0,
         hunger = 0, //hungerPoints  
         hungerDrain = 0,
         cost = 0,  //moneyPoints
@@ -119,7 +119,7 @@ export default function ClickerGame() {
         applicationsDrain = applicationsDrain + gameStat.applications.drain
         setGameStat(prevState => ({
             ...prevState,
-            money: { points: (prevState.money.points)-cost, drain: Daily_Pay },
+            money: { points: (prevState.money.points) - cost, drain: Daily_Pay },
             hunger: { points: hunger, drain: hungerDrain },
             entertainment: { points: entertainment, drain: Daily_Entertainment },
             health: { points: health, drain: healthDrain },
@@ -132,10 +132,12 @@ export default function ClickerGame() {
     }
 
     const handleClick = () => {
-        setGameStat(prevState => ({ ...prevState, money: { points: (prevState.money.points + gameStat.money.drain), drain: gameStat.money.drain },
-        clicks: prevState.clicks + 1 }))
+        setGameStat(prevState => ({
+            ...prevState, money: { points: (prevState.money.points + gameStat.money.drain), drain: gameStat.money.drain },
+            clicks: prevState.clicks + 1
+        }))
     };
- 
+
 
     const handleHouseClick = (upgrade) => {
         console.log('null')
@@ -150,30 +152,31 @@ export default function ClickerGame() {
 
             setGameStat((prevState) => {
                 let updatedState = { ...prevState };
-        
-                if((updatedState.daysElapsed % 10) == 0 ){
+
+                if ((updatedState.daysElapsed % 10) == 0) {
                     console.log(true)
-                
+
                     console.log('triggered')
-                    updatedState.bills.points = updatedState.bills.points + updatedState.bills.drain/2
+                    updatedState.bills.points = updatedState.bills.points + updatedState.bills.drain / 2
                 }
                 return updatedState
-                })
-             
+            })
 
 
-        
+
+
 
             setGameStat((prevState) => (
-                { ...prevState, 
-                daysElapsed: (prevState.daysElapsed + 1),
-                hunger: { points: (prevState.hunger.points + prevState.hunger.drain), drain: prevState.hunger.drain },
-                entertainment: { points: (prevState.entertainment.points + prevState.entertainment.drain), drain: prevState.entertainment.drain },
-                health: { points: (prevState.health.points + prevState.health.drain), drain: prevState.health.drain },
-            }))
+                {
+                    ...prevState,
+                    daysElapsed: (prevState.daysElapsed + 1),
+                    hunger: { points: (prevState.hunger.points + prevState.hunger.drain), drain: prevState.hunger.drain },
+                    entertainment: { points: (prevState.entertainment.points + prevState.entertainment.drain), drain: prevState.entertainment.drain },
+                    health: { points: (prevState.health.points + prevState.health.drain), drain: prevState.health.drain },
+                }))
 
 
-   
+
 
 
         }, 1000);
@@ -256,50 +259,75 @@ export default function ClickerGame() {
                             <gameFunctions.Instructions />
                             <br></br>
 
+
+                            {/* {<gameFunctions.UpgradeCollection3
+                                gameStat={gameStat}
+                                conditional={"gameStat.clicks >= 10 && (gameStat.job.title == 'begger')"}
+                                functionHandler={handleStats}
+                                upgradeText={'Get a Part Time Job'}
+                                collection={[
+                                    {
+                                        collection1: [{ Image: 'driver', Job: 'driver', Daily_Pay: 50 },
+                                        { Image: 'retail', Job: 'retail', Daily_Pay: 50 },
+                                        { Image: 'food', Job: 'food', Daily_Pay: 50 },
+                                        { Image: 'warehouse', Job: 'warehouse', Daily_Pay: 50 }], 
+                                        conditional: "gameStat.clicks >= 10 && (gameStat.job.title == 'begger')", 
+                                        upgradeText: 'Get a Part Time Job'
+                                    },
+                                    { Image: 'retail', Job: 'retail', Daily_Pay: 50 },
+                                    { Image: 'food', Job: 'food', Daily_Pay: 50 },
+                                    { Image: 'warehouse', Job: 'warehouse', Daily_Pay: 50 }
+                                ]} />} */}
+
+
                             {gameStat.clicks >= 10 && (gameStat.job.title == 'begger') && (
-                            <div >
-                                {
-                                    <gameFunctions.UpgradeCollection2
-                                        collection={[
-                                            { Image: 'driver', Job: 'driver', Daily_Pay: 50 },
-                                            { Image: 'retail', Job: 'retail', Daily_Pay: 50 },
-                                            { Image: 'food', Job: 'food', Daily_Pay: 50 },
-                                            { Image: 'warehouse', Job: 'warehouse', Daily_Pay: 50 }
+                                <div >
+                                    {
+                                        <gameFunctions.UpgradeCollection2
+                                            collection={[
+                                                { Image: 'driver', Job: 'driver', Daily_Pay: 50 },
+                                                { Image: 'retail', Job: 'retail', Daily_Pay: 50 },
+                                                { Image: 'food', Job: 'food', Daily_Pay: 50 },
+                                                { Image: 'warehouse', Job: 'warehouse', Daily_Pay: 50 }
 
-                                        ]}
-                                        functionHandler={handleStats}
-                                        upgradeText={'Get a Part Time Job'} />
-                                }
+                                            ]}
+                                            functionHandler={handleStats}
+                                            upgradeText={'Get a Part Time Job'} />
+                                    }
+                                </div>)}
+
+                            {gameStat.clicks >= 15 && (gameStat.fulltime == false) && (<div onClick={() => setGameStat((prevState) => ({
+                                ...prevState,
+                                fulltime: true
+                            }))}>
+                                <gameFunctions.UpgradeCollection2
+                                    collection={[
+                                        { Image: 'Full Time Driver', Job: 'Full Time Driver', Daily_Pay: 100 },
+                                        { Image: 'Full Time Retail', Job: 'Full Time Retail', Daily_Pay: 100 },
+                                        { Image: 'Full Time Food', Job: 'Full Time Food', Daily_Pay: 100 },
+                                        { Image: 'Full Time Warehouse', Job: 'Full Time Warehouse', Daily_Pay: 100 }
+
+                                    ]}
+                                    functionHandler={handleStats}
+                                    upgradeText={'You Have Been Promoted to Manager!'} />
+
                             </div>)}
 
-                            {gameStat.clicks >= 15 && (gameStat.fulltime == false) && (<div onClick={() => setGameStat((prevState) => ({ ...prevState, 
-                fulltime: true}))}>
-                                    <gameFunctions.UpgradeCollection2
-                                        collection={[
-                                            { Image: 'Full Time Driver', Job: 'Full Time Driver', Daily_Pay: 100 },
-                                            { Image: 'Full Time Retail', Job: 'Full Time Retail', Daily_Pay: 100 },
-                                            { Image: 'Full Time Food', Job: 'Full Time Food', Daily_Pay: 100 },
-                                            { Image: 'Full Time Warehouse', Job: 'Full Time Warehouse', Daily_Pay: 100 }
+                            {gameStat.clicks >= 30 && (gameStat.manager == false) && (<div onClick={() => setGameStat((prevState) => ({
+                                ...prevState,
+                                manager: true
+                            }))}>
+                                <gameFunctions.UpgradeCollection2
+                                    collection={[
+                                        { Image: 'Restaurant Manager', Job: 'Restaurant Manager', Daily_Pay: 200 },
+                                        { Image: 'Retail Manager', Job: 'Retail Manager', Daily_Pay: 200 },
+                                        { Image: 'Warehouse Manager', Job: 'Warehouse Manager', Daily_Pay: 200 },
+                                        { Image: 'Driver Manager', Job: 'Driver Manager', Daily_Pay: 200 }
 
-                                        ]}
-                                        functionHandler={handleStats}
-                                        upgradeText={'You Have Been Promoted to Manager!'} />
-                                
-                            </div>)}
+                                    ]}
+                                    functionHandler={handleStats}
+                                    upgradeText={'You Have Been Promoted to Manager!'} />
 
-                            {gameStat.clicks >= 30 && (gameStat.manager == false) && (<div onClick={() => setGameStat((prevState) => ({ ...prevState, 
-                manager: true}))}>
-                                    <gameFunctions.UpgradeCollection2
-                                        collection={[
-                                            { Image: 'Restaurant Manager', Job: 'Restaurant Manager', Daily_Pay: 200 },
-                                            { Image: 'Retail Manager', Job: 'Retail Manager', Daily_Pay: 200 },
-                                            { Image: 'Warehouse Manager', Job: 'Warehouse Manager', Daily_Pay: 200 },
-                                            { Image: 'Driver Manager', Job: 'Driver Manager', Daily_Pay: 200 }
-
-                                        ]}
-                                        functionHandler={handleStats}
-                                        upgradeText={'You Have Been Promoted to Manager!'} />
-                                
                             </div>)}
                             <div>
                                 {
@@ -314,17 +342,19 @@ export default function ClickerGame() {
                                 }
                             </div>
 
-                            {gameStat.house == false && (<div onClick={() => setGameStat((prevState) => ({ ...prevState, 
-                house: true}))}>
-                                    <gameFunctions.UpgradeCollection2
-                                        collection={[
-                                            { Image: 'broke house', Name:'broke house', Rent_Cost: 700, Daily_Health: 1, Daily_Entertainment:0},
-                                            { Image: 'medium house', Name: 'medium house', Rent_Cost: 1200 },
-                                            { Image: 'rich house', Name: 'rich house', Rent_Cost: 2000, Daily_Health: 2, Daily_Entertainment: 4 },
-                                        ]}
-                                        functionHandler={handleStats}
-                                        upgradeText={'Rent a Home!'} />
-                                
+                            {gameStat.house == false && (<div onClick={() => setGameStat((prevState) => ({
+                                ...prevState,
+                                house: true
+                            }))}>
+                                <gameFunctions.UpgradeCollection2
+                                    collection={[
+                                        { Image: 'broke house', Name: 'broke house', Rent_Cost: 700, Daily_Health: 1, Daily_Entertainment: 0 },
+                                        { Image: 'medium house', Name: 'medium house', Rent_Cost: 1200 },
+                                        { Image: 'rich house', Name: 'rich house', Rent_Cost: 2000, Daily_Health: 2, Daily_Entertainment: 4 },
+                                    ]}
+                                    functionHandler={handleStats}
+                                    upgradeText={'Rent a Home!'} />
+
                             </div>)}
                         </div>
                     </div >
