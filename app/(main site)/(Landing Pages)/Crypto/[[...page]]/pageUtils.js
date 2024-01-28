@@ -6,10 +6,14 @@ import { prisma } from '@/lib/prisma';
   let res = await calculatePrediction(coin, 'current',predictionDate)
   let epochTime = new EpochTime();
   let cool = epochTime.oneDayInMilliseconds
+  console.log(res.dateUnEdited)
    console.log(epochTime.currentEpoch - res.dateUnEdited)
+   console.log(epochTime.oneDayInMilliseconds)
    if ((epochTime.currentEpoch - res.dateUnEdited) > epochTime.oneDayInMilliseconds) {
         console.log('fetching new prediction')
-        res = await calculatePrediction(coin, 'new')
+        // res = await calculatePrediction(coin, 'new')
+        res = await fetch('https://cryptoai-production.up.railway.app/updateAll', { cache: 'no-store' })
+        return (null)
    }
    updateDatabase(res)
 console.log(res)
@@ -27,7 +31,7 @@ export async function calculatePrediction(coin, time='current',predictionDate) {
   let res = await fetch(`https://cryptoai-production.up.railway.app/${time}/${coin}/${predictionDate}`, { cache: 'no-store' })
   console.log(time)
  
-
+console.log(coin)
   console.log('data fetched')
   if (!res.ok) {
     console.log('failed to fetch')
