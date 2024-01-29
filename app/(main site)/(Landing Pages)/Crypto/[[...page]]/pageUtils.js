@@ -1,5 +1,32 @@
+"use server"
+
 import { prisma } from '@/lib/prisma';
  import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
+
+ export async function fetchCryptoPriceData(coin) {
+  "use server"
+  try {
+    console.log('triggered');
+    let priceData = await fetch(`https://cryptoai-production.up.railway.app/chartData/${coin}/`, { cache: 'no-store' });
+    console.log('triggered')
+    if (!priceData.ok) {
+      console.log('failed to fetch')
+      console.log(priceData.status)
+      throw new Error(`Failed to fetch data. Status: ${priceData.status}`);
+    }
+    
+    let returnData = await priceData.json();
+    console.log('triggered')
+    console.log(returnData);
+    console.log('data fetched')
+    return returnData;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // You might want to handle the error appropriately, e.g., show a message to the user.
+    throw error; // Re-throw the error to propagate it further if needed.
+  }
+}
+
 
 
  export async function fetchprediction(coin,predictionDate) {
