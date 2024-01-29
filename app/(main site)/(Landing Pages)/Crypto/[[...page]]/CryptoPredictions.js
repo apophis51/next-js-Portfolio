@@ -1,7 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import GoogleCryptoChart from './GoogleCryptoChart'
+
 import SelectButton from '@/app/(main site)/Components/SelectButton'
+
 
 
 
@@ -24,9 +27,9 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
 
 
 
+  
 
   async function fetch10PredictionMiddleWare() {
-    fetchHistoricalDataHandler()
     console.log('triggered')
     let coin = cryptoData.crypto
     let predictiondate = 10
@@ -85,6 +88,7 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
   let daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   useEffect(() => {
+    fetchHistoricalDataHandler()
     console.log(null)
     setDay(daysOfWeek[dayOfWeek])
   }, [cryptoData])
@@ -99,7 +103,7 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
       <div>
         <h1 className='text-4xl   md:text-4xl flex items-center justify-center p-10 '>Crypto Predictions - Beta</h1>
       </div>
-      {historicalData}
+      {(historicalData) && (<GoogleCryptoChart historicalData={historicalData} cryptoData={cryptoData?.crypto} />)}
       <br></br>
       <div className='flex items-center justify-center'>
         <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />

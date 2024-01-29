@@ -321,19 +321,7 @@ export default async function MetaMaskContainer({ params }) {
     return priceData
   }
 
-  //  let cryptoData = await fetchprediction('ethereum')
-  // let cryptoData = await fetchPredictionHandler()
-  // console.log(cryptoData) //
-   //we need to bring this function back
-  //  let epochTime = new EpochTime();
-  //  console.log(epochTime.currentEpoch - cryptoData.dateUnEdited)
-//    if ((epochTime.currentEpoch - cryptoData.dateUnEdited) > epochTime.oneDayInMilliseconds) {
-//    console.log('fetching new prediction')
-//   //   cryptoData = await fetchNewPrediction()
-//    }
 
-  
-  // updateDatabase(cryptoData)
   return (
     <div>
       <Container maxWidth="xl"  >
