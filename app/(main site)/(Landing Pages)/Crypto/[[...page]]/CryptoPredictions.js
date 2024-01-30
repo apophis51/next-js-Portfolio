@@ -1,5 +1,5 @@
 'use client'
-
+//
 import { useState, useEffect } from 'react'
 import GoogleCryptoChart from './GoogleCryptoChart'
 
@@ -103,7 +103,9 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
       <div>
         <h1 className='text-4xl   md:text-4xl flex items-center justify-center p-10 '>Crypto Predictions - Beta</h1>
       </div>
+      <div className='flex items-center justify-center'>
       {(historicalData) && (<GoogleCryptoChart historicalData={historicalData} cryptoData={cryptoData?.crypto} />)}
+      </div>
       <br></br>
       <div className='flex items-center justify-center'>
         <SelectButton selectionmenu={selections} setFilterFunction={fetchPredictionMiddleWare} />
