@@ -1,3 +1,7 @@
+//Refrence this for updates:
+//https://developers.google.com/chart/interactive/docs/gallery/linechart
+//https://www.react-google-charts.com/examples/line-chart
+
 "use client"
 
 import React, { useEffect } from 'react';
@@ -25,10 +29,12 @@ export default function GoogleCryptoChart({historicalData,cryptoData}) {
   }, []);
 
   return (
-    <div>
+    <div >
       <Chart
+
         chartType="LineChart"
-        width="100%"
+        // width="90%"
+        width='350px'
         height="400px"
         data={chartData}
         options={chartOptions}
