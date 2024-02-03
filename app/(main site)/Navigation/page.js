@@ -61,6 +61,20 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isDropdownVisible, setDropdownVisible] = React.useState(false);
+
+  const handleMouseEnter = () => {
+    setDropdownVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownVisible(false);
+  };
+
+  // Step 3: Close the dropdown when an item is clicked
+  const handleItemClick = () => {
+    setDropdownVisible(false);
+  };
 
   //admin page added 12/5/2023
   const { data, error, isLoading } = useSWR('/authentication', fetcher)
@@ -203,9 +217,10 @@ function ResponsiveAppBar() {
               >       
       
      <div className="dropdown dropdown-hover" style={{  zIndex: 3}}>
-  <div tabIndex={0} role="button" className=""><p>{page.name}</p></div>
-  {(page.subMenu) && ( <ul tabIndex={0} className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52" style={{   backgroundColor: 'rgba(20, 400, 400, 0.5)'}}>
-    {page.subMenu?.map((subPage) => (<li><Link href={subPage.href} prefetch={true}>{subPage.name}</Link></li>))}
+  <div tabIndex={0} role="button" onMouseEnter={handleMouseEnter}
+        ><p>{page.name}</p></div>
+  {(page.subMenu) && (isDropdownVisible) && ( <ul tabIndex={0}  onMouseLeave={handleMouseLeave} className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52" style={{   backgroundColor: 'rgba(20, 400, 400, 0.5)'}}>
+    {page.subMenu?.map((subPage) => (<li onClick={handleItemClick}><Link href={subPage.href} prefetch={true}>{subPage.name}</Link></li>))}
   </ul>)}
 </div> 
     {/* non mobile menu */}
