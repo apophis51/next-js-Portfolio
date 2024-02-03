@@ -52,7 +52,7 @@ let WebSocket = {name: 'Admin-Homepage', href: '/HomePage'};
 let OldTheme = {name: 'About', href: '/About'};
 let WebDesignService = {name: 'Web Apps', href: '/Web-Apps'};
 let ProgrammingBlogs = {name: 'Programming', href: '/ProgrammingBlogs'};
-let CryptoGame = {name: 'Crypto', href: '/Crypto/Crypto-Games-and-Predictions'};
+let CryptoGame = {name: 'Crypto', href: '/Crypto/Crypto-Games-and-Predictions', subMenu: [{name: 'Guess-The-Number-Crypto-Game', href: '/Crypto/Crypto-Games-and-Predictions'}, {name: 'Crypto-Games-and-Predictions' , href: '/Crypto/Crypto-Predictions'}]};
 let HackThis = {name: 'Hacker Firing Range', href: '/FiringRange'};
 
 let pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis];
@@ -87,8 +87,9 @@ function ResponsiveAppBar() {
 
   return (
     
-    <AppBar position="static" className='rounded-lg'sx={{
+    <AppBar position="sticky" className='rounded-lg'sx={{
       height: 150, 
+      zIndex: 1000,
       marginBottom: '10px',
       boxShadow: 'inset 1px 1px 10px 1px rgba(255, 255, 255, 0.7)',
       filter: 'drop-shadow(4px 4px 3px black)',
@@ -200,7 +201,13 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 sx={{  color: 'white', display: 'block', boxShadow: 'inset 0px 0px 10px 1px rgba(255, 255, 255, 0.1)',}}
               >       
-      <p>{page.name}</p>
+      
+     <div className="dropdown dropdown-hover" style={{  zIndex: 3}}>
+  <div tabIndex={0} role="button" className=""><p>{page.name}</p></div>
+  {(page.subMenu) && ( <ul tabIndex={0} className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52" style={{   backgroundColor: 'rgba(20, 400, 400, 0.5)'}}>
+    {page.subMenu?.map((subPage) => (<li><Link href={subPage.href} prefetch={true}>{subPage.name}</Link></li>))}
+  </ul>)}
+</div> 
     {/* non mobile menu */}
               </Button>
               </Link>

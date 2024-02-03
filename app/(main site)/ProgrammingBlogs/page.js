@@ -2,7 +2,7 @@
 import Script from 'next/script';
 import Container from '@mui/material/Container';
 import Hero from '../Components/Hero'
-import './blog.css'
+// import './blog.css'
 import './prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
