@@ -9,6 +9,10 @@ import Pagination from '@/app/(main site)/Components/Pagination.tsx'
 
 export default function BlogCollection({data}){
     const [blogFilter, setBlogFilter] = useState('')
+    const [sliceTopNumber, setSliceTopNumber] = useState(10)
+    const [sliceBottomNumber, setSliceBottomNumber] = useState(0)
+    console.log(data.data.length)
+
 
     return(
         <div className="bg-gradient-to-br from-green-700 via-blue-600 to-green-800 mt-4 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
@@ -16,7 +20,7 @@ export default function BlogCollection({data}){
             <BlogControl setBlogFilter={setBlogFilter}/>
             </div>
         <section className = "flex flex-wrap justify-evenly gap-5 bg-blue-900 p-8">      
-        {data.data.map((item) => (item.attributes.Blog_Type == "Programming" && (item.attributes.Title).toLowerCase().includes(blogFilter) ?
+        { data.data.slice(sliceBottomNumber,sliceTopNumber).map((item) => (item.attributes.Blog_Type == "Programming" && (item.attributes.Title).toLowerCase().includes(blogFilter) ?
         <images >
           <Card 
               //  blogLink =  {`/ProgrammingBlogs/${item.id}`}
@@ -27,7 +31,7 @@ export default function BlogCollection({data}){
         </images> : null))}
       
       </section>
-      <Pagination />
+      <Pagination dataLength={data.data.length} setSliceTopNumber = {setSliceTopNumber} setSliceBottomNumber={setSliceBottomNumber}/>
       </div>
       
     )
