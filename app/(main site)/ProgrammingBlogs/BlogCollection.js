@@ -5,7 +5,7 @@ import Card from './Card'
 import ReactMarkdown from 'react-markdown'
 import BlogControl from './BlogControl'
 import { useState } from 'react';
-
+import Pagination from '@/app/(main site)/Components/Pagination.tsx'
 
 export default function BlogCollection({data}){
     const [blogFilter, setBlogFilter] = useState('')
@@ -27,6 +27,8 @@ export default function BlogCollection({data}){
         </images> : null))}
       
       </section>
+      <Pagination />
       </div>
+      
     )
 }
