@@ -1,5 +1,4 @@
 
-//renable database later
 "use server"
 
 import { prisma } from '@/lib/prisma';
@@ -44,7 +43,7 @@ import { prisma } from '@/lib/prisma';
         res = await fetch('https://cryptoai-production.up.railway.app/updateAll', { cache: 'no-store' })
         return (null)
    }
-  //  updateDatabase(res)
+   updateDatabase(res)
 console.log(res)
  return (res)
  }

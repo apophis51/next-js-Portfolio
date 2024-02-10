@@ -11,7 +11,7 @@ export default function GoogleCryptoChart({historicalData,cryptoData}) {
   // Sample data
   const chartData = [
     ['Date', 'Value'],
-    ...historicalData,
+    ...historicalData.prices,
     // [1533686400000, 6711.73242235858],
     
     // Add the rest of your data here
