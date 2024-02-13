@@ -5,7 +5,8 @@ import Container from '@mui/material/Container';
 import Highlighter from './highlighter'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
-
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { Suspense } from 'react'
 
 import '../prism.css'
 // import '../blog.css'
@@ -90,17 +91,22 @@ export default async function Post({ params }) {
   };
   console.log('TestRed' , post.data)
 
+  const MDXcomponents = { App }
 
     return (
               <Container maxWidth="xl"  >
     <div className = 'bg-white p-9 md:flex flex-col items-center justify-center'>
     {/* <link rel="stylesheet" href="prism.css" /> */}
-
       {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
       strategy="afterInteractive" /> */}
       {/* <div className='prose  prose-sm max-w-none flex flex-col items-center justify-center'> */}
-      <div className='prose prose-sm lg:prose-xl '>
-        <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown>
+      <div className='prose prose-sm lg:prose-xl prose-a:text-red-600'>
+        {/* <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown> */}
+        <MDXRemote
+        components={MDXcomponents}
+      source={post.data.attributes.Content}
+    />
+
         <Highlighter />
         </div>
     </div>

@@ -4,6 +4,7 @@ import Prism from "prismjs";
 import { useEffect } from "react";
 import 'prismjs/components/prism-jsx';// Import the JSX language definition
 import 'prismjs/components/prism-markdown';// Import the Markdown language definition
+import 'prismjs/components/prism-python';// Import the Python language definition
 
 
 export default function Highlighter() {
