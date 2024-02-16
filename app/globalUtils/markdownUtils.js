@@ -1,0 +1,21 @@
+
+
+export function processMarkdown(markdownContent) {
+    const lines = markdownContent.split('\n');
+    // Regular expression to match Markdown headings
+    const headingRegex = /^(#{1,6})\s+(.+)$/;
+    // Array to store heading objects
+    const headingsArray = [];
+    // Process each line and extract heading information
+    lines.forEach(line => {
+      const match = line.match(headingRegex);
+      if (match) {
+        const depth = match[1].length; // Number of '#' characters indicates the heading depth
+        const text = match[2].trim(); // Extract the text content of the heading
+        const link = '#' + text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  
+        headingsArray.push({ level: depth, text, link});
+      }
+    });
+    console.log(headingsArray)
+    return headingsArray;
+  }
