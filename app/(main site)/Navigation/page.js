@@ -77,7 +77,7 @@ function ResponsiveAppBar() {
   };
 
   //admin page added 12/5/2023
-  const { data, error, isLoading } = useSWR('/authentication', fetcher)
+  const { data, error, isLoading } = useSWR('/api', fetcher)
   if (data) {
     if(data.authenticated == true){
       pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis, WebSocket]
