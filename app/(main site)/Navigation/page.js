@@ -20,14 +20,14 @@ import './LoginButton.css'
 import './MenuStyles.css'
 
 import useSWR from 'swr'
-import { LoginButton, LogoutButton } from "../api";  
+import { LoginButton, LogoutButton } from "../auth";  
 
 import './fireLetters.css'
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export function LogStatus() {
-  const { data, error, isLoading } = useSWR('/authentication', fetcher)
+  const { data, error, isLoading } = useSWR('/api', fetcher)
   if (data) {
     if(data.authenticated == true){
   return (
