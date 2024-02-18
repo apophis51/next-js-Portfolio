@@ -56,6 +56,6 @@ export default authMiddleware({
   ignoredRoutes: ['/no-auth-in-this-route'],
 });
 
-// export const config = {
-//   matcher: ['/About/:path*', '/dashboard/:path*'],
-// }
+export const config = {
+  matcher: ['/About/:path*', '/dashboard/:path*'],
+}
