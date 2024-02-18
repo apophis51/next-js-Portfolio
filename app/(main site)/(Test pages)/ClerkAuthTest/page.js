@@ -9,9 +9,11 @@ export default function ClerkAuthTest(){
     <ClerkProvider>
       <div className='bg-white'>
       <UserButton />
+      <div>
       <SignInButton>
       <button>Sign in with Clerk</button>
       </SignInButton>
+      </div>
         <p>this is an auth test </p>
         </div>
     </ClerkProvider>

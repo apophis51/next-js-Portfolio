@@ -57,5 +57,5 @@ export default authMiddleware({
 });
 
 export const config = {
-  matcher: ['/About/:path*', '/dashboard/:path*'],
+  matcher: ['/dashboard/:path*'],
 }
