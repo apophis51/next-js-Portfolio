@@ -27,7 +27,7 @@ import './fireLetters.css'
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export function LogStatus() {
-  const { data, error, isLoading } = useSWR('/authentication', fetcher)
+  const { data, error, isLoading } = useSWR('/api', fetcher)
   if (data) {
     if(data.authenticated == true){
   return (
