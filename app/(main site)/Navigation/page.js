@@ -20,7 +20,7 @@ import './LoginButton.css'
 import './MenuStyles.css'
 
 import useSWR from 'swr'
-import { LoginButton, LogoutButton } from "../auth";  
+import { LoginButton, LogoutButton } from "../api";  
 
 import './fireLetters.css'
 

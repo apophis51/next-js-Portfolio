@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth"
-import { authOptions } from "../authentication/auth/[...nextauth]/route"
+import { authOptions } from "../api/auth/[...nextauth]/route"
 import {User} from '../user'
 import { LoginButton, LogoutButton } from "../auth";  
 import { Providers } from '../providers'; //added 9/1/2023 everything that says providers in this doc
