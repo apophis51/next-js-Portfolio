@@ -20,25 +20,58 @@ import './LoginButton.css'
 import './MenuStyles.css'
 
 import useSWR from 'swr'
-import { LoginButton, LogoutButton } from "../auth";  
+// import { LoginButton, LogoutButton } from "../auth";  /Clerk Deprecation
+
+import { SignOutButton, SignInButton } from "@clerk/nextjs";
+import { useAuth, useUser } from "@clerk/nextjs";
+
 
 import './fireLetters.css'
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 export function LogStatus() {
-  const { data, error, isLoading } = useSWR('/api', fetcher)
-  if (data) {
-    if(data.authenticated == true){
+  //this line is needed to renable next auth
+  // const { data, error, isLoading } = useSWR('/api', fetcher)
+  // if (data) {
+  //   if(data.authenticated == true){
+    //end line needed to reenable next auth
+
+//comment out this line to delete clerk 2/18/2024
+  const { userId, sessionId } = useAuth();
+  const { isSignedIn, user } = useUser();
+  console.log(userId, sessionId, isSignedIn, user)
+  console.log(user?.publicMetadata.role)
+      if(true){
+
+        if(userId == (undefined || null)){ 
+          //end comment out line to delete clerk
   return (
-      <button className="text-2xl text-yellow-500 button">
-          <LogoutButton/>
-      </button>
+    //add this line to get nextjs back
+      // <button className="text-2xl text-yellow-500 button">
+      //     {/* <LogoutButton/> */}
+      //     <SignOutButton/>          
+      // </button>
+      //end add this line to get nextjs back
+      //delete this line to delete clerk 2/18/2024
+      <SignInButton>
+      <button className="text-2xl text-yellow-500 button">Login</button>
+      </SignInButton>
+      //end delete this line to delete clerk 2/18/2024
   )} else{
     return(
-      <button className="text-2xl text-yellow-500 button">
-          <LoginButton/>          
-      </button>
+      //add this line to get nextjs back
+      // <button className="text-2xl text-yellow-500 button">
+      //     {/* <LoginButton/> */}
+      // </button>
+      // end add this line to get nextjs back
+      //delete this line to delete clerk 2/18/2024
+      <div>
+                <SignOutButton>
+                <button className="text-2xl text-yellow-500 button">Logout</button> 
+                </SignOutButton>
+</div>
+      //end delete this line to delete clerk 2/18/2024
     )
   }
   }
@@ -77,12 +110,20 @@ function ResponsiveAppBar() {
   };
 
   //admin page added 12/5/2023
-  const { data, error, isLoading } = useSWR('/api', fetcher)
-  if (data) {
-    if(data.authenticated == true){
+  // const { data, error, isLoading } = useSWR('/api', fetcher)
+  // if (data) {
+  //   if(data.authenticated == true){
+  //     pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis, WebSocket]
+  // } 
+  // }//end admin page added 12/5/2023
+  //clerk edit 2/18/2024
+  const { isSignedIn, user } = useUser();
+  if (user?.publicMetadata.role == 'admin') {
       pages = [OldTheme, WebDesignService, ProgrammingBlogs, CryptoGame, HackThis, WebSocket]
   } 
-  }//end admin page added 12/5/2023
+  
+  
+  //end clerk edit 2/18/2024
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

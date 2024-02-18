@@ -1,5 +1,4 @@
-import { ClerkProvider } from '@clerk/nextjs'
-// import '.@/app/(main site)/globals.css'
+// import { ClerkProvider } from '@clerk/nextjs'
 import { UserButton } from "@clerk/nextjs";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Dashboard from '@/app/(main site)/(Test pages)/ClerkAuthTest/Dashboard/data'
@@ -9,7 +8,8 @@ export default function ClerkAuthTest(params: {
   console.log(params)
 
   return (        
-    <ClerkProvider>
+    <div>
+    {/* <ClerkProvider> */}
       <div className='bg-white'>
       <Dashboard props={params}/>
       <UserButton />
@@ -27,6 +27,7 @@ export default function ClerkAuthTest(params: {
         <p>This content is private. Only signed in users can see this.</p>
       </SignedIn>
       </div>
-    </ClerkProvider>
+    {/* </ClerkProvider> */}
+    </div>
   )
 }

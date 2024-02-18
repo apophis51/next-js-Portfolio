@@ -9,6 +9,9 @@ import Script from 'next/script'
 
 import Head from 'next/head'
 
+
+import { ClerkProvider } from '@clerk/nextjs'
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -61,7 +64,7 @@ export default function RootLayout({
         <body className='h-[10000px]'>
           <head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3170313872835503"
      crossOrigin="anonymous"></script></head>
-      <Container maxWidth="xl" >
+      <ClerkProvider><Container maxWidth="xl" >
 
         <ThemeProvider theme={theme}>
 
@@ -70,7 +73,7 @@ export default function RootLayout({
    </ThemeProvider>
    </Container>
 
-   <Providers>{children}</Providers>
+   <Providers>{children}</Providers></ClerkProvider>
 
    </body>
 
