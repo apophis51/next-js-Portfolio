@@ -37,12 +37,12 @@ import { prisma } from '@/lib/prisma';
   console.log(res.dateUnEdited)
    console.log(epochTime.currentEpoch - res.dateUnEdited)
    console.log(epochTime.oneDayInMilliseconds)
-   if ((epochTime.currentEpoch - res.dateUnEdited) > epochTime.oneDayInMilliseconds) {
-        console.log('fetching new prediction')
-        // res = await calculatePrediction(coin, 'new')
-        res = await fetch('https://cryptoai-production.up.railway.app/updateAll', { cache: 'no-store' })
-        return (null)
-   }
+  //  if ((epochTime.currentEpoch - res.dateUnEdited) > epochTime.oneDayInMilliseconds) {
+  //       console.log('fetching new prediction')
+  //       // res = await calculatePrediction(coin, 'new')
+  //       res = await fetch('https://cryptoai-production.up.railway.app/updateAll', { cache: 'no-store' })
+  //       return (null)
+  //  }
    updateDatabase(res)
 console.log(res)
  return (res)
