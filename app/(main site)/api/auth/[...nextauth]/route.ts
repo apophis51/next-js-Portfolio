@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {     //deleted export because this 
         ...profile,
         role: profile.role ?? "user",
         id: profile.name,
-        randomKey: "cool"
+        randomKey: "you are a google user!"
     }
   },
     clientId: process.env.GOOGLE_CLIENT_ID as string,

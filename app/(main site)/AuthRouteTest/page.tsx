@@ -2,7 +2,7 @@
 
 import { getServerSession } from 'next-auth'
 import {redirect} from 'next/navigation'
-import { authOptions } from '../authentication/auth/[...nextauth]/route'
+import { authOptions } from '../api/auth/[...nextauth]/route'
 
 // import { useSession } from 'next-auth/react'
 export default async function Dashboard() {
