@@ -5,6 +5,7 @@
 
 async function getData2() {
   const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?populate=*`)
+  // const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?pagination[page]=1&pagination[pageSize]=60`)
   console.log(res)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
@@ -18,6 +19,7 @@ async function getData2() {
 export default async function Hero({ contentNeeded, buttonLink }: { contentNeeded: string, buttonLink?: string }) {
   const HeaderContent = await getData2()
   const MainText = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.headerContent
+  console.log(MainText)
   let Image = ''
   try {
     Image = HeaderContent.data.filter((item: any) => item.attributes.Title == contentNeeded)[0].attributes.LandingPageImage.data.attributes.formats.large.url
