@@ -5,19 +5,21 @@
 import React, { useEffect } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom } from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom } from './Atoms.js'
 
 
 export default function GoogleCryptoChart({ jobApplicationData }) {
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
+  const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
 
 
   const handleButtonClick = (jobToChange, UID) => {
     jobApplicationData.data.filter((item) => { if (item.id === UID) { 
       console.log('found', item) 
       setJobApplicationData({...item})
+      setJobDescription(item.attributes.Job_Description)
     } })
     setUID(UID)
     setJobName(jobToChange)
