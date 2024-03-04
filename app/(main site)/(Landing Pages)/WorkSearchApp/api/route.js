@@ -1,16 +1,19 @@
+
+
 import { NextResponse } from 'next/server'
- 
+import { updateApplied } from '../page'
 
 
 
 export async function POST(data) {
-    let cool = await data
-    let final = await cool.json()   
-    console.log(final)
+    let recievedData = await data
+    let RecievedDataJson = await recievedData.json()   
+    console.log(RecievedDataJson)
+    await updateApplied(0, RecievedDataJson, "POST")
     return NextResponse.json(
         { 
             data: {
-                information: 'fuck yeah nigga'
+                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.'
             }
         },
         {

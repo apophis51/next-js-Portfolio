@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom } from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent} from './Atoms.js'
 //  import RichTextEditor from './RichTextEditor.js'
  import CKEditor from './CKEditor.js'
 import RichTextEditor from './RichTextEditor.js';
@@ -17,12 +17,13 @@ const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
+  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
 
   const handleInputChange = (event) => {
     setJobName(event.target.value);
   };
 
-  function handleSubmitJob() {
+  function handleSubmitJob(Method = 'PUT') {
     console.log(jobApplicationData)
     console.log(jobApplicationDataState)
     setJobApplicationData(prevState => ({
@@ -44,15 +45,15 @@ const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
           
   //     },
   // }
-     updateAppliedJobs(UID, transportObject)
-
+     updateAppliedJobs(UID, transportObject,Method)
+     setJobApplicationsSent((prev) => prev + 1)
   }
 
   return (
     <div >
       <CKEditor />
       {/* <RichTextEditor /> */}
-      <div className='border border-solid border-black'>
+      <div className='border border-solid border-black flex gap-5'>
         <label htmlFor="myInput">Company: </label>
         <input
           type="text"
@@ -61,8 +62,20 @@ const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
           onChange={handleInputChange}
         /><button
           className='btn'
-          onClick={handleSubmitJob}
+          onClick={() =>{handleSubmitJob()}}
         >Submit</button>
+        <button
+          className='btn'
+          onClick={() => {
+            handleSubmitJob('POST')
+          }}
+        >Create New Listing</button>
+          <button
+          className='btn'
+          onClick={() => {
+            handleSubmitJob("DELETE")
+          }}
+        >Delete Listing</button>
       </div>
       <p>Typed Value: {jobName}</p>
     </div>
