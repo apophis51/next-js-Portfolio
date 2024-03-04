@@ -5,14 +5,14 @@
 import React, { useEffect } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom } from './Atoms.js'
-
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent} from './Atoms.js'
 
 export default function GoogleCryptoChart({ jobApplicationData }) {
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
+  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
 
 
   const handleButtonClick = (jobToChange, UID) => {
@@ -43,11 +43,10 @@ export default function GoogleCryptoChart({ jobApplicationData }) {
 
   useEffect(() => {
     // Any additional setup or data processing can be done here
-  }, []);
+  }, [jobApplicationsSent]);
 
   return (
     <div className='max-w-5xl'>
-      <button onClick={() => alert(123)}>cool</button>
       <Chart
         chartType="Table"
         // width="90%"
