@@ -2,47 +2,90 @@
 //https://www.react-google-charts.com/examples/table
 "use client"
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent} from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent } from './Atoms.js'
+let jobApplicationData = {}
 
-export default function GoogleCryptoChart({ jobApplicationData }) {
+export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
+  const [chartInfo, setChartInfo] = useState({})//
+// let jobApplicationData = jobApplicationDat()
+
+console.log(jobApplicationData)
 
 
   const handleButtonClick = (jobToChange, UID) => {
-    jobApplicationData.data.filter((item) => { if (item.id === UID) { 
-      console.log('found', item) 
-      setJobApplicationData({...item})
-      setJobDescription(item.attributes.Job_Description)
-    } })
+    console.log(jobApplicationData)
+    jobApplicationData.data.filter((item) => {
+      if (item.id === UID) {
+        console.log('found', item)
+        setJobApplicationData({ ...item })
+        setJobDescription(item.attributes.Job_Description)
+      }
+    })
     setUID(UID)
     setJobName(jobToChange)
     console.log('Updating', jobToChange, UID)
   };
 
 
-  console.log(jobApplicationData.data[0])
-  const displayData = []
-  jobApplicationData.data.forEach((item) => {
-    displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id])
+  function generateChartData() {
+    ///test
+    jobApplicationData.data.filter((item) => {
+      if (item.id === 2) {
+        console.log('found', item)
+    }
   })
-  const chartData = [
-    ['Action', 'Company', 'Applied Date', 'url', 'UID'],
-    ...displayData,
-  ];
-  const chartOptions = {
-    allowHtml: true,
-    showRowNumber: true,
-  };
+  //end test
+    console.log(jobApplicationData.data[0])
+    let displayData = []
+    jobApplicationData.data.forEach((item) => {
+      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id])
+    })
+    let chartData = [
+      ['Action', 'Company', 'Applied Date', 'url', 'UID'],
+      ...displayData,
+    ];
+    const chartOptions = {
+      allowHtml: true,
+      showRowNumber: true,
+    };
+    setChartInfo({ chartData, chartOptions })
+  }
 
+
+
+ 
+  // generateChartData(jobApplicationData)
+console.log('rendered')
   useEffect(() => {
-    // Any additional setup or data processing can be done here
+
+    const delay = 2000; // 2 seconds in milliseconds
+
+    const timerId = setTimeout(() => {
+      // Your code to run after the delay
+      console.log('Delayed useEffect executed after 2 seconds');
+    }, delay);
+
+ 
+
+    async function fetchData(){
+      jobApplicationData = await jobApplicationDat()
+      console.log(jobApplicationData) 
+      generateChartData(jobApplicationData)
+
+    }
+    fetchData()
+       // Clean up the timer when the component unmounts or when the dependencies change
+       return () => clearTimeout(timerId);
+
+    // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
 
   return (
@@ -52,8 +95,8 @@ export default function GoogleCryptoChart({ jobApplicationData }) {
         // width="90%"
         width='100%'
         height="400px"
-        data={chartData}
-        options={chartOptions}
+        data={chartInfo.chartData}
+        options={chartInfo.chartOptions}
         chartEvents={[
           {
             eventName: 'select',
@@ -62,8 +105,8 @@ export default function GoogleCryptoChart({ jobApplicationData }) {
               const selection = chart.getSelection();
               if (selection.length > 0) {
                 const clickedRow = selection[0].row + 1;
-                const jobToChange = chartData[clickedRow][1]
-                const UID = chartData[clickedRow][4]
+                const jobToChange = chartInfo.chartData[clickedRow][1]
+                const UID = chartInfo.chartData[clickedRow][4]
                 if (clickedRow !== null && clickedRow !== undefined) {
                   handleButtonClick(jobToChange, UID);
                 }

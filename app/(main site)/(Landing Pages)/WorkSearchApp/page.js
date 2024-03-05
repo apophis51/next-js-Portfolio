@@ -69,27 +69,19 @@ export async function updateApplied(UID, jobApplicationDataState,Method) {
     }
 }
 
-async function createNewJobApplication() {
-    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "Company": "Google",
-            "Applied_Date": "2022-01-01",
-            "Job_Posting_URL": "https://www.google.com"
-        })
-    })
-    if (!res.ok) {
-        throw new Error('Failed to fetch data')
-    }
-    return res.json()
-}
+
+
 
 
 export default async function WorkSearchApp() {
     const jobApplicationData = await getAppliedJobs()
+//test
+    async function jobApplicationDat(){
+        'use server'
+        return await getAppliedJobs()
+    }
+
+    //end test
     return (
         <Container maxWidth="xl">
             <Hero contentNeeded={"MalcMind Work Search"} />
@@ -99,7 +91,7 @@ export default async function WorkSearchApp() {
                 <WorkSearchInput updateAppliedJobs={updateAppliedJobs} jobApplicationData={jobApplicationData} />
                 <div className='flex flex-col justify-center items-center'>
                     <h2>My Job Applications</h2>
-                    <GoogleTableChart jobApplicationData={jobApplicationData} />
+                    <GoogleTableChart jobApplicationDat={jobApplicationDat}  />
                 </div>
             </div>
         </Container>
