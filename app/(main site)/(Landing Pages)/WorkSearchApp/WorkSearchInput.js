@@ -11,7 +11,7 @@ import RichTextEditor from './RichTextEditor.js';
 
 
 
-const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
+const InputComponent = ({updateAppliedJobs}) => {
   const [inputValue, setInputValue] = useState('cool');
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
@@ -23,8 +23,7 @@ const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
     setJobName(event.target.value);
   };
 
-  function handleSubmitJob(Method = 'PUT') {
-    console.log(jobApplicationData)
+  async function handleSubmitJob(Method = 'PUT') {
     console.log(jobApplicationDataState)
     setJobApplicationData(prevState => ({
       ...prevState,
@@ -45,8 +44,10 @@ const InputComponent = ({updateAppliedJobs, jobApplicationData}) => {
           
   //     },
   // }
-     updateAppliedJobs(UID, transportObject,Method)
+     let updateProcessing = await updateAppliedJobs(UID, transportObject,Method)
+     console.log(updateProcessing)
      setJobApplicationsSent((prev) => prev + 1)
+    waitingWrapper(UID, transportObject,Method,setJobApplicationsSent,updateAppliedJobs)
   }
 
   return (
