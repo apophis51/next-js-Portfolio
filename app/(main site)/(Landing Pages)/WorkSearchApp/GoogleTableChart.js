@@ -15,6 +15,7 @@ export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [chartInfo, setChartInfo] = useState({})//
+  const [dummyJob, setDummyJob] = useState('dummy')
 // let jobApplicationData = jobApplicationDat()
 
 console.log(jobApplicationData)
@@ -88,8 +89,10 @@ console.log('rendered')
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
 
+  
   return (
     <div className='max-w-5xl'>
+    <p>{dummyJob}</p>
       <Chart
         chartType="Table"
         // width="90%"
@@ -105,10 +108,22 @@ console.log('rendered')
               const selection = chart.getSelection();
               if (selection.length > 0) {
                 const clickedRow = selection[0].row + 1;
+                console.log(clickedRow)
+                console.log(selection)
+                // console.log(event.target.cellIndex)
+                const realJobToChange = event.target.parentNode.cells[2].textContent
+                console.log(realJobToChange)
+                setDummyJob((prev) => (chartInfo.chartData[clickedRow][1]))
+                console.log(dummyJob)
                 const jobToChange = chartInfo.chartData[clickedRow][1]
+                // console.log(jobToChange)
                 const UID = chartInfo.chartData[clickedRow][4]
+                const realUID = event.target.parentNode.cells[5].textContent
+                console.log(realUID)
                 if (clickedRow !== null && clickedRow !== undefined) {
                   handleButtonClick(jobToChange, UID);
+                  // handleButtonClick(realJobToChange, realUID);
+
                 }
               }
             },

@@ -16,12 +16,13 @@ async function getAppliedJobs() {
 }
 
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
-export async function updateAppliedJobs(UID, jobApplicationDataState,Method) {
+export async function updateAppliedJobs(UID, jobApplicationDataState, Method) {
     'use server'
-    updateApplied(UID, jobApplicationDataState,Method)
+    let result = await updateApplied(UID, jobApplicationDataState, Method)
+    return result
 }
 
-export async function updateApplied(UID, jobApplicationDataState,Method) {
+export async function updateApplied(UID, jobApplicationDataState, Method) {
     console.log(UID)
     console.log(jobApplicationDataState)
     console.log('route hit')
@@ -32,31 +33,38 @@ export async function updateApplied(UID, jobApplicationDataState,Method) {
             'Authorization': `Bearer ${process.env.Strappi_SuperAccess}`,
             'Content-Type': 'application/json', // Adjust this based on your API requirements,
         });
-        if(Method == 'DELETE')
-        {
+        if (Method == 'DELETE') {
             const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
                 method: 'DELETE',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
                 cache: 'no-store',
             })
+            const responseJson = await response.json()
+            console.log(responseJson)
+            return responseJson
         }
-        if(Method == 'POST')
-        {
+        if (Method == 'POST') {
             const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches`, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
                 cache: 'no-store',
             })
+            const responseJson = await response.json()
+            console.log(responseJson)
+            return responseJson
         }
-        if(Method == 'PUT'){
+        if (Method == 'PUT') {
             const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
-            method: 'PUT',
-            headers: headers,
-            body: JSON.stringify(jobApplicationDataState),
-            cache: 'no-store',
-        })
+                method: 'PUT',
+                headers: headers,
+                body: JSON.stringify(jobApplicationDataState),
+                cache: 'no-store',
+            })
+            const responseJson = await response.json()
+            console.log(responseJson)
+            return responseJson
         }
         if (!response.ok) {
             console.log(response.status)
@@ -75,8 +83,8 @@ export async function updateApplied(UID, jobApplicationDataState,Method) {
 
 export default async function WorkSearchApp() {
     const jobApplicationData = await getAppliedJobs()
-//test
-    async function jobApplicationDat(){
+    //test
+    async function jobApplicationDat() {
         'use server'
         return await getAppliedJobs()
     }
@@ -88,10 +96,10 @@ export default async function WorkSearchApp() {
 
             <div className='bg-white prose-2xl p-10 '>
                 <h1>MalcMind Work Search App</h1>
-                <WorkSearchInput updateAppliedJobs={updateAppliedJobs} jobApplicationData={jobApplicationData} />
+                <WorkSearchInput updateAppliedJobs={updateAppliedJobs} />
                 <div className='flex flex-col justify-center items-center'>
                     <h2>My Job Applications</h2>
-                    <GoogleTableChart jobApplicationDat={jobApplicationDat}  />
+                    <GoogleTableChart jobApplicationDat={jobApplicationDat} />
                 </div>
             </div>
         </Container>
