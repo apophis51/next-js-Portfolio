@@ -15,6 +15,7 @@ export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [chartInfo, setChartInfo] = useState({})//
+  const [webSocketData, setWebSocketData] = useState(null);
 // let jobApplicationData = jobApplicationDat()
 
 console.log(jobApplicationData)
@@ -60,21 +61,41 @@ console.log(jobApplicationData)
   }
 
 
-
+console.log(webSocketData)
  
   // generateChartData(jobApplicationData)
 console.log('rendered')
   useEffect(() => {
 
-    const delay = 2000; // 2 seconds in milliseconds
+    // const delay = 2000; // 2 seconds in milliseconds
 
-    const timerId = setTimeout(() => {
-      // Your code to run after the delay
-      console.log('Delayed useEffect executed after 2 seconds');
-    }, delay);
+    // const timerId = setTimeout(() => {
+    //   // Your code to run after the delay
+    //   console.log('Delayed useEffect executed after 2 seconds');
+    // }, delay);
+    // const ws = new WebSocket('ws://localhost:3001');
+    // const ws = new WebSocket('ws://localhost:3532');
+    const ws = new WebSocket('wss://cryptoai-production.up.railway.app');
 
+
+    ws.addEventListener('open', () => {
+      console.log('WebSocket connection opened');
+    });
+
+    ws.addEventListener('message', (event) => {
+      console.log('WebSocket message received:', event);
+      const message = JSON.parse(event.data);
+      fetchData()
+    });
+
+
+    // Handle incoming messages
+    ws.onmessage = (event) => {
+      const newData = JSON.parse(event.data);
+      setWebSocketData(newData);
+    };
  
-
+console.log('this was called')
     async function fetchData(){
       jobApplicationData = await jobApplicationDat()
       console.log(jobApplicationData) 
@@ -83,7 +104,10 @@ console.log('rendered')
     }
     fetchData()
        // Clean up the timer when the component unmounts or when the dependencies change
-       return () => clearTimeout(timerId);
+      //  return () => clearTimeout(timerId);
+      return () => {
+        ws.close();
+      };
 
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);

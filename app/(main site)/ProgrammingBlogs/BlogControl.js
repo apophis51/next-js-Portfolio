@@ -46,6 +46,7 @@ export default function BlogControl({setBlogFilter}) {
           <option value={'nextjs'}>NextJS Blogs</option>
           <option value={'python'}>Python Blogs</option>
           <option value={'docker'}>Docker Blogs</option>
+          <option value={'websockets'}>WebSocket Blogs</option>
         </select>
         
    
