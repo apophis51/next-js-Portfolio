@@ -5,7 +5,7 @@
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent } from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom } from './Atoms.js'
 let jobApplicationData = {}
 
 export default function GoogleCryptoChart({ jobApplicationDat}) {
@@ -16,6 +16,7 @@ export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [chartInfo, setChartInfo] = useState({})//
   const [webSocketData, setWebSocketData] = useState(null);
+  const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
 // let jobApplicationData = jobApplicationDat()
 
 console.log(jobApplicationData)
@@ -28,6 +29,7 @@ console.log(jobApplicationData)
         console.log('found', item)
         setJobApplicationData({ ...item })
         setJobDescription(item.attributes.Job_Description)
+        setUserEmailAtom(item.attributes.userEmail)
       }
     })
     setUID(UID)
@@ -47,10 +49,10 @@ console.log(jobApplicationData)
     console.log(jobApplicationData.data[0])
     let displayData = []
     jobApplicationData.data.forEach((item) => {
-      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id])
+      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id,item.attributes.userEmail])
     })
     let chartData = [
-      ['Action', 'Company', 'Applied Date', 'url', 'UID'],
+      ['Action', 'Company', 'Applied Date', 'url', 'UID', 'userEmail'],
       ...displayData,
     ];
     const chartOptions = {

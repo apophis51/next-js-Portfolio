@@ -6,6 +6,7 @@ import { cache } from 'react';
 import Hero from '../../Components/Hero'
 
 
+
 async function getAppliedJobs() {
     'use server'
     const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=60', { cache: 'no-store' })
