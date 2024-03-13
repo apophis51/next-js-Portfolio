@@ -4,9 +4,46 @@ import Container from '@mui/material/Container';
 import WorkSearchInput from './WorkSearchInput'
 import { cache } from 'react';
 import Hero from '../../Components/Hero'
+import { clerkClient } from "@clerk/nextjs";
 
 
+// Troubleshooting
+// import { auth, currentUser } from '@clerk/nextjs';
+async function checkUser() {
+    console.log('route hit')
+    
 
+
+    const { auth, currentUser } = await import('@clerk/nextjs')
+    const { userId, getToken, orgRole } = auth();
+    const user = await currentUser()
+    console.log(user.id)
+    const cooluser = await clerkClient.users.getUser(user.id)
+    console.log(cooluser)
+    await clerkClient.users.updateUserMetadata(user.id, {
+        privateMetadata: {
+          stripeId: "fuck"
+        }})
+    await clerkClient.users.updateUserMetadata(user.id, {
+            publicMetadata: {
+              extentionToken: "dfsdfdsffucadfadfk"
+            }})
+            const userPrivate = await clerkClient.users.getUser(user.id)
+            console.log(userPrivate)
+
+    console.log(user)
+    console.log(auth())
+    console.log(auth().sessionClaims.jti)
+    console.log(user.username)
+    console.log(user.metadata)
+    const userEmail = user.emailAddresses[0].emailAddress
+    console.log(user.emailAddresses[0].emailAddress)
+    console.log(userId)
+    console.log(orgRole)
+}
+checkUser()
+//
+console.log('route hit')
 async function getAppliedJobs() {
     'use server'
     const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=60', { cache: 'no-store' })
