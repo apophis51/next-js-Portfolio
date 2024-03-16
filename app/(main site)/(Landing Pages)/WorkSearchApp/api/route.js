@@ -9,7 +9,7 @@ export async function POST(data) {
     let recievedData = data
     let RecievedDataJson = await recievedData.json()   
     console.log(RecievedDataJson)
-    await updateApplied(0, RecievedDataJson, "POST")
+    // await updateApplied(0, RecievedDataJson, "POST")
     return NextResponse.json(
         { 
             data: {
