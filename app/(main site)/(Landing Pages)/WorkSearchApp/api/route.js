@@ -1,7 +1,7 @@
 
 
 import { NextResponse } from 'next/server'
-import { updateApplied } from '../page'
+// import { updateApplied } from '../page'
 
 
 

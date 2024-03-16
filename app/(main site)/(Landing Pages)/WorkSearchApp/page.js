@@ -61,7 +61,7 @@ export async function updateAppliedJobs(UID, jobApplicationDataState, Method) {
 }
 
 export async function updateApplied(UID, jobApplicationDataState, Method) {
-    'use server'
+    
     console.log(UID)
     console.log(jobApplicationDataState)
     console.log('route hit')
