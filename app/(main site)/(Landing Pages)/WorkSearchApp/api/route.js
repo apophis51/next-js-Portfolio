@@ -1,7 +1,7 @@
 
 
 import { NextResponse } from 'next/server'
-import { updateApplied } from '../page'
+// import { updateApplied } from '../page'
 
 
 
@@ -9,7 +9,7 @@ export async function POST(data) {
     let recievedData = await data
     let RecievedDataJson = await recievedData.json()   
     console.log(RecievedDataJson)
-    await updateApplied(0, RecievedDataJson, "POST")
+    // await updateApplied(0, RecievedDataJson, "POST")
     return NextResponse.json(
         { 
             data: {
