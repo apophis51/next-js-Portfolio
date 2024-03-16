@@ -9,7 +9,7 @@ import { clerkClient } from "@clerk/nextjs";
 
 // Troubleshooting
 // import { auth, currentUser } from '@clerk/nextjs';
-async function checkUser() {
+async function checkUser() { //we need to add a try catch block to this to prevent the internal server errror
     console.log('route hit')
     
 
