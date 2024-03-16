@@ -30,3 +30,27 @@
 
 // // Use the reconstructed object
 // reconstructedCar.displayInfo();
+// let cool = new Set()
+
+// cool.add('a')
+
+// console.log(cool)
+
+// // let cool = []
+// let object = {
+//     a: true,
+//     b: false
+// }
+
+// cool['a'] = true
+// cool.b = false
+
+// console.log(cool['a'])
+// console.log(cool)
+// console.log(object)
+
+// Object.entries(cool).forEach(([key, value]) => {
+//     console.log(key, value)
+// }
+// )
+// cool.forEach((item) => (console.log('item 1',item)))

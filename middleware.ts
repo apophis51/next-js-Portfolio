@@ -51,7 +51,7 @@ import { authMiddleware } from "@clerk/nextjs";
 export default authMiddleware({
   // Routes that can be accessed while signed out
   // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest'],
-  publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/WorkSearchApp'],
+  publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/WorkSearchApp','/WorkSearchApp/Authorize/api'],
 
   // Routes that can always be accessed, and have
   // no authentication information
@@ -62,6 +62,6 @@ export default authMiddleware({
 
 export const config = {
   // matcher: ['/dashboard/:path*','/ClerkAuthTest','/'],
-  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/WorkSearchApp'],
+  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/WorkSearchApp','/WorkSearchApp/Authorize/api'],
 
 }
