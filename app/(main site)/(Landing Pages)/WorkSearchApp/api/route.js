@@ -1,7 +1,7 @@
 
 
 import { NextResponse } from 'next/server'
-// import { updateApplied } from '../page'
+import { updateApplied } from '../page'
 
 
 
@@ -9,7 +9,7 @@ export async function POST(data) {
     let recievedData = await data
     let RecievedDataJson = await recievedData.json()   
     console.log(RecievedDataJson)
-    // await updateApplied(0, RecievedDataJson, "POST")
+    await updateApplied(0, RecievedDataJson, "POST")
     return NextResponse.json(
         { 
             data: {
@@ -20,9 +20,10 @@ export async function POST(data) {
           status: 200,
           headers: {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept, Origin, X-Requested-With",
+            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
             "Access-Control-Allow-Origin": "*",
-            "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;"
+            "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;",
+            "Access-Control-Allow-Credentials": "true"
           },
         })
     }
