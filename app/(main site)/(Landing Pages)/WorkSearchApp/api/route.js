@@ -6,7 +6,7 @@ import { updateApplied } from '../page'
 
 
 export async function POST(data) {
-    let recievedData = await data
+    let recievedData = data
     let RecievedDataJson = await recievedData.json()   
     console.log(RecievedDataJson)
     await updateApplied(0, RecievedDataJson, "POST")
