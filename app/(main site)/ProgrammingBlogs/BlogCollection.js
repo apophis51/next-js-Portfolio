@@ -13,7 +13,6 @@ export default function BlogCollection({data}){
     const [sliceBottomNumber, setSliceBottomNumber] = useState(0)
     console.log(data.data.length)
 
-
     return(
         <div className="bg-gradient-to-br from-green-700 via-blue-600 to-green-800 mt-4 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
             <div className="flex justify-center items-center">
@@ -25,7 +24,8 @@ export default function BlogCollection({data}){
           <Card 
               //  blogLink =  {`/ProgrammingBlogs/${item.id}`}
                 blogTitle = {item.attributes.Title}
-                blogLink =  {`/ProgrammingBlogs/${(item.attributes.Title).toLowerCase().split(' ').join('-')}`}
+                blogLink =  {`/ProgrammingBlogs/${(item.attributes.Title).toLowerCase().replace(/,/g, '').split(' ').join('-')}`}
+                
                 blogContent = {<ReactMarkdown>{item.attributes.Content.slice(0,280) + '...'}</ReactMarkdown>}
           />
         </images> : null))}
