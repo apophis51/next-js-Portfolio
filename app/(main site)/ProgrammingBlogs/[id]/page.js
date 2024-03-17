@@ -36,12 +36,12 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 
 
 async function fgenerateStaticParams(params) {
-  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=70`)
+  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=80`)
   let post = await res.json()
   let blogID = ''
 
   for (let x of post.data) {
-    if (x.attributes.Title.toLowerCase().split(' ').join('-').includes(params.id)) {
+    if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)) {
       blogID = x.id
     }
   }
