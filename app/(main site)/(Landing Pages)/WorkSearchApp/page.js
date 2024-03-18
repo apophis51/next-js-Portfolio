@@ -13,7 +13,6 @@ import Hero from '../../Components/Hero'
 //     console.log('route hit')
     
 
-
 //     const { auth, currentUser } = await import('@clerk/nextjs')
 //     const { userId, getToken, orgRole } = auth();
 //     const user = await currentUser()
