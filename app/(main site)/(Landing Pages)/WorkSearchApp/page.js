@@ -4,52 +4,84 @@ import Container from '@mui/material/Container';
 import WorkSearchInput from './WorkSearchInput'
 import { cache } from 'react';
 import Hero from '../../Components/Hero'
+import {headers} from 'next/headers'
+// import dynamic from 'next/dynamic'
+
 // import { clerkClient } from "@clerk/nextjs";
-
-
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+export const revalidate = 0
+// import { revalidatePath } from 'next/cache'
+// revalidatePath('/WorkSearchApp')
 // Troubleshooting
 // import { auth, currentUser } from '@clerk/nextjs';
-// async function checkUser() { //we need to add a try catch block to this to prevent the internal server errror
+async function checkUser() { //we need to add a try catch block to this to prevent the internal server errror
 //     console.log('route hit')
     
+    console.log('route hit')
+    const { auth, currentUser } = await import('@clerk/nextjs')
+    //  const { userId, getToken, orgRole } = auth();
+    console.log('route hit')
+    console.log(auth().sessionClaims?.primaryEmail)
+    let userEmail = await currentUser()
+    if (userEmail){
+    console.log(userEmail.emailAddresses[0].emailAddress)
+    return userEmail.emailAddresses[0].emailAddress
+    }
+    else{
+        return null
+    }
+        //   console.log(auth().sessionClaims.primaryEmail);
+    // const user = await currentUser()
+    // console.log(user.id)
+    // console.log('page user' ,user)
+    // const cooluser = await clerkClient.users.getUser(user.id)
+    // console.log(cooluser)
+    // await clerkClient.users.updateUserMetadata(user.id, {
+    //     privateMetadata: {
+    //       stripeId: "fuck"
+    //     }})
+    // await clerkClient.users.updateUserMetadata(user.id, {
+    //         publicMetadata: {
+    //           extentionToken: "dfsdfdsffucadfadfk"
+    //         }})
+    //         const userPrivate = await clerkClient.users.getUser(user.id)
+    //         console.log(userPrivate)
 
-//     const { auth, currentUser } = await import('@clerk/nextjs')
-//     const { userId, getToken, orgRole } = auth();
-//     const user = await currentUser()
-//     console.log(user.id)
-//     const cooluser = await clerkClient.users.getUser(user.id)
-//     console.log(cooluser)
-//     await clerkClient.users.updateUserMetadata(user.id, {
-//         privateMetadata: {
-//           stripeId: "fuck"
-//         }})
-//     await clerkClient.users.updateUserMetadata(user.id, {
-//             publicMetadata: {
-//               extentionToken: "dfsdfdsffucadfadfk"
-//             }})
-//             const userPrivate = await clerkClient.users.getUser(user.id)
-//             console.log(userPrivate)
+    // console.log(user)
+    // console.log(auth())
+    // console.log(auth().sessionClaims.jti)
+    // console.log(user.username)
+    // console.log(user.metadata)
+    // const userEmail = user.emailAddresses[0].emailAddress
+    // console.log(user.emailAddresses[0].emailAddress)
+    // console.log(userId)
+    // console.log(orgRole)
+    // return await auth().sessionClaims.primaryEmail
+}
 
-//     console.log(user)
-//     console.log(auth())
-//     console.log(auth().sessionClaims.jti)
-//     console.log(user.username)
-//     console.log(user.metadata)
-//     const userEmail = user.emailAddresses[0].emailAddress
-//     console.log(user.emailAddresses[0].emailAddress)
-//     console.log(userId)
-//     console.log(orgRole)
-// }
-// checkUser()
-//
+
 console.log('route hit')
-async function getAppliedJobs() {
+async function getAppliedJobs(userEmail = null) {
     'use server'
+    console.log(userEmail)
     const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=60', { cache: 'no-store' })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
-    return res.json()
+    // return res.json()
+    let jobData = await res.json()
+    console.log(jobData)
+    const filteredJobs = jobData.data.filter((job) => {
+        // console.log(job.attributes.userEmail)
+        // console.log(job.attributes.userEmail == userEmail)
+        return job.attributes.userEmail == userEmail
+        
+    });
+    let formattedJobs = { data: [...filteredJobs] } 
+    console.log(formattedJobs)
+
+    return formattedJobs
 }
 
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
@@ -120,11 +152,15 @@ export async function updateApplied(UID, jobApplicationDataState, Method) {
 
 
 export default async function WorkSearchApp() {
-    const jobApplicationData = await getAppliedJobs()
+    let userEmail = await checkUser()
+    console.log(userEmail)
+    let jobApplicationData = await getAppliedJobs(userEmail)
+    console.log(jobApplicationData)
     //test
+    console.log('this was ran')
     async function jobApplicationDat() {
         'use server'
-        return await getAppliedJobs()
+        return await getAppliedJobs(userEmail)
     }
 
     //end test

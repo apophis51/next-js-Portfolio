@@ -1,11 +1,29 @@
-
+//url code smell
 
 import { NextResponse } from 'next/server'
-import { updateApplied } from '../page'
-
+ import { updateApplied } from '../page'
+import { headers } from 'next/headers'
 
 
 export async function POST(data) {
+     const userAuth = headers().get('Authorization')
+    //  console.log(data.headers)
+     let userAllowed = await fetch('http://localhost:3532/userMap')
+     let userAllowedJson = await userAllowed.json()
+     
+    if(userAllowedJson[userAuth]){
+        console.log(`user is allowed to send to ${userAllowedJson[userAuth]}`)
+    }
+    else{
+        console.log('user is not allowed to send')
+        // return NextResponse.json(
+        //     { 
+        //         data: {
+        //             information: 'You are not authorized to send data to this endpoint'
+        //         }
+        //     })
+
+    }
     let recievedData = await data
     let RecievedDataJson = await recievedData.json()   
     console.log(RecievedDataJson)
@@ -20,7 +38,7 @@ export async function POST(data) {
           status: 200,
           headers: {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
             "Access-Control-Allow-Origin": "*",
             "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;",
             "Access-Control-Allow-Credentials": "true"
@@ -39,7 +57,7 @@ export async function OPTIONS(){
           status: 200,
           headers: {
             "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version',
+            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
             "Access-Control-Allow-Origin": "*",
             "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;",
             "Access-Control-Allow-Credentials": "true"

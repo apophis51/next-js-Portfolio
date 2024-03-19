@@ -1,4 +1,5 @@
 'use client'
+//url code smell
 
 // import { headers } from 'next/headers'
 // import { useSearchParams } from 'next/navigation'
@@ -20,7 +21,7 @@ export default function AuthorizeExtention(params){
         envUtils().then((adminAuth) =>
         myWebSocket.send(JSON.stringify({ 
             type: 'Admin', 
-            data: {adminAuth: adminAuth, emailAddress: emailAddress, sendto: connectingUser}}))
+            data: {adminAuth: adminAuth, emailAddress: emailAddress, id: connectingUser}}))
         )
     }
     console.log(connectingUser)
