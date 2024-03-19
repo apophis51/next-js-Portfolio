@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server'
 // import { updateApplied } from '../page'
-import { headers } from 'next/headers'
+
 import crypto from 'crypto'
 
 function generateRandomSHA256Hash() {
@@ -41,9 +41,7 @@ export async function OPTIONS(){
 
 
 export async function GET() {
-    // console.log(headers().get('Authorization'))
-    // console.log(data.headers)
-    // console.log(data.headers.Symbol)
+   
     return NextResponse.json(
         { 
                 hash: generateRandomSHA256Hash()
