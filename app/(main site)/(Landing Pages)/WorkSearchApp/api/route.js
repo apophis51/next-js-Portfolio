@@ -1,86 +1,72 @@
 //url code smell
 
 import { NextResponse } from 'next/server'
- import { updateApplied } from '../page'
+import { updateApplied } from '../page'
 import { headers } from 'next/headers'
+import * as responseUtils from './responseUtils'
 
 
 export async function POST(data) {
-     const userAuth = headers().get('Authorization')
-    //  console.log(data.headers)
-     let userAllowed = await fetch('http://localhost:3532/userMap')
-     let userAllowedJson = await userAllowed.json()
-     
-    if(userAllowedJson[userAuth]){
-        console.log(`user is allowed to send to ${userAllowedJson[userAuth]}`)
+  const userAuth = headers().get('Authorization')
+  //  console.log(data.headers)
+  try {
+
+    let userAllowed = await fetch('http://localhost:3532/userMap')
+    let userAllowedJson = await userAllowed.json()
+
+    if (userAllowedJson[userAuth]) {
+      console.log(`user is allowed to send to ${userAllowedJson[userAuth]}`)
     }
-    else{
-        console.log('user is not allowed to send')
-        // return NextResponse.json(
-        //     { 
-        //         data: {
-        //             information: 'You are not authorized to send data to this endpoint'
-        //         }
-        //     })
+    else {
+      return NextResponse.json(
+        {
+          data: {
+            error: 'User Login Required to Apply for Jobs. Please Login to Apply.'
+          }
+        },
+        responseUtils.allowCors)
 
     }
-    let recievedData = await data
-    let RecievedDataJson = await recievedData.json()   
-    console.log(RecievedDataJson)
-    await updateApplied(0, RecievedDataJson, "POST")
+  }
+  catch { 
     return NextResponse.json(
-        { 
-            data: {
-                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.'
-            }
-        },
-        {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-            "Access-Control-Allow-Origin": "*",
-            "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;",
-            "Access-Control-Allow-Credentials": "true"
-          },
-        })
-    }
+      {
+        data: {
+          error: 'the UserMapping Server is Offline'
+        }
+      },
+      responseUtils.allowCors)
+  }
+  let recievedData = await data
+  let RecievedDataJson = await recievedData.json()
+  console.log(RecievedDataJson)
+  await updateApplied(0, RecievedDataJson, "POST")
+  return NextResponse.json(
+    {
+      data: {
+        information: 'Your job application has been submitted. Thank you for using WorkSearchApp.'
+      }
+    },
+    responseUtils.allowCors)
+}
 
-export async function OPTIONS(){
-    return NextResponse.json(
-        { 
-            data: {
-                information: 'fuck yeah nigga'
-            }
-        },
-        {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Methods": "GET,OPTIONS,PATCH,DELETE,POST,PUT",
-            "Access-Control-Allow-Headers": 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization',
-            "Access-Control-Allow-Origin": "*",
-            "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;",
-            "Access-Control-Allow-Credentials": "true"
-          },
-        })
+export async function OPTIONS() {
+  return NextResponse.json(
+    {
+      data: {
+        information: 'You hit the OpTions Route. Most likely as a preFlight Request'
+      }
+    },
+    responseUtils.allowCors)
 }
 
 
 export async function GET() {
-    // return NextResponse.json("GET")
-    return NextResponse.json(
-        { 
-            data: {
-                information: 'fuck yeah nigga'
-            }
-        },
-        {
-          status: 200,
-          headers: {
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": "*",
-            "Content-Security-Policy": "connect-src *;script-src 'unsafe-inline' *;"
-          },
-        })
-    }
+  return NextResponse.json(
+    {
+      data: {
+        information: 'You hit our Get Route. This Route Does Nothing'
+      }
+    },
+    responseUtils.allowCors)
+}
