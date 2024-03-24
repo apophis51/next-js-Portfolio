@@ -73,8 +73,8 @@ async function getAppliedJobs(userEmail = null) {
     let jobData = await res.json()
     console.log(jobData)
     const filteredJobs = jobData.data.filter((job) => {
-        // console.log(job.attributes.userEmail)
-        // console.log(job.attributes.userEmail == userEmail)
+        console.log(job.attributes.userEmail)
+        console.log(job.attributes.userEmail == userEmail)
         return job.attributes.userEmail == userEmail
         
     });
@@ -82,6 +82,7 @@ async function getAppliedJobs(userEmail = null) {
     console.log(formattedJobs)
 
     return formattedJobs
+
 }
 
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
@@ -154,7 +155,7 @@ export async function updateApplied(UID, jobApplicationDataState, Method) {
 export default async function WorkSearchApp() {
     let userEmail = await checkUser()
     console.log(userEmail)
-    let jobApplicationData = await getAppliedJobs(userEmail)
+    let  jobApplicationData = await getAppliedJobs(userEmail)
     console.log(jobApplicationData)
     //test
     console.log('this was ran')

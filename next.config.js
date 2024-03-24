@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-  },
+  // experimental: {
+  //   serverActions: true,
+  // },
   typescript: {            //added 2023 to prevent typescript build errors
     ignoreBuildErrors: true,
   },
