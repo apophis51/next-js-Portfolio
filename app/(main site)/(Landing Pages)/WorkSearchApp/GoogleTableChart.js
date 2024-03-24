@@ -1,7 +1,7 @@
 //Refrence this for updates:
 //https://www.react-google-charts.com/examples/table
 "use client"
-
+import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
@@ -77,7 +77,7 @@ console.log('rendered')
     // }, delay);
     // const ws = new WebSocket('ws://localhost:3001');
     // const ws = new WebSocket('ws://localhost:3532');
-    const ws = new WebSocket('wss://cryptoai-production.up.railway.app');
+    const ws = new WebSocket(projectSettings().GoogleTableChartSocket);
 
 
     ws.addEventListener('open', () => {
@@ -113,7 +113,7 @@ console.log('this was called')
 
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
-
+   
   
   return (
     <div className='max-w-5xl'>
@@ -138,7 +138,9 @@ console.log('this was called')
                 const realJobToChange = event.target.parentNode.cells[2].textContent
                 console.log(realJobToChange)
                 // setDummyJob((prev) => (chartInfo.chartData[clickedRow][1]))
-                const jobToChange = chartInfo.chartData[clickedRow][1]
+              //  const jobToChange = chartInfo.chartData[clickedRow][1]
+              //    console.log(jobToChange)
+
                 // console.log(jobToChange)
                 // const UID = chartInfo.chartData[clickedRow][4]
                 const realUID = parseInt(event.target.parentNode.cells[5].textContent)

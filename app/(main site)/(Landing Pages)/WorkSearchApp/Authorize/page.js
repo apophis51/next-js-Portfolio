@@ -1,4 +1,5 @@
 'use client'
+//possible vulnerability because we import our env variable
 //url code smell
 
 // import { headers } from 'next/headers'
@@ -6,55 +7,70 @@
 
 import {useEffect, useState} from 'react'
 import { useAuth, useUser ,useSession} from "@clerk/nextjs";
-import envUtils from './envUtils'
+import * as envUtils from './envUtils'
+import Container from '@mui/material/Container';
 
- 
-let emailAddress = 'placeholder'
-let cool = 'cool'
+let emailAddress = 'placeholder' 
 export default function AuthorizeExtention(params){
     // const headersList = headers()
     const [myWebSocket, setMyWebSocket] = useState(null)
+    // const [emailAddress, setUserEmail] = useState(null)
     emailAddress = useUser().user?.primaryEmailAddress?.emailAddress
+     console.log(emailAddress)
     let connectingUser = params.searchParams.id
-    if (emailAddress){
-        console.log(emailAddress)
-        envUtils().then((adminAuth) =>
-        myWebSocket.send(JSON.stringify({ 
-            type: 'Admin', 
-            data: {adminAuth: adminAuth, emailAddress: emailAddress, id: connectingUser}}))
-        )
+
+    function handleAuthorize(){
+        if (emailAddress){
+            console.log(emailAddress)
+            // envUtils.getenv().then((adminAuth) => //possible vulnerability to import our env variable like that
+            // myWebSocket.send(JSON.stringify({ 
+            //     type: 'Admin', 
+            //     data: {adminAuth: adminAuth, emailAddress: emailAddress, id: connectingUser}}))
+            // )
+            envUtils.sendWebSocketMessage(emailAddress, connectingUser)
+    
+        }
     }
+ 
     console.log(connectingUser)
     // console.log(headersList)
     // headersList.forEach((item) => (console.log(item)))
     // console.log(headersList.get('access-control-request-method'))
     // const referer = headersList.get('referer')
 
+
     useEffect(() => {
         // const ws = new WebSocket('ws://localhost:3532');
-        const ws = new WebSocket('ws://localhost:3532');
-        setMyWebSocket(ws)
-        console.log(cool)
-        console.log(emailAddress)
-        ws.onopen = () => {
-            // ws.send(JSON.stringify({ type: 'hello', data: emailAddress }));
-        };
-        ws.onmessage = (event) => {
-            const newData = JSON.parse(event.data);
-            console.log(newData)
-        };
-        return () => {
-            ws.close();
-        };
+        // setMyWebSocket(ws)
+        // console.log(emailAddress)
+        // ws.onopen = () => {
+        //     // ws.send(JSON.stringify({ type: 'hello', data: emailAddress }));
+        // };
+        // ws.onmessage = (event) => {
+        //     const newData = JSON.parse(event.data);
+        //     console.log(newData)
+        // };
+        // return () => {
+        //     ws.close();
+        // };
     }, []);
 
 
 
     return (
+        <Container maxWidth="xl">
             <div className='bg-white'>
                 <h1>Authorize</h1>
-                <p>Authorize this app to access your data</p>
+                {emailAddress &&
+                <div>
+                    <button className='btn' onClick={handleAuthorize}>Authorize this app to access your data</button>
+                    <p>Logged in as: {emailAddress}</p>
+                </div>
+                }
+                {!emailAddress &&
+                    <p>You Must Be LoggedIn to Authorize the Extention</p>}
                 {/* <p>Referer is: {referer}</p> */}
             </div>
+            </Container>
     )
 }

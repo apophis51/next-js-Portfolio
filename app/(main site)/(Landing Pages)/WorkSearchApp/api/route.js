@@ -1,21 +1,22 @@
-//url code smell
-
 import { NextResponse } from 'next/server'
 import { updateApplied } from '../page'
 import { headers } from 'next/headers'
 import * as responseUtils from './responseUtils'
+import projectURLS from '@/projectSettings'
 
 
 export async function POST(data) {
   const userAuth = headers().get('Authorization')
   //  console.log(data.headers)
+  let authorizedEmail = null
   try {
 
-    let userAllowed = await fetch('http://localhost:3532/userMap')
+    let userAllowed = await fetch(projectURLS().WWWuserMap)
     let userAllowedJson = await userAllowed.json()
+    authorizedEmail = userAllowedJson[userAuth]
 
     if (userAllowedJson[userAuth]) {
-      console.log(`user is allowed to send to ${userAllowedJson[userAuth]}`)
+      console.log(`user is allowed to send to ${authorizedEmail}`)
     }
     else {
       return NextResponse.json(
@@ -39,6 +40,9 @@ export async function POST(data) {
   }
   let recievedData = await data
   let RecievedDataJson = await recievedData.json()
+
+
+  RecievedDataJson.data.userEmail = authorizedEmail
   console.log(RecievedDataJson)
   await updateApplied(0, RecievedDataJson, "POST")
   return NextResponse.json(
