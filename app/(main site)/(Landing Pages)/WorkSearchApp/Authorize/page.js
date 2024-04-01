@@ -16,12 +16,12 @@ export default function AuthorizeExtention(params){
     const [myWebSocket, setMyWebSocket] = useState(null)
     // const [emailAddress, setUserEmail] = useState(null)
     emailAddress = useUser().user?.primaryEmailAddress?.emailAddress
-     console.log(emailAddress)
     let connectingUser = params.searchParams.id
 
     function handleAuthorize(){
         if (emailAddress){
-            console.log(emailAddress)
+            console.log('we are now authorizing:', emailAddress)
+
             // envUtils.getenv().then((adminAuth) => //possible vulnerability to import our env variable like that
             // myWebSocket.send(JSON.stringify({ 
             //     type: 'Admin', 

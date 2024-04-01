@@ -8,12 +8,14 @@ import projectURLS from '@/projectSettings'
 export async function POST(data) {
   const userAuth = headers().get('Authorization')
   //  console.log(data.headers)
+  console.log(userAuth)
   let authorizedEmail = null
   try {
 
     let userAllowed = await fetch(projectURLS().WWWuserMap)
     let userAllowedJson = await userAllowed.json()
     authorizedEmail = userAllowedJson[userAuth]
+    console.log(authorizedEmail)
 
     if (userAllowedJson[userAuth]) {
       console.log(`user is allowed to send to ${authorizedEmail}`)
