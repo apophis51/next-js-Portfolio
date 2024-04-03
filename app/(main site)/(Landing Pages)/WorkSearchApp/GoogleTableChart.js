@@ -5,7 +5,7 @@ import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom } from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom } from './Atoms.js'
 let jobApplicationData = {}
 
 export default function GoogleCryptoChart({ jobApplicationDat}) {
@@ -17,6 +17,7 @@ export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [chartInfo, setChartInfo] = useState({})//
   const [webSocketData, setWebSocketData] = useState(null);
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
+  const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
 // let jobApplicationData = jobApplicationDat()
 
 console.log(jobApplicationData)
@@ -30,6 +31,7 @@ console.log(jobApplicationData)
         setJobApplicationData({ ...item })
         setJobDescription(item.attributes.Job_Description)
         setUserEmailAtom(item.attributes.userEmail)
+        setJobRejection(item.attributes.Rejection_Message)
       }
     })
     setUID(UID)
