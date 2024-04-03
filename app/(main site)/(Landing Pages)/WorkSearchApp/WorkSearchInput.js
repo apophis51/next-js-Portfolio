@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom} from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom} from './Atoms.js'
 //  import RichTextEditor from './RichTextEditor.js'
  import CKEditor from './CKEditor.js'
 import RichTextEditor from './RichTextEditor.js';
@@ -12,13 +12,13 @@ import RichTextEditor from './RichTextEditor.js';
 
 
 const InputComponent = ({updateAppliedJobs}) => {
-  const [inputValue, setInputValue] = useState('cool');
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
+  const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
 
   const handleInputChange = (event) => {
     setJobName(event.target.value);
@@ -41,7 +41,7 @@ const InputComponent = ({updateAppliedJobs}) => {
     console.log(jobApplicationDataState)
     console.log(transportObject)
     console.log(jobDescription)
-    transportObject = {data: {Company: jobName, Job_Description: jobDescription, userEmail: userEmailAtomState}}
+    transportObject = {data: {Company: jobName, Job_Description: jobDescription, userEmail: userEmailAtomState, Rejection_Message: jobRejection}}
   //   transportObject = {
   //     "data": {
   
