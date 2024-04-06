@@ -60,19 +60,54 @@ async function checkUser() { //we need to add a try catch block to this to preve
     // return await auth().sessionClaims.primaryEmail
 }
 
+interface JobData {
+    attributes: {
+        userEmail:string
+    }
+}
+
+type JobFetchMethods = "POST" | "DELETE" | "PUT"
+
+/**
+ * Represents all the updatable properties of my job application in strapi.
+ */
+interface JobDataUpdate {
+    data: {
+        Company: string,
+        Applied_Date: string,
+        Job_Posting_URL: string,
+        Main_Posting_URL?: string,
+        Resume_version?: string,
+        Education_Requirements?: string,
+        Job_Description: string,
+        createdAt: string,
+        updatedAt: string,
+        publishedAt: string,
+        Rejection_message?: string,
+        Job_Location?: string,  
+        nuber_of_applicants?: string,
+        follow_up_notes?: string,
+        tech_stack?: string,
+        years_experience_required?: string,
+        coverletter?: string,
+        platform?: string,
+        Job_Title: string,
+        userEmail: string,
+    }
+}
 
 console.log('route hit')
-async function getAppliedJobs(userEmail = null) {
+async function getAppliedJobs(userEmail: string | null = null) {
     'use server'
     console.log(userEmail)
-    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=60', { cache: 'no-store' })
+    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }
     // return res.json()
     let jobData = await res.json()
     console.log(jobData)
-    const filteredJobs = jobData.data.filter((job) => {
+    const filteredJobs = jobData.data.filter((job: JobData) => {
         console.log(job.attributes.userEmail)
         console.log(job.attributes.userEmail == userEmail)
         return job.attributes.userEmail == userEmail
@@ -85,18 +120,23 @@ async function getAppliedJobs(userEmail = null) {
 
 }
 
+
+
+
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
-export async function updateAppliedJobs(UID, jobApplicationDataState, Method) {
+export async function updateAppliedJobs(UID: number , jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
     'use server'
+    console.log(UID, jobApplicationDataState, Method)
     let result = await updateApplied(UID, jobApplicationDataState, Method)
     return result
 }
 
-export async function updateApplied(UID, jobApplicationDataState, Method) {
+export async function updateApplied(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
     
     console.log(UID)
     console.log(jobApplicationDataState)
     console.log('route hit')
+    let response: Response
     try {
         console.log('route hit')
         console.log(process.env.Strappi_SuperAccess)
@@ -105,42 +145,53 @@ export async function updateApplied(UID, jobApplicationDataState, Method) {
             'Content-Type': 'application/json', // Adjust this based on your API requirements,
         });
         if (Method == 'DELETE') {
-            const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
                 method: 'DELETE',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
                 cache: 'no-store',
             })
+            if (!response.ok) {
+                console.log(response.status)
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             const responseJson = await response.json()
             console.log(responseJson)
             return responseJson
         }
         if (Method == 'POST') {
-            const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches`, {
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches`, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
                 cache: 'no-store',
             })
+            if (!response.ok) {
+                console.log(response.status)
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             const responseJson = await response.json()
             console.log(responseJson)
+            
             return responseJson
         }
         if (Method == 'PUT') {
-            const response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
                 method: 'PUT',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
                 cache: 'no-store',
             })
+            if (!response.ok) {
+                console.log(response.status)
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
             const responseJson = await response.json()
             console.log(responseJson)
             return responseJson
         }
-        if (!response.ok) {
-            console.log(response.status)
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
+    
+       
     }
     catch (error) {
         console.log(error)
