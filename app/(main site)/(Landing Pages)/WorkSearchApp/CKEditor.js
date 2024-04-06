@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { atom, useAtom } from 'jotai'
-import { jobDescriptionAtom, jobRejectionAtom } from './Atoms.js'
+import { jobDescriptionAtom, jobRejectionAtom } from './Atoms'
 // import Markdown from '@ckeditor/ckeditor5-markdown-gfm';
 import htmlToMarkdown from './htmlToMarkdown.js'
 

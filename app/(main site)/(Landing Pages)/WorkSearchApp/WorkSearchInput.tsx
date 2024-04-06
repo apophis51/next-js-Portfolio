@@ -3,15 +3,15 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom} from './Atoms.js'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom} from './Atoms'
 //  import RichTextEditor from './RichTextEditor.js'
  import CKEditor from './CKEditor.js'
 import RichTextEditor from './RichTextEditor.js';
+import {UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods} from './workSearchTypes'
 //import RichTextEditor from '@/app/(email project)/RichTextEditor.js'
 
 
-
-const InputComponent = ({updateAppliedJobs}) => {
+const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
   const [UID, setUID] = useAtom(UIDAtom);
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
@@ -20,17 +20,17 @@ const InputComponent = ({updateAppliedJobs}) => {
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
   const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setJobName(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserEmailAtom(event.target.value);
   };
 
-  async function handleSubmitJob(Method = 'PUT') {
+  async function handleSubmitJob(Method: JobFetchMethods = "PUT" ) {
     console.log(jobApplicationDataState)
-    setJobApplicationData(prevState => ({
+    setJobApplicationData(prevState  => ({
       ...prevState,
       attributes: {
         ...prevState.attributes,
@@ -52,7 +52,6 @@ const InputComponent = ({updateAppliedJobs}) => {
      let updateProcessing = await updateAppliedJobs(UID, transportObject,Method)
      console.log(updateProcessing)
      setJobApplicationsSent((prev) => prev + 1)
-    waitingWrapper(UID, transportObject,Method,setJobApplicationsSent,updateAppliedJobs)
   }
 
   return (

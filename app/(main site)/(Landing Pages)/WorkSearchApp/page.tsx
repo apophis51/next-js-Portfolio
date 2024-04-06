@@ -6,6 +6,7 @@ import { cache } from 'react';
 import Hero from '../../Components/Hero'
 import {headers} from 'next/headers'
 // import dynamic from 'next/dynamic'
+import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
 
 // import { clerkClient } from "@clerk/nextjs";
 export const dynamic = 'force-dynamic'
@@ -59,44 +60,6 @@ async function checkUser() { //we need to add a try catch block to this to preve
     // console.log(orgRole)
     // return await auth().sessionClaims.primaryEmail
 }
-
-interface JobData {
-    attributes: {
-        userEmail:string
-    }
-}
-
-type JobFetchMethods = "POST" | "DELETE" | "PUT"
-
-/**
- * Represents all the updatable properties of my job application in strapi.
- */
-interface JobDataUpdate {
-    data: {
-        Company: string,
-        Applied_Date: string,
-        Job_Posting_URL: string,
-        Main_Posting_URL?: string,
-        Resume_version?: string,
-        Education_Requirements?: string,
-        Job_Description: string,
-        createdAt: string,
-        updatedAt: string,
-        publishedAt: string,
-        Rejection_message?: string,
-        Job_Location?: string,  
-        nuber_of_applicants?: string,
-        follow_up_notes?: string,
-        tech_stack?: string,
-        years_experience_required?: string,
-        coverletter?: string,
-        platform?: string,
-        Job_Title: string,
-        userEmail: string,
-    }
-}
-
-console.log('route hit')
 async function getAppliedJobs(userEmail: string | null = null) {
     'use server'
     console.log(userEmail)
@@ -209,7 +172,6 @@ export default async function WorkSearchApp() {
     let  jobApplicationData = await getAppliedJobs(userEmail)
     console.log(jobApplicationData)
     //test
-    console.log('this was ran')
     async function jobApplicationDat() {
         'use server'
         return await getAppliedJobs(userEmail)
@@ -223,6 +185,7 @@ export default async function WorkSearchApp() {
             <div className='bg-white prose-2xl p-10 '>
                 <h1>MalcMind Work Search App</h1>
                 <WorkSearchInput updateAppliedJobs={updateAppliedJobs} />
+                
                 <div className='flex flex-col justify-center items-center'>
                     <h2>My Job Applications</h2>
                     <GoogleTableChart jobApplicationDat={jobApplicationDat} />
