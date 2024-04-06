@@ -4,20 +4,21 @@
 import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
-import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom } from './Atoms.js'
+import { atom, useAtom,useSetAtom } from 'jotai'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom } from './Atoms'
 let jobApplicationData = {}
 
 export default function GoogleCryptoChart({ jobApplicationDat}) {
-  const [UID, setUID] = useAtom(UIDAtom);
-  const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
-  const [jobName, setJobName] = useAtom(jobNameAtom);
-  const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
+  const [focusOnRow, setFocusOnRow] = useState(null)
+  const setUID = useSetAtom(UIDAtom);
+  const setJobApplicationData = useSetAtom(jobApplicationDataAtom);
+  const setJobName = useSetAtom(jobNameAtom);
+  const setJobDescription = useSetAtom(jobDescriptionAtom);
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [chartInfo, setChartInfo] = useState({})//
   const [webSocketData, setWebSocketData] = useState(null);
-  const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
-  const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
+  const setUserEmailAtom = useSetAtom(userEmailAtom)
+  const setJobRejection = useSetAtom(jobRejectionAtom)
 // let jobApplicationData = jobApplicationDat()
 
 console.log(jobApplicationData)
@@ -37,6 +38,7 @@ console.log(jobApplicationData)
     setUID(UID)
     setJobName(jobToChange)
     console.log('Updating', jobToChange, UID)
+    
   };
 
 
@@ -115,7 +117,7 @@ console.log('this was called')
 
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
-   
+   console.log('rendered')
   
   return (
     <div className='max-w-5xl'>

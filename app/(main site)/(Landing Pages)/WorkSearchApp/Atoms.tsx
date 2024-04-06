@@ -1,8 +1,10 @@
 import {atom} from 'jotai'
+import {RawJobData} from './workSearchTypes'
+
 
 export const jobNameAtom = atom('')
-export const UIDAtom = atom('')
-export const jobApplicationDataAtom = atom({})
+export const UIDAtom = atom(1000)
+export const jobApplicationDataAtom = atom<RawJobData>({attributes:{}})
 export const jobDescriptionAtom = atom('n/a')
 export const JobApplicationsSent = atom(0)
 
