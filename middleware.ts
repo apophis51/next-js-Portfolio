@@ -52,7 +52,7 @@ export default authMiddleware({
   // Routes that can be accessed while signed out
   // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest'],
   // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/WorkSearchApp'],
-  publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/WorkSearchApp','/WorkSearchApp/Authorize'],
+  publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/Work-Search-App','/Work-Search-App/Authorize'],
 
 
   // Routes that can always be accessed, and have
@@ -65,7 +65,7 @@ export default authMiddleware({
 export const config = {
   // matcher: ['/dashboard/:path*','/ClerkAuthTest','/'],
   // matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/WorkSearchApp','/WorkSearchApp/Authorize/api'],
-   matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/WorkSearchApp'],
+   matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App'],
   // matcher: ['/dashboard/:path*','/ClerkAuthTest','/'],
 
 

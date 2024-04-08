@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
 import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom} from './Atoms'
 //  import RichTextEditor from './RichTextEditor.js'
- import CKEditor from './CKEditor.js'
+ import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
 import {UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods} from './workSearchTypes'
 //import RichTextEditor from '@/app/(email project)/RichTextEditor.js'
@@ -57,6 +57,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
   return (
     <div >
       <CKEditor />
+      <br></br>
       {/* <RichTextEditor /> */}
       <div className='border border-solid border-black flex gap-5'>
         <label htmlFor="myInput">Company: </label>
