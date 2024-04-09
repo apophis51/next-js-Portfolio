@@ -52,7 +52,7 @@ export async function POST(data) {
         {
             data: {
                 information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
-                logs: paymentIntentSucceeded.ammount
+                logs: paymentIntentSucceeded.amount
             }
         },
         responseUtils.allowCors)
