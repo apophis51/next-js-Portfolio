@@ -36,7 +36,7 @@ export async function POST(data) {
     } catch (err) {
         console.log(`Webhook Error: ${err.message}`)
     }
-
+    const paymentIntentSucceeded = null
     // Handle the event
     switch (event.type) {
         case 'payment_intent.succeeded':
