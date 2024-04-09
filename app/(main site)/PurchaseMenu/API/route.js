@@ -51,7 +51,8 @@ export async function POST(data) {
     return NextResponse.json(
         {
             data: {
-                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.'
+                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                logs: paymentIntentSucceeded.ammount
             }
         },
         responseUtils.allowCors)
