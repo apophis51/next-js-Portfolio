@@ -7,13 +7,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const endpointSecret = "whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194";
 
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
-
 async function getRawBody(readable) {
     const chunks = [];
     for await (const chunk of readable) {
