@@ -9,7 +9,8 @@ export default async function handler(req, res) {
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
             price: 'price_1Nm0wECBn6LU6bJVnClXDHZX',
-            quantity: 1,
+            // price: 'price_1Nm6ySCBn6LU6bJVQTiLL4Pf',
+            quantity: 1,//gg
           },
         ],
         mode: 'payment',
