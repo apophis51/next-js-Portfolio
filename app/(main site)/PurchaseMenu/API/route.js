@@ -42,6 +42,8 @@ export async function POST(data) {
         case 'payment_intent.succeeded':
             paymentIntentSucceeded = event.data.object;
             console.log(`PaymentIntent for ${paymentIntentSucceeded.amount} was successful!`);
+            paymentIntentSucceeded = paymentIntentSucceeded.amount
+            // paymentIntentSucceeded = paymentIntentSucceeded.toString()
             // Then define and call a function to handle the event payment_intent.succeeded
             break;
         // ... handle other event types
@@ -52,7 +54,7 @@ export async function POST(data) {
         {
             data: {
                 information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
-                logs: paymentIntentSucceeded.amount
+                logs: paymentIntentSucceeded
             }
         },
         responseUtils.allowCors)
