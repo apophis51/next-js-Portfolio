@@ -41,18 +41,9 @@ export async function POST(data) {
     switch (event.type) {
         case 'payment_intent.succeeded':
             paymentIntentSucceeded = event.data.object;
+            console.log(paymentIntentSucceeded)
             console.log(`PaymentIntent for ${paymentIntentSucceeded.amount} was successful!`);
             paymentIntentSucceeded = paymentIntentSucceeded.amount
-
-            return NextResponse.json(
-        
-                {
-                    data: {
-                        information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
-                        logs: paymentIntentSucceeded
-                    }
-                },
-                responseUtils.allowCors)
             // paymentIntentSucceeded = paymentIntentSucceeded.toString()
             // Then define and call a function to handle the event payment_intent.succeeded
             break;
@@ -60,7 +51,15 @@ export async function POST(data) {
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
-    
-    
+    console.log(paymentIntentSucceeded)
+    return NextResponse.json(
+        
+        {
+            data: {
+                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                logs: paymentIntentSucceeded
+            }
+        },
+        responseUtils.allowCors)
 }
 

@@ -20,6 +20,15 @@ const nextConfig = {
       
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/WorkSearchApp/:slug*',
+        destination: '/Work-Search-App/:slug*',
+        permanent: true,
+      },
+    ]
+  },
   
 }
 
