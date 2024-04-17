@@ -35,7 +35,7 @@ export default async function Hero({ contentNeeded, buttonLink }: { contentNeede
         <div className="max-w-md">
           <h1 className="mb-5 text-5xl font-bold animate_text_div">{contentNeeded}</h1>
           <p className="mb-5">{MainText} </p>
-          <button className="btn btn-primary">{buttonText}</button>
+          <a href={`#${buttonLink}`}><button className="btn btn-primary">{buttonText}</button></a>
         </div>
       </div>
     </div>
