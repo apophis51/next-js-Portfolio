@@ -1,5 +1,59 @@
 
-'use client'
+
+import PriceCard from '@/app/(main site)/Components/PriceCard'
+import Container from '@mui/material/Container';
+import Hero from '@/app/(main site)/Components/Hero'
+
+let priceCardData = [{
+  title: "Weekly Plan",
+  price: 3_000,
+  item: "price_1P5MU7CBn6LU6bJVwmNbGMDc",
+  billing: "/week",
+  features: [
+    { name: "Includes Prisma, Next.js, TailwindCSS, TypeScript & Strapi CMS support" },
+    { name: "40 Hours of Dev Time Per Week" },
+    { name: "SEO Optimization and Strategy"}
+  ],
+  crossOutFeatures: [
+    { name: "Save 20% on annual billing" },
+    { name: "BYOS - Chose Your Stack" },
+    { name: "Dedicated Developer Support" },
+  ]
+},
+{
+  title: "Monthly Plan - Popular",
+  price: 10_000,
+  item: "price_1P5LByCBn6LU6bJVQq9IZUZo",
+  billing: "/month",
+  features: [
+    { name: "Dedicated Developer Support" },
+    { name: "Includes Prisma, Next.js, TailwindCSS, TypeScript & Strapi CMS support" },
+    { name: "40 Hours of Dev Time Per Week" },
+    { name: "SEO Optimization and Strategy"}
+
+  ],
+  crossOutFeatures: [
+    { name: "Save 20% on annual billing" },
+    { name: "BYOS - Chose Your Stack" },
+  ]
+},
+{
+  title: "Yearly Plan - Best Value",
+  price: 96_000,
+  item: "price_1P5MVSCBn6LU6bJVs6P0VATr",
+  billing: "/year",
+  features: [
+    { name: "Dedicated Developer Support" },
+    { name: "Includes Prisma, Next.js, TailwindCSS, TypeScript & Strapi CMS support" },
+    { name: "40 Hours of Dev Time Per Week" },
+    { name: "SEO Optimization and Strategy"},
+    { name: "Save 20% on annual billing" },
+    { name: "BYOS - Chose Your Stack" },
+  ],
+  crossOutFeatures: [
+  ]
+}
+]
 
 export default function PurchaseMenu() {
   // const handleCheckout = async () => {
@@ -28,26 +82,13 @@ export default function PurchaseMenu() {
   //   }
   // };
     return (
-        <div>
-                <div className="text-4xl text-center border-solid border-2 border-indigo-600 m-[150px] bg-white">
-                    <br />
-                    <br />
-                    <p className="">My Services Will Soon Be available for Purchase Via a Stripe Integration, Check back soon</p>
-                    {/* <form action="/api/checkout_sessions" method="POST"> */}
-                    <form action="/PurchaseMenu/checkoutroute" method="POST">
-
-      <section>
-        <button type="submit" role="link" className='btn'>
-          Checkout
-        </button>
-      </section>
-     
-    </form>
-                    <br />
-                    <br />
-                   
-                </div>
+      <Container maxWidth="xl"  >
+        <Hero contentNeeded={'WebDev Plans'} buttonLink='availablePlans'/>
+        <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>
+              
+                <PriceCard priceCardData={priceCardData}/>
         </div>
+        </Container>
     );
 }
 
