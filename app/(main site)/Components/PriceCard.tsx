@@ -10,8 +10,8 @@ import { features } from "process";
 export default function PriceCard({priceCardData}: any) {
   return (
     <div id='availablePlans' className="flex flex-col items-center shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
-    <div className="text-center border-solid border-2 bg-white border-indigo-600 p-10 prose prose-lg md:prose-2xl mt-10 min-w-[80%] rounded-xl">
-                    <h2 className="">Available Plans</h2>
+    <div className="text-center  bg-white p-10 prose prose-lg md:prose-xl mt-10 min-w-[80%] rounded-xl">
+                    <h1 className="">Available Plans</h1>
                 </div>
     <div className='flex flex-col lg:flex-row gap-2 p-10 '>
       {priceCardData.map((priceCardData: any) =>(

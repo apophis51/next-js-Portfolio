@@ -79,7 +79,7 @@ export function LogStatus() {
 }
 
 //admin page added 12/5/2023
-let WebSocket = {name: 'Admin-Homepage', href: '/HomePage'};
+let WebSocket = {name: 'Admin-Homepage', href: '/AdminDash'};
 //end admin page added 12/5/2023
 
 

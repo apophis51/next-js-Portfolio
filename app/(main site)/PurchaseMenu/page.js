@@ -3,6 +3,7 @@
 import PriceCard from '@/app/(main site)/Components/PriceCard'
 import Container from '@mui/material/Container';
 import Hero from '@/app/(main site)/Components/Hero'
+import ContactForm  from '@/app/(main site)/ContactForm/page';
 
 let priceCardData = [{
   title: "Weekly Plan",
@@ -88,6 +89,7 @@ export default function PurchaseMenu() {
               
                 <PriceCard priceCardData={priceCardData}/>
         </div>
+        <ContactForm/>
         </Container>
     );
 }
