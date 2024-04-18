@@ -1,13 +1,3 @@
-
-// export default function ContactForm() {
-// return (
-//     <div className="bg-blue-200 h-[200px] text-white ">
-//         <p>helffloffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
-//     </div>
-// )
-    
-// }
-
 'use client'
 
 import React, { useState } from 'react';
@@ -53,7 +43,7 @@ function ContactForm() {
           <p>Thank you for your submission!</p>
         </div>
       ) : (
-        <div className="bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl">
+        <div className="bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl mt-10">
         <form onSubmit={handleSubmit}>
           <div className=''>
             <label htmlFor="name">Name</label>
