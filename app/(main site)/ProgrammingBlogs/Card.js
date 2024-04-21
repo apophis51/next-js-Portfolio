@@ -13,7 +13,7 @@ export default function MediaCard(props) {
     const{ blogTitle, blogLink, blogContent} = props
   return (
     <div className='shadow-[0px_0px_10px_1px_rgba(255,255,255,0.5)]'>
-    <Card sx={{ maxWidth: 400,
+    <Card sx={{ maxWidth: [300,400], //mui uses breakpoints
                 maxHeight: 720, //used to be 620
                 minHeight: 720, //used to be 620
                 Display: 'flex',

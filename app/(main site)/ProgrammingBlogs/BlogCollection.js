@@ -14,7 +14,7 @@ export default function BlogCollection({data}){
     console.log(data.data.length)
 
     return(
-        <div className="bg-gradient-to-br from-green-700 via-blue-600 to-green-800 mt-4 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
+        <div className="bg-gradient-to-br from-green-700 via-blue-600 to-green-800 m-4 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
             <div className="flex justify-center items-center">
             <BlogControl setBlogFilter={setBlogFilter}/>
             </div>
