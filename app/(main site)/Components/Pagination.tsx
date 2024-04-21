@@ -44,11 +44,11 @@ export default function Pagination({dataLength, setSliceTopNumber, setSliceBotto
     <div>
     {(!params) && (<div className='flex flex-wrap justify-evenly p-9'>
       <div className="join">
-        <button className="join-item btn btn-lg">«</button>
+        <button className="join-item btn btn-md md:btn-lg">«</button>
         {paginationRange.map((number) => {
-          return <button onClick={() => handleButtonClick(number)} className={`join-item btn btn-lg ${activeButton === number ? 'btn-active' : ''}`}>{number}</button>
+          return <button onClick={() => handleButtonClick(number)} className={`join-item btn btn-md md:btn-lg ${activeButton === number ? 'btn-active' : ''}`}>{number}</button>
         })}
-        <button className="join-item btn btn-lg">»</button>
+        <button className="join-item btn btn-md md:btn-lg">»</button>
       </div>
     </div>)}
     </div>

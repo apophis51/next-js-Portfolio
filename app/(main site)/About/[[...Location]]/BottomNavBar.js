@@ -12,6 +12,7 @@ import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { use } from 'chai';
+import granim from '@/public/granim.min.js'
 
 
 
@@ -96,24 +97,26 @@ export default function BottomNavBar(props) {
     });
     }
   
-  catch{
-
+  catch(error){
+console.log(error)
   }
   }
 
   React.useEffect(() => {
+    granim()
     mygranium()
   
   }, [])
 
   return (
     <div>
-      {mygranium()}
+      {/* {mygranium()} */}
       <div className = 'granim-relative'>
     <canvas id="granim-canvas"></canvas>
-    <Script src="granim.min.js" 
+    {/* <Script src="granim.min.js" 
     strategy = 'afterInteractive' defer
-    ></Script>
+    onLoad={() => mygranium()}
+    ></Script> */}
    {/* {mygranium()} */}
 
     <Box sx={{ width: '100%' }} className = " child">

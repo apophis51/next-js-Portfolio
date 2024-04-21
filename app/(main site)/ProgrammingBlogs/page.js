@@ -38,11 +38,11 @@ export default async function Page({searchParams}) {
   }
  
 
-  return (<div><Container maxWidth="xl">
+  return (<div className='overflow-y-hidden overflow-x-hidden'><Container maxWidth="xl">
     <Script src='./prism.js'
       strategy='afterInteractive' />
     <Hero contentNeeded={contentNeeded} />
-    <div className="prose max-w-none prose-sm prose-a:no-underline prose-h1:text-blue-500">
+    <div className="prose-sm prose-a:no-underline prose-h1:text-blue-500  flex justify-center items-center">
       <BlogCollection data={data} />
     </div>
   </Container>

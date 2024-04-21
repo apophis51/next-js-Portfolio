@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import About from '../About'
 import BottomNavBar from './BottomNavBar';
-import '../markdown.css'
+// import '../markdown.css'  deleted 4/20/2024
 import ProjectCards from '../../ProjectCards/page';
 import Container from '@mui/material/Container';
 
