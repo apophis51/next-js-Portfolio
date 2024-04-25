@@ -12,7 +12,7 @@ export async function POST(data) {
   let authorizedEmail = null
   try {
 
-    let userAllowed = await fetch(projectURLS().WWWuserMap)
+    let userAllowed = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
     let userAllowedJson = await userAllowed.json()
     authorizedEmail = userAllowedJson[userAuth]
     console.log(authorizedEmail)

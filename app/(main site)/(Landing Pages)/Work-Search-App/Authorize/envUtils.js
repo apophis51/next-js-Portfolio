@@ -1,26 +1,77 @@
 
 "use server"
 import projectSettings from '@/projectSettings'
+import { headers } from 'next/headers'
+import projectURLS from '@/projectSettings'
 
 
-function connectToWebSocket(adminCode, emailAddress, connectingUser) {
+export async function getHeaders() {
+    console.log(headers())
+    let originURL = headers().get('referer')
+    console.log(originURL)
+    return originURL
+}
+
+
+function connectToWebSocket(adminCode, emailAddress, connectingUser) 
+    {
+        return new Promise((resolve, reject) => {
+
     const WebSocket = require('ws');
 
     const ws = new WebSocket(projectSettings().envUtilsWebSocket);
 
     ws.on('open', function open() {
         console.log('Connected to WebSocket server');
-        ws.send(JSON.stringify({ 
-            type: 'Admin', 
-            data: {adminAuth: adminCode, emailAddress: emailAddress, id: connectingUser}}))
-    });   
+        ws.send(JSON.stringify({
+            type: 'Admin',
+            data: { adminAuth: adminCode, emailAddress: emailAddress, id: connectingUser }
+        }))
+    });
 
+    ws.onmessage = (event) => {
+        const newData = JSON.parse(event.data);
+        console.log(newData)
+        let appRegistration = newData.cool
+        if (appRegistration) {
+            console.log('cool')
+            let userAllowedJson = (async function () {
+                console.log('fetching')
+                let urlData = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
+                console.log(urlData)
+                let userAllowedJson = await urlData.json()
+                console.log(userAllowedJson)
+                console.log(connectingUser)
+                let email = userAllowedJson[connectingUser]
+                console.log(userAllowedJson['36af6b9051b92f4b3c7cc4155ab76cf01801eff4ba7d64ddf3c90350bff34d1f'])
+                console.log(email)
+                if (email){
+                    resolve("signUp Successful")
+                    // success()
+                }
+                else{
+                    resolve('failed')
+                    // reject(new Error("Message timeout"))
+                }   
+
+                // return userAllowedJson
+            })()
+        }
+
+    };
+
+})
 }
 
 export async function sendWebSocketMessage(emailAddress, connectingUser) {
+    
+    
     let adminCode = process.env.ChromeExtentionWebSocketAdmin
-    connectToWebSocket(adminCode, emailAddress, connectingUser)
-    console.log(emailAddress, connectingUser)
+    let registerSignup = connectToWebSocket(adminCode, emailAddress, connectingUser)
+    console.log(await registerSignup)
+    
+    return registerSignup
+
 }
 
 // export async function getenv(){
