@@ -64,6 +64,7 @@ async function getAppliedJobs(userEmail: string | null = null) {
     'use server'
     console.log(userEmail)
     const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
+    //[https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80]
     if (!res.ok) {
         throw new Error('Failed to fetch data')
     }

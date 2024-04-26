@@ -11,7 +11,7 @@ function runDeployScript() {
         exec('cd /mnt/c/Users/malco/Malcolm_chrome_extentions/MalcMindJobTracker_V3/ && ls && npm run build', (err, stdout, stderr) => {
             if (err) {
                 console.error(err)
-                return
+                resolve(err)
             }
             console.log(stdout)
             return resolve(stdout)
