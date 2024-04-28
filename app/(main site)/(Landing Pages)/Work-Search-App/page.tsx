@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import WorkSearchInput from './WorkSearchInput'
 import { cache } from 'react';
 import Hero from '../../Components/Hero'
-import {headers} from 'next/headers'
+import { headers } from 'next/headers'
 // import dynamic from 'next/dynamic'
 import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
 
@@ -17,22 +17,22 @@ export const revalidate = 0
 // Troubleshooting
 // import { auth, currentUser } from '@clerk/nextjs';
 async function checkUser() { //we need to add a try catch block to this to prevent the internal server errror
-//     console.log('route hit')
-    
+    //     console.log('route hit')
+
     console.log('route hit')
     const { auth, currentUser } = await import('@clerk/nextjs')
     //  const { userId, getToken, orgRole } = auth();
     console.log('route hit')
     console.log(auth().sessionClaims?.primaryEmail)
     let userEmail = await currentUser()
-    if (userEmail){
-    console.log(userEmail.emailAddresses[0].emailAddress)
-    return userEmail.emailAddresses[0].emailAddress
+    if (userEmail) {
+        console.log(userEmail.emailAddresses[0].emailAddress)
+        return userEmail.emailAddresses[0].emailAddress
     }
-    else{
+    else {
         return null
     }
-        //   console.log(auth().sessionClaims.primaryEmail);
+    //   console.log(auth().sessionClaims.primaryEmail);
     // const user = await currentUser()
     // console.log(user.id)
     // console.log('page user' ,user)
@@ -60,27 +60,34 @@ async function checkUser() { //we need to add a try catch block to this to preve
     // console.log(orgRole)
     // return await auth().sessionClaims.primaryEmail
 }
-async function getAppliedJobs(userEmail: string | null = null) {
+
+
+async function getJobData(userEmail: string | null = null, contentType: string | null = null) {
     'use server'
     console.log(userEmail)
-    const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
-    //[https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80]
-    if (!res.ok) {
+    let res = null
+    if (contentType == null) {
+        res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
+    }
+    else if (contentType == 'job-resumes') {
+        res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
+    }
+    if (!res!.ok) {
         throw new Error('Failed to fetch data')
     }
     // return res.json()
-    let jobData = await res.json()
-    console.log(jobData)
-    const filteredJobs = jobData.data.filter((job: JobData) => {
-        console.log(job.attributes.userEmail)
-        console.log(job.attributes.userEmail == userEmail)
+    let personalJobData = await res!.json()
+    console.log(personalJobData)
+    const filteredJobs = personalJobData.data.filter((job: JobData) => {
+        // console.log(job.attributes.userEmail)
+        // console.log(job.attributes.userEmail == userEmail)
         return job.attributes.userEmail == userEmail
-        
-    });
-    let formattedJobs = { data: [...filteredJobs] } 
-    console.log(formattedJobs)
 
-    return formattedJobs
+    });
+    let formatedJobData = { data: [...filteredJobs] }
+    console.log(formatedJobData)
+
+    return formatedJobData
 
 }
 
@@ -88,7 +95,7 @@ async function getAppliedJobs(userEmail: string | null = null) {
 
 
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
-export async function updateAppliedJobs(UID: number , jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
+export async function updateAppliedJobs(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
     'use server'
     console.log(UID, jobApplicationDataState, Method)
     let result = await updateApplied(UID, jobApplicationDataState, Method)
@@ -96,7 +103,7 @@ export async function updateAppliedJobs(UID: number , jobApplicationDataState: J
 }
 
 export async function updateApplied(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
-    
+
     console.log(UID)
     console.log(jobApplicationDataState)
     console.log('route hit')
@@ -136,7 +143,7 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
             }
             const responseJson = await response.json()
             console.log(responseJson)
-            
+
             return responseJson
         }
         if (Method == 'PUT') {
@@ -154,8 +161,8 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
             console.log(responseJson)
             return responseJson
         }
-    
-       
+
+
     }
     catch (error) {
         console.log(error)
@@ -170,27 +177,38 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
 export default async function WorkSearchApp() {
     let userEmail = await checkUser()
     console.log(userEmail)
-    let  jobApplicationData = await getAppliedJobs(userEmail)
-    console.log(jobApplicationData)
-    //test
-    async function jobApplicationDat() {
+
+
+    async function jobApplicationFetch() {
         'use server'
-        return await getAppliedJobs(userEmail)
+        return await getJobData(userEmail)
     }
 
-    //end test
+    async function jobResumeFetch() {
+        'use server'
+        return await getJobData(userEmail, 'job-resumes')
+    }
+
+
+
     return (
         <Container maxWidth="xl">
             <Hero contentNeeded={"MalcMind Work Search"} />
-
-            <div className='bg-white prose-2xl p-10 '>
-                <h1>MalcMind Work Search App</h1>
+            <div className=' prose-2xl p-10 bg-gradient-to-tr from from-purple-800 to-green-800  '>
+            {!userEmail && 
+            <div role="alert" className="alert alert-error">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>Error! You need to Be Loggedin to access this feature.</span>
+          </div>
+            }
+            {userEmail && <>
+                <h1 className='text-center text-white'>MalcMind Work Search App</h1>
                 <WorkSearchInput updateAppliedJobs={updateAppliedJobs} />
-                
+
                 <div className='flex flex-col justify-center items-center'>
-                    <h2>My Job Applications</h2>
-                    <GoogleTableChart jobApplicationDat={jobApplicationDat} />
-                </div>
+                    <h2 className='text-white'>My Job Applications</h2>
+                    <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} />
+                </div></>}
             </div>
         </Container>
     )

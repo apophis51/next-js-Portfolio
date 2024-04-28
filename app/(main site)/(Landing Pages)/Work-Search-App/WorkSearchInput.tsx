@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom} from './Atoms'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom} from './Atoms'
 //  import RichTextEditor from './RichTextEditor.js'
  import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
@@ -19,6 +19,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
   const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
   const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
+  const [jobResume, setJobResume] = useAtom(jobResumeAtom)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setJobName(event.target.value);
@@ -28,6 +29,10 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
     setUserEmailAtom(event.target.value);
   };
 
+
+  /**
+   * this function also handles the resume submission
+   */
   async function handleSubmitJob(Method: JobFetchMethods = "PUT" ) {
     console.log(jobApplicationDataState)
     setJobApplicationData(prevState  => ({
@@ -59,7 +64,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
       <CKEditor />
       <br></br>
       {/* <RichTextEditor /> */}
-      <div className='border border-solid border-black flex gap-5'>
+      <div className='border border-solid border-black flex gap-5 bg-white'>
         <label htmlFor="myInput">Company: </label>
         <input
           type="text"

@@ -11,3 +11,4 @@ export const JobApplicationsSent = atom(0)
 export const userEmailAtom = atom('')
 
 export const jobRejectionAtom = atom('n/a')
+export const jobResumeAtom = atom('n/a')
