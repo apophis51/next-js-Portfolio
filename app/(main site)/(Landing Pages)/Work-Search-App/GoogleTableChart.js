@@ -5,10 +5,11 @@ import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom,useSetAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom } from './Atoms'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom} from './Atoms'
 let jobApplicationData = {}
+let jobResumeData = {}
 
-export default function GoogleCryptoChart({ jobApplicationDat}) {
+export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch}) {
   const [focusOnRow, setFocusOnRow] = useState(null)
   const setUID = useSetAtom(UIDAtom);
   const setJobApplicationData = useSetAtom(jobApplicationDataAtom);
@@ -19,13 +20,17 @@ export default function GoogleCryptoChart({ jobApplicationDat}) {
   const [webSocketData, setWebSocketData] = useState(null);
   const setUserEmailAtom = useSetAtom(userEmailAtom)
   const setJobRejection = useSetAtom(jobRejectionAtom)
-// let jobApplicationData = jobApplicationDat()
+  const setJobResumeData = useSetAtom(jobResumeAtom)
 
 console.log(jobApplicationData)
+console.log(jobResumeData)
+
 
 
   const handleButtonClick = (jobToChange, UID) => {
     console.log(jobApplicationData)
+    console.log(jobResumeData.data[0].attributes.Resume)
+    setJobResumeData(jobResumeData.data[0].attributes.Resume)
     jobApplicationData.data.filter((item) => {
       if (item.id === UID) {
         console.log('found', item)
@@ -101,10 +106,14 @@ console.log('rendered')
       setWebSocketData(newData);
     };
  
-console.log('this was called')
     async function fetchData(){
-      jobApplicationData = await jobApplicationDat()
-      console.log(jobApplicationData) 
+      jobApplicationData = await jobDataFetch()
+      console.log('jobApplicationData has been fetched and set', jobApplicationData)
+      jobResumeData = await jobResumeFetch()
+      setJobResumeData(jobResumeData.data[0].attributes.Resume)
+
+      console.log(jobApplicationData)
+      console.log(jobResumeData) 
       generateChartData(jobApplicationData)
 
     }
@@ -118,9 +127,13 @@ console.log('this was called')
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
    console.log('rendered')
-  
+console.log(chartInfo)
   return (
-    <div className='max-w-5xl'>
+    <div className='max-w-full'>
+      {chartInfo.chartData == undefined && <div className="flex justify-center items-center">
+        <p className='text-2xl text-white'>Loading</p>
+        <span className="loading loading-dots loading-lg text-white"></span>
+</div>}
       <Chart
         chartType="Table"
         // width="90%"
