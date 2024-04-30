@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom} from './Atoms'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom} from './Atoms'
 //  import RichTextEditor from './RichTextEditor.js'
  import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
@@ -13,13 +13,16 @@ import {UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods} from './work
 
 const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
   const [UID, setUID] = useAtom(UIDAtom);
+  const [UIDResume, setUIDResume] = useAtom(UIDResumeAtom)
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
-  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
+  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent) 
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
   const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
   const [jobResume, setJobResume] = useAtom(jobResumeAtom)
+
+  console.log(jobResume)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setJobName(event.target.value);
@@ -35,6 +38,8 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
    */
   async function handleSubmitJob(Method: JobFetchMethods = "PUT" ) {
     console.log(jobApplicationDataState)
+    let returnResume = { data: {Resume: jobResume} }
+
     setJobApplicationData(prevState  => ({
       ...prevState,
       attributes: {
@@ -47,15 +52,16 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
     console.log(transportObject)
     console.log(jobDescription)
     transportObject = {data: {Company: jobName, Job_Description: jobDescription, userEmail: userEmailAtomState, Rejection_Message: jobRejection}}
-  //   transportObject = {
-  //     "data": {
-  
-  //             "Company": "teedfjskkkllkt"
-          
-  //     },
-  // }
-     let updateProcessing = await updateAppliedJobs(UID, transportObject,Method)
+    console.log(returnResume)
+     console.log(UID)
+     console.log(UIDResume)
+     if(UID != 1000) {
+     let updateProcessing = await updateAppliedJobs(UID, transportObject,Method, null)
      console.log(updateProcessing)
+     }
+     await updateAppliedJobs(UIDResume, returnResume, Method, 'job-resumes')
+     console.log(returnResume)
+     
      setJobApplicationsSent((prev) => prev + 1)
   }
 

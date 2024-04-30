@@ -1,6 +1,6 @@
 
 
-export type UpdateCallBack =  { updateAppliedJobs: (UID: number, transportObject: JobDataUpdate, Method: JobFetchMethods) => Promise<RawJobData>}
+export type UpdateCallBack =  { updateAppliedJobs: (UID: number, transportObject: JobDataUpdate, Method: JobFetchMethods, contentType:string | null) => Promise<RawJobData>}
 
 export interface JobData {
     attributes: {
@@ -42,6 +42,7 @@ export type RawJobData =
 export type JobDataUpdate = {
     data: {
         Company?: string,
+        Resume?: string,
         Applied_Date?: string,
         Job_Posting_URL?: string,
         Main_Posting_URL?: string,
