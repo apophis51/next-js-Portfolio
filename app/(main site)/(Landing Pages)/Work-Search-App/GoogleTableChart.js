@@ -5,13 +5,14 @@ import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
 import { atom, useAtom,useSetAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom} from './Atoms'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom} from './Atoms'
 let jobApplicationData = {}
 let jobResumeData = {}
 
 export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch}) {
   const [focusOnRow, setFocusOnRow] = useState(null)
   const setUID = useSetAtom(UIDAtom);
+  const setUIDResume = useSetAtom(UIDResumeAtom);
   const setJobApplicationData = useSetAtom(jobApplicationDataAtom);
   const setJobName = useSetAtom(jobNameAtom);
   const setJobDescription = useSetAtom(jobDescriptionAtom);
@@ -29,8 +30,6 @@ console.log(jobResumeData)
 
   const handleButtonClick = (jobToChange, UID) => {
     console.log(jobApplicationData)
-    console.log(jobResumeData.data[0].attributes.Resume)
-    setJobResumeData(jobResumeData.data[0].attributes.Resume)
     jobApplicationData.data.filter((item) => {
       if (item.id === UID) {
         console.log('found', item)
@@ -111,6 +110,7 @@ console.log('rendered')
       console.log('jobApplicationData has been fetched and set', jobApplicationData)
       jobResumeData = await jobResumeFetch()
       setJobResumeData(jobResumeData.data[0].attributes.Resume)
+      setUIDResume(jobResumeData.data[0].id)
 
       console.log(jobApplicationData)
       console.log(jobResumeData) 

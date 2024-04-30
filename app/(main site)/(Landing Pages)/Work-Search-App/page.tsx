@@ -95,28 +95,33 @@ async function getJobData(userEmail: string | null = null, contentType: string |
 
 
 //wrapper function that uses 'use server' for our update function because our serverside functions ironically cant interact with functions marked with use server
-export async function updateAppliedJobs(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
+export async function updateAppliedJobs(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods,contentType: string | null = null) {
     'use server'
-    console.log(UID, jobApplicationDataState, Method)
-    let result = await updateApplied(UID, jobApplicationDataState, Method)
+    console.log('hit by a smooth criminal', contentType)
+    // console.log(UID, jobApplicationDataState, Method)
+    let result = await updateApplied(UID, jobApplicationDataState, Method, contentType)
+    console.log(result)
     return result
 }
 
-export async function updateApplied(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods) {
+export async function updateApplied(UID: number, jobApplicationDataState: JobDataUpdate, Method: JobFetchMethods, contentType: string | null = null) {
 
+    let seedURL = null
+    if(contentType == null) seedURL ='job-searches'
+    if(contentType == 'job-resumes') seedURL ='job-resumes'
+    console.log(seedURL) 
     console.log(UID)
+    console.log(contentType)
     console.log(jobApplicationDataState)
-    console.log('route hit')
     let response: Response
     try {
-        console.log('route hit')
         console.log(process.env.Strappi_SuperAccess)
         const headers = new Headers({
             'Authorization': `Bearer ${process.env.Strappi_SuperAccess}`,
             'Content-Type': 'application/json', // Adjust this based on your API requirements,
         });
         if (Method == 'DELETE') {
-            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/${seedURL}/${UID}`, {
                 method: 'DELETE',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
@@ -131,7 +136,8 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
             return responseJson
         }
         if (Method == 'POST') {
-            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches`, {
+            console.log('route hit')
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/${seedURL}`, {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
@@ -147,7 +153,7 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
             return responseJson
         }
         if (Method == 'PUT') {
-            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-searches/${UID}`, {
+            response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/${seedURL}/${UID}`, {
                 method: 'PUT',
                 headers: headers,
                 body: JSON.stringify(jobApplicationDataState),
