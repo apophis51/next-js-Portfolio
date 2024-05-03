@@ -94,7 +94,7 @@ const App = () => {
                 <div className="collapse-content">
                     <CKEditor
                         editor={ClassicEditor}
-                        data={jobResume || 'needs data'}
+                        data={jobResume || 'Save Your Resume Data Here'}
                         onReady={handleReady}
                         onChange={handleResumeChange}
                     // onBlur={handleBlur}

@@ -4,12 +4,12 @@
 import projectSettings from '@/projectSettings.js'
 import React, { useEffect, useState } from 'react';
 import Chart from 'react-google-charts';
-import { atom, useAtom,useSetAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom} from './Atoms'
+import { atom, useAtom, useSetAtom } from 'jotai'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom } from './Atoms'
 let jobApplicationData = {}
 let jobResumeData = {}
 
-export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch}) {
+export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEmail }) {
   const [focusOnRow, setFocusOnRow] = useState(null)
   const setUID = useSetAtom(UIDAtom);
   const setUIDResume = useSetAtom(UIDResumeAtom);
@@ -23,9 +23,9 @@ export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch}) {
   const setJobRejection = useSetAtom(jobRejectionAtom)
   const setJobResumeData = useSetAtom(jobResumeAtom)
 
-console.log(jobApplicationData)
-console.log(jobResumeData)
-
+  console.log(jobApplicationData)
+  console.log(jobResumeData)
+  setUserEmailAtom(userEmail)
 
 
   const handleButtonClick = (jobToChange, UID) => {
@@ -42,22 +42,22 @@ console.log(jobResumeData)
     setUID(UID)
     setJobName(jobToChange)
     console.log('Updating', jobToChange, UID)
-    
+
   };
 
 
   function generateChartData() {
     ///test
-    jobApplicationData.data.filter((item) => {
-      if (item.id === 2) {
-        console.log('found', item)
-    }
-  })
-  //end test
+    //   jobApplicationData.data.filter((item) => {
+    //     if (item.id === 2) {
+    //       console.log('found', item)
+    //   }
+    // })
+    //end test
     console.log(jobApplicationData.data[0])
     let displayData = []
     jobApplicationData.data.forEach((item) => {
-      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id,item.attributes.userEmail])
+      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id, item.attributes.userEmail])
     })
     let chartData = [
       ['Action', 'Company', 'Applied Date', 'url', 'UID', 'userEmail'],
@@ -71,10 +71,10 @@ console.log(jobResumeData)
   }
 
 
-console.log(webSocketData)
- 
+  console.log(webSocketData)
+
   // generateChartData(jobApplicationData)
-console.log('rendered')
+  console.log('rendered')
   useEffect(() => {
 
     // const delay = 2000; // 2 seconds in milliseconds
@@ -104,36 +104,61 @@ console.log('rendered')
       const newData = JSON.parse(event.data);
       setWebSocketData(newData);
     };
- 
-    async function fetchData(){
-      jobApplicationData = await jobDataFetch()
+
+    async function fetchData() {
+      try {
+        jobApplicationData = await jobDataFetch()
+      }
+      catch {
+        ///this catch block doesnt work need to fix
+        jobApplicationData = {
+          data: [{
+            id: 5000,
+            attributes: {
+              Company: "Sample Company",
+              Job_Posting_URL: 'sample Url.com',
+              Job_Description: 'Start adding jobs with our chrome extentoin',
+              Rejection_Message: 'follow up with the rejection messages here',
+              Job_Title: 'This Is a Sample Job Application',
+              userEmail: userEmail,
+            }
+          }]
+        }
+      }
       console.log('jobApplicationData has been fetched and set', jobApplicationData)
       jobResumeData = await jobResumeFetch()
-      setJobResumeData(jobResumeData.data[0].attributes.Resume)
-      setUIDResume(jobResumeData.data[0].id)
+      try {
+        setJobResumeData(jobResumeData.data[0].attributes.Resume)
+        setUIDResume(jobResumeData.data[0].id)
+      }
+      catch (error) {
+        setJobResumeData('Paste Your Resume Here')
+        setUIDResume(1000)
+      }
+
 
       console.log(jobApplicationData)
-      console.log(jobResumeData) 
+      console.log(jobResumeData)
       generateChartData(jobApplicationData)
 
     }
     fetchData()
-       // Clean up the timer when the component unmounts or when the dependencies change
-      //  return () => clearTimeout(timerId);
-      return () => {
-        ws.close();
-      };
+    // Clean up the timer when the component unmounts or when the dependencies change
+    //  return () => clearTimeout(timerId);
+    return () => {
+      ws.close();
+    };
 
     // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
-   console.log('rendered')
-console.log(chartInfo)
+  console.log('rendered')
+  console.log(chartInfo)
   return (
     <div className='max-w-full'>
       {chartInfo.chartData == undefined && <div className="flex justify-center items-center">
         <p className='text-2xl text-white'>Loading</p>
         <span className="loading loading-dots loading-lg text-white"></span>
-</div>}
+      </div>}
       <Chart
         chartType="Table"
         // width="90%"
@@ -155,8 +180,8 @@ console.log(chartInfo)
                 const realJobToChange = event.target.parentNode.cells[2].textContent
                 console.log(realJobToChange)
                 // setDummyJob((prev) => (chartInfo.chartData[clickedRow][1]))
-              //  const jobToChange = chartInfo.chartData[clickedRow][1]
-              //    console.log(jobToChange)
+                //  const jobToChange = chartInfo.chartData[clickedRow][1]
+                //    console.log(jobToChange)
 
                 // console.log(jobToChange)
                 // const UID = chartInfo.chartData[clickedRow][4]
