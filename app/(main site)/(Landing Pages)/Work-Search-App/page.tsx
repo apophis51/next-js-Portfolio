@@ -213,7 +213,7 @@ export default async function WorkSearchApp() {
 
                 <div className='flex flex-col justify-center items-center'>
                     <h2 className='text-white'>My Job Applications</h2>
-                    <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} />
+                    <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
                 </div></>}
             </div>
         </Container>

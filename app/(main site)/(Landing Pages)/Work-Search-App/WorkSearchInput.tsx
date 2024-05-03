@@ -3,21 +3,21 @@
 
 import React, { useState } from 'react';
 import { atom, useAtom } from 'jotai'
-import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom} from './Atoms'
+import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobApplicationsSent, userEmailAtom, jobRejectionAtom, jobResumeAtom, UIDResumeAtom } from './Atoms'
 //  import RichTextEditor from './RichTextEditor.js'
- import CKEditor from './CKEditor'
+import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
-import {UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods} from './workSearchTypes'
+import { UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods } from './workSearchTypes'
 //import RichTextEditor from '@/app/(email project)/RichTextEditor.js'
 
 
-const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
+const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
   const [UID, setUID] = useAtom(UIDAtom);
   const [UIDResume, setUIDResume] = useAtom(UIDResumeAtom)
   const [jobApplicationDataState, setJobApplicationData] = useAtom(jobApplicationDataAtom);
   const [jobName, setJobName] = useAtom(jobNameAtom);
   const [jobDescription, setJobDescription] = useAtom(jobDescriptionAtom);
-  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent) 
+  const [jobApplicationsSent, setJobApplicationsSent] = useAtom(JobApplicationsSent)
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
   const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
   const [jobResume, setJobResume] = useAtom(jobResumeAtom)
@@ -36,33 +36,38 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
   /**
    * this function also handles the resume submission
    */
-  async function handleSubmitJob(Method: JobFetchMethods = "PUT" ) {
+  async function handleSubmitJob(Method: JobFetchMethods = "PUT") {
     console.log(jobApplicationDataState)
-    let returnResume = { data: {Resume: jobResume} }
+    let returnResume = { data: { Resume: jobResume, userEmail: userEmailAtomState } }
 
-    setJobApplicationData(prevState  => ({
+    setJobApplicationData(prevState => ({
       ...prevState,
       attributes: {
         ...prevState.attributes,
         Company: jobName, userEmail: userEmailAtomState
       },
     }));
-   let transportObject = { data: jobApplicationDataState.attributes }
+    let transportObject = { data: jobApplicationDataState.attributes }
     console.log(jobApplicationDataState)
     console.log(transportObject)
     console.log(jobDescription)
-    transportObject = {data: {Company: jobName, Job_Description: jobDescription, userEmail: userEmailAtomState, Rejection_Message: jobRejection}}
+    transportObject = { data: { Company: jobName, Job_Description: jobDescription, userEmail: userEmailAtomState, Rejection_Message: jobRejection } }
     console.log(returnResume)
-     console.log(UID)
-     console.log(UIDResume)
-     if(UID != 1000) {
-     let updateProcessing = await updateAppliedJobs(UID, transportObject,Method, null)
-     console.log(updateProcessing)
-     }
-     await updateAppliedJobs(UIDResume, returnResume, Method, 'job-resumes')
-     console.log(returnResume)
-     
-     setJobApplicationsSent((prev) => prev + 1)
+    console.log(UID)
+    console.log(UIDResume)
+    if (UID != 1000) {
+      let updateProcessing = await updateAppliedJobs(UID, transportObject, Method, null)
+      console.log(updateProcessing)
+    }
+    if (UIDResume == 1000) {
+      await updateAppliedJobs(UIDResume, returnResume, 'POST', 'job-resumes')
+    }
+    if (Method == "PUT") {
+      await updateAppliedJobs(UIDResume, returnResume, Method, 'job-resumes')
+    }
+    console.log(returnResume)
+
+    setJobApplicationsSent((prev) => prev + 1)
   }
 
   return (
@@ -78,7 +83,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
           value={jobName}
           onChange={handleInputChange}
         />
-         <label htmlFor="myInput">Email: </label>
+        <label htmlFor="myInput">Email: </label>
         <input
           type="text"
           id="myInput"
@@ -87,7 +92,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
         />
         <button
           className='btn'
-          onClick={() =>{handleSubmitJob()}}
+          onClick={() => { handleSubmitJob() }}
         >Submit</button>
         <button
           className='btn'
@@ -95,7 +100,7 @@ const InputComponent = ({updateAppliedJobs}: UpdateCallBack) => {
             handleSubmitJob('POST')
           }}
         >Create New Listing</button>
-          <button
+        <button
           className='btn'
           onClick={() => {
             handleSubmitJob("DELETE")
