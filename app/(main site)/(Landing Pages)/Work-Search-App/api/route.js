@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { updateApplied } from '../page'
 import { headers } from 'next/headers'
-import * as responseUtils from './responseUtils'
+import * as responseUtils from '../responseUtils'
 import projectURLS from '@/projectSettings'
 
 
