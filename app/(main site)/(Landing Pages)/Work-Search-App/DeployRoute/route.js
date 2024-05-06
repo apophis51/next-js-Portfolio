@@ -8,7 +8,7 @@ function runDeployScript() {
     let { exec } = require('child_process')
 
     return new Promise((resolve, reject) => {
-        exec('cd /mnt/c/Users/malco/Malcolm_chrome_extentions/MalcMindJobTracker_V3/ && ls && npm run build', (err, stdout, stderr) => {
+        exec('cd /mnt/c/Users/malco/Malcolm_chrome_extentions/MalcMindJobTracker_V4/ && ls && npm run build', (err, stdout, stderr) => {
             if (err) {
                 console.error(err)
                 resolve(err)
