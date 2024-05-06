@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 
-import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/api/responseUtils'
+import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
