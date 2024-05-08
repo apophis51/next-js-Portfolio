@@ -24,7 +24,7 @@ export async function POST(data) {
       return NextResponse.json(
         {
           data: {
-            error: 'User Login Required to Apply for Jobs. Please Login to Apply.'
+            error: 'User Login Required to Use the App. Please Login to Apply.'
           }
         },
         responseUtils.allowCors)
