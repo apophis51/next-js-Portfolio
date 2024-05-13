@@ -23,11 +23,11 @@ async function main(questionsToGetAnswered,authorizedEmail) {
     const regex = /\[(.*?)\]/g;
 
     const matches = deleteNewLines.match(regex);
-    console.log(matches)
-    console.log(matches[0])
-    console.log(matches[1])
+    console.log('matches:',matches)
+    console.log('matches[0]:', matches[0])
+    console.log('matches[1]:', matches[1])
     let AI_Result = await JSON.parse(matches[0])
-    console.log(AI_Result)
+    console.log('AI JSON parse result:', AI_Result)
     return AI_Result
 }
 async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData) {
