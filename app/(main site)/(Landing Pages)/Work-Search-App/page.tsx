@@ -62,12 +62,12 @@ async function checkUser() { //we need to add a try catch block to this to preve
 }
 
 
-async function getJobData(userEmail: string | null = null, contentType: string | null = null) {
+export async function getJobData(userEmail: string | null = null, contentType: string | null = null) {
     'use server'
     console.log(userEmail)
     let res = null
     if (contentType == null) {
-        res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
+        res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-searches?pagination[page]=1&pagination[pageSize]=8000', { cache: 'no-store' })
     }
     else if (contentType == 'job-resumes') {
         res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80', { cache: 'no-store' })
