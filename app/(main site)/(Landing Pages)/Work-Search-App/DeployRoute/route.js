@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 // import { updateApplied } from '../page'
 import { headers } from 'next/headers'
 
+console.log('hit')
 
 function runDeployScript() {
 

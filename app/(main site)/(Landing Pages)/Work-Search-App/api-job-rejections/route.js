@@ -1,0 +1,68 @@
+import { NextResponse } from 'next/server'
+import { updateApplied , getJobData} from '../page'
+import { headers } from 'next/headers'
+import * as responseUtils from '../responseUtils'
+import projectURLS from '@/projectSettings'
+
+
+
+export async function GET(data) {
+  const userAuth = headers().get('Authorization')
+  //  console.log(data.headers)
+  console.log(userAuth)
+  let authorizedEmail = null
+  try {
+
+    let userAllowed = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
+    let userAllowedJson = await userAllowed.json()
+    authorizedEmail = userAllowedJson[userAuth]
+    console.log(authorizedEmail)
+
+    if (userAllowedJson[userAuth]) {
+      
+      let jobData = await getJobData(authorizedEmail)
+      let jobDataJSON = await jobData.json()
+    }
+    else {
+      return NextResponse.json(
+        {
+          data: {
+            error: 'User Login Required to Use the App. Please Login to Apply.'
+          }
+        },
+        responseUtils.allowCors)
+
+    }
+  }
+  catch { 
+    return NextResponse.json(
+      {
+        data: {
+          error: 'the UserMapping Server is Offline'
+        }
+      },
+      responseUtils.allowCors)
+  }
+
+  console.log(jobDataJSON)
+  return NextResponse.json(
+    {
+      data: {
+        information: jobDataJSON
+      }
+    },
+    responseUtils.allowCors)
+}
+
+export async function OPTIONS() {
+  return NextResponse.json(
+    {
+      data: {
+        information: 'You hit the OpTions Route. Most likely as a preFlight Request'
+      }
+    },
+    responseUtils.allowCors)
+}
+
+
+
