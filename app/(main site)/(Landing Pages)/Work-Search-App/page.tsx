@@ -63,7 +63,7 @@ async function checkUser() { //we need to add a try catch block to this to preve
 
 
 export async function getJobData(userEmail: string | null = null, contentType: string | null = null) {
-    'use server'
+    // 'use server'  - consider reading this
     console.log(userEmail)
     let res = null
     if (contentType == null) {
