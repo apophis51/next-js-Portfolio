@@ -153,6 +153,7 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
             return responseJson
         }
         if (Method == 'PUT') {
+            console.log(jobApplicationDataState)
             response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/${seedURL}/${UID}`, {
                 method: 'PUT',
                 headers: headers,
