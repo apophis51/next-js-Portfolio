@@ -4,7 +4,6 @@ import { headers } from 'next/headers'
 import * as responseUtils from '../responseUtils'
 import projectURLS from '@/projectSettings'
 
-
 export async function POST(data) {
   const userAuth = headers().get('Authorization')
   //  console.log(data.headers)

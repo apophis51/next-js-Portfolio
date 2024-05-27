@@ -3,7 +3,7 @@ import { updateApplied , getJobData} from '../page'
 import { headers } from 'next/headers'
 import * as responseUtils from '../responseUtils'
 import projectURLS from '@/projectSettings'
-
+console.log('hit')
 
 
 export async function GET(data) {
@@ -11,6 +11,7 @@ export async function GET(data) {
   //  console.log(data.headers)
   console.log(userAuth)
   let authorizedEmail = null
+  let jobData = null
   try {
 
     let userAllowed = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
@@ -19,9 +20,11 @@ export async function GET(data) {
     console.log(authorizedEmail)
 
     if (userAllowedJson[userAuth]) {
-      
-      let jobData = await getJobData(authorizedEmail)
-      let jobDataJSON = await jobData.json()
+      console.log('hit')
+      jobData = await getJobData(authorizedEmail)
+      console.log(jobData)
+      // let jobDataJSON = await jobData.json()
+      // console.log(jobDataJSON)
     }
     else {
       return NextResponse.json(
@@ -44,11 +47,10 @@ export async function GET(data) {
       responseUtils.allowCors)
   }
 
-  console.log(jobDataJSON)
   return NextResponse.json(
     {
       data: {
-        information: jobDataJSON
+        information: jobData
       }
     },
     responseUtils.allowCors)
