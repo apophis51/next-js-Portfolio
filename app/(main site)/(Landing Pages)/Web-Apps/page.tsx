@@ -4,15 +4,16 @@ import Link from 'next/link'
 import { projectsData } from '@/app/(main site)/Components/DataFetch'
 import { ProjectsDataPull } from '@/app/(main site)/Components/Typs/FetchTypes'
 
+type SectionTypes = {
+   content: "WorkSearchApp" | "WebApps"
+   cardType: "blogs" |"products"
+}
 
-
-export default async function WebApps() {
+export async function Section({content, cardType}: SectionTypes) {
   const getData = await projectsData()
+
   return (
-    <div>
-      <Container maxWidth="xl"  >
-        <Hero contentNeeded={"Web Apps"} />
-        <div className='bg-gradient-to-tr from-purple-600 to-blue-900 mt-2 flex-col flex items-center justify-center gap-5 p-6'>
+    <div className='bg-gradient-to-tr from-purple-600 to-blue-900 mt-2 flex-col flex items-center justify-center gap-5 p-6'>
           <div className='  flex flex-col gap-5'>
             {getData.map((item: ProjectsDataPull) => (
               <div className="card lg:card-side bg-base-100 shadow-xl lg:max-h-64">
@@ -28,6 +29,15 @@ export default async function WebApps() {
             ))}
           </div>
         </div>
+  )
+}
+
+export default async function WebApps() {
+  return (
+    <div>
+      <Container maxWidth="xl"  >
+        <Hero contentNeeded={"Web Apps"} />
+        <Section content={'WebApps'} cardType={'products'}/>
       </Container>
     </div>
   );
