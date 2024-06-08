@@ -2,7 +2,7 @@ import fs from "fs";
 import OpenAI from "openai";
 
 
-// curl --request POST   --url https://api.openai.com/v1/audio/transcriptions   --header "Authorization: Bearer sk-proj-zdmKJWv9nGYw634sDnwJT3BlbkFJTbAtQHAmaW0VzMAW2IXu"   --header 'Content-Type: multipart/form-data'   --form file=@'./cool.mp3'   --form model=whisper-1
+// curl --request POST   --url https://api.openai.com/v1/audio/transcriptions   --header "Authorization: Bearer yourapikeygoeshere"   --header 'Content-Type: multipart/form-data'   --form file=@'./cool.mp3'   --form model=whisper-1
 
 // command ran from project in nextjs
 
