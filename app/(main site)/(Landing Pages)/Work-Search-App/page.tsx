@@ -7,6 +7,8 @@ import Hero from '../../Components/Hero'
 import { headers } from 'next/headers'
 // import dynamic from 'next/dynamic'
 import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
+import {Section} from '@/app/(main site)/Components/Section'
+
 
 // import { clerkClient } from "@clerk/nextjs";
 export const dynamic = 'force-dynamic'
@@ -217,6 +219,7 @@ export default async function WorkSearchApp() {
                     <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
                 </div></>}
             </div>
+            <Section content={'WorkSearchApp'} /> 
         </Container>
     )
 }
