@@ -2,7 +2,7 @@
 
 // import  ReactMarkdown  from "react-markdown"
 import Container from '@mui/material/Container';
-import Highlighter from './highlighter'
+import Highlighter from '@/app/(main site)/Components/Utils/highlighter'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -11,7 +11,9 @@ import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
 
 
-import '../prism.css'
+//import '../prism.css'
+import '@/app/(main site)/Components/styles/prism.css'
+// import 'prism.css'
 // import '../blog.css'
 
 const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
@@ -36,7 +38,7 @@ const App = dynamic(() => import('../../(Landing Pages)/FiringRange/App'))
 
 
 async function fgenerateStaticParams(params) {
-  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=80`)
+  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`)
   let post = await res.json()
   let blogID = ''
 
