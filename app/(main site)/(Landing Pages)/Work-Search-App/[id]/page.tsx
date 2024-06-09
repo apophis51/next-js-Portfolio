@@ -6,35 +6,12 @@ import Highlighter from '@/app/(main site)/Components/Utils/highlighter'
 import dynamic from 'next/dynamic'
 import { headers } from 'next/headers'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { Suspense } from 'react'
 import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
 
-
-//import '../prism.css'
 import '@/app/(main site)/Components/styles/prism.css'
-// import 'prism.css'
-// import '../blog.css'
 
 const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/App'))
-
-
-
-//https://www.calvintorra.com/blog/add-prism-js-code-highlighting-to-next-js
-//https://www.dawsoncodes.com/posts/2/syntax-highlighting-with-prism-and-nextjs
-
-
-// async function generateStaticParams(params) {
-//   const res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${params.id}`)
-//   const post = await res.json()
-//   console.log(post)
-
-//   return post
-// }
-
-// export function generateStaticParams() {
-//   return [{ id: '/ProgrammingBlogs/editing-65ch-max-width-with-tailwind-css-prose---reactmarkdown-styling' }, { id: '/ProgrammingBlogs/dynamically-render-react-components-into-your-reactmarkdown' }, { id: '/ProgrammingBlogs/what-is-the-reactmarkdown-difference-between-escapehtml-and-rehype-raw?' }]
-// }
 
 
 async function fgenerateStaticParams(params) {
@@ -121,18 +98,18 @@ export default async function Post({ params }) {
       // Generate an 'id' attribute based on the heading text
       return (
         <div className='text-sm'>
-        <pre {...props}   >
-          {props.children}
-        </pre>
+          <pre {...props}   >
+            {props.children}
+          </pre>
         </div>
       );
     }, img: (props) => {
       // Generate an 'id' attribute based on the heading text
       return (
         <div class="flex justify-center items-center">
-        <img {...props}   >
-          {props.children}
-        </img>
+          <img {...props}   >
+            {props.children}
+          </img>
         </div>
       );
     },
@@ -140,33 +117,17 @@ export default async function Post({ params }) {
 
   return (
     <Container maxWidth="xl"  >
-            {/* <div className='bg-white p-9 md:flex flex-col items-center justify-center'> */}
-            {/* <div className='bg-white p-9 md:flex-col flex items-center justify-evenly overflow-y-hidden overflow-x-hidden'> */}
-
       <div className='bg-white p-9  flex-col  md:flex md:flex-row md:overflow-visible items-center justify-evenly overflow-y-hidden overflow-x-hidden'>
-        {/* <link rel="stylesheet" href="prism.css" /> */}
-        {/* <Script src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js'
-      strategy="afterInteractive" /> */}
-        {/* <div className='prose  prose-sm max-w-none flex flex-col items-center justify-center'> */}
-        {/* <div className='self-start max-w-0 invisible basis-0'>  <TableOfContentsGenerator markdownTOCData={markdownTOCData} /></div> */}
-
         <div className='prose prose-sm lg:prose-xl prose-a:text-red-600'>
-          {/* <ReactMarkdown components={components}>{post.data.attributes.Content}</ReactMarkdown> */}
           <MDXRemote
             components={MDXcomponents}
             source={post.data.attributes.Content}
           />
-
           <Highlighter />
         </div>
         <div className='self-start pt-6 sticky top-0'>  <TableOfContentsGenerator markdownTOCData={markdownTOCData} /></div>
-
-        {/* <p><a href={markdownTOCData[0].link}>{markdownTOCData[0].text}</a></p> */}
       </div>
-
-
     </Container>)
-  //   return <PostLayout post={post} />
 }
 
 

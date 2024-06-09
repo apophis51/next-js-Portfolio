@@ -7,7 +7,11 @@ export async function projectsData({ content }: SectionType) {
         const response = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/landing-pages?pagination[page]=1&pagination[pageSize]=8000&populate=*')
         const data = await response.json()
         console.log(data.data)
-        let filteredResults = data.data.filter((item: ProductPage) => { return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game" });
+        let filteredResults = data.data.filter((item: ProductPage) => { 
+            item.attributes.links = item.attributes.Title
+
+            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game" 
+        });
         console.log(filteredResults)
         return filteredResults
     }
@@ -19,6 +23,8 @@ export async function projectsData({ content }: SectionType) {
             // data from the programming-blogs endpoint has a different name for the image so we need to add the attribute name the output expects
             if(item.attributes.Blog_Type == "WorkSearchApp"){
                 item.attributes.LandingPageImage = item.attributes.FrontImage
+                console.log(item.attributes.Title)
+                item.attributes.links = `/Work-Search-App/${(item.attributes.Title).toLowerCase().replace(/,/g, '').split(' ').join('-')}`
                 let { content, frontmatter } = parseFrontmatter(item.attributes.Content)
                 console.log(content)
                 console.log(frontmatter)

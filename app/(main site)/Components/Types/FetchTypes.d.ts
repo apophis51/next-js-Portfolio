@@ -37,8 +37,14 @@ export type BlogPage = {
     }
 }
 
-type SectionType = {
+export type Links = {
+    attributes: {
+       links: string
+    }
+}
+
+export type SectionType = {
     content: "WorkSearchApp" | "WebApps"
  }
 
-export type UniversalData = ProductPage & BlogPage
+export type UniversalData = ProductPage & BlogPage & Links
