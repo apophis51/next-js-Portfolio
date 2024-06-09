@@ -15,6 +15,7 @@ export default async function WebApps() {
       <Container maxWidth="xl"  >
         <Hero contentNeeded={"Web Apps"} />
         <Section content={'WebApps'} />
+        <Section content={'WorkSearchApp'} />
       </Container>
     </div>
   );
