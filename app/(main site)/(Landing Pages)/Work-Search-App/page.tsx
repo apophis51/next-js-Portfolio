@@ -1,5 +1,5 @@
 
-import GoogleTableChart from './GoogleTableChart'
+import JobSpreadSheet from './JobSpreadSheet'
 import Container from '@mui/material/Container';
 import WorkSearchInput from './WorkSearchInput'
 import { cache } from 'react';
@@ -217,7 +217,7 @@ export default async function WorkSearchApp() {
 
                 <div className='flex flex-col justify-center items-center'>
                     <h2 className='text-white'>My Job Applications</h2>
-                    <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
+                    <JobSpreadSheet jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
                 </div></>}
             </div>
             <Section content={'WorkSearchApp'} sectionTitle='Work Search App Articles'/> 
