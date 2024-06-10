@@ -9,7 +9,7 @@ import { UIDAtom, jobApplicationDataAtom, jobNameAtom, jobDescriptionAtom, JobAp
 let jobApplicationData = {}
 let jobResumeData = {}
 
-export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEmail }) {
+export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail }) {
   const [focusOnRow, setFocusOnRow] = useState(null)
   const setUID = useSetAtom(UIDAtom);
   const setUIDResume = useSetAtom(UIDResumeAtom);
@@ -22,6 +22,9 @@ export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEm
   const setUserEmailAtom = useSetAtom(userEmailAtom)
   const setJobRejection = useSetAtom(jobRejectionAtom)
   const setJobResumeData = useSetAtom(jobResumeAtom)
+
+  const [allButtonColor, setallButtonColor] = useState('bg-lime-400')
+  const [recentButtonColor, setrecentButtonColor] = useState('bg-white')
 
   console.log(jobApplicationData)
   console.log(jobResumeData)
@@ -46,7 +49,7 @@ export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEm
   };
 
 
-  function generateChartData() {
+  function generateChartData({ammountofData = 'all'}) {
     ///test
     //   jobApplicationData.data.filter((item) => {
     //     if (item.id === 2) {
@@ -54,11 +57,38 @@ export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEm
     //   }
     // })
     //end test
+    
+      
+    
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const currentDay = String(currentDate.getDate()).padStart(2, '0');
+    
+    // Generate the regex pattern based on the current date
+    const datePattern = new RegExp(`^\\d{4}-${currentMonth}-${currentDay}$`);
+    
+    // const datePattern = /^\d{4}-06-10$/;
+
     console.log(jobApplicationData.data[0])
     let displayData = []
+    if(ammountofData === 'all'){
+      setallButtonColor('bg-lime-400')
+      setrecentButtonColor('bg-white')
     jobApplicationData.data.forEach((item) => {
       displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id, item.attributes.userEmail])
     })
+  }
+  else{
+    setallButtonColor('bg-white')
+    setrecentButtonColor('bg-lime-400')
+    jobApplicationData.data.filter((item) => {
+      if(datePattern.test(item.attributes.Applied_Date)){
+        console.log('found')
+      displayData.push(['<button class="btn"}>update</button>', item.attributes.Company, item.attributes.Applied_Date, item.attributes.Job_Posting_URL, item.id, item.attributes.userEmail])
+      }  
+    })
+  }
     let chartData = [
       ['Action', 'Company', 'Applied Date', 'url', 'UID', 'userEmail'],
       ...displayData,
@@ -155,6 +185,10 @@ export default function GoogleCryptoChart({ jobDataFetch, jobResumeFetch, userEm
   console.log(chartInfo)
   return (
     <div className='max-w-full'>
+       <div className='flex items-center justify-center gap-5 mb-5 flex-wrap'>
+        <button className={`btn ${allButtonColor} hover:bg-lime-700`} onClick={() => generateChartData({ammountofData:"all"})}>All Applications</button>
+        <button className={`btn ${recentButtonColor} hover:bg-lime-700`} onClick={() => generateChartData({ammountofData:"recent"})}>Recent Applications</button>
+      </div>
       {chartInfo.chartData == undefined && <div className="flex justify-center items-center">
         <p className='text-2xl text-white'>Loading</p>
         <span className="loading loading-dots loading-lg text-white"></span>
