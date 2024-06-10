@@ -8,16 +8,21 @@ import { headers } from 'next/headers'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
+import { parseFrontmatter } from '@/app/(main site)/Components/Utils/parseFrontmatter'
+import {Metadata} from 'next'
+
 
 import '@/app/(main site)/Components/styles/prism.css'
 
 const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/App'))
 
 
+
 async function fgenerateStaticParams(params) {
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`)
   let post = await res.json()
   let blogID = ''
+  console.log(params.id)
 
   for (let x of post.data) {
     if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)) {
@@ -29,12 +34,27 @@ async function fgenerateStaticParams(params) {
   return post
 }
 
+export async function generateMetadata({ params}) {
+  // read route params
+  const post = await fgenerateStaticParams(params)
+  console.log(post)
+  const frontMatter = parseFrontmatter(post.data.attributes.Content).frontmatter
+  return {
+    title: frontMatter.title,
+    description: frontMatter.description
+  }
+}
+ 
+
 export default async function Post({ params }) {
+  
+  
   const headersList = headers()
   const referer = headersList.get('referer')
 
   console.time('fgenerateStaticParams Execution Speed')
   const post = await fgenerateStaticParams(params)
+  const blogContent = parseFrontmatter(post.data.attributes.Content).content
   console.timeEnd('fgenerateStaticParams Execution Speed')
 
   const markdownTOCData = markdownUtils.processMarkdown(post.data.attributes.Content)
@@ -121,7 +141,8 @@ export default async function Post({ params }) {
         <div className='prose prose-sm lg:prose-xl prose-a:text-red-600'>
           <MDXRemote
             components={MDXcomponents}
-            source={post.data.attributes.Content}
+            // source={post.data.attributes.Content}
+            source={blogContent}
           />
           <Highlighter />
         </div>

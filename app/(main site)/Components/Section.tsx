@@ -6,12 +6,13 @@ import Link from 'next/link'
 
 
 
-export async function Section({content}: SectionType) {
+export async function Section({content, sectionTitle}: SectionType){
     const getData = await projectsData({content})
     console.log(getData)
   
     return (
       <div className='bg-gradient-to-tr from-purple-600 to-blue-900 mt-2 flex-col flex items-center justify-center gap-5 p-6'>
+        <h2 className=" text-5xl text-white p-5">{sectionTitle}</h2>
             <div className='  flex flex-col gap-5'>
               {getData.map((item: UniversalData) => (
                 <div className="card lg:card-side bg-base-100 shadow-xl lg:max-h-64">
@@ -21,7 +22,7 @@ export async function Section({content}: SectionType) {
                     <p>{item.attributes.headerContent }</p>
                     <div className="card-actions justify-center">
                     {/* <Link href={item.attributes.Title}><button className="btn btn-primary"><p>Go To App</p></button></Link> */}
-                    <Link href={item.attributes.links}><button className="btn btn-primary"><p>Go To App</p></button></Link>
+                    <Link href={item.attributes.links}><button className="btn btn-primary"><p>{item.buttonText}</p></button></Link>
                     </div>
                   </div>
                 </div>
