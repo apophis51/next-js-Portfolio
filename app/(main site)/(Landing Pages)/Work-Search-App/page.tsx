@@ -8,6 +8,7 @@ import { headers } from 'next/headers'
 // import dynamic from 'next/dynamic'
 import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
 import {Section} from '@/app/(main site)/Components/Section'
+import ContactForm from '@/app/(main site)/Components/ContactForm'
 
 
 // import { clerkClient } from "@clerk/nextjs";
@@ -220,6 +221,7 @@ export default async function WorkSearchApp() {
                 </div></>}
             </div>
             <Section content={'WorkSearchApp'} sectionTitle='Work Search App Articles'/> 
+            <ContactForm/>
         </Container>
     )
 }

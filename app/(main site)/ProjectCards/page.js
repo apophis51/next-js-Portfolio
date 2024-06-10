@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Card from './Card'
 import ProgrammingBlogs from '../ProgrammingBlogs/page.js'
 // import About from '@/app/(main site)/About/[[...Location]]/page'  
-import ContactForm from '../ContactForm/page'
+import ContactForm from '@/app/(main site)/Components/ContactForm'
 
  
 async function getData() {

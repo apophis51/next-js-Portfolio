@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown"
 import Link from 'next/link'
 import Script from 'next/script';
 import './about.css'
-import ContactForm from '../ContactForm/page'
+import ContactForm from '@/app/(main site)/Components/ContactForm'
 
 
 
