@@ -204,7 +204,7 @@ export default async function WorkSearchApp() {
     return (
         <Container maxWidth="xl">
             <Hero contentNeeded={"MalcMind Work Search"} />
-            <div className=' prose-2xl p-10 bg-gradient-to-tr from from-purple-800 to-green-800  overflow-y-hidden overflow-x-hidden'>
+            <div className=' prose-2xl p-10 bg-gradient-to-tr from from-purple-800 to-green-800  overflow-y-hidden overflow-x-hidden mt-5 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]'>
             {!userEmail && 
             <div role="alert" className="alert alert-error">
             <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
