@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container';
-import Hero from '../../Components/Hero'
 import {Section} from '@/app/(main site)/Components/Section'
+
+import Hero from '../../Components/Hero'
 
 
 
@@ -15,7 +16,7 @@ export default async function WebApps() {
       <Container maxWidth="xl"  >
         <Hero contentNeeded={"Web Apps"} />
         <Section content={'WebApps'} />
-        <Section content={'WorkSearchApp'} />
+        <Section content={'WorkSearchApp'} sectionTitle="Work Search App Articles" />
       </Container>
     </div>
   );

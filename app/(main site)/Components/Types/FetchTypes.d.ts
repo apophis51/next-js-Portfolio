@@ -44,7 +44,15 @@ export type Links = {
 }
 
 export type SectionType = {
-    content: "WorkSearchApp" | "WebApps"
+    content: "WorkSearchApp" | "WebApps",
+    sectionTitle: string | null
  }
 
-export type UniversalData = ProductPage & BlogPage & Links
+export type MetaData = {
+    buttonText: "Go To App" | "Read More"
+    frontmatterDescrition: string
+    frontmatterTitle: string
+    articleContent: string
+}
+
+export type UniversalData = ProductPage & BlogPage & Links & MetaData

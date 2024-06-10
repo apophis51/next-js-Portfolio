@@ -219,7 +219,7 @@ export default async function WorkSearchApp() {
                     <GoogleTableChart jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
                 </div></>}
             </div>
-            <Section content={'WorkSearchApp'} /> 
+            <Section content={'WorkSearchApp'} sectionTitle='Work Search App Articles'/> 
         </Container>
     )
 }
