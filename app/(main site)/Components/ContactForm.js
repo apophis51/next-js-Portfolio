@@ -31,7 +31,7 @@ function ContactForm() {
     fetch(`/contactEmailAPI`,{
       method: 'POST',
       body: newformData
-  })
+  }, { cache: 'no-store' })
     setSubmitted(true);
   };
 
