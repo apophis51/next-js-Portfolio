@@ -72,6 +72,10 @@ const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
 
   return (
     <div >
+      <div className='flex flex-col justify-center items-center mb-10'>
+        <button className='btn mb-3'>AI Credits Remaining: 100</button>
+        <button className ='btn bg-green-300'>Buy More (comming soon)</button>
+      </div>
       <CKEditor />
       <br></br>
       {/* <RichTextEditor /> */}
