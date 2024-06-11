@@ -38,7 +38,7 @@ export function LogStatus() {
     //end line needed to reenable next auth
 
 //comment out this line to delete clerk 2/18/2024
-  const { userId, sessionId } = useAuth();
+  const { userId, sessionId  } = useAuth();
   const { isSignedIn, user } = useUser();
   console.log(userId, sessionId, isSignedIn, user)
   console.log(user?.publicMetadata.role)
