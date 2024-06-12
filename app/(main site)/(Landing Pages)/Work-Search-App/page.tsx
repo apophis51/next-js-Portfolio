@@ -10,7 +10,7 @@ import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
 import {Section} from '@/app/(main site)/Components/Section'
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 // import { clerkClient } from "@clerk/nextjs/server";
-
+import {fetchUserAIMetaData} from '@/app/(main site)/Components/Utils/authMetaData'
 
 // import { clerkClient } from "@clerk/nextjs";
 export const dynamic = 'force-dynamic'
@@ -31,13 +31,16 @@ async function checkUser() { //we need to add a try catch block to this to preve
     const {sessionClaims, userId} = auth()
     console.log(userId)
     console.log(sessionClaims)
+    // if (userId) {
+    // console.log(await fetchUserMetaData(userId)) 
+    // }
     // const tesst = await clerkClient.users.getUser(userId as string)
     // console.log(tesst)
     // await clerkClient.users.updateUserMetadata(userId as string, {
     //     publicMetadata: {
     //       AICredits: 100
     //     }
-    //   })
+    //   }) 
     let userEmail = await currentUser()
     if (userEmail) {
         console.log(userEmail.emailAddresses[0].emailAddress)

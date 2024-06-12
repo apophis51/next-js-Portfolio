@@ -9,6 +9,7 @@ import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
 import { UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods } from './workSearchTypes'
 //import RichTextEditor from '@/app/(email project)/RichTextEditor.js'
+import { fetchUserAIMetaData } from '@/app/(main site)/Components/Utils/authMetaData'
 
 
 const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
@@ -21,6 +22,7 @@ const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
   const [userEmailAtomState, setUserEmailAtom] = useAtom(userEmailAtom)
   const [jobRejection, setJobRejection] = useAtom(jobRejectionAtom)
   const [jobResume, setJobResume] = useAtom(jobResumeAtom)
+  const[AiCredits, setAiCredits] = useState<string | number>('loading...')
 
   console.log(jobResume)
 
@@ -70,10 +72,15 @@ const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
     setJobApplicationsSent((prev) => prev + 1)
   }
 
+  useState(async () => {
+    let metaAIData = (await fetchUserAIMetaData())
+    setAiCredits(metaAIData)
+  })
+
   return (
     <div >
       <div className='flex flex-col justify-center items-center mb-10'>
-        <button className='btn mb-3'>AI Credits Remaining: 100</button>
+        <button className='btn mb-3'>AI Credits Remaining: {AiCredits}</button>
         <button className ='btn bg-green-300'>Buy More (comming soon)</button>
       </div>
       <CKEditor />
