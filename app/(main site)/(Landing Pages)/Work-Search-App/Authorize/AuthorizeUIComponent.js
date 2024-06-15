@@ -8,18 +8,20 @@ import * as envUtils from './envUtils'
 
 
 let emailAddress = 'placeholder'
-
+let clerkID = 'placeholder'
 export default function AuthorizeUIComponent({ originURL, connectingUser }) {
     // const [count, setCount] = useState(0);
     const [loginStatus, setLoginStatus] = useState('unknown');
     const [authorized, setAuthorized] = useState(false)
 
     emailAddress = useUser().user?.primaryEmailAddress?.emailAddress
+    clerkID = useUser().user?.id
 
     async function handleAuthorize() {
         if (emailAddress) {
             setAuthorized('processing')
             console.log('we are getting ready to authorize:', emailAddress)
+            console.log('the clerk id is', clerkID)
 
             // envUtils.getenv().then((adminAuth) => //possible vulnerability to import our env variable like that
             // myWebSocket.send(JSON.stringify({ 
@@ -30,7 +32,7 @@ export default function AuthorizeUIComponent({ originURL, connectingUser }) {
             /*
             function to see if websocket is present
             **/
-            async function connectWebSocket(emailAddress, connectingUser, timeout = 3000) {  // timeout in milliseconds
+            async function connectWebSocket(emailAddress, connectingUser, clerkID, timeout = 3000) {  // timeout in milliseconds
                 // This function returns a promise that rejects after a timeout
                 const timeoutPromise = new Promise((_, reject) => {
                     const id = setTimeout(() => {
@@ -42,7 +44,7 @@ export default function AuthorizeUIComponent({ originURL, connectingUser }) {
                 try {
                     // Race the timeout against the sendWebSocketMessage function
                     let connect = await Promise.race([
-                        envUtils.sendWebSocketMessage(emailAddress, connectingUser),
+                        envUtils.sendWebSocketMessage(emailAddress, connectingUser, clerkID),
                         timeoutPromise
                     ]);
 
@@ -60,7 +62,7 @@ export default function AuthorizeUIComponent({ originURL, connectingUser }) {
             // console.log(registerStatus)
             let registerStatus = 'failed'
             try{
-                let tryToRegister = await connectWebSocket(emailAddress, connectingUser)
+                let tryToRegister = await connectWebSocket(emailAddress, connectingUser, clerkID)
                 registerStatus = tryToRegister
             }
             catch(error){

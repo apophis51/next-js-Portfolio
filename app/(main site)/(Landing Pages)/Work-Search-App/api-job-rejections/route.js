@@ -16,7 +16,7 @@ export async function GET(data) {
 
     let userAllowed = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
     let userAllowedJson = await userAllowed.json()
-    authorizedEmail = userAllowedJson[userAuth]
+    authorizedEmail = userAllowedJson[userAuth].email
     console.log(authorizedEmail)
 
     if (userAllowedJson[userAuth]) {
