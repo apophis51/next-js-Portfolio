@@ -3,14 +3,14 @@ import { NextResponse } from 'next/server'
 import * as responseUtils from '../responseUtils'
 import { headers } from 'next/headers'
 import projectURLS from '@/projectSettings'
-
-
+import {fetchUserAIMetaData} from '@/app/(main site)/Components/Utils/authMetaData'
 
 const Groq = require("groq-sdk");
 const groq = new Groq({
     apiKey: process.env.GROQAPI
 });
-async function main(questionsToGetAnswered,authorizedEmail) {
+async function main(questionsToGetAnswered,authorizedEmail, authorizedClerkID) {
+    fetchUserAIMetaData({deductCreditType: 'deductCredits', userId: authorizedClerkID})
     let resumeData = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80&filters[userEmail][$eqi]=${authorizedEmail}`)
     let resumeDataJson = await resumeData.json()
     let finalizedResumeData = resumeDataJson.data[0].attributes.Resume
@@ -70,13 +70,16 @@ export async function POST(request) {
     console.log(userAuth)
     // await responseUtils.CheckIFUserIsAllowed(userAuth)
     let authorizedEmail = null
+    let authorizedClerkID = null
 
     try {
 
         let userAllowed = await fetch(projectURLS().WWWuserMap, { cache: 'no-store' })
         let userAllowedJson = await userAllowed.json()
-        authorizedEmail = userAllowedJson[userAuth]
+        authorizedEmail = userAllowedJson[userAuth].email
+        authorizedClerkID = userAllowedJson[userAuth].clerkID
         console.log(authorizedEmail)
+        console.log(authorizedClerkID)
     
         if (userAllowedJson[userAuth]) {
           console.log(`user is allowed to send to ${authorizedEmail}`)
@@ -106,7 +109,7 @@ export async function POST(request) {
     console.log(questionsToGetAnswered)
     let questionsToGetAnsweredString = JSON.stringify(questionsToGetAnswered)
     console.log(questionsToGetAnsweredString)
-    let result = await main(questionsToGetAnsweredString, authorizedEmail)
+    let result = await main(questionsToGetAnsweredString, authorizedEmail, authorizedClerkID)
     // let stringifyResult = JSON.stringify(result)
     return NextResponse.json(
         {

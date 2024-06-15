@@ -13,7 +13,7 @@ export async function getHeaders() {
 }
 
 
-function connectToWebSocket(adminCode, emailAddress, connectingUser) 
+function connectToWebSocket(adminCode, emailAddress, connectingUser, clerkID) 
     {
         return new Promise((resolve, reject) => {
 
@@ -25,7 +25,7 @@ function connectToWebSocket(adminCode, emailAddress, connectingUser)
         console.log('Connected to WebSocket server');
         ws.send(JSON.stringify({
             type: 'Admin',
-            data: { adminAuth: adminCode, emailAddress: emailAddress, id: connectingUser }
+            data: { adminAuth: adminCode, emailAddress: emailAddress, id: connectingUser, clerkID: clerkID }
         }))
     });
 
@@ -63,11 +63,11 @@ function connectToWebSocket(adminCode, emailAddress, connectingUser)
 })
 }
 
-export async function sendWebSocketMessage(emailAddress, connectingUser) {
+export async function sendWebSocketMessage(emailAddress, connectingUser, clerkID) {
     
     
     let adminCode = process.env.ChromeExtentionWebSocketAdmin
-    let registerSignup = connectToWebSocket(adminCode, emailAddress, connectingUser)
+    let registerSignup = connectToWebSocket(adminCode, emailAddress, connectingUser, clerkID)
     console.log(await registerSignup)
     
     return registerSignup

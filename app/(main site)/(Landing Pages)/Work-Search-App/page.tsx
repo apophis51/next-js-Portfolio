@@ -10,8 +10,6 @@ import { JobDataUpdate, JobData, JobFetchMethods } from './workSearchTypes'
 import {Section} from '@/app/(main site)/Components/Section'
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 // import { clerkClient } from "@clerk/nextjs/server";
-import {fetchUserAIMetaData} from '@/app/(main site)/Components/Utils/authMetaData'
-
 // import { clerkClient } from "@clerk/nextjs";
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
