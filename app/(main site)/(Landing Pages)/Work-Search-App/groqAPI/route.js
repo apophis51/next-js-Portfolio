@@ -105,6 +105,7 @@ export async function POST(request) {
           },
           responseUtils.allowCors)
       }
+    try{
     let questionsToGetAnswered = await request.json()
     console.log(questionsToGetAnswered)
     let questionsToGetAnsweredString = JSON.stringify(questionsToGetAnswered)
@@ -118,6 +119,17 @@ export async function POST(request) {
             }
         },
         responseUtils.allowCors)
+    }
+    catch(error){
+        console.log(error)
+        return NextResponse.json(
+            {
+                data: {
+                    error: `Ai Service is online but we could not process your request. ${error}`
+                }
+            },
+            responseUtils.allowCors)
+    }
 }
 
 export async function GET() {
