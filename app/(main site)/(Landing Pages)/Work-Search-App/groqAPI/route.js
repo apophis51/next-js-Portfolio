@@ -31,27 +31,54 @@ async function main(questionsToGetAnswered,authorizedEmail, authorizedClerkID) {
     return AI_Result
 }
 async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData) {
-    return groq.chat.completions.create({
-        messages: [
-            {
-                role: "user",
-                content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format.
+    try{
+        let completion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format.
+    
+                    [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}]  
+                    
+                    RESUMEDATA: ${finalizedResumeData}
+                    
+                    
+                    JSONDATA: ${questionsToGetAnswered}`
+                }
+            ],
+            model: "llama3-8b-8192",
+            temperature: 0,
+            max_tokens: 30000,
+            top_p: 1,
+            stop: null,
+            stream: false
+        });
+        return completion
+    }
+    catch(error){
+    throw new Error('chat completion failed', error)
+    }
+    // return groq.chat.completions.create({
+    //     messages: [
+    //         {
+    //             role: "user",
+    //             content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format.
 
-                [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}]  
+    //             [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}]  
                 
-                RESUMEDATA: ${finalizedResumeData}
+    //             RESUMEDATA: ${finalizedResumeData}
                 
                 
-                JSONDATA: ${questionsToGetAnswered}`
-            }
-        ],
-        model: "llama3-8b-8192",
-        temperature: 0,
-        max_tokens: 1024,
-        top_p: 1,
-        stop: null,
-        stream: false
-    });
+    //             JSONDATA: ${questionsToGetAnswered}`
+    //         }
+    //     ],
+    //     model: "llama3-8b-8192",
+    //     temperature: 0,
+    //     max_tokens: 30000,
+    //     top_p: 1,
+    //     stop: null,
+    //     stream: false
+    // });
 }
 
 export async function OPTIONS() {
