@@ -26,7 +26,10 @@ async function main(questionsToGetAnswered,authorizedEmail, authorizedClerkID) {
     console.log('matches:',matches)
     console.log('matches[0]:', matches[0])
     console.log('matches[1]:', matches[1])
-    let AI_Result = await JSON.parse(matches[0])
+    // let AI_Result = await JSON.parse(matches[0])
+    console.info('AI Result:', matches)
+    let AI_Result = await JSON.parse(matches)
+
     console.log('AI JSON parse result:', AI_Result)
     return AI_Result
 }
@@ -52,10 +55,11 @@ async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData
             top_p: 1,
             stop: null,
             stream: false
-        });
+        })
         return completion
     }
     catch(error){
+        console.log(error)
     throw new Error('chat completion failed', error)
     }
     // return groq.chat.completions.create({

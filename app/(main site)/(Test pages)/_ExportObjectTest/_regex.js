@@ -165,3 +165,43 @@ tooth2
 tooth1 = 5
 tooth2
 
+console.log('cool')
+
+const items = [
+    { type: 'fruit', name: 'apple' },
+    { type: 'vegetable', name: 'carrot' },
+    { type: 'fruit', name: 'banana' },
+    { type: 'vegetable', name: 'lettuce' },
+  ];
+  
+  const groupedItems = items.reduce((accumulator, currentItem) => {
+    const existingGroup = accumulator.find(group => group.type === currentItem.type);
+    if (existingGroup) {
+      existingGroup.items.push(currentItem);
+    } else {
+      accumulator.push({
+        type: currentItem.type,
+        items: [currentItem],
+      });
+    }
+    return accumulator;
+  }, []);
+  
+  console.log(groupedItems);
+
+
+  let bugArray = [{cool: 'haha'}, {cool: 'fuck'}]
+
+  bugArray.forEach(bug => {bug.cool = 'yes'})
+
+  console.log(bugArray)
+
+  let randomArray = [1,2,3]
+
+
+  randomArray.forEach((num, index) => {
+    randomArray[index] =  num + 1
+  })
+
+  console.log(randomArray)
+
