@@ -140,8 +140,10 @@ export async function POST(request) {
     let questionsToGetAnswered = await request.json()
     console.log(questionsToGetAnswered)
     let questionsToGetAnsweredString = JSON.stringify(questionsToGetAnswered)
+    let questions_with_invalid_characters_removed = questionsToGetAnsweredString.replace(/[^a-zA-Z0-9\s\.\,\:\'\-\"\*\[\]\{\}\(\)\+\=\?\/\&\;\!]/g, '')
     console.log(questionsToGetAnsweredString)
-    let result = await main(questionsToGetAnsweredString, authorizedEmail, authorizedClerkID)
+    console.log(questions_with_invalid_characters_removed)
+    let result = await main(questions_with_invalid_characters_removed, authorizedEmail, authorizedClerkID)
     // let stringifyResult = JSON.stringify(result)
     return NextResponse.json(
         {
