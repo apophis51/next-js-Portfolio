@@ -39,9 +39,9 @@ async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData
             messages: [
                 {
                     role: "user",
-                    content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format.
+                    content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format. also do not include the original options list in your response, just the response
     
-                    [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}, $second object, $third object, ...rest of objects]  
+                    [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}, {object2}, {object3}, ...rest of objects]  
                     
                     RESUMEDATA: ${finalizedResumeData}
                     
@@ -143,7 +143,7 @@ export async function POST(request) {
     let questions_with_invalid_characters_removed = questionsToGetAnsweredString.replace(/[^a-zA-Z0-9\s\.\,\:\'\-\"\*\[\]\{\}\(\)\+\=\?\/\&\;\!]/g, '')
     console.log(questionsToGetAnsweredString)
     console.log(questions_with_invalid_characters_removed)
-    let result = await main(questions_with_invalid_characters_removed, authorizedEmail, authorizedClerkID)
+    let result = await main(questionsToGetAnsweredString, authorizedEmail, authorizedClerkID)
     // let stringifyResult = JSON.stringify(result)
     return NextResponse.json(
         {
