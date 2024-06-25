@@ -206,7 +206,31 @@ const items = [
   console.log(randomArray)
 let goodjson = '[{"question": "Country*", "response": "United States of America"},  {"question": "First Name*", "response": "Malcolm"},  {"question": "Last Name*", "response": "Vernon"},  {"question": "Address Line 1*", "response": "1685 coral way apt b"},  {"question": "City*", "response": "Largo"},  {"question": "State*", "response": "Florida"},  {"question": "Postal Code*", "response": "33771"},  {"question": "Email address*", "response": "malcolmxvernon@hotmail.com"},  {"question": "Phone Device Type*", "response": "mobile"},  {"question": "Country Phone Code*", "response": "+1"},  {"question": "Phone number*", "response": "970703947"},  {"question": "How did you hear about us?", "response": "pick linkdin or indeed if available"},  {"question": "Are you now or have you ever been employed or contracted by an FIS company?", "response": "No"},  {"question": "Do you have any relatives that currently work for FIS?", "response": "No"},  {"question": "Do you now, or will you in the future, require sponsorship to work in the country you are applying to?", "response": "No"},  {"question": "What is your official notice period?", "response": "2 weeks"},  {"question": "What is your current or most recent salary?", "response": "19 an hour"},  {"question": "What is your desired salary?", "response": "70k or what ever the equivalent is for that hourly. im open to what ever"},  {"question": "Do you have any restrictions that would apply to your employment at FIS, such as a Non-Compete or No Solicitation agreement?", "response": "always say no to non-competes"}]'
 
+
+let oribinalsampletext = `[
+  '[{"question": "AIJobTitleCompanyRejectionMessageJobDescriptionCollapse", "response": "Software Developer"}]',
+  '[{"question": "Choose Your CareerPublic Relation SpecialistFinance InternHuman Resources InternGraphic Design InternPublic Relations InternAccounting InternSales InternMarketing InternCommunications CoordinatorManagement AnalystWeb Developer InternSales RecruiterContent WriterDigital Marketing InternMarket Research AnalystSoftware Developer InternUnity 3D Developer InternCybersecurity InternContent Writer Intern", "response": "Software Developer Intern"}]',
+  '[{"question": "name*", "response": "Malcolm Vernon"}]',
+  '[{"question": "email id*", "response": "malcolmxvernon@hotmail.com"}]',
+  '[{"question": "phone number*", "response": "9707033947"}]',
+  '[{"question": "Choose Your Career*", "options": ["Communications Coordinator", "Management Analyst", "Web Developer Intern", "Sales Recruiter", "Content Writer", "Digital Marketing Intern", "Market Research Analyst", "Software Developer Intern"]',
+  '[{"question": "No file chosenBrowse", "response": ""}]',
+  '[{"question": "Search for:", "response": ""}]'
+]`
+
   let sampletext = '[{"question": "AIJobTitleCompanyRejectionMessageJobDescriptionCollapse", "response": "Software Developer"},{"question": "Choose Your CareerPublic Relation SpecialistFinance InternHuman Resources InternGraphic Design InternPublic Relations InternAccounting InternSales InternMarketing InternCommunications CoordinatorManagement AnalystWeb Developer InternSales RecruiterContent WriterDigital Marketing InternMarket Research AnalystSoftware Developer InternUnity 3D Developer InternCybersecurity InternContent Writer Intern", "response": "Software Developer Intern"},{"question": "name*", "response": "Malcolm Vernon"},{"question": "email id*", "response": "malcolmxvernon@hotmail.com"},{"question": "phone number*", "response": "9707033947"}]'
+
+  let thirdtest = `[
+  '[{"question": "Choose Your CareerPublic Relation SpecialistFinance InternHuman Resources InternGraphic Design InternPublic Relations InternAccounting InternSales InternMarketing InternCommunications CoordinatorManagement AnalystWeb Developer InternSales RecruiterContent WriterDigital Marketing InternMarket Research AnalystSoftware Developer InternUnity 3D Developer InternCybersecurity InternContent Writer Intern", "response": "Software Developer Intern"}]',
+  '[{"question": "name*", "response": "Malcolm Vernon"}]',
+  '[{"question": "email id*", "response": "malcolmxvernon@hotmail.com"}]',
+  '[{"question": "phone number*", "response": "(970) 703-3947"}]',
+  '[{"question": "Choose Your Career*", "options": ["Communications Coordinator", "Management Analyst", "Web Developer Intern", "Sales Recruiter", "Content Writer", "Digital Marketing Intern", "Market Research Analyst", "Software Developer Intern"]',
+  '[{"question": "No file chosenBrowse", "response": ""}]',
+  '[{"question": "Search for:", "response": ""}]'
+]`
 let goodJsonParse = await JSON.parse(goodjson)
 console.log(sampletext)
 let SampleTextParse = await JSON.parse(sampletext)
+SampleTextParse
+let thirdTextParse = await JSON.parse(thirdtest)
