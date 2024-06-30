@@ -233,4 +233,15 @@ let goodJsonParse = await JSON.parse(goodjson)
 console.log(sampletext)
 let SampleTextParse = await JSON.parse(sampletext)
 SampleTextParse
-let thirdTextParse = await JSON.parse(thirdtest)
+// let thirdTextParse = await JSON.parse(thirdtest)
+
+
+let regexTest = `Regular Expressions, abbreviated as Regex or Regexp, are a string of characters created within the framework of Regex syntax rules. You can easily manage your data with Regex, which uses commands like finding, matching, and editing. Regex can be used in
+\`\`\`
+fjlakjdfjf
+\`\`\`
+jlkjjl or even when having sex`
+
+const result = regexTest.replace(/```[\s\S]*?```/g, '');
+
+console.log(result);

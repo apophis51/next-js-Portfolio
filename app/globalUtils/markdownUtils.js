@@ -1,6 +1,8 @@
 
 
-export function processMarkdown(markdownContent) {
+export function processMarkdown(rawMarkdownContent) {
+  ///we want to delete all code blocks before parsing the h1s 
+  const markdownContent = rawMarkdownContent.replace(/```[\s\S]*?```/g, '')
     const lines = markdownContent.split('\n');
     // Regular expression to match Markdown headings
     const headingRegex = /^(#{1,6})\s+(.+)$/;
