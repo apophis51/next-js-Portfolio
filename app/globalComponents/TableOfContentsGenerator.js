@@ -25,11 +25,11 @@ const ListWrapper = ({ children }) => {
   export function TableOfContentsGenerator({ markdownTOCData }) {   
   
     console.log(markdownTOCData)
-    markdownTOCData = markdownTOCData.slice(1)
     const renderTOC = () => {
       let htmlString = `<ul class="menu bg-base-200 w-56 rounded-box">
-      <h3><b>On This Page</b></h3>`
-      
+      <h3><b>On This Page</b></h3><li><a href=${markdownTOCData[0].link}>${markdownTOCData[0].text}</a></li>`
+      markdownTOCData = markdownTOCData.slice(1)
+
       let levelsOpend = 0 // htmlString += '</ul></details></li>'
       let duplicates = []
       markdownTOCData.map((heading, index, array) => {
