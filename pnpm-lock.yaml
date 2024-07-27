@@ -29,6 +29,9 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.41)(react@18.2.0)
+  '@google/generative-ai':
+    specifier: ^0.16.0
+    version: 0.16.0
   '@monaco-editor/react':
     specifier: ^4.6.0
     version: 4.6.0(monaco-editor@0.44.0)(react-dom@18.2.0)(react@18.2.0)
@@ -3811,6 +3814,11 @@ packages:
       seedrandom: 3.0.5
     optionalDependencies:
       '@trufflesuite/bigint-buffer': 1.1.9
+    dev: false
+
+  /@google/generative-ai@0.16.0:
+    resolution: {integrity: sha512-doB5ZNxS6m+jUZqaLCeYXfBZCdq6Ho0ibkq5/17xe1qAUZpCLWlvCDGtqFPqqO+yezNmvGatS0KhV22yiOT3DA==}
+    engines: {node: '>=18.0.0'}
     dev: false
 
   /@grpc/grpc-js@1.8.22:
@@ -8864,6 +8872,7 @@ packages:
 
   /ethereum-bloom-filters@1.1.0:
     resolution: {integrity: sha512-J1gDRkLpuGNvWYzWslBQR9cDV4nd4kfvVTE/Wy4Kkm4yb3EYRSlyi0eB/inTsSTTVyA0+HyzHgbr95Fn/Z1fSw==}
+    deprecated: do not use this package use package versions above as this can miss some topics
     dependencies:
       '@noble/hashes': 1.4.0
     dev: false
