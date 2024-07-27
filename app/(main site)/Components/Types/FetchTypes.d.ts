@@ -44,7 +44,7 @@ export type Links = {
 }
 
 export type SectionType = {
-    content: "WorkSearchApp" | "WebApps",
+    content: "WorkSearchApp" | "WebApps" | "ProgrammingBlogs",
     sectionTitle: string | null
  }
 

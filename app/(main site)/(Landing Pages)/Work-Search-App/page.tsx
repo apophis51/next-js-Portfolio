@@ -18,6 +18,8 @@ export const revalidate = 0
 // revalidatePath('/WorkSearchApp')
 // Troubleshooting
 // import { auth, currentUser } from '@clerk/nextjs';)
+console.log(process.env.Strappi_SuperAccess)
+
 async function checkUser() { //we need to add a try catch block to this to prevent the internal server errror
     //     console.log('route hit')
 
@@ -152,6 +154,7 @@ export async function updateApplied(UID: number, jobApplicationDataState: JobDat
         }
         if (Method == 'POST') {
             console.log('route hit')
+            console.log(jobApplicationDataState)
             response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/${seedURL}`, {
                 method: 'POST',
                 headers: headers,
