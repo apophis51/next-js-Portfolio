@@ -37,7 +37,7 @@ const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/
 // }
 
 
-async function fgenerateStaticParams(params) {
+async function fetchBlog(params) {
   let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`)
   let post = await res.json()
   let blogID = ''
@@ -56,9 +56,9 @@ export default async function Post({ params }) {
   const headersList = headers()
   const referer = headersList.get('referer')
 
-  console.time('fgenerateStaticParams Execution Speed')
-  const post = await fgenerateStaticParams(params)
-  console.timeEnd('fgenerateStaticParams Execution Speed')
+  console.time('fetchBlog Execution Speed')
+  const post = await fetchBlog(params)
+  console.timeEnd('fetchBlog Execution Speed')
 
   const markdownTOCData = markdownUtils.processMarkdown(post.data.attributes.Content)
   console.log(markdownTOCData[0].link)
