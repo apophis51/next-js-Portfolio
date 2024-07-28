@@ -29,7 +29,7 @@ export default function MediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" >Learn More</Button>
+        <Button size="small" ><Link href = {blogLink}>Learn More</Link></Button>
       </CardActions>
     </Card>
     </div>
