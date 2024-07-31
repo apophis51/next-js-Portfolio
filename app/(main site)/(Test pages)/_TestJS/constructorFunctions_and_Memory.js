@@ -80,3 +80,10 @@ console.log(newAss.animal)
 
 
 console.log('cool')
+
+let randomObj = {
+    edyta: 'mean',
+    ola: 'mean',
+ }
+
+ console.log(randomObj)
