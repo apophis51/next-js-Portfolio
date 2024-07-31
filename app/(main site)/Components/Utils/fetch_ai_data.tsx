@@ -1,9 +1,11 @@
+'use server'
+
 import OpenAI from "openai";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Groq = require('groq-sdk');
 
-export function fetch_ai_data(model: string, prompt: string, submodel: string) {
-
+export async function fetch_ai_data(model: string, prompt: string) {
+console.log('hit')
     const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     const groq = new Groq({ apiKey: process.env.GROQAPI });
@@ -78,10 +80,11 @@ export function fetch_ai_data(model: string, prompt: string, submodel: string) {
         }
     }
 
+
+    //return 'test'
+   // return 'test'
     return {
-        singleGeneration: singleGeneration, multipleGenerations: ((second_prompt: string, loops: number) => {
-            return multipleGenerations(second_prompt, loops)
-        })
+        singleGeneration, multipleGenerations
     }
 
 }
