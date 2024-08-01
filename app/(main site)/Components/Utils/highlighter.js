@@ -15,3 +15,12 @@ export default function Highlighter() {
     highlight(); // <--- call the async function
   }, []); // <--- run when post updates
 }
+
+export function HighlightafterEveryRender() {
+  useEffect(() => {
+    const highlight = async () => {
+      await Prism.highlightAll(); // <--- prepare Prism 
+    };
+    highlight(); // <--- call the async function
+  }); // <--- run when post updates
+}
