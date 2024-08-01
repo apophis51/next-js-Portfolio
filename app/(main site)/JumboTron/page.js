@@ -7,6 +7,8 @@ import MouseOverPopover from "./MouseOverPopover";
 import Link from 'next/link'
 import granim from '@/public/granim.min.js'
 
+//import granim from '@/public/granim.min.new'
+
 
 
 export default function JumboTron() {
@@ -15,6 +17,8 @@ export default function JumboTron() {
         setValue(newValue);
       };
       const mygranium = () => {
+        //const granim =  await import('@/public/granim.min.new.js')
+
         try {
             var granimInstance = new Granim({
                 element: '#canvas-image-blending',
