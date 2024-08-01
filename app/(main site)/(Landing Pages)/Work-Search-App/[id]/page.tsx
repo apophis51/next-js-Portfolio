@@ -126,7 +126,7 @@ export default async function Post({ params }) {
     }, img: (props) => {
       // Generate an 'id' attribute based on the heading text
       return (
-        <div class="flex justify-center items-center">
+        <div className="flex justify-center items-center">
           <img {...props}   >
             {props.children}
           </img>
