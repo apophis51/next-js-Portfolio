@@ -37,7 +37,7 @@ function ContactForm() {
 
   return (
     <div className="">
-      <h2 className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[100px] pt-5 pb-5 mr-[10%] ml-[10%] text-4xl shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]'>Contact MalcMind </h2>
+      <p className='bg-indigo-700 text-gray-50 rounded-full text-center mt-[100px] pt-5 pb-5 mr-[10%] ml-[10%] text-4xl shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]'>Contact MalcMind </p>
       {submitted ? (
         <div className='bg-white h-[550px] text-center ml-[10%] mr-[10%] pt-5 rounded-full text-2xl'>
           <p>Thank you for your submission!</p>
