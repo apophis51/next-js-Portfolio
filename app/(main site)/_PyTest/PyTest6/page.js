@@ -26,11 +26,11 @@ export default function CodeHighlighting() {
   return (
     <div>
       <pre><code 
-      class="language-javascript"
+      className="language-javascript"
       contentEditable={true}
       onInput={handleChange}
       dangerouslySetInnerHTML={{ __html: javaCode }} />
       </pre>
-      <pre><code class="language-python">{pythonCode}</code></pre>
+      <pre><code className="language-python">{pythonCode}</code></pre>
     </div>)
 }

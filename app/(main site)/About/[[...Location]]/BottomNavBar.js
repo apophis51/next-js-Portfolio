@@ -104,7 +104,9 @@ console.log(error)
 
   React.useEffect(() => {
     granim()
-    mygranium()
+   mygranium()
+    
+    
   
   }, [])
 

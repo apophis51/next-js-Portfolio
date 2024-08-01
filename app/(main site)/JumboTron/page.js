@@ -5,6 +5,7 @@ import Script from 'next/script';
 import * as React from 'react';
 import MouseOverPopover from "./MouseOverPopover";
 import Link from 'next/link'
+import granim from '@/public/granim.min.js'
 
 
 
@@ -44,6 +45,8 @@ export default function JumboTron() {
      
      let parrentheight = 0
       React.useEffect(() => {
+        granim()
+
         mygranium()
 
       }, [])
