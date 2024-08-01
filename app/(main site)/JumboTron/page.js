@@ -103,9 +103,9 @@ export default function JumboTron() {
          <div className = 'destinychild'>
          <canvas className = '' id="canvas-image-blending"></canvas>
 
-            <Script src="granim.min.js" 
+            {/* <Script src="granim.min.js" 
             strategy = 'beforeInteractive'
-            ></Script>
+            ></Script> */}
             
         </div> {/* {Gradient child div} */}
     {/* {Banner + Background + Return Div} */} </div>
