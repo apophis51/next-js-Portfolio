@@ -93,7 +93,9 @@ export default async function Post({ params }) {
     App, h1: (props) => {
       // Generate an 'id' attribute based on the heading text
       const headingText = props.children ? props.children.toString() : '';
-      const id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      const id = headingText.toLowerCase().replace(/[^a-z\s]/g, '').trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
+      console.log(id)
+      //const id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  //depricated 8/22/2024
       return (
         <h1 {...props} id={id} >
           {props.children}
@@ -102,7 +104,21 @@ export default async function Post({ params }) {
     }, h2: (props) => {
       // Generate an 'id' attribute based on the heading text
       const headingText = props.children ? props.children.toString() : '';
-      const id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      let id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      /* if check was here because it wont work when its in the format 4. **Some heading text** */ 
+      if(Array.isArray(props.children))
+        {
+          (props.children).forEach((child) => {
+            try{
+            const headingText = child.props.children
+            console.log(child.props.children)
+            id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
+            console.log(id)
+             }
+             catch{}
+          })
+          console.log('we got one')
+        }  
       return (
         <h2 {...props} id={id} >
           {props.children}
@@ -110,8 +126,24 @@ export default async function Post({ params }) {
       );
     }, h3: (props) => {
       // Generate an 'id' attribute based on the heading text
+      console.log(props.children)
       const headingText = props.children ? props.children.toString() : '';
-      const id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+      let id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'); 
+
+      /* if check was here because it wont work when its in the format 4. **Some heading text** */ 
+      if(Array.isArray(props.children))
+        {
+          (props.children).forEach((child) => {
+            try{
+            const headingText = child.props.children
+            console.log(child.props.children)
+            id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
+            console.log(id)
+             }
+             catch{}
+          })
+          console.log('we got one')
+        }
       return (
         <h3 {...props} id={id} >
           {props.children}

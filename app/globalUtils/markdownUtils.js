@@ -13,8 +13,12 @@ export function processMarkdown(rawMarkdownContent) {
       const match = line.match(headingRegex);
       if (match) {
         const depth = match[1].length; // Number of '#' characters indicates the heading depth
-        const text = match[2].trim(); // Extract the text content of the heading
-        const link = '#' + text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  
+        let text = match[2].trim().replace(/\*/g, '');
+     
+         // Extract the text content of the heading
+        // const link = '#' + text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  
+        const link = '#' + text.toLowerCase().replace(/[^a-z\s]/g, '').trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  
+
         headingsArray.push({ level: depth, text, link});
       }
     });

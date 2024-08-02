@@ -1,18 +1,20 @@
+'use server'
 import fs from 'fs';
 import path from 'path';
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
-export const revalidate = 0
+// export const dynamic = 'force-dynamic'
+// export const fetchCache = 'force-no-store'
+// export const revalidate = 0
 
 
-const blog_link_extractor = (fileName: `${string}.md`) => {
+export const blog_link_extractor = async (fileName: `${string}.md`) => {
   const filePath = path.join('/mnt', 'c', 'Users', 'malco', 'OneDrive', 'SAFE', 'Documents', 'Obsidian Vault', fileName);
   const fileContent = fs.readFileSync(filePath, 'utf-8');
   console.log(fileContent)
   return fileContent || 'null content'; // Return an empty array if no matches are found to maintain consistency of our dataTypes 
 };
 
-async function transmitBlog(Method: string, Blog: string, title: string) {
+export async function transmitBlog(Method: string, Blog: string, title: string) {
+    console.log(Method, Blog, title)
   if (Method == 'POST') {
     console.log('route hit')
     console.log(Blog)
@@ -57,18 +59,11 @@ async function transmitBlog(Method: string, Blog: string, title: string) {
   }
 }
 
-let title = 'How To Setup TailwindCSS with Wordpress'
-let blogToSend = blog_link_extractor(`${title}.md`)
-transmitBlog('POST', blogToSend, title)
+// let title = 'How To Setup TailwindCSS with Wordpress'
+// let blogToSend = blog_link_extractor(`${title}.md`)
+// transmitBlog('POST', blogToSend, title)
 
-export default function Page() {
-  return (
-    <div>
-      <h1 className='bg-white'>obsidian</h1>
-    </div>
-    
-  )
-}
+
 
 /* Post  or put
 https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000
