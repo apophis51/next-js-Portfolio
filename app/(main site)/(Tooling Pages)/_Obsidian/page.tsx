@@ -57,7 +57,7 @@ async function transmitBlog(Method: string, Blog: string, title: string) {
   }
 }
 
-let title = 'Keeping Track of User Sessions with JWT and Cookies'
+let title = 'How To Setup TailwindCSS with Wordpress'
 let blogToSend = blog_link_extractor(`${title}.md`)
 transmitBlog('POST', blogToSend, title)
 

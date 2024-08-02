@@ -17,14 +17,15 @@ let javacode =  " ```javaScript \n \
 
 const [selectedOption, BasicSelect] = useBasicSelect({options:['openai', 'gemini', 'lamma3'],maintext:'Select AI Model'}) 
 const [textInput, BasicTextInput] = useBasicTextInput({prompt: "Enter Your AI Prompt.."})
+const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({options:[1,2,3,4,5],maintext:'Select Chapter Amount'}) 
 const [textInput2, BasicTextInput2] = useBasicTextInput({prompt: "Only Input This for Multiple Generations..."})
 const [ai_result, setAi_result] = useState('');
 
 console.log(selectedOption)
 
 async function handleClick() {
-   console.log(selectedOption, textInput, textInput2 )
-   let result =await handlefetch_ai_data({selectedOption: selectedOption, textInput: textInput.current, multipleGenerationText: textInput2.current, generationCount: 3}) 
+   console.log(selectedOption, textInput, SelectedChapters, textInput2 )
+   let result =await handlefetch_ai_data({selectedOption: selectedOption, textInput: textInput.current, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number}) 
    //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
     setAi_result(result)
     console.log(result)
@@ -38,6 +39,7 @@ HighlightafterEveryRender();
         <div className='flex flex-col gap-1 items-center justify-center'>
             <BasicSelect/>
             <BasicTextInput />
+            <BasicSelect_Chapter />
             <BasicTextInput2 />
 
             <button className='btn' onClick={handleClick}>Generate Article</button>

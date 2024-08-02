@@ -4,7 +4,7 @@ import { useState, useEffect, ChangeEvent, FC } from 'react'
 
 
 
-export default function useBasicSelect({options, maintext}:{options: string[], maintext: string}): [ string, React.FC ] {
+export default function useBasicSelect({options, maintext}:{options: string[] | number[], maintext: string}): [ string | number, React.FC ] {
     // const [selectedOption, setSelectedOption] = useState(options[0]);
     const [selectedOption, setSelectedOption] = useState('options[0]');
     const [displayedText, setDisplayedText] = useState(maintext)
