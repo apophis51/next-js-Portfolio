@@ -149,7 +149,32 @@ export default async function Post({ params }) {
           {props.children}
         </h3>
       );
-    }, pre: (props) => {
+    },  h4: (props) => {
+      // Generate an 'id' attribute based on the heading text
+      console.log(props.children)
+      const headingText = props.children ? props.children.toString() : '';
+      let id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'); 
+
+      /* if check was here because it wont work when its in the format 4. **Some heading text** */ 
+      if(Array.isArray(props.children))
+        {
+          (props.children).forEach((child) => {
+            try{
+            const headingText = child.props.children
+            console.log(child.props.children)
+            id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
+            console.log(id)
+             }
+             catch{}
+          })
+          console.log('we got one')
+        }
+      return (
+        <h3 {...props} id={id} >
+          {props.children}
+        </h3>
+      );
+    },pre: (props) => {
       // Generate an 'id' attribute based on the heading text
       return (
         <div className='text-sm'>
