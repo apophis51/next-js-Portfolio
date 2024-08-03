@@ -35,10 +35,39 @@ export async function transmitBlog(Method: string, Blog: string, title: string) 
     console.log(process.env)
     console.log(process.env.Strappi_SuperAccess)
     console.log(headers)
-    let see_if_blog_exists = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`, {
+    let blogData = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`, {
       cache: 'no-store'})
-    let doesBlogExist = (await see_if_blog_exists.text()).includes(title)
+      let resClone = blogData.clone()
+    let doesBlogExist = (await blogData.text()).includes(title)
     console.log(doesBlogExist)
+
+
+
+
+
+    if (doesBlogExist) {
+      console.log('blog already exists')
+      let blogJSON = (await resClone.json()).data
+      console.log(blogJSON)
+      let blogID = blogJSON.filter(b => b.attributes.Title.toLowerCase() == title.toLowerCase())[0].id
+      console.log(blogID)
+      console.log('cool')
+
+      let response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`, {
+        method: 'PUT',
+        headers: headers,
+        body: JSON.stringify(dataToTransmit),
+        cache: 'no-store',
+      })
+      if (!response.ok) {
+        console.log(response.status)
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const responseJson = await response.json()
+      console.log(responseJson)
+
+      return responseJson
+    }
     if (!doesBlogExist) {
       let response = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs`, {
         method: 'POST',

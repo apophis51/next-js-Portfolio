@@ -15,6 +15,8 @@ import {blog_link_extractor, transmitBlog} from '@/app/(main site)/(Tooling Page
 export default function Page() {
 const [text, BasicText] = useBasicText({prompt: 'Enter a BLog'})
 
+console.log('test')
+
   return (
     <MainContentTemplate title={"Obsidian Blog Submitter Helper"}>
     <div className='flex flex-col justify-center items-center'>
