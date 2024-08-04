@@ -12,7 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
@@ -217,7 +217,7 @@ function ResponsiveAppBar() {
                 key={page.name} onClick={handleCloseNavMenu}>
                   {page.href == '/Crypto/GuessTheNumber' ? (<Link href="/Crypto/GuessTheNumber" prefetch={false}>
                   <Typography textAlign="center"> {page.name}</Typography>
-    </Link>) : (<Link href={page.href} prefetch={false}><Typography textAlign="center">{page.name}</Typography></Link>)}
+    </Link>) : (<Link key={page.name} href={page.href} prefetch={false}><Typography textAlign="center">{page.name}</Typography></Link>)}
                 </MenuItem>
               ))}
             </Menu>
@@ -249,7 +249,7 @@ function ResponsiveAppBar() {
           <Box 
           className = "hidden grow xl:flex justify-between items-center pr-10 gap-5">
             {pages.map((page) => (
-              <Link href={page.href} prefetch={true}>
+              <Link key={page.name} href={page.href} prefetch={true}>
               <Button
                 className = ' bg-blue-900 bg-opacity-5 pl-5 pr-5 h-20  hover:bg-opacity-50 hover:shadow-[inset_0px_0px_10px_2px_rgba(255,255,255,0.9)] rounded-lg ' 
                 key={page.name}
@@ -261,7 +261,7 @@ function ResponsiveAppBar() {
   <div tabIndex={0} role="button" onMouseEnter={handleMouseEnter}
         ><p>{page.name}</p></div>
   {(page.subMenu) && (isDropdownVisible) && ( <ul tabIndex={0}  onMouseLeave={handleMouseLeave} className="dropdown-content z-[2] menu p-2 shadow bg-base-100 rounded-box w-52" style={{   backgroundColor: 'rgba(20, 400, 400, 0.5)'}}>
-    {page.subMenu?.map((subPage) => (<li onClick={handleItemClick}><Link href={subPage.href} prefetch={true}>{subPage.name}</Link></li>))}
+    {page.subMenu?.map((subPage) => (<li key={subPage.name} onClick={handleItemClick}><Link href={subPage.href} prefetch={true}>{subPage.name}</Link></li>))}
   </ul>)}
 </div> 
     {/* non mobile menu */}
@@ -272,11 +272,11 @@ function ResponsiveAppBar() {
           <LogStatus/>
               {/* <Link href="/AuthRouteTest">Login</Link> */}
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
+            {/* <Tooltip title="Open settings"> */}
               {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
               </IconButton> */}
-            </Tooltip>
+            {/* </Tooltip> */}
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
