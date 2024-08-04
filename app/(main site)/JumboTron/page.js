@@ -7,7 +7,7 @@ import MouseOverPopover from "./MouseOverPopover";
 import Link from 'next/link'
 import granim from '@/public/granim.min.js'
 
-//import granim from '@/public/granim.min.new'
+//import granim from '@/public/granim.min.new' 
 
 
 
@@ -17,7 +17,7 @@ export default function JumboTron() {
         setValue(newValue);
       };
       const mygranium = () => {
-        //const granim =  await import('@/public/granim.min.new.js')
+        //const granim =  await import('@/public/granim.min.new.js') // we didnt do it this way because this triggered a lag on the render maybe i didnt make it async, will have to investigate this agains
 
         try {
             var granimInstance = new Granim({

@@ -4,15 +4,18 @@
 import Card from './Card'
 import ReactMarkdown from 'react-markdown'
 import BlogControl from './BlogControl'
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Pagination from '@/app/(main site)/Components/Pagination.tsx'
+import { useSearchParams } from 'next/navigation'
+
 
 export default function BlogCollection({data}){
-    const [blogFilter, setBlogFilter] = useState('')
+    const [blogFilter, setBlogFilter] = useState((useSearchParams()).get('filter'))
     const [sliceTopNumber, setSliceTopNumber] = useState(10)
     const [sliceBottomNumber, setSliceBottomNumber] = useState(0)
     console.log(data.data.length)
 
+    
     return(
         <div className="bg-gradient-to-br from-green-700 via-blue-600 to-green-800 m-4 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]">
             <div className="flex justify-center items-center">
