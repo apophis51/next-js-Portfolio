@@ -8,19 +8,38 @@ import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 
 
-import { useState} from 'react';
+import React,{ useState, useMemo, useEffect} from 'react';
 
-export default function BlogControl({setBlogFilter}) {
-  const [filter, setFilter] = useState('');
-  
+export default React.memo(function BlogControl({setBlogFilter}) { 
+  const [filter, setFilter] = useState((useSearchParams()).get('filter'));
+  console.log(filter) // React.memo helps it get the component to render only 2 times when you hit the back button from a blog instead of it reandering 4 times
   const params = (useSearchParams()).get('filter')
   console.log(params)
   const router = useRouter()
+  
+ 
+
+
+
+    if(params){
+      console.log('hits')
+      setBlogFilter(params)
+      if(filter != params){
+        setFilter(params)
+      }
+     } 
+     if(!params && filter != 'Filter Blogs'){
+      console.log('hits')
+      setBlogFilter(` `)
+
+        setFilter(`Filter Blogs`)
+      
+     } 
 
 
   const handleChange = (event) => {
-    setFilter(event.target.value);
-    setBlogFilter(event.target.value)
+   // setFilter(event.target.value);
+   // setBlogFilter(event.target.value)
     if(event.target.value ==''){
       if (params){
         router.push(`/ProgrammingBlogs/`,  { scroll: false })
@@ -54,3 +73,6 @@ export default function BlogControl({setBlogFilter}) {
     </div>
   );
 }
+
+)
+
