@@ -1,21 +1,21 @@
+'use client'
 //inspired by https://daisyui.com/components/table/   first example
 
 import Container from '@mui/material/Container';
-import Hero from '../../Components/Hero'
 import { prisma } from '@/lib/prisma';
-import { get } from 'http';
+import getDataBaseResults from "./server"
+import { useEffect , useState} from 'react';
 
 
-async function getDataBaseResults() {
-    const result = await prisma.recievedEmails.findMany()
-    console.log(result)
-    console.log('triggered')
-    return result
-}
+
+export default function adminDash() {
+    const [emailResults, setEmailResults] = useState(null)
 
 
-export default async function adminDash() {
-    let emailResults = await getDataBaseResults()
+    useEffect(() => {
+        (async () => setEmailResults(await getDataBaseResults() ))()
+    }, [])
+
     return (
         <Container maxWidth="xl"  >
             <div className=''>
@@ -34,7 +34,7 @@ export default async function adminDash() {
                             </thead>
                             <tbody>
                                 {/* row 1 */}
-                                {emailResults.map((email) => (
+                                {emailResults && emailResults.map((email) => (
                                     <tr>
                                         <th>{email.id}</th>
                                         <td>{email.name}</td>
