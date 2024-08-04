@@ -1,4 +1,5 @@
 'use client'
+//this page seems to be causing my hydration issues
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Navigation from '@/app/(main site)/Navigation/page'
