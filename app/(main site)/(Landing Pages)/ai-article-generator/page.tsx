@@ -3,10 +3,11 @@ import ReactMarkdown from "react-markdown"
 import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
 import useBasicTextInput from "@/app/(main site)/Components/ui/BasicTextInput"
 import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
+import '@/app/(main site)/Components/styles/prism.css'
 
 
 
@@ -15,7 +16,7 @@ let javacode = " ```javaScript \n \
   })() \n```\n"
 
 // export default function ClientPage({handlefetch_ai_data}: any) {
-export default function ClientPage() {
+export default function AIArticleGenerator() {
 
     const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai', 'gemini', 'lamma3'], maintext: 'Select AI Model' })
     const [textInput, BasicTextInput] = useBasicTextInput({ prompt: "Enter Your AI Prompt.." })
@@ -23,6 +24,8 @@ export default function ClientPage() {
     const [toggled, BasicToggle] = useBasicToggle({ leftText: 'Multiple Articles', RightText: 'One Article' })
     const [textInput2, BasicSelect_ArticleNumber] = useBasicTextInput({ prompt: "Only Input This for Multiple Generations..." })
     const [ai_result, setAi_result] = useState('');
+
+
 
 console.log(toggled)
     async function handleClick() {
@@ -34,11 +37,11 @@ console.log(toggled)
 
 
     }
+   HighlightafterEveryRender()
 
-    HighlightafterEveryRender();
 
     return (
-        <MainContentTemplate title="MalcMind - AI Article Generator">
+        <MainContentTemplate  title="MalcMind - AI Article Generator">
 
         <div className='flex flex-col gap-1 items-center justify-center'>
             <BasicSelect />
@@ -50,7 +53,7 @@ console.log(toggled)
             <BasicSelect_ArticleNumber />
             </div>}
             <button className='btn' onClick={handleClick}>Generate Article</button>
-            <ReactMarkdown >{ai_result}</ReactMarkdown>
+            <ReactMarkdown >{ai_result}</ReactMarkdown> 
             <ReactMarkdown >{javacode}</ReactMarkdown>
         </div>
         </MainContentTemplate>
