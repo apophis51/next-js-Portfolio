@@ -122,7 +122,7 @@ export default function VettingSubmissionFeed() {
     }
 
     return (
-        <div className="ml-[14%] mr-[14%] overflow-scroll">
+        <div className="ml-[14%] mr-[14%] w-max ">
             <div className="flex flex-col gap-4 justify-between items-center bg-white p-7">
                 <h1 className=" text-3xl text-center p-5 font-bold">Vetting Submission Feed</h1>
 
