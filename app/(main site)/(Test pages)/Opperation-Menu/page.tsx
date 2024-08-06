@@ -105,12 +105,27 @@ export default function VettingSubmissionFeed() {
         setVettingSubmissions(dummyVettingSubmissions)
     }
 
+
+
+    function handleSearch(evt: any) {
+
+        console.log(evt.target.value)
+        if (evt.target.value == '') {
+            setVettingSubmissions(dummyVettingSubmissions)
+
+        }
+        else {
+            let searchedName = new RegExp(evt.target.value, 'i')
+            setVettingSubmissions(vettingSubmissions.filter(submission => searchedName.test(submission.Client)))
+        }
+    }
+
     return (
         <div className="ml-[14%] mr-[14%]">
             <div className="flex flex-col gap-4 justify-between items-center bg-white p-7">
                 <h1 className=" text-3xl text-center p-5 font-bold">Vetting Submission Feed</h1>
 
-                <input type="text" placeholder="Search" className="input input-bordered w-full max-w-xs" />
+                <input onChange={(evt) => handleSearch(evt)} type="text" placeholder="Search" className="input input-bordered w-full max-w-xs" />
 
                 <div className='flex flex-row gap-5 justify-between items-center w-[700px]'>
 
@@ -169,10 +184,10 @@ export default function VettingSubmissionFeed() {
                         <p className="btn w-[100px] bg-orange-200">{sub.Page}</p>
                         <p className="btn bg-orange-200">{sub.Urgent}</p>
                         {/* <p className="btn bg-orange-200">{sub.Completed}</p> */}
-                        <input type="checkbox" defaultChecked
-                            className="checkbox checkbox-lg " />
+                        {sub.Completed =='Yes'? <input type="checkbox" checked={true}
+                            className="checkbox checkbox-lg " /> : <input type="checkbox" checked={false} className="checkbox checkbox-lg"/>}
                         <div className='flex items-center bg-orange-200 btn'>
-                            <p className=" w-[80px] ">{sub.Assignee}</p>
+                            <p className=" w-[80px] ">{sub.Assignee}</p>//
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 h-4 w-4">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
                             </svg></div>
