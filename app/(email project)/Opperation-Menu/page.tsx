@@ -1,5 +1,6 @@
 'use client'
 import { useState } from "react";
+import './input.css'
 
 let dummyAssignees = ["Jack", "Emily", "Jon", "TBD"];
 let dummyVettingSubmissions = [
@@ -61,7 +62,7 @@ let dummyVettingSubmissions = [
         Assignee: "TBD",
     },
     {
-        Client: "Ivy",
+        Client: "Jack",
         Page: "Open",
         Urgent: "No",
         Completed: "No",
@@ -121,7 +122,7 @@ export default function VettingSubmissionFeed() {
     }
 
     return (
-        <div className="ml-[14%] mr-[14%]">
+        <div className="ml-[14%] mr-[14%] overflow-scroll">
             <div className="flex flex-col gap-4 justify-between items-center bg-white p-7">
                 <h1 className=" text-3xl text-center p-5 font-bold">Vetting Submission Feed</h1>
 
@@ -184,13 +185,15 @@ export default function VettingSubmissionFeed() {
                         <p className="btn w-[100px] bg-orange-200">{sub.Page}</p>
                         <p className="btn bg-orange-200">{sub.Urgent}</p>
                         {/* <p className="btn bg-orange-200">{sub.Completed}</p> */}
-                        {sub.Completed =='Yes'? <input type="checkbox" checked={true}
-                            className="checkbox checkbox-lg " /> : <input type="checkbox" checked={false} className="checkbox checkbox-lg"/>}
-                        <div className='flex items-center bg-orange-200 btn'>
-                            <p className=" w-[80px] ">{sub.Assignee}</p>//
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 h-4 w-4">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
-                            </svg></div>
+                        {sub.Completed == 'Yes' ? <input type="checkbox" checked={true}
+                            className="checkbox checkbox-lg " /> : <input type="checkbox" checked={false} className="checkbox checkbox-lg" />}
+                        <div className='flex items-center'>
+                            {/* <p className=" w-[80px] ">{sub.Assignee}</p>// */}
+                            <select className="select select-bordered w-full max-w-xs bg-orange-200">
+                                <option disabled selected>{sub.Assignee}</option>
+                                {dummyAssignees.map((option) => <option key={option} value={sub.Assignee}>{option}</option>)}
+                            </select>
+                            </div>
                     </div>
                 ))}
             </div>
