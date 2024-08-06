@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vetting Submission Feed</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Vetting Submission Feed</h1>
+        <input id="search" type="text" placeholder="Search" class="input">
+        <div class="controls">
+            <div class="control">
+                <p>Client</p>
+                <button data-column="Client" class="sort-button">Sort</button>
+            </div>
+            <div class="control">
+                <p>Page</p>
+                <button data-column="Page" class="sort-button">Sort</button>
+            </div>
+            <div class="control">
+                <p>Urgent</p>
+                <button data-column="Urgent" class="sort-button">Sort</button>
+            </div>
+            <div class="control">
+                <p>Completed</p>
+                <button data-column="Completed" class="sort-button">Sort</button>
+            </div>
+            <div class="control">
+                <p>Assignee</p>
+                <button data-column="Assignee" class="sort-button">Sort</button>
+            </div>
+        </div>
+        <div id="submissions" class="submissions">
+            <!-- Rows will be inserted here by JavaScript -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
