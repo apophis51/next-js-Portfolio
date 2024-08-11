@@ -13,6 +13,7 @@ export default function useBasicToggle({ leftText, RightText }: { leftText: stri
                 checked={!toggled}
                 type="checkbox" 
                 onClick={() => toggled ? setToggled(false) : setToggled(true)} className="toggle" defaultChecked />
+                
                 <p>  {RightText}</p>
             </div>
         )
