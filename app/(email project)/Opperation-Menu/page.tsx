@@ -128,7 +128,7 @@ export default function VettingSubmissionFeed() {
 
                 <input onChange={(evt) => handleSearch(evt)} type="text" placeholder="Search" className="input input-bordered w-full max-w-xs" />
 
-                <div className='flex flex-row gap-5 justify-between items-center w-[700px]'>
+                <div className='flex flex-row gap-5 justify-between items-center w-[700px] border-2 border-rose-600'>
 
 
                     <div className='flex justify-center items-center gap-1 w-[150px]'>

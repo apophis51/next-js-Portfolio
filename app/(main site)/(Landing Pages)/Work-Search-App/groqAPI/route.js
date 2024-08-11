@@ -51,7 +51,7 @@ async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData
             ],
             model: "llama3-8b-8192",
             temperature: 0,
-            max_tokens: 30000,
+            max_tokens: 3000,
             top_p: 1,
             stop: null,
             stream: false
