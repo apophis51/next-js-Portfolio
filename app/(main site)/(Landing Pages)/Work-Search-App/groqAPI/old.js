@@ -4,29 +4,21 @@ import * as responseUtils from '../responseUtils'
 import { headers } from 'next/headers'
 import projectURLS from '@/projectSettings'
 import {fetchUserAIMetaData} from '@/app/(main site)/Components/Utils/authMetaData'
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-//This was changed from Groq to Gemini 
-
-const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = gemini.getGenerativeModel({ model: "gemini-1.5-flash" });
-
+const Groq = require("groq-sdk");
+const groq = new Groq({
+    apiKey: process.env.GROQAPI
+});
 async function main(questionsToGetAnswered,authorizedEmail, authorizedClerkID) {
     fetchUserAIMetaData({deductCreditType: 'deductCredits', userId: authorizedClerkID})
     let resumeData = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/job-resumes?pagination[page]=1&pagination[pageSize]=80&filters[userEmail][$eqi]=${authorizedEmail}`)
     let resumeDataJson = await resumeData.json()
     let finalizedResumeData = resumeDataJson.data[0].attributes.Resume
     console.log(finalizedResumeData)
-
-    //groq function is now using gemini
     const chatCompletion = await getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData);
     // Print the completion returned by the LLM.
-    // let goodResult = chatCompletion.choices[0]?.message?.content
-    // console.log(chatCompletion.choices[0]?.message?.content || "");
-
-    let goodResult = await chatCompletion.response
-    goodResult = await goodResult.text()
-    console.log(goodResult || "")
+    let goodResult = chatCompletion.choices[0]?.message?.content
+    console.log(chatCompletion.choices[0]?.message?.content || "");
     const deleteNewLines = goodResult.replace(/\n/g, ' ')
     const regex = /\[(.*?)\]/g;
 
@@ -41,12 +33,13 @@ async function main(questionsToGetAnswered,authorizedEmail, authorizedClerkID) {
     console.log('AI JSON parse result:', AI_Result)
     return AI_Result
 }
-
-//changed to use gemini
 async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData) {
     try{
-        let completion = await model.generateContent(
-             `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format. also do not include the original options list in your response, just the response
+        let completion = await groq.chat.completions.create({
+            messages: [
+                {
+                    role: "user",
+                    content: `This is is your instructions. I need you to take my RESUMEDATA and use it to select the best responses from the JSONDATA. If the JSONDATA lets you select your own response then use my supplied data to answer the employer  in your own words using best practices with my data provided. I want your answer to be a JSON response with one text response per question. If the JSONDATA has options, then give the best option in your response, give the option verbatim.   Your answer should mimick this format. also do not include the original options list in your response, just the response
     
                     [{"question": "{question given in JSONDATA}", "response": "{your response or the best option}"}, {object2}, {object3}, ...rest of objects]  
                     
@@ -54,7 +47,15 @@ async function getGroqChatCompletion(questionsToGetAnswered, finalizedResumeData
                     
                     
                     JSONDATA: ${questionsToGetAnswered}`
-                )
+                }
+            ],
+            model: "llama3-8b-8192",
+            temperature: 0,
+            max_tokens: 3000,
+            top_p: 1,
+            stop: null,
+            stream: false
+        })
         return completion
     }
     catch(error){
