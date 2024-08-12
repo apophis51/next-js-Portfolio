@@ -50,13 +50,6 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
 
 
   function generateChartData({ammountofData = 'all'}) {
-    ///test
-    //   jobApplicationData.data.filter((item) => {
-    //     if (item.id === 2) {
-    //       console.log('found', item)
-    //   }
-    // })
-    //end test
     
       
     
@@ -68,7 +61,6 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
     // Generate the regex pattern based on the current date
     const datePattern = new RegExp(`^\\d{4}-${currentMonth}-${currentDay}$`);
     
-    // const datePattern = /^\d{4}-06-10$/;
 
     console.log(jobApplicationData.data[0])
     let displayData = []
@@ -107,14 +99,7 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
   console.log('rendered')
   useEffect(() => {
 
-    // const delay = 2000; // 2 seconds in milliseconds
-
-    // const timerId = setTimeout(() => {
-    //   // Your code to run after the delay
-    //   console.log('Delayed useEffect executed after 2 seconds');
-    // }, delay);
-    // const ws = new WebSocket('ws://localhost:3001');
-    // const ws = new WebSocket('ws://localhost:3532');
+  
     const ws = new WebSocket(projectSettings().GoogleTableChartSocket);
 
 
@@ -129,7 +114,6 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
     });
 
 
-    // Handle incoming messages
     ws.onmessage = (event) => {
       const newData = JSON.parse(event.data);
       setWebSocketData(newData);
@@ -173,13 +157,11 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
 
     }
     fetchData()
-    // Clean up the timer when the component unmounts or when the dependencies change
-    //  return () => clearTimeout(timerId);
+  
     return () => {
       ws.close();
     };
 
-    // generateChartData(jobApplicationData)
   }, [jobApplicationsSent]);
   console.log('rendered')
   console.log(chartInfo)
@@ -210,20 +192,13 @@ export default function JobSpredSheet({ jobDataFetch, jobResumeFetch, userEmail 
                 const clickedRow = selection[0].row + 1;
                 console.log(clickedRow)
                 console.log(selection)
-                // console.log(event.target.cellIndex)
                 const realJobToChange = event.target.parentNode.cells[2].textContent
                 console.log(realJobToChange)
-                // setDummyJob((prev) => (chartInfo.chartData[clickedRow][1]))
-                //  const jobToChange = chartInfo.chartData[clickedRow][1]
-                //    console.log(jobToChange)
-
-                // console.log(jobToChange)
-                // const UID = chartInfo.chartData[clickedRow][4]
+  
                 const realUID = parseInt(event.target.parentNode.cells[5].textContent)
                 console.log(typeof realUID)
                 console.log(parseInt(realUID))
                 if (clickedRow !== null && clickedRow !== undefined) {
-                  // handleButtonClick(jobToChange, UID);
                   handleButtonClick(realJobToChange, realUID);
 
                 }
