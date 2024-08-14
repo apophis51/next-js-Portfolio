@@ -9,6 +9,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Suspense } from 'react'
 import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
+import projectUrls from '@/projectSettings'
 
 
 //import '../prism.css'
@@ -38,7 +39,7 @@ const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/
 
 
 async function fetchBlog(params) {
-  let res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000`)
+  let res = await fetch(projectUrls().blogsURL)
   let post = await res.json()
   let blogID = ''
 

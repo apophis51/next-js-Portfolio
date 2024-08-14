@@ -14,6 +14,7 @@ export default function BlogCollection({data}){
     const [sliceTopNumber, setSliceTopNumber] = useState(10)
     const [sliceBottomNumber, setSliceBottomNumber] = useState(0)
     console.log(data.data.length)
+    console.log(data.data)
 
     
     return(

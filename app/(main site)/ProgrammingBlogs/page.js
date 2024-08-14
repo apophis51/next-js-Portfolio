@@ -8,11 +8,11 @@ import '@/app/(main site)/Components/styles/prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
 import { headers } from 'next/headers'
-
+import projectUrls from '@/projectSettings'
 
 async function getData() {
   // const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/')
-  const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=80')
+  const res = await fetch(projectUrls().blogsURL)
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
