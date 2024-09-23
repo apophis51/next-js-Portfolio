@@ -1,5 +1,5 @@
 "use client"
-import { signal, effect} from "@preact-signals/safe-react";
+import { signal} from "@preact-signals/safe-react";
 // import {useState} from "react"
 
 

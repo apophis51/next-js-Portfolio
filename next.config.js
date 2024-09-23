@@ -2,7 +2,7 @@
 
 const nextConfig = {
   experimental: {
-    swcPlugins: [["@preact-signals/safe-react/swc", {          mode: "auto",
+    swcPlugins: [["@preact-signals/safe-react/swc", {mode: "auto",
     }]],
   },
 
@@ -57,7 +57,7 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: false
+  // reactStrictMode: false
   
 }
 
