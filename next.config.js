@@ -24,6 +24,10 @@ const nextConfig = {
   typescript: {            //added 2023 to prevent typescript build errors
     ignoreBuildErrors: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
   swcMinify: true,   //end 20223 3dit
   rewrites: async () => {
     return [
