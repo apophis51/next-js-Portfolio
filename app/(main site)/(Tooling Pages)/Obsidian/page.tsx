@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
-export const revalidate = 0
+// export const revalidate = 0
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 import useBasicText from '@/app/(main site)/Components/ui/BasicTextInput';
 import {blog_link_extractor, transmitBlog} from '@/app/(main site)/(Tooling Pages)/Obsidian/serverController'
