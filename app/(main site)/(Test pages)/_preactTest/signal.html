@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preact Counter with Tailwind CSS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+  <div id="app"></div>
+
+  <script type="module">
+    import { h, render } from 'https://esm.sh/preact';
+    import { signal } from 'https://esm.sh/@preact/signals';
+    import htm from 'https://esm.sh/htm';
+
+    // Initialize htm with Preact
+    const html = htm.bind(h);
+
+    // Define signals to manage state
+    const count = signal(0);
+    const anotherValue = signal('Initial value');
+
+    function App(props) {
+      return html`
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center space-y-4">
+          <h1 class="text-2xl font-bold text-gray-800">Hello ${props.name}!</h1>
+          <p class="text-lg text-gray-600">Count: ${count.value}</p>
+          <p class="text-lg text-gray-600">Another Value: ${anotherValue.value}</p>
+          <div class="space-x-4">
+            <button 
+              class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"
+              onClick=${() => count.value++}>
+              Increment Count
+            </button>
+            <button 
+              class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none"
+              onClick=${() => count.value--}>
+              Decrement Count
+            </button>
+            <button 
+              class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 focus:outline-none"
+              onClick=${() => anotherValue.value = anotherValue.value === 'Initial value' ? 'Updated value' : 'Initial value'}>
+              Toggle Another Value
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Manually rerender when signals change
+    count.subscribe(() => render(html`<${App} name="World" />`, document.getElementById('app')));
+    anotherValue.subscribe(() => render(html`<${App} name="World" />`, document.getElementById('app')));
+
+    // Initial render
+    render(html`<${App} name="World" />`, document.getElementById('app'));
+  </script>
+</body>
+</html>

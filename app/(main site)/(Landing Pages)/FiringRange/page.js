@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 
 const App = dynamic(() => import('./App.js'), { ssr: false })
 
-
+console.log('this is tracked')
 
 export default function FiringRange() {
   return (
