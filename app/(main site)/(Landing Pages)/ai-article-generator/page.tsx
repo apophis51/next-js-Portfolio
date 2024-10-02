@@ -1,9 +1,14 @@
 'use client'
 import ReactMarkdown from "react-markdown"
-import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
+// import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
+// import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
+
+import {useBasicSelect, useBasicToggle} from 'malcolmui'
+
+ 
 import useBasicTextInput from "@/app/(main site)/Components/ui/BasicTextInput"
-import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
-import { useState} from 'react'
+// import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
+import React,{ useEffect, useState, useRef} from 'react'
 import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
@@ -23,16 +28,53 @@ export default function AIArticleGenerator() {
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
     const [toggled, BasicToggle] = useBasicToggle({ leftText: 'Multiple Articles', RightText: 'One Article' })
     const [textInput2, BasicSelect_ArticleNumber] = useBasicTextInput({ prompt: "Only Input This for Multiple Generations..." })
-    const [ai_result, setAi_result] = useState('');
+    const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
+    const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
+    const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context' })
+
+    const prevValues = useRef({ toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result });
+useEffect(() => {
+    console.log('render triggered by change in dependency')
+    if (prevValues.current.SelectedChapters !== SelectedChapters) {
+        console.log('render triggered by change in SelectedChapters', prevValues.current.SelectedChapters, "->", SelectedChapters)
+    }
+    if (prevValues.current.toggled !== toggled) {
+        console.log('render triggered by change in toggled', prevValues.current.toggled, "->", toggled)
+    }
+    if (prevValues.current.selectedOption !== selectedOption) {
+        console.log('render triggered by change in selectedOption', prevValues.current.selectedOption, "->", selectedOption)
+    }
+    if (prevValues.current.textInput !== textInput) {
+        console.log('render triggered by change in textInput', prevValues.current.textInput, "->", textInput)
+    }
+    if (prevValues.current.textInput2 !== textInput2) {
+        console.log('render triggered by change in textInput2', prevValues.current.textInput2, "->", textInput2)
+    }
+    if (prevValues.current.ai_result !== ai_result) {
+        console.log('render triggered by change in ai_result', prevValues.current.ai_result, "->", ai_result)
+        }
+}, [toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result])
 
 
 
-console.log(toggled)
+
     async function handleClick() {
         console.log(selectedOption, textInput, SelectedChapters, textInput2, toggled)
-        let result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: textInput.current, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
-        //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
-        setAi_result(result)
+        let result = null
+        if(toggleTextContext) {
+            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: textInput.current, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+             //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
+             //save value into ai_result
+        }
+        if(!toggleTextContext) {
+            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + textInput.current), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+        }
+       
+        if (toggleErase) {
+        setAi_result((prev) => [...prev, result])
+        } else {
+        setAi_result([result])
+        }
         console.log(result)
 
 
@@ -47,16 +89,32 @@ console.log(toggled)
             <BasicSelect />
             <BasicTextInput />
             <BasicToggle />
+            <BasicToggleErase />
+            <BasicToggleContext />
             {toggled && 
             <div>
             <BasicSelect_Chapter />
             <BasicSelect_ArticleNumber />
             </div>}
             <button className='btn' onClick={handleClick}>Generate Article</button>
-            <ReactMarkdown >{ai_result}</ReactMarkdown> 
+            {ai_result.map((ai_result) =>{
+                return(
+                <>
+                <ReactMarkdown >{ai_result}</ReactMarkdown> 
+                </>)
+            })}
             <ReactMarkdown >{javacode}</ReactMarkdown>
         </div>
         </MainContentTemplate>
 
     )
 }
+
+
+// If you suspect unnecessary re-renders, wrap your functional component with React.memo to prevent re-renders when props don’t change:
+
+// js
+// Copy code
+// const MyComponent = React.memo((props) => {
+//   return <div>{props.someValue}</div>;
+// });
