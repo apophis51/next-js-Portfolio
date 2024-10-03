@@ -25,8 +25,9 @@ import { signal} from "@preact-signals/safe-react";
 
 // Create a signal for count
 const countSignal = signal({parrent:1, child:0});
-
 // Child component that accepts a signal prop
+
+
 function ChildComponent({ countSignal }) {
   return (
     <div>

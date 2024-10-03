@@ -61,7 +61,7 @@ const nextConfig = {
       },
     ],
   },
-  // reactStrictMode: false
+  reactStrictMode: false
   
 }
 
