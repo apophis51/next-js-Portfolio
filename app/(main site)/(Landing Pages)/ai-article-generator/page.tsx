@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown"
 // import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 
-import {useBasicSelect, useBasicToggle} from 'malcolmui'
+import {useBasicSelect, useBasicToggle} from 'malcolm_ui_react'
 
  
 import useBasicTextInput from "@/app/(main site)/Components/ui/BasicTextInput"
