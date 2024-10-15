@@ -13,6 +13,7 @@ import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-ge
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 import '@/app/(main site)/Components/styles/prism.css'
+import { text } from "body-parser"
 
 
 
@@ -30,7 +31,7 @@ export default function AIArticleGenerator() {
     const [textInput2, BasicSelect_ArticleNumber] = useBasicTextInput({ prompt: "Only Input This for Multiple Generations..." })
     const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
     const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
-    const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context' })
+    const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Chat Recording', RightText: 'Dont Use Chat Recording' })
 
     const prevValues = useRef({ toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result });
 useEffect(() => {
@@ -67,11 +68,12 @@ useEffect(() => {
              //save value into ai_result
         }
         if(!toggleTextContext) {
-            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + textInput.current), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result.filter(item => !item.includes("Your Result Will Appear Here")) + textInput.current), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+
         }
        
         if (toggleErase) {
-        setAi_result((prev) => [...prev, result])
+        setAi_result((prev) => [...prev, textInput.current,result])
         } else {
         setAi_result([result])
         }
