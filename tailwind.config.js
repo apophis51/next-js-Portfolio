@@ -15,4 +15,6 @@ module.exports = {
     },
   },
   plugins: [require("daisyui"), require('@tailwindcss/typography')],
+  mode: 'jit', // Use JIT mode but don't rely on purging
+  purge: false, // This disables purging entirely
 }
