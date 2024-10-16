@@ -28,7 +28,7 @@ COPY . .
 RUN bun install
 
 # delete if doesnt work
-ENV NODE_ENV=production 
+# ENV NODE_ENV=production 
 
 # Build the application using Bun
 RUN bun run build
