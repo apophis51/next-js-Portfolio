@@ -1,33 +1,45 @@
-FROM node:18-alpine AS base
+# docker build -t railwayflasktest .
+# docker run -p 3000:3000 railwayflasktest
 
-# Install dependencies only when needed
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 
+# Use the official Bun image as the base
+FROM oven/bun:1 AS base
+
+
+# Install CA certificates to ensure HTTPS works correctly
+RUN apt update && apt install -y ca-certificates
+
+# Switch to HTTPS for Debian repositories
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list
+# Update package list and install Python
+RUN apt update && apt install -y python3 build-essential
+
+# Create a symbolic link for Python so node-gyp can find it
+RUN ln -sf /usr/bin/python3 /usr/bin/python
+
+# Set the working directory
 WORKDIR /app
 
-# COPY ["package.json", "package-lock.json*", "./"]
+
+# Copy the rest of the application code
 COPY . .
 
+# Install dependencies using Bun
+RUN bun install
 
-RUN npm i
-
-
+# Build the application using Bun
+RUN bun run build
 
 EXPOSE 3000
 
-ENV NODE_ENV=development
+# delete if doesnt work
+ENV NODE_ENV=development 
 # RUN npm run next-dev
-
+# delete if doesnt work
 ENV PORT 3000
 # set hostname to localhost
+# delete if doesnt work
 ENV HOSTNAME "0.0.0.0"
 
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-# default command when container starts
-CMD ["npm", "run", "next-dev"] 
-
-
-
-# syntax=docker/dockerfile:1
-
+# Run the application
+CMD ["bun", "run", "start"]
