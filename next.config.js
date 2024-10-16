@@ -27,8 +27,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-
-  swcMinify: true,   //end 20223 3dit
+  swcMinify: false, 
+ // swcMinify: true,   //end 20223 3dit
   rewrites: async () => {
     return [
       {
@@ -61,7 +61,8 @@ const nextConfig = {
       },
     ],
   },
-  reactStrictMode: false
+  reactStrictMode: false,
+  
   
 }
 
