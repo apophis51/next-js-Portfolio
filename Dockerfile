@@ -40,7 +40,7 @@ RUN bun run build
 EXPOSE 3000
 
 # # delete if doesnt work
-ENV NODE_ENV=development 
+# ENV NODE_ENV=development 
 # RUN npm run next-dev
 # delete if doesnt work
 ENV PORT 3000
