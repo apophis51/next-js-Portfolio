@@ -27,13 +27,15 @@ COPY . .
 # Install dependencies using Bun
 RUN bun install
 
+# delete if doesnt work
+ENV NODE_ENV=development 
+
 # Build the application using Bun
 RUN bun run build
 
 EXPOSE 3000
 
-# delete if doesnt work
-ENV NODE_ENV=development 
+ 
 # RUN npm run next-dev
 # delete if doesnt work
 ENV PORT 3000
