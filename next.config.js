@@ -5,12 +5,7 @@ const nextConfig = {
     swcPlugins: [["@preact-signals/safe-react/swc", {mode: "auto",
     }]],
   },
-  webpack: (config) => {
-    // Disable code splitting
-    config.optimization.splitChunks = false;
-    config.optimization.runtimeChunk = false;
-    return config;
-  },
+
 
   // experimental: {
   //   serverActions: true,
