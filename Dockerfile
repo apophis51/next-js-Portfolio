@@ -27,15 +27,20 @@ COPY . .
 # Install dependencies using Bun
 RUN bun install
 
-# delete if doesnt work
-# ENV NODE_ENV=production 
+
+ARG Strappi_SuperAccess
+ARG NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+ARG CLERK_SECRET_KEY
+ARG DATABASE_URL
+
 
 # Build the application using Bun
 RUN bun run build
 
 EXPOSE 3000
 
- 
+# # delete if doesnt work
+# ENV NODE_ENV=development 
 # RUN npm run next-dev
 # delete if doesnt work
 ENV PORT 3000
