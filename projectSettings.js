@@ -15,7 +15,7 @@ export default function projectURLS() {
       envUtilsWebSocket: 'wss://cryptoai-production.up.railway.app',
       GoogleTableChartSocket: 'wss://cryptoai-production.up.railway.app',
       blogsURL: 'https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000',
-      pythonMongoDBServer :'https://fastapi-mongo-production.up.railway.app/'
+      pythonMongoDBServer :'https://fastapi-mongo-production.up.railway.app/api/get-all-blogs'
     }
   }
 
