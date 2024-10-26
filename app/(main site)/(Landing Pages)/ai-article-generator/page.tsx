@@ -3,10 +3,10 @@ import ReactMarkdown from "react-markdown"
 // import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 
-import {useBasicSelect, useBasicToggle} from 'malcolm_ui_react'
+import {useBasicSelect, useBasicToggle, useBasicTextInput} from 'malcolm_ui_react'
 
  
-import useBasicTextInput from "@/app/(main site)/Components/ui/BasicTextInput"
+// import useBasicTextInput from "@/app/(main site)/Components/ui/BasicTextInput"
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import React,{ useEffect, useState, useRef} from 'react'
 import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
