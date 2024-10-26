@@ -11,7 +11,7 @@ export default function BlogRenderHorizontal() {
 
     console.log('attempting to render Horizontal Blogs')
     const [downloadedBlogs, setDownloadedBlogs] = useState([])
-    const scrollContainerRef = useRef(null);
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
 
     async function serverGetBlogs() {
