@@ -2,6 +2,7 @@
 import Emails from "./Emails";
 import Obsidian from "@/app/(main site)/(Tooling Pages)/Obsidian/page"
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/page"
+import BlogRenderHorizontal from "./BlogRenderHorizontal"
 
 
 export default function AdminDash() {
@@ -13,6 +14,9 @@ export default function AdminDash() {
             </div>
             <div>
                 <Obsidian />
+            </div>
+            <div>
+                <BlogRenderHorizontal />
             </div>
             <div>
                 <Emails />
