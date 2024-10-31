@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "flask-dev": "FLASK_DEBUG=1 pip3 install -r requirements.txt && python3 -m flask --app api/python/index run -p 5328",
+    "fast-api": "cd /home/apophis51/svelt-python/fastapi-mongo && source python_backend_project/bin/activate  && uvicorn main:app --host 0.0.0.0 --port 8000 ",
     "next-dev": "next dev",
     "dev": "concurrently \"pnpm run next-dev\" \"pnpm run flask-dev\"",
+    "dev2": "concurrently \"pnpm run next-dev\" \"pnpm run fast-api\"",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint"

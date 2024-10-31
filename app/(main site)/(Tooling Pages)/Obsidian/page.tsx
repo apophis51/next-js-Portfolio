@@ -25,6 +25,7 @@ console.log('test')
       <button
       onClick = {async() => await transmitBlog('POST', await blog_link_extractor(`${text.current}.md`),text.current)} 
       className="btn">Submit</button>
+      <a href="obsidian://open?vault=Obsidian%20Vault&file=RAM.md"><button className='btn' >Navigate to Random Obsidian Page</button></a>
       </div>
     </div>
     </MainContentTemplate>
