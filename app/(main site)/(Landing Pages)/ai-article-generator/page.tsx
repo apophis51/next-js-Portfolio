@@ -82,7 +82,12 @@ useEffect(() => {
         }
        
         if (toggleErase) {
-        setAi_result((prev) => [...prev, result])
+        setAi_result((prevResults) => {
+           if(prevResults[0] === 'Your Result Will Appear Here') {
+               return [result]
+           }
+           return [...prevResults, result]
+        })
         } else {
         setAi_result([result])
         }
