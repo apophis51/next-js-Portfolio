@@ -1,9 +1,4 @@
 'use client'
-
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { useRouter } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 
@@ -50,6 +45,7 @@ export default React.memo(function BlogControl({setBlogFilter}) {
     }
   };
 
+  //Landing Pages in Strapi must be updated for any new filter to render correclty
 
   return (
     <div className='p-2'>
@@ -67,6 +63,7 @@ export default React.memo(function BlogControl({setBlogFilter}) {
           <option value={'docker'}>Docker Blogs</option>
           <option value={'websockets'}>WebSocket Blogs</option>
           <option value={'wordpress'}>Wordpress Blogs</option>
+          <option value={'mongodb'}>MongoDB Blogs</option>
         </select>
         
    
