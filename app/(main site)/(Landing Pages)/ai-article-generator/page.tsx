@@ -32,6 +32,11 @@ export default function AIArticleGenerator() {
     const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
     const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context' })
 
+    //Save Article UI
+    const [articleName, BasicArticleName] = useBasicTextInput({ prompt: "Enter Article Name" })
+    const [articleType, BasicArticleType] = useBasicTextInput({ prompt: "Enter Article Type" })
+
+
     const prevValues = useRef({ toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result });
 useEffect(() => {
     console.log('render triggered by change in dependency')
@@ -56,7 +61,10 @@ useEffect(() => {
 }, [toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result])
 
 
-
+    async function submit_to_mongoDB() {
+        console.log('submit_to_mongoDB triggered')
+        console.log(articleName.current, articleType.current)
+    }
 
     async function handleClick() {
         console.log(selectedOption, textInput, SelectedChapters, textInput2, toggled)
@@ -103,6 +111,9 @@ useEffect(() => {
                 <ReactMarkdown >{ai_result}</ReactMarkdown> 
                 </>)
             })}
+            <BasicArticleName />
+            <BasicArticleType />
+            <button className='btn bg-green-600 text-white' onClick={submit_to_mongoDB}>Save Article to MongoDb</button>
             <ReactMarkdown >{javacode}</ReactMarkdown>
         </div>
         </MainContentTemplate>
