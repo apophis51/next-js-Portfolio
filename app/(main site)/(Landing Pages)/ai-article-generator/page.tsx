@@ -2,6 +2,7 @@
 import ReactMarkdown from "react-markdown"
 // import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
+import  {uploadMongoDBblog} from "@/public/utils/MongoDBfunctions"
 
 import {useBasicSelect, useBasicToggle , useBasicTextInput} from 'malcolm_ui_react'
 
@@ -64,6 +65,8 @@ useEffect(() => {
     async function submit_to_mongoDB() {
         console.log('submit_to_mongoDB triggered')
         console.log(articleName.current, articleType.current)
+        let markdownContent = ai_result.join('\n')
+        uploadMongoDBblog(articleName.current, articleType.current, markdownContent)
     }
 
     async function handleClick() {

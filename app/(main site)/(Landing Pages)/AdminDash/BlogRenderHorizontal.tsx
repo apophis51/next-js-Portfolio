@@ -4,6 +4,7 @@ import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 import projectURLS from '@/projectSettings'
+import ReactMarkdown from 'react-markdown';
 
 
 
@@ -78,7 +79,9 @@ export default function BlogRenderHorizontal() {
                                 <a href="#">
                                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.Title}</h5>
                                 </a>
-                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{blog.MarkdownContent}</p>
+                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                    <ReactMarkdown>{blog.MarkdownContent}</ReactMarkdown>
+                                </p>
                             </div>
                         </div>
                     ))}
