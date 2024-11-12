@@ -62,7 +62,7 @@
     "framer-motion": "^10.12.18",
     "groq-sdk": "^0.3.3",
     "jotai": "^2.6.1",
-    "malcolm_ui_react": "^0.0.9",
+    "malcolm_ui_react": "^0.0.11",
     "monaco-editor": "^0.44.0",
     "next": "^14.0.4",
     "next-auth": "^4.24.5",
