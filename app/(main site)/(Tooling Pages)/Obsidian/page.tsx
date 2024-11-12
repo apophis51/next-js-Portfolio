@@ -9,9 +9,6 @@ import {blog_link_extractor, transmitBlog} from '@/app/(main site)/(Tooling Page
 
 
 
-
-
-
 export default function Page() {
 const [text, BasicText] = useBasicText({prompt: 'Enter a BLog'})
 
