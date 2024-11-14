@@ -25,8 +25,9 @@ async function getData() {
 }
 
 
-export default async function Page({searchParams}) {
-  const headersList = headers()
+export default async function Page(props) {
+  const searchParams = await props.searchParams;
+  const headersList = await headers()
   const referer = headersList.get('referer')
 
   const data = await getData()
@@ -37,7 +38,7 @@ export default async function Page({searchParams}) {
     contentNeeded = searchParams.filter
     console.log(searchParams.filter)
   }
- 
+
 
   return (<div className='overflow-y-hidden overflow-x-hidden'><Container maxWidth="xl">
     <Script src='./prism.js'
@@ -48,6 +49,4 @@ export default async function Page({searchParams}) {
     </div>
   </Container>
   </div>)
-
-
 }

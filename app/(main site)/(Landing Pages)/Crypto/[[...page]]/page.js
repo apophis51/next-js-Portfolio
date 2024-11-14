@@ -300,7 +300,8 @@ let contractOwnerKey = process.env.PRIVATE_KEY;
 
 
 
-export default async function MetaMaskContainer({ params }) {
+export default async function MetaMaskContainer(props) {
+  const params = await props.params;
   let webSiteName = params.page[0].replace(/-/g, ' ')
   console.log(webSiteName)
   let landingpage = '/Crypto/' + params.page[0]

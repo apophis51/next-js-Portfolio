@@ -17,7 +17,7 @@ async function getRawBody(readable) {
 
 
 export async function POST(data) {
-    const sig = headers().get('stripe-signature')
+    const sig = (await headers()).get('stripe-signature')
     //  console.log(data.headers)
     console.log(sig)
 

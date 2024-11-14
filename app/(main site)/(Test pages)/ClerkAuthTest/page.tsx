@@ -3,9 +3,10 @@ import { UserButton } from "@clerk/nextjs";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Dashboard from '@/app/(main site)/(Test pages)/ClerkAuthTest/Dashboard/data'
 export default function ClerkAuthTest(params: {
-  searchParams: { search?: string };
+  searchParams: Promise<{ search?: string }>;
 }){
-  console.log(params)
+  // console.log('params' is passed as an argument. Any asynchronous properties of 'props' must be awaited when accessed.
+  // params)
 
   return (        
     <div>

@@ -19,7 +19,7 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
 
   async function fetchHistoricalDataHandler() {
     console.log('triggered')
-    let coin = cryptoData.crypto
+    let coin = cryptoData?.crypto
     console.log(coin)
     let result = await fetchCryptoPriceData(coin)
     console.log(result)
@@ -38,7 +38,7 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
 
 
     console.log('triggered')
-    let coin = cryptoData.crypto
+    let coin = cryptoData?.crypto
     let predictiondate = 10
     let Data10 = await fetchprediction(coin, predictiondate)
     console.log(Data10)
@@ -55,7 +55,7 @@ export default function CryptoPredictions({ fetchprediction, fetchCryptoPriceDat
 
 
     console.log('triggered')
-    let coin = cryptoData.crypto
+    let coin = cryptoData?.crypto
     let predictiondate = 1
     let Data10 = await fetchprediction(coin, predictiondate)
     console.log(Data10)

@@ -96,7 +96,7 @@ export async function OPTIONS() {
 
 export async function POST(request) {
     console.log('route hit')
-    const userAuth = headers().get('Authorization')
+    const userAuth = (await headers()).get('Authorization')
     console.log(userAuth)
     // await responseUtils.CheckIFUserIsAllowed(userAuth)
     let authorizedEmail = null

@@ -1,10 +1,15 @@
 /** @type {import('next').NextConfig} */
 
+
 const nextConfig = {
   experimental: {
-    swcPlugins: [["@preact-signals/safe-react/swc", {mode: "auto",
-    }]],
+    // swcPlugins: [["@preact-signals/safe-react/swc", {mode: "auto",
+    // }]],
+    reactCompiler: true,
+    // ppr: 'incremental',
+
   },
+  
 
 
   // experimental: {
@@ -28,7 +33,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
- swcMinify: true,   //end 20223 3dit
+
+//  swcMinify: true,   //end 20223 3dit
   rewrites: async () => {
     return [
       {
