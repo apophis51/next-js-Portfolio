@@ -6,6 +6,8 @@ const nextConfig = {
     // swcPlugins: [["@preact-signals/safe-react/swc", {mode: "auto",
     // }]],
     reactCompiler: true,
+    // ppr: 'incremental',
+
   },
   
 
@@ -31,9 +33,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  compiler: {
-    swcMinify: true,  // This enables SWC as the compiler and minifier
-  },
+
 //  swcMinify: true,   //end 20223 3dit
   rewrites: async () => {
     return [
