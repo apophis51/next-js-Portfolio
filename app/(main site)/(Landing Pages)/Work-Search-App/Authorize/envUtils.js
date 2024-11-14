@@ -6,8 +6,8 @@ import projectURLS from '@/projectSettings'
 
 
 export async function getHeaders() {
-    console.log(headers())
-    let originURL = headers().get('referer')
+    console.log(await headers())
+    let originURL = (await headers()).get('referer')
     console.log(originURL)
     return originURL
 }

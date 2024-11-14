@@ -5,7 +5,7 @@ import * as responseUtils from '../responseUtils'
 import projectURLS from '@/projectSettings'
 
 export async function POST(data) {
-  const userAuth = headers().get('Authorization')
+  const userAuth = (await headers()).get('Authorization')
   //  console.log(data.headers)
   console.log(userAuth)
   let authorizedEmail = null

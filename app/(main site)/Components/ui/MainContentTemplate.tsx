@@ -1,6 +1,9 @@
-'use client'
-
+'use client';
 import Container from '@mui/material/Container';
+
+
+
+import type { JSX } from "react";
 
 
 
@@ -16,5 +19,5 @@ export default function MainContentTemplate({ title, children }:{title: string, 
                 </div>
             </div>
         </Container>)
-};
+}
 

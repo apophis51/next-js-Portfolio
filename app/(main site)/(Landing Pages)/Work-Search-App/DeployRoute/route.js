@@ -41,7 +41,7 @@ export async function OPTIONS() {
 
 
 export async function GET(req) {
-    let ourHeaders = headers()
+    let ourHeaders = await headers()
     console.log(ourHeaders)
     console.log(ourHeaders.get('referer'))
     console.log('we got  a hit')

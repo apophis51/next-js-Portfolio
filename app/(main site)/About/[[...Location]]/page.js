@@ -23,15 +23,15 @@ import JumboTron from '../../JumboTron/page'
 
  
 
-export default function FullBar(props) {
+export default async function FullBar(props) {
 //
-   console.log(props.params.Location)
+   console.log((await props.params).Location)
   let pageToStartAt = 0
   
-  if(props.params.Location == 'About'){
+  if((await props.params).Location == 'About'){
     pageToStartAt = 0
   }
-  if(props.params.Location == 'Projects'){
+  if((await props.params).Location == 'Projects'){
     pageToStartAt = 1
   }
 

@@ -34,7 +34,8 @@ async function fgenerateStaticParams(params) {
   return post
 }
 
-export async function generateMetadata({ params}) {
+export async function generateMetadata(props) {
+  const params = await props.params;
   // read route params
   const post = await fgenerateStaticParams(params)
   console.log(post)
@@ -46,10 +47,11 @@ export async function generateMetadata({ params}) {
 }
  
 
-export default async function Post({ params }) {
-  
-  
-  const headersList = headers()
+export default async function Post(props0) {
+  const params = await props0.params;
+
+
+  const headersList = await headers()
   const referer = headersList.get('referer')
 
   console.time('fgenerateStaticParams Execution Speed')

@@ -7,7 +7,7 @@ console.log('hit')
 
 
 export async function GET(data) {
-  const userAuth = headers().get('Authorization')
+  const userAuth = (await headers()).get('Authorization')
   //  console.log(data.headers)
   console.log(userAuth)
   let authorizedEmail = null
@@ -68,7 +68,7 @@ export async function OPTIONS() {
 
 
 export async function PUT(data) {
-  const userAuth = headers().get('Authorization')
+  const userAuth = (await headers()).get('Authorization')
   //  console.log(data.headers)
   console.log(userAuth)
   let authorizedEmail = null

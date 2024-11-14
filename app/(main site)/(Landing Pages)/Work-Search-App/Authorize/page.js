@@ -10,13 +10,13 @@ import AuthorizeUIComponent from './AuthorizeUIComponent'
 import { headers } from 'next/headers'
 
 
-export default function AuthorizeExtention(params){
+export default async function AuthorizeExtention(params) {
     // const headersList = headers()
     // const [myWebSocket, setMyWebSocket] = useState(null)
     // const [emailAddress, setUserEmail] = useState(null)
   
-    let connectingUser = params.searchParams.id
-    let originURL = headers().get('referer')
+    let connectingUser = (await params.searchParams).id
+    let originURL = (await headers()).get('referer')
 
     
  

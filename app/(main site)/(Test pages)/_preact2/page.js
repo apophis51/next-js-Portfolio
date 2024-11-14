@@ -29,6 +29,7 @@ const countSignal = signal({parrent:1, child:0});
 
 
 function ChildComponent({ countSignal }) {
+
   return (
     <div>
       <p>Count in child: {countSignal.value.child}</p>

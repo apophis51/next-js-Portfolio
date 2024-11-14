@@ -53,8 +53,9 @@ async function fetchBlog(params) {
   return post
 }
 
-export default async function Post({ params }) {
-  const headersList = headers()
+export default async function Post(props0) {
+  const params = await props0.params;
+  const headersList = await headers()
   const referer = headersList.get('referer')
 
   console.time('fetchBlog Execution Speed')

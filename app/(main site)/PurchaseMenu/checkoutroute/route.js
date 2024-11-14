@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
 
 export async function POST(data) {
-    let req = headers()
+    let req = await headers()
     let session = null
     let productPriceId = data.nextUrl.searchParams.get("product")
     try {
