@@ -5,8 +5,8 @@ import Dashboard from '@/app/(main site)/(Test pages)/ClerkAuthTest/Dashboard/da
 export default function ClerkAuthTest(params: {
   searchParams: Promise<{ search?: string }>;
 }){
-  console.log(/* @next-codemod-error 'params' is passed as an argument. Any asynchronous properties of 'props' must be awaited when accessed. */
-  params)
+  // console.log(/* @next-codemod-error 'params' is passed as an argument. Any asynchronous properties of 'props' must be awaited when accessed. */
+  // params)
 
   return (        
     <div>
