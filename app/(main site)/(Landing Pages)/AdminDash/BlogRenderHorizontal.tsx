@@ -9,7 +9,9 @@ import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import {atom, useAtom} from 'jotai'
 import {articleAccumulatorAtom} from '@/app/(main site)/(Landing Pages)/ai-article-generator/page'
-import { CloseButton } from '@/public/utils/CloseButton';
+import { CloseButton } from '@/public/utils/CloseButton'
+import  Link  from 'next/link'
+import {mongoDBDownloadAtom} from './globalAdminDashAtoms'
 
 
 
@@ -20,10 +22,11 @@ interface Blog {
     MarkdownContent: string;
   }
 
+
 export default function BlogRenderHorizontal() {
 
     console.log('attempting to render Horizontal Blogs')
-    const [downloadedBlogs, setDownloadedBlogs] = useState([])
+    const [downloadedBlogs, setDownloadedBlogs] = useAtom(mongoDBDownloadAtom)
 
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
     const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -99,6 +102,10 @@ export default function BlogRenderHorizontal() {
                                                     // Optionally handle the error in the UI
                                                 }
                                             }} >
+                                                <Link href= {`/AdminDash/${blog.id}`}>
+                                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.Title} and Type is {blog.BlogType}</h5>
+                                                </Link>
+                                                
                                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.Title} and Type is {blog.BlogType}</h5>
 
                                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 prose prose-sm">
