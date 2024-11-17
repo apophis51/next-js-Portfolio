@@ -69,7 +69,7 @@ export default function BlogRenderHorizontal() {
             const middlePosition = (scrollContainer.scrollWidth - scrollContainer.clientWidth) / 2;
             scrollContainer.scrollLeft = middlePosition;
         }
-    }, [articleAccumulator])
+    }, [articleAccumulator]) 
 
 
     return (
@@ -88,7 +88,7 @@ export default function BlogRenderHorizontal() {
                         ref={scrollContainerRef}
                         className='flex flex-row justify-between items-center gap-2 min-h-[70vh] min-w-[65vw] bg-green-400 overflow-x-auto px-4 ' >
                         {/* <p className='bg-white text-black  '>We Could Not Render Anything </p> */}
-                        {downloadedBlogs && downloadedBlogs.map((blog: Blog) => (
+                        {downloadedBlogs && typeof downloadedBlogs != "string" && downloadedBlogs.map((blog: Blog) => (
                             <div key={blog.id} className="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <div className="p-5 min-w-[300px] min-h-[50vh] max-w-[50px] max-h-[50px] overflow-y-auto">
                                     <CloseButton callback={async function () {
