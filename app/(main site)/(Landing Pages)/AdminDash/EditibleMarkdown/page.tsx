@@ -1,7 +1,7 @@
+'use client'
+
+
 ///https://www.npmjs.com/package/react-simplemde-editor
-
-
-"use client";
 // import  ReactMarkdown  from "react-markdown"
 import ReactMarkdown from 'react-markdown';
 import Container from '@mui/material/Container';
@@ -10,11 +10,14 @@ import { atom, useAtom } from 'jotai'
 import projectURLS from '@/projectSettings'
 import { useEffect } from 'react'
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
+import dynamic from 'next/dynamic'
+
 
 import '@/app/(main site)/Components/styles/prism.css'
-import SimpleMDE from "react-simplemde-editor";
+// import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 
+const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false });
 
 //import params
 
