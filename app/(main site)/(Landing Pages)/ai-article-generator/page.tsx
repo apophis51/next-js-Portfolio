@@ -19,6 +19,7 @@ import '@/app/(main site)/Components/styles/prism.css'
 import { atom, useAtom } from 'jotai'
 import { Modal } from "@/public/utils/Modal"
 import { SubmitToMongoDB } from './SubmitToMongoDB'
+import { CloseButton } from '@/public/utils/CloseButton'
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -55,26 +56,8 @@ export default function AIArticleGenerator() {
 
     const prevValues = useRef({ toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result });
     useEffect(() => {
-        console.log('render triggered by change in dependency')
-        if (prevValues.current.SelectedChapters !== SelectedChapters) {
-            console.log('render triggered by change in SelectedChapters', prevValues.current.SelectedChapters, "->", SelectedChapters)
-        }
-        if (prevValues.current.toggled !== toggled) {
-            console.log('render triggered by change in toggled', prevValues.current.toggled, "->", toggled)
-        }
-        if (prevValues.current.selectedOption !== selectedOption) {
-            console.log('render triggered by change in selectedOption', prevValues.current.selectedOption, "->", selectedOption)
-        }
-        if (prevValues.current.textInput !== textInput) {
-            console.log('render triggered by change in textInput', prevValues.current.textInput, "->", textInput)
-        }
-        if (prevValues.current.textInput2 !== textInput2) {
-            console.log('render triggered by change in textInput2', prevValues.current.textInput2, "->", textInput2)
-        }
-        if (prevValues.current.ai_result !== ai_result) {
-            console.log('render triggered by change in ai_result', prevValues.current.ai_result, "->", ai_result)
-        }
-    }, [toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result])
+
+    }, [])
 
      console.log(articleName.current)
     async function submit_to_mongoDB() {
@@ -164,12 +147,3 @@ export default function AIArticleGenerator() {
 
     )
 }
-
-
-// If you suspect unnecessary re-renders, wrap your functional component with React.memo to prevent re-renders when props don’t change:
-
-// js
-// Copy code
-// const MyComponent = React.memo((props) => {
-//   return <div>{props.someValue}</div>;
-// });
