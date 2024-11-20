@@ -2,12 +2,10 @@
 import ReactMarkdown from 'react-markdown';
 import Container from '@mui/material/Container';
 import { mongoDBDownloadAtom } from '../globalAdminDashAtoms'
-import { atom, useAtom,useAtomValue } from 'jotai'
+import { atom, useAtom, useAtomValue } from 'jotai'
 import projectURLS from '@/projectSettings'
-import { useEffect,useState } from 'react'
-import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
-import { AdvancedEditIcon } from '@/app/(main site)/Components/ui/AdvancedEditIcon';
-import {EditMarkdown} from './EditMarkdown'
+import { useEffect, useState } from 'react'
+import { ViewOrEditPageView } from './ViewOrEditPageView'
 
 import '@/app/(main site)/Components/styles/prism.css'
 
@@ -20,10 +18,9 @@ export default function ArticleView({
 
   const ID = (params).ID
   console.log(ID)
-  
-  
+
+
   const [downloadedBlog, setDownloadedBlogs] = useAtom(mongoDBDownloadAtom)
-  const [view, setView] = useState("view")
 
   console.log(downloadedBlog)
 
@@ -44,26 +41,25 @@ export default function ArticleView({
       serverGetBlogs()
     }
   }, [])
-  HighlightafterEveryRender()
 
-  function changeView() {
-    setView("edit")
-  }
+  const updateMarkdownContent = (newMarkdownContent, id=ID) => {
+    setDownloadedBlogs((prevBlogs) =>
+      prevBlogs.map((blog) =>
+        blog.id === id
+          ? { ...blog, MarkdownContent: newMarkdownContent } // Update only MarkdownContent
+          : blog // Leave other blogs unchanged
+      )
+    );
+  };
 
 
   return (
     <Container maxWidth="xl"   >
-      <div className='bg-white p-9  flex-col  md:flex md:flex-row md:overflow-visible items-center justify-center overflow-y-hidden overflow-x-hidden '>
-        <AdvancedEditIcon  onClick={changeView}/>
-        <div className='prose prose-sm lg:prose-xl prose-a:text-red-600'>
-          {view == "view" && (downloadedBlog && downloadedBlog.length > 0) &&
-            <>
-              <ReactMarkdown>{downloadedBlog.find((blog) => blog.id == ID).MarkdownContent}</ReactMarkdown>
-            </>
-          }
-          {view == "edit" && <EditMarkdown Content={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setContent={changeView}/>}
-        </div>
-      </div>
+      {(downloadedBlog && downloadedBlog.length > 0) &&
+        <>
+          <ViewOrEditPageView downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}/>
+        </>
+      }
     </Container>)
 }
 
