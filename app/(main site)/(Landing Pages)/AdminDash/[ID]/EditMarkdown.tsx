@@ -11,16 +11,16 @@ import projectURLS from '@/projectSettings'
 import { useEffect,useState } from 'react'
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 
-import '@/app/(main site)/Components/styles/prism.css'
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
+import '@/app/(main site)/Components/styles/prism.css'
 
 
 //import params
 
 
 
-export  function EditMarkdown({Content, setContent}) {
+export  function EditMarkdown({Content, onChange}) {
 
   // const ID = '67239574d4cf31f65e1daa41'
   // console.log(ID)
@@ -48,10 +48,6 @@ export  function EditMarkdown({Content, setContent}) {
   // }, [])
   HighlightafterEveryRender()
 
-  const onChange = (value: string) => {
-    setContent(value);
-    setEditContent(value);
-  }
 
   return (
     <Container maxWidth="xl"   >
