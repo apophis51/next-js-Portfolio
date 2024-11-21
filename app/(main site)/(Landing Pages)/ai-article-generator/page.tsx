@@ -129,9 +129,11 @@ export default function AIArticleGenerator() {
                 <button className='btn' onClick={handleClick}>Generate Article</button>
                 {ai_result.map((ai_result) => {
                     return (
-                        <>
+                        <div className="p-10">
+                        <CloseButton>
                             <ReactMarkdown >{ai_result}</ReactMarkdown>
-                        </>)
+                        </CloseButton>
+                        </div>)
                 })}
                 <Modal ref = {modalRef}>
                     <BasicArticleName />
