@@ -6,6 +6,7 @@ import { atom, useAtom, useAtomValue } from 'jotai'
 import projectURLS from '@/projectSettings'
 import { useEffect, useState } from 'react'
 import { ViewOrEditPageView } from './ViewOrEditPageView'
+import React from 'react';
 
 import '@/app/(main site)/Components/styles/prism.css'
 
@@ -16,7 +17,7 @@ export default function ArticleView({
   params: Promise<{ ID: string }>
 }) {
 
-  const ID = (params).ID
+  const ID = (React.use(params)).ID
   console.log(ID)
 
 
