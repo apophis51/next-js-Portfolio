@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import { EditMarkdown } from './EditMarkdown'
 import { BackIcon } from '@/app/(main site)/Components/ui/BackIcon';
 import { EyeIcon } from '@/app/(main site)/Components/ui/EyeIcon';
+import { SaveIcon } from '@/app/(main site)/Components/ui/SaveIcon';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
@@ -95,6 +96,7 @@ if (typeof window === "undefined") {
             {view == "edit" && 
         <div className="flex flex-col ">
         <EyeIcon onClick={() => {changeView("sidebyside")}}/>
+        <SaveIcon/> 
         <BackIcon onClick={() => {changeView("view")}}/>
         </div>}
      
