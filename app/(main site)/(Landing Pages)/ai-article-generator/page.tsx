@@ -2,7 +2,7 @@
 import ReactMarkdown from "react-markdown"
 // import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
-import { uploadMongoDBblog } from "@/public/utils/MongoDBfunctions"
+import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
 import { useBasicSelect, useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
@@ -76,7 +76,7 @@ export default function AIArticleGenerator() {
         console.log('submit_to_mongoDB triggered')
         console.log(articleName.current, articleType.current)
         let markdownContent = ai_result.join('\n')
-        await uploadMongoDBblog(articleName.current, articleType.current, markdownContent)
+        await addMongoDBblog(articleName.current, articleType.current, markdownContent)
         setArticleAccumulator((prev) => prev + 1)
         modalRef.current?.close()
         }

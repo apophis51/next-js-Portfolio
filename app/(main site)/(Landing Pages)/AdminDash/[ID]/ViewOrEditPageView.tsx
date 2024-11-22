@@ -9,6 +9,7 @@ import { EyeIcon } from '@/app/(main site)/Components/ui/EyeIcon';
 import { SaveIcon } from '@/app/(main site)/Components/ui/SaveIcon';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { updateMongoDBblogContent } from '@/public/utils/MongoDBfunctions';
 
 
 
@@ -17,6 +18,8 @@ const [view, setView] = useState("view")
 const [key, setKey] = useState(Date.now());
 const router = useRouter();
 const pathname = usePathname();
+const ID = pathname.match(/\/([^\/]+)$/)[1]
+console.log(ID)
 
 const paramsEdit = (useSearchParams()).get('edit')
 const paramsSideBySide = (useSearchParams()).get('sidebyside')
@@ -80,7 +83,10 @@ if (typeof window === "undefined") {
                 <div className=' flex flex-row bg-white justify-center  '>
                     {typeof downloadedBlog === 'string' && downloadedBlog.length > 0 &&
                         <>
+                        <div className="flex flex-col">
+                        <SaveIcon onClick={() =>updateMongoDBblogContent(ID,downloadedBlog)}/> 
                         <BackIcon onClick={() => {changeView("view")}}/>
+                        </div>  
                             <div  className="w-1/2 " >
                             <EditMarkdown Content={downloadedBlog}  onChange={onChange}/>
                             </div>
@@ -96,7 +102,7 @@ if (typeof window === "undefined") {
             {view == "edit" && 
         <div className="flex flex-col ">
         <EyeIcon onClick={() => {changeView("sidebyside")}}/>
-        <SaveIcon/> 
+        <SaveIcon onClick={() => updateMongoDBblogContent(ID,downloadedBlog)}/> 
         <BackIcon onClick={() => {changeView("view")}}/>
         </div>}
      

@@ -1,6 +1,25 @@
 import axios from 'axios';
-import projectURLS from  '@/projectSettings'
+import projectURLS from '@/projectSettings'
 
+
+export async function updateMongoDBblogContent(blogId: string, markdownContent: string) {
+    console.log("Blog ID:", blogId);
+    console.log("Blog content:", markdownContent);
+    try {
+        let url = projectURLS().pythonMongoDBServerUpdateBlog;
+        const response = await axios.patch(`${url}/${blogId}`, {
+            markdown_content: markdownContent, // Key must match the FastAPI input parameter
+        });
+
+        console.log("Blog updated successfully:", response.data);
+    } catch (error) {
+        if (error.response) {
+            console.error("Error updating blog content:", error.response.data.detail || error.response.data);
+        } else {
+            console.error("Network error:", error.message);
+        }
+    }
+}
 
 export async function deleteMongoDBblog(blogID: string) {
     const url = projectURLS().pythonMongoDBServerDeleteBlog + `/${blogID}`;
@@ -17,7 +36,7 @@ export async function deleteMongoDBblog(blogID: string) {
     }
 }
 
-export async function uploadMongoDBblog(
+export async function addMongoDBblog(
     title: string,
     blogType: string,
     markdownContent: string

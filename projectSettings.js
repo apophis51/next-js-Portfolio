@@ -8,7 +8,8 @@ export default function projectURLS() {
       blogsURL: 'https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000',
       pythonMongoDBServer: 'http://127.0.0.1:8000/api/get-all-blogs',
       pythonMongoDBServerAddBlog: 'http://127.0.0.1:8000/api/add-blog',
-      pythonMongoDBServerDeleteBlog: 'http://127.0.0.1:8000/api/delete-blog'
+      pythonMongoDBServerDeleteBlog: 'http://127.0.0.1:8000/api/delete-blog',
+      pythonMongoDBServerUpdateBlog: 'http://127.0.0.1:8000/api/update-blog-content'
     }
   }
   else {
@@ -19,7 +20,8 @@ export default function projectURLS() {
       blogsURL: 'https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs?pagination[page]=1&pagination[pageSize]=8000',
       pythonMongoDBServer :'https://fastapi-mongo-production.up.railway.app/api/get-all-blogs',
       pythonMongoDBServerAddBlog: 'https://fastapi-mongo-production.up.railway.app/api/add-blog',
-      pythonMongoDBServerDeleteBlog: 'https://fastapi-mongo-production.up.railway.app/api/delete-blog'
+      pythonMongoDBServerDeleteBlog: 'https://fastapi-mongo-production.up.railway.app/api/delete-blog',
+      pythonMongoDBServerUpdateBlog: 'https://fastapi-mongo-production.up.railway.app/api/update-blog-content'
     }
   }
 
