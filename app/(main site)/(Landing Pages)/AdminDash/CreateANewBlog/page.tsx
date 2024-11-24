@@ -1,5 +1,6 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 import Link from 'next/link';
 import  useStore  from "./ZustandAdmin";
