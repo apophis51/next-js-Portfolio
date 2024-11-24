@@ -100,7 +100,7 @@ export default function BlogRenderHorizontal() {
                                             // Optionally handle the error in the UI
                                         }
                                     }} >
-                                        <Link href={`/AdminDash/${blog.id}`}>
+                                        <Link href={`/AdminDash/EditBlogByID/${blog.id}`}>
                                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.Title} and Type is {blog.BlogType}</h5>
                                         </Link>
 

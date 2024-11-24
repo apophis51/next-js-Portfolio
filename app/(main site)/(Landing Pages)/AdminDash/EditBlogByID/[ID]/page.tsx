@@ -1,7 +1,7 @@
 "use client";
 import ReactMarkdown from 'react-markdown';
 import Container from '@mui/material/Container';
-import { mongoDBDownloadAtom } from '../globalAdminDashAtoms'
+import { mongoDBDownloadAtom } from '../../globalAdminDashAtoms'
 import { atom, useAtom, useAtomValue } from 'jotai'
 import projectURLS from '@/projectSettings'
 import { useEffect, useState } from 'react'
