@@ -34,7 +34,7 @@ let javacode = " ```javaScript \n \
 // export default function ClientPage({handlefetch_ai_data}: any) {
 export default function AIArticleGenerator() {
 
-    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai', 'gemini', 'lamma3'], maintext: 'Select AI Model' })
+    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'lamma3 llama-3.2-90b-text-preview'], maintext: 'Select AI Model' })
     const [textInput, BasicTextInput] = useAdvancedTextInput({ prompt: "Enter Your AI Prompt.." })
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
     const [toggled, BasicToggle] = useBasicToggle({ leftText: 'Multiple Articles', RightText: 'One Article' })
