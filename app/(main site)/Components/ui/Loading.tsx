@@ -1,6 +1,5 @@
 import useStore from './LoadingZustand';
 import React from 'react';
-import { useEffect } from 'react'
 
 
 export default function useLoading(): [Function, Function, React.FC, React.FC, React.FC] {

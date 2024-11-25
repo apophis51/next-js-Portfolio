@@ -71,26 +71,7 @@ export default function CreateANewBlog() {
                 </div >
             </>
         )
-        // return (
-        //     <>
-        //         <div className=" bg-white mx-auto container max-w-[1480px]  flex flex-col justify-center items-center gap-2">
-        //             <div className='min-w-full'>
-        //                 <EditMarkdown Content={blogContent} onChange={setBlogContent} />
 
-        //             </div>
-        //             <TitleText />
-        //             <SelectType />
-        //             {!isLoading && !isSubmitted && <button className='btn bg-green-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current, selectedType, blogContent)}>Upload To MongoDB</button>}
-        //             {isLoading && <span className="loading loading-lg loading-spinner text-success"></span>}
-        //             {isSubmitted && <>
-        //             <Link href={'/AdminDash'}>
-        //             <button className='btn bg-blue-700 text-white w-full max-w-xs'>Return To Admin Dash</button></Link>
-        //             <p className="text-green-600">Blog Successfully Uploaded</p>
-        //             </> }
-
-        //         </div>
-        //     </>
-        // )
     }
 
     return (
