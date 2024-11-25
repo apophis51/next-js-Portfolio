@@ -18,7 +18,7 @@ import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemp
 import '@/app/(main site)/Components/styles/prism.css'
 import { atom, useAtom } from 'jotai'
 import { Modal } from "@/public/utils/Modal"
-import { SubmitToMongoDB } from './SubmitToMongoDB'
+import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-generator/SubmitToMongoDB'
 import { CloseButton } from '@/public/utils/CloseButton'
 
 ///Make a jotai atom

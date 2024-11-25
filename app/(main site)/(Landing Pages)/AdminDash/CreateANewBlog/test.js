@@ -9,7 +9,7 @@ import useStore from "./ZustandAdmin";
 import { EditMarkdown } from '../EditMarkdown';
 import { addMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { usePathname } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 
 export default function CreateANewBlog() {
@@ -19,26 +19,22 @@ export default function CreateANewBlog() {
     const blogContent = useStore((state) => state.blogContent)
     const setBlogContent = useStore((state) => state.setblogContent)
     const isLoading = useStore((state) => state.isLoading)
-    const isSubmitted = useStore((state) => state.isSubmitted)
-    const setSubmitted = useStore((state) => state.setSubmitted)
+    const setLoading = useStore((state) => state.setLoading)
     const [title, TitleText] = useAdvancedTextInput({ prompt: "Enter A Title" })
     const [selectedType, SelectType] = useBasicSelect({ options: ["Programming", "Construction"], maintext: 'Blog Type' })
     const isCreateNewBlogPage = usePathname()?.includes('CreateANewBlog');
-    
-
-    const setLoading = useStore((state) => state.setLoading)
     const router = useRouter()
-    
     
     async function handleAddToMongo(title:string,type:string,content:string){
         setLoading(true)
         const isAddedSuccessfully = await addMongoDBblog(title,type,content)
         if(isAddedSuccessfully == true){
             setLoading(false)
-            setSubmitted(true)
+            router.push('/AdminDash')
         }
 
     }
+    
 
     if (isCreateNewBlogPage && isCreateBlogActive) {
         return (
@@ -50,13 +46,8 @@ export default function CreateANewBlog() {
                     </div>
                     <TitleText />
                     <SelectType />
-                    {!isLoading && !isSubmitted && <button className='btn bg-green-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current, selectedType, blogContent)}>Upload To MongoDB</button>}
+                    {!isLoading && <button className='btn bg-green-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current selectedType, blogContent)}>Upload To MongoDB</button>}
                     {isLoading && <span className="loading loading-lg loading-spinner text-success"></span>}
-                    {isSubmitted && <>
-                    <Link href={'/AdminDash'}>
-                    <button className='btn bg-blue-700 text-white w-full max-w-xs'>Return To Admin Dash</button></Link>
-                    <p className="text-green-600">Blog Successfully Uploaded</p>
-                    </> }
 
                 </div>
             </>
