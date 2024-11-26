@@ -8,6 +8,7 @@ import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-gen
 import BlogRenderHorizontal from "./BlogRenderHorizontal"
 import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
 import CreateANewBlog from "./CreateANewBlog/page";
+import TabView from "./TabView";
 
 
 export default function AdminDash() {
@@ -26,6 +27,9 @@ export default function AdminDash() {
             </div>
             <div>
                 <BlogRenderConstructionBlogs /> 
+            </div>
+            <div>
+                <TabView />
             </div>
             <div>
                 <CreateANewBlog /> 

@@ -3,15 +3,15 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
-import projectURLS from '@/projectSettings'
+import projectURLS from '@/projectSettings'  //decouple this by passing in the url string dirrectly this looks like a vulnerability also sinc eht eproject url hits the clientside code this should probably be a server function call
 import ReactMarkdown from 'react-markdown';
-import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions';
+import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions'; //possibly decouple
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
-import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/page'
-import { CloseButton } from '@/public/utils/CloseButton'
+import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/page' //possibly decouple
+import { CloseButton } from '@/public/utils/CloseButton'  //beter integrate
 import Link from 'next/link'
-import { mongoDBDownloadAtom } from './globalAdminDashAtoms'
+import { mongoDBDownloadAtom } from './globalAdminDashAtoms'  //decouple?
 
 
 
@@ -33,6 +33,7 @@ export default function BlogRenderHorizontal() {
 
 
     async function serverGetBlogs() {
+        
         console.log('about to fetch serverBlogs')
         const res = await fetch(projectURLS().pythonMongoDBServer)
         console.log('we just got a res response')
