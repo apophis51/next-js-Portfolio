@@ -3,15 +3,17 @@
 import React from 'react'
 import { useEffect, useState, useRef } from 'react'
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
-import projectURLS from '@/projectSettings'  //decouple this by passing in the url string dirrectly this looks like a vulnerability also sinc eht eproject url hits the clientside code this should probably be a server function call
+//import projectURLS from '@/projectSettings'  //decouple this by passing in the url string dirrectly this looks like a vulnerability also sinc eht eproject url hits the clientside code this should probably be a server function call
 import ReactMarkdown from 'react-markdown';
-import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions'; //possibly decouple
+import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions'; //possibly decouple py passing as a function to handle the article deletion
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
-import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/page' //possibly decouple
-import { CloseButton } from '@/public/utils/CloseButton'  //beter integrate
+import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/page' //possibly decouple into passing a variable that updates on action
+import { CloseButton } from '@/public/utils/CloseButton'  //beter integrate or actually just put into my ui methods
 import Link from 'next/link'
-import { mongoDBDownloadAtom } from './globalAdminDashAtoms'  //decouple?
+import { mongoDBDownloadAtom } from './globalAdminDashAtoms'  //decouple? maybe by passing as a prop
+import serverGetBlogss from './ServerFunctions/serverAction';
+import projectURLS from '@/projectSettings'
 
 
 
@@ -32,8 +34,8 @@ export default function BlogRenderHorizontal() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
 
+
     async function serverGetBlogs() {
-        
         console.log('about to fetch serverBlogs')
         const res = await fetch(projectURLS().pythonMongoDBServer)
         console.log('we just got a res response')
@@ -42,6 +44,27 @@ export default function BlogRenderHorizontal() {
         console.log(data)
     }
 
+    // async function serverGetBlogs() {
+    //     // let data = await serverGetBlogs()
+    //     // console.log('about to fetch serverBlogs')
+
+    //     const res = await fetch("/AdminDash/ServerFunctions")
+    //     // console.log('we just got a res response')
+    //      const data = await res.json()
+    //     console.log(res)
+    //     setDownloadedBlogs(data)
+    //     // console.log(data)
+    // }
+    // async function serverGetBlogs() {
+    //     let data = await serverGetBlogss()
+    //     // console.log('about to fetch serverBlogs')
+
+    //     // const res = await fetch("/AdminDash/ServerFunctions")
+    //     // console.log('we just got a res response')
+    //     //  data = await data.json()
+    //     setDownloadedBlogs(data)
+    //     // console.log(data)
+    // }
 
     // Function to scroll left
     const scrollLeft = () => {
@@ -107,9 +130,9 @@ export default function BlogRenderHorizontal() {
 
                                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{blog.Title} and Type is {blog.BlogType}</h5>
 
-                                        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 prose prose-sm">
+                                        <div className="mb-3 font-normal text-gray-700 dark:text-gray-400 prose prose-sm">
                                             <ReactMarkdown>{blog.MarkdownContent}</ReactMarkdown>
-                                        </p>
+                                        </div>
                                     </CloseButton >
                                 </div>
                             </div>
