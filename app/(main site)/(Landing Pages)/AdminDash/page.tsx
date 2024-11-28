@@ -30,7 +30,7 @@ export default function AdminDash() {
             <div>
                 <BlogRenderConstructionBlogs /> 
             </div>
-            <div className="flex items-start justify-center">
+            <div className="">
                 <TabView />
             </div>
             <div>

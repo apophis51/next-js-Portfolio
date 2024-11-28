@@ -7,7 +7,7 @@ import BlogRenderHorizontal from './BlogRenderHorizontal'
 
 export default function TabView() {
     return (
-        <div role="tablist" className="tabs tabs-lifted w-full bg-white">
+        <div role="tablist" className="tabs tabs-lifted  bg-white">
             <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="Tab 1" />
             <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
                 <BlogRenderConstructionBlogs />
