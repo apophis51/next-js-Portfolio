@@ -16,7 +16,7 @@ export default function AdminDash() {
 
   
     return (
-        <Container maxWidth="xl">   
+        <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
                 <AIArticleGenerator />

@@ -1,7 +1,6 @@
 'use client'
 //inspired by https://daisyui.com/components/table/   first example
 
-import Container from '@mui/material/Container';
 import { prisma } from '@/lib/prisma';
 import getDataBaseResults from "./server"
 import { useEffect , useState} from 'react';
@@ -17,7 +16,6 @@ export default function adminDash() {
     }, [])
 
     return (
-        <Container maxWidth="xl"  >
             <div className=''>
                 <div className='bg-white '>
                     <h1>Admin Dashboard</h1>
@@ -49,6 +47,5 @@ export default function adminDash() {
                     </div>
                 </div>
             </div>
-        </Container>
     )
 }
