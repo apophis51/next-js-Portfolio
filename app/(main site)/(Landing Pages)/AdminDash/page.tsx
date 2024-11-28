@@ -9,12 +9,14 @@ import BlogRenderHorizontal from "./BlogRenderHorizontal"
 import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
 import CreateANewBlog from "./CreateANewBlog/page";
 import TabView from "./TabView";
+import Container from '@mui/material/Container';
 
 
 export default function AdminDash() {
 
   
     return (
+        <Container maxWidth="xl">   
         <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
                 <AIArticleGenerator />
@@ -40,5 +42,6 @@ export default function AdminDash() {
 
 
         </div>
+        </Container>
     );
 }
