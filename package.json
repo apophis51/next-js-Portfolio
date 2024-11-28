@@ -106,7 +106,7 @@
     "@playwright/test": "^1.40.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/bcrypt": "^5.0.0",
-    "daisyui": "^3.2.1",
+    "daisyui": "^4.12.14",
     "hardhat": "^2.17.2",
     "ts-node": "^10.9.1"
   },

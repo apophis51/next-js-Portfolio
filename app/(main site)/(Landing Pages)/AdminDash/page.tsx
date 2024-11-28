@@ -15,7 +15,7 @@ export default function AdminDash() {
 
   
     return (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
                 <AIArticleGenerator />
             </div>
@@ -28,7 +28,7 @@ export default function AdminDash() {
             <div>
                 <BlogRenderConstructionBlogs /> 
             </div>
-            <div>
+            <div className="flex items-start justify-center">
                 <TabView />
             </div>
             <div>
