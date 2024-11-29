@@ -8,7 +8,7 @@ import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-gen
 import BlogRenderHorizontal from "./BlogRenderHorizontal"
 import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
 import CreateANewBlog from "./CreateANewBlog/page";
-import TabView from "./TabView";
+import TabView from "../../Components/ui/TabView";
 import Container from '@mui/material/Container';
 
 

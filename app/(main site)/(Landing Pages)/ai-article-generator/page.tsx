@@ -6,6 +6,7 @@ import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
 import { useBasicSelect, useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
+import  useTextArea  from '@/app/(main site)/(Landing Pages)/ai-article-generator/TextArea'
 
 
 
@@ -35,7 +36,9 @@ let javacode = " ```javaScript \n \
 export default function AIArticleGenerator() {
 
     const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'lamma3 llama-3.2-90b-text-preview'], maintext: 'Select AI Model' })
-    const [textInput, BasicTextInput] = useAdvancedTextInput({ prompt: "Enter Your AI Prompt.." })
+    const [getAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
+
+
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
     const [toggled, BasicToggle] = useBasicToggle({ leftText: 'Multiple Articles', RightText: 'One Article' })
     const [textInput2, BasicSelect_ArticleNumber] = useAdvancedTextInput({ prompt: "Only Input This for Multiple Generations..." })
@@ -54,10 +57,6 @@ export default function AIArticleGenerator() {
 
     const modalRef = useRef<HTMLDialogElement>(null)
 
-    const prevValues = useRef({ toggled, SelectedChapters, selectedOption, textInput, textInput2, ai_result });
-    useEffect(() => {
-
-    }, [])
 
      console.log(articleName.current)
     async function submit_to_mongoDB() {
@@ -83,15 +82,15 @@ export default function AIArticleGenerator() {
     }
 
     async function handleClick() {
-        console.log(selectedOption, textInput, SelectedChapters, textInput2, toggled)
+        console.log(selectedOption, SelectedChapters, textInput2, toggled)
         let result = null
         if (toggleTextContext) {
-            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: textInput.current, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
             //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
             //save value into ai_result
         }
         if (!toggleTextContext) {
-            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + textInput.current), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
         }
 
         if (toggleErase) {
@@ -117,7 +116,11 @@ export default function AIArticleGenerator() {
 
             <div className='flex flex-col gap-1 items-center justify-center'>
                 <BasicSelect />
-                <BasicTextInput />
+                <div className="w-full flex items-center justify-center m-4">
+                <AiTextBox />
+                </div>
+                {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
+                {/* <BasicTextInput /> */}
                 <BasicToggle />
                 <BasicToggleErase />
                 <BasicToggleContext />
@@ -127,6 +130,7 @@ export default function AIArticleGenerator() {
                         <BasicSelect_ArticleNumber />
                     </div>}
                 <button className='btn' onClick={handleClick}>Generate Article</button>
+                <div className="max-w-full">
                 {ai_result.map((ai_result) => {
                     return (
                         <div className="p-10">
@@ -135,6 +139,7 @@ export default function AIArticleGenerator() {
                         </CloseButton>
                         </div>)
                 })}
+                </div>
                 <Modal ref = {modalRef}>
                     <BasicArticleName />
                     <BasicArticleType />
@@ -142,7 +147,7 @@ export default function AIArticleGenerator() {
                 </Modal>
                 
                 {/* <Modal BasicArticleName={BasicArticleName} BasicArticleType={BasicArticleType} SubmitToMongoDB={SubmitToMongoDB}/> */}
-
+                
                 <ReactMarkdown >{javacode}</ReactMarkdown>
             </div>
         </MainContentTemplate>
