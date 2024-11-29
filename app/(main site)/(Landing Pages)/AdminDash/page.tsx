@@ -31,7 +31,7 @@ export default function AdminDash() {
                 <BlogRenderConstructionBlogs /> 
             </div>
             <div className="">
-                <TabView />
+                <TabView TabContent= {{"All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />}}/>
             </div>
             <div>
                 <CreateANewBlog /> 
