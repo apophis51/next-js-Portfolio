@@ -3,12 +3,19 @@ import { useState, useRef, useEffect } from 'react';
 
 
 
-export default function useTextArea({ prompt }: { prompt: string }): [() => string | undefined, React.FC] {
+export default function useTextArea({ prompt }: { prompt: string }): [() => string | undefined, (value: string) => void, React.FC] {
 
     const textAreaRef = useRef<HTMLInputElement>(null); // Ref to access the textarea DOM element
     
     function getValue(){
         return textAreaRef.current?.value
+    }
+
+    function setValue(changeRequest:string){
+        if (textAreaRef && textAreaRef.current) {
+             textAreaRef.current.value = changeRequest
+        }
+       
     }
 
 
@@ -36,5 +43,5 @@ export default function useTextArea({ prompt }: { prompt: string }): [() => stri
         );
     }
 
-    return [getValue, TextAreaInput];
+    return [getValue, setValue, TextAreaInput];
 }

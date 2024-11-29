@@ -36,7 +36,7 @@ export default async function FullBar(props) {
   }
 
   return (
-    <div>
+    <div className="h-[30000px]">
     <JumboTron/>
     <Container maxWidth="xl"  >
     <BottomNavBar pageToStartAt = {pageToStartAt} about = {<About />} projects = {<ProjectCards />}/>

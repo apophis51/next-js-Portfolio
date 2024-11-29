@@ -36,7 +36,7 @@ let javacode = " ```javaScript \n \
 export default function AIArticleGenerator() {
 
     const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'lamma3 llama-3.2-90b-text-preview'], maintext: 'Select AI Model' })
-    const [getAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
+    const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
@@ -86,6 +86,7 @@ export default function AIArticleGenerator() {
         let result = null
         if (toggleTextContext) {
             result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+            setAiText('') 
             //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
             //save value into ai_result
         }
