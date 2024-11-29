@@ -83,7 +83,7 @@ console.log('hit')
                 
             });
             console.log(chatCompletion)
-            //tokens arr included in the response
+            //tokens arr included in the responsee
 
             return chatCompletion.choices[0].message.content
         }
