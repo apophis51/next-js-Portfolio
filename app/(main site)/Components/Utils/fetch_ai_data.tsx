@@ -88,7 +88,7 @@ console.log('hit')
             return chatCompletion.choices[0].message.content
         }
 
-        if (model == "lamma3 llama-3.2-90b-text-preview") {
+        if (model == "llama-3.1-70b-versatile") {
             const chatCompletion = await groq.chat.completions.create({
                 "messages": [
                     {
@@ -97,9 +97,9 @@ console.log('hit')
                     }
                 ],
                 // "model": "llama-3.1-70b-versatile",
-                "model": "llama-3.2-90b-text-preview",
+                "model": "llama-3.1-70b-versatile",
                 "temperature": 1,
-                "max_tokens": 1024,
+                "max_tokens": 8000,
                 "top_p": 1,
                 "stream": false,
                 "stop": null

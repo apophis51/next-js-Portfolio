@@ -35,7 +35,7 @@ let javacode = " ```javaScript \n \
 // export default function ClientPage({handlefetch_ai_data}: any) {
 export default function AIArticleGenerator() {
 
-    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'lamma3 llama-3.2-90b-text-preview'], maintext: 'Select AI Model' })
+    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile'], maintext: 'Select AI Model' })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
