@@ -9,7 +9,8 @@ export default function projectURLS() {
       pythonMongoDBServer: 'http://127.0.0.1:8000/api/get-all-blogs',
       pythonMongoDBServerAddBlog: 'http://127.0.0.1:8000/api/add-blog',
       pythonMongoDBServerDeleteBlog: 'http://127.0.0.1:8000/api/delete-blog',
-      pythonMongoDBServerUpdateBlog: 'http://127.0.0.1:8000/api/update-blog-content'
+      pythonMongoDBServerUpdateBlog: 'http://127.0.0.1:8000/api/update-blog-content',
+      pythonMongoDBServerIPget: 'http://127.0.0.1:8000/api/requests',
     }
   }
   else {
@@ -21,7 +22,8 @@ export default function projectURLS() {
       pythonMongoDBServer :'https://fastapi-mongo-production.up.railway.app/api/get-all-blogs',
       pythonMongoDBServerAddBlog: 'https://fastapi-mongo-production.up.railway.app/api/add-blog',
       pythonMongoDBServerDeleteBlog: 'https://fastapi-mongo-production.up.railway.app/api/delete-blog',
-      pythonMongoDBServerUpdateBlog: 'https://fastapi-mongo-production.up.railway.app/api/update-blog-content'
+      pythonMongoDBServerUpdateBlog: 'https://fastapi-mongo-production.up.railway.app/api/update-blog-content',
+      pythonMongoDBServerIPget: 'https://fastapi-mongo-production.up.railway.app/api/requests',
     }
   }
 
