@@ -85,7 +85,7 @@ export default function AIArticleGenerator() {
         let result = null
 
         result = await handlefetch_ai_data({ selectedOption: 'uncensored chat ai', textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
-        await fetch(`https://fastapi-mongo-production.up.railway.app/requests/${ipData.ip}`)
+        fetchData()
         setAiText('')
         setAi_result((prevResults) => {
             if (prevResults[0] === 'Your Result Will Appear Here') {
@@ -151,18 +151,14 @@ export default function AIArticleGenerator() {
                                 </div>)
                         })}
                     </div>
-                    <Modal ref={modalRef}>
-                        <BasicArticleName />
-                        <BasicArticleType />
-                        <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
-                    </Modal>
+                    
                    
                         {!ipRequestRemaining && <div className="flex justify-center items-center space-x-2">
                             <p className="block">Loading</p>
                             <span className="loading loading-bars loading-lg"></span>
                         </div>
                         }
-                        {ipRequestRemaining && (ipRequestRemaining > -12) && <>
+                        {ipRequestRemaining && (ipRequestRemaining > 0) && <>
                             <LoadingWrapper>
                             <div className="w-full flex items-center justify-center m-4">
                                 <AiTextBox />
@@ -173,7 +169,7 @@ export default function AIArticleGenerator() {
                             <p className="italic  mt-2 text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p>
                         </>
                         }
-                        {ipRequestRemaining < -12 &&
+                        {ipRequestRemaining < 0 &&
                             <>
                                 <dialog id="my_modal_2" className="modal" open>
                                     <div className="modal-box">
