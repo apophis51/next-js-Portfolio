@@ -35,7 +35,7 @@ let javacode = " ```javaScript \n \
 // export default function ClientPage({handlefetch_ai_data}: any) {
 export default function AIArticleGenerator() {
 
-    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile'], maintext: 'Select AI Model' })
+    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
@@ -147,9 +147,11 @@ export default function AIArticleGenerator() {
                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB}      />
                 </Modal>
                 
-                {/* <Modal BasicArticleName={BasicArticleName} BasicArticleType={BasicArticleType} SubmitToMongoDB={SubmitToMongoDB}/> */}
-                
-                <ReactMarkdown >{javacode}</ReactMarkdown>
+                {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
+                <AiTextBox />
+                <button className='btn' onClick={handleClick}>Generate Article</button>
+
+
             </div>
         </MainContentTemplate>
 

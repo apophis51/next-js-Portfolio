@@ -24,12 +24,12 @@ export default function AdminDash() {
             <div>
                 <Obsidian />
             </div>
-            <div>
+            {/* <div>
                 <BlogRenderHorizontal />
             </div>
             <div>
                 <BlogRenderConstructionBlogs /> 
-            </div>
+            </div> */}
             <div className="">
                 <TabView TabContent= {{"All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />}}/>
             </div>
