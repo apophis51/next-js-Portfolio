@@ -23,6 +23,7 @@ import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-ge
 import { CloseButton } from '@/public/utils/CloseButton'
 import Image from "next/image"
 import Link from "next/link"
+import { get } from "http"
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -80,34 +81,38 @@ export default function AIArticleGenerator() {
     }
 
     async function handleClick() {
-        setLoading("on")
         console.log(SelectedChapters, textInput2,)
         let result = null
+        let userText = getAiText()
+        setLoading("on")
 
+console.log(getAiText())
         result = await handlefetch_ai_data({ selectedOption: 'uncensored chat ai', textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
-        fetchData()
-        setAiText('')
+        fetchData("https://fastapi-mongo-production.up.railway.app/requests/increment")
+
         setAi_result((prevResults) => {
-            if (prevResults[0] === 'Your Result Will Appear Here') {
-                return [result]
-            }
-            return [...prevResults, result]
+            // if (prevResults[0] === 'Your Result Will Appear Here') {
+            //     return [result]
+            // }
+            return ([...prevResults, "User:" + " " + userText, "Assistant:" +" " + result])
         })
+        console.log(ai_result)
         console.log(result)
         setLoading("off")
+        setAiText('')
 
 
     }
     const [ipRequestRemaining, setIpRequestRemaining] = useState('');
 
-    const fetchData = async () => {
+    const fetchData = async (url:string) => {
         try {
             // Get the IP address from ipify
             const ipResponse = await fetch('https://api.ipify.org?format=json');
             ipData = await ipResponse.json();
 
             // Fetch the request count for the IP address
-            const requestResponse = await fetch(`https://fastapi-mongo-production.up.railway.app/requests/${ipData.ip}`);
+            const requestResponse = await fetch(`${url}/${ipData.ip}`);
             const requestData = await requestResponse.json();
 
             // Set the request count
@@ -128,7 +133,7 @@ export default function AIArticleGenerator() {
     useEffect(() => {
 
 
-        fetchData();
+        fetchData("https://fastapi-mongo-production.up.railway.app/requests/no-increment");
     }, []);
     return (
         <div className="min-h-[1000px]">

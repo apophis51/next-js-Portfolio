@@ -8,6 +8,7 @@ export default function useTextArea({ prompt }: { prompt: string }): [() => stri
     const textAreaRef = useRef<HTMLInputElement>(null); // Ref to access the textarea DOM element
     
     function getValue(){
+        console.log(textAreaRef.current?.value)
         return textAreaRef.current?.value
     }
 
