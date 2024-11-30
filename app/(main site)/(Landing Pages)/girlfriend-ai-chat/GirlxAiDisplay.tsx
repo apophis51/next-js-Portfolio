@@ -163,7 +163,7 @@ console.log(getAiText())
                             <span className="loading loading-bars loading-lg"></span>
                         </div>
                         }
-                        {ipRequestRemaining && (ipRequestRemaining > 0) && <>
+                        {ipRequestRemaining && (ipRequestRemaining => 0) && <>
                             <LoadingWrapper>
                             <div className="w-full flex items-center justify-center m-4">
                                 <AiTextBox />
