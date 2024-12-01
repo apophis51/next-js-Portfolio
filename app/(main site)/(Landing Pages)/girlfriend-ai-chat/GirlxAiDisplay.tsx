@@ -114,6 +114,7 @@ console.log(getAiText())
             // Fetch the request count for the IP address
             const requestResponse = await fetch(`${url}/${ipData.ip}`);
             const requestData = await requestResponse.json();
+            console.log(requestData);
 
             // Set the request count
             setIpRequestRemaining(12 - requestData.request_count);
@@ -130,6 +131,8 @@ console.log(getAiText())
 
 
     console.log(parseInt(ipRequestRemaining))
+    console.log(0 > 0)
+    console.log(0 < 0)
     useEffect(() => {
 
 
@@ -163,7 +166,7 @@ console.log(getAiText())
                             <span className="loading loading-bars loading-lg"></span>
                         </div>
                         }
-                        {ipRequestRemaining && (ipRequestRemaining => 0) && <>
+                        {ipRequestRemaining && (ipRequestRemaining > 0) && <>
                             <LoadingWrapper>
                             <div className="w-full flex items-center justify-center m-4">
                                 <AiTextBox />
@@ -174,7 +177,7 @@ console.log(getAiText())
                             <p className="italic  mt-2 text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p>
                         </>
                         }
-                        {ipRequestRemaining < 0 &&
+                        {ipRequestRemaining <= 0 &&
                             <>
                                 <dialog id="my_modal_2" className="modal" open>
                                     <div className="modal-box">
