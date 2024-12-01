@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
  import {  EpochTime } from '@/app/(main site)/Components/Utils/PartyTime.js'; 
 
  export async function fetchCryptoPriceData(coin) {
-  "use server"
+  "use server";
   try {
     console.log('triggered');
     let priceData = await fetch(`https://cryptoai-production.up.railway.app/chartData/${coin}/`, { cache: 'no-store' });
