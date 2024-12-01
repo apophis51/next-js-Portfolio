@@ -10,9 +10,12 @@ export async function projectsData({ content }: SectionType) {
         const data = await response.json()
         console.log(data.data)
         let filteredResults = data.data.filter((item: UniversalData) => { 
-            const productlink = item.attributes.links = item.attributes.Title;
-            const buttonText = item.buttonText = "Go To App";
-            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game" 
+            item.attributes.links = item.attributes.Title;
+            item.buttonText = "Go To App";
+            if (item.attributes.Title == "PwnContracting") {
+                item.attributes.links = "https://pwncontracting.com/"
+            }
+            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game"  || item.attributes.Title == "PwnContracting"
         });
         console.log(filteredResults)
         return filteredResults
