@@ -15,7 +15,7 @@ export async function projectsData({ content }: SectionType) {
             if (item.attributes.Title == "PwnContracting") {
                 item.attributes.links = "https://pwncontracting.com/"
             }
-            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game"  || item.attributes.Title == "PwnContracting"
+            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game"  || item.attributes.Title == "PwnContracting" || item.attributes.Title == "girlfriend-ai-chat"
         });
         console.log(filteredResults)
         return filteredResults
