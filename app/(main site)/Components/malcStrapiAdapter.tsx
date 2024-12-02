@@ -1,34 +1,29 @@
 
 
 
-export default function malcStrapiAdapter() {
-
+export default function malcStrapiAdapter(data: any) {
+    console.log(data)
     // Source object
-    const sourceObject = {
-        image: attributes.LandingPageImage.data.attributes.formats.thumbnail.url,
-        title: attributes.Title,
-        headerContent: attributes.headerContent,
-        href: attributes.links,
-        buttonText: buttonText
-    };
-
-    // Adapter function
-    const adaptObject = (source) => {
+    function transformedObject(item: any) {
+        console.log(item)
+        console.log(item.attributes)
         return {
-            fullName: `${source.firstName} ${source.lastName}`,
-            isAdult: source.age >= 18,
-        };
+            image: item.attributes.LandingPageImage.data.attributes.formats.thumbnail.url,
+            title: item.attributes.Title,
+            headerContent: item.attributes.headerContent,
+            href: item.attributes.links,
+            buttonText: item.buttonText
+        }
+
     };
 
-    // Using the adapter
-    const adaptedObject = adaptObject(sourceObject);
+    let transformedData = data.map((item: any) => {
+        console.log(transformedObject(item))
+        return transformedObject(item)
+    })
 
-    console.log(adaptedObject);
-    // Output:
-    // {
-    //   fullName: "Alice Smith",
-    //   isAdult: true
-    // }
+    console.log(transformedData)
 
+    return transformedData
 
 }

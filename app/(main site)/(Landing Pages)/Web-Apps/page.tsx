@@ -6,7 +6,7 @@ import {Section} from '@/app/(main site)/Components/Section'
 import { ProductPage,  UniversalData} from '@/app/(main site)/Components/Types/FetchTypes'
 import { projectsData } from '@/app/(main site)/Components/DataFetch'
 import Link from 'next/link'
-
+import malcStrapiAdapter from '@/app/(main site)/Components/malcStrapiAdapter';
 
 
 
@@ -17,7 +17,8 @@ export default async function WebApps() {
 
   const getData = await projectsData({content: "WebApps"})
   console.log(getData)
-
+  const transformedData = await malcStrapiAdapter(getData)
+  console.log(transformedData)
   const sectionTitle = "Web Apps" 
 
 
