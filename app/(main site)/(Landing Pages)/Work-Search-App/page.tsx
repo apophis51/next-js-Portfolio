@@ -14,6 +14,8 @@ import ContactForm from '@/app/(main site)/Components/ContactForm'
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 export const revalidate = 0
+import { projectsData } from '@/app/(main site)/Components/DataFetch'
+
 // import { revalidatePath } from 'next/cache'
 // revalidatePath('/WorkSearchApp')
 // Troubleshooting
@@ -213,6 +215,8 @@ export default async function WorkSearchApp() {
         'use server'
         return await getJobData(userEmail, 'job-resumes')
     }
+    
+    const getData = await projectsData({content: "WorkSearchApp"})
 
 
 
@@ -235,7 +239,7 @@ export default async function WorkSearchApp() {
                     <JobSpreadSheet jobResumeFetch={jobResumeFetch}  jobDataFetch={jobApplicationFetch} userEmail={userEmail} />
                 </div></>}
             </div>
-            <Section content={'WorkSearchApp'} sectionTitle='Work Search App Articles'/> 
+            <Section getData={getData} sectionTitle='Work Search App Articles'/> 
             <ContactForm/>
         </Container>
     )

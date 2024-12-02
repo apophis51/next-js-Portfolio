@@ -1,14 +1,16 @@
 
 import { ProductPage, SectionType, UniversalData} from '@/app/(main site)/Components/Types/FetchTypes'
-import { projectsData } from '@/app/(main site)/Components/DataFetch'
+// import { projectsData } from '@/app/(main site)/Components/DataFetch'
 import Link from 'next/link'
 
 
 
 
-export async function Section({content, sectionTitle}: SectionType){
-    const getData = await projectsData({content})
-    console.log(getData)
+// export async function Section({content, sectionTitle}: SectionType){
+export async function Section({getData,sectionTitle}: SectionType){
+
+    // const getData = await projectsData({content})
+    // console.log(getData)
   
     return (
       <div className='bg-gradient-to-tr from-purple-600 to-blue-900 mt-5 flex-col flex items-center justify-center gap-5 p-6 shadow-[0px_0px_10px_3px_rgba(255,255,255,0.5)]'>

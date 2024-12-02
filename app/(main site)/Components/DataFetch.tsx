@@ -2,7 +2,7 @@
 import { parseFrontmatter } from '@/app/(main site)/Components/Utils/parseFrontmatter'
 import { ProductPage, UniversalData, SectionType} from '@/app/(main site)/Components/Types/FetchTypes'
 
-export async function projectsData({ content }: SectionType) {
+export async function projectsData({ content }: { content: string }) {
     
 
     if (content == "WebApps") {
