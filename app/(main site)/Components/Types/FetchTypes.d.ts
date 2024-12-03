@@ -19,6 +19,10 @@ export type ProductPage = {
     }
 }
 
+export type Description = {
+    description: string
+}
+
 export type BlogPage = {
     attributes: {
         FrontImage: {
@@ -38,15 +42,21 @@ export type BlogPage = {
 }
 
 export type Links = {
-    attributes: {
        links: string
-    }
+}
+
+export type Title = {
+    Title: string
 }
 
 export type SectionType = {
     getData: any,
     // content: "WorkSearchApp" | "WebApps" | "ProgrammingBlogs",
     sectionTitle: string | null
+ }
+
+ export type Image = {
+    Image: string
  }
 
 export type MetaData = {
@@ -56,4 +66,4 @@ export type MetaData = {
     articleContent: string
 }
 
-export type UniversalData = ProductPage & BlogPage & Links & MetaData
+export type UniversalData = ProductPage & BlogPage & Links & MetaData & Description & Title & Image

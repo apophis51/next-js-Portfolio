@@ -10,10 +10,13 @@ export async function projectsData({ content }: { content: string }) {
         const data = await response.json()
         console.log(data.data)
         let filteredResults = data.data.filter((item: UniversalData) => { 
-            item.attributes.links = item.attributes.Title;
+            item.links = item.attributes.Title;
             item.buttonText = "Go To App";
+            item.description = item.attributes.headerContent 
+            item.Title = item.attributes.Title 
+            item.Image = item.attributes.LandingPageImage.data.attributes.formats.thumbnail.url
             if (item.attributes.Title == "PwnContracting") {
-                item.attributes.links = "https://pwncontracting.com/"
+                item.links = "https://pwncontracting.com/"
             }
             return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game"  || item.attributes.Title == "PwnContracting" || item.attributes.Title == "girlfriend-ai-chat"
         });
@@ -28,16 +31,12 @@ export async function projectsData({ content }: { content: string }) {
             // data from the programming-blogs endpoint has a different name for the image so we need to add the attribute name the output expects
             if(item.attributes.Blog_Type == "WorkSearchApp"){
                 item.attributes.LandingPageImage = item.attributes.FrontImage
+                item.Title = item.attributes.Title
+                item.Image = item.attributes.LandingPageImage.data.attributes.formats.thumbnail.url
                 console.log(item.attributes.Title)
-                item.attributes.links = `/Work-Search-App/${(item.attributes.Title).toLowerCase().replace(/,/g, '').split(' ').join('-')}`
+                item.links = `/Work-Search-App/${(item.attributes.Title).toLowerCase().replace(/,/g, '').split(' ').join('-')}`
                 let { content, frontmatter } = parseFrontmatter(item.attributes.Content)
-                console.log(content)
-                console.log(frontmatter)
-                item.articleContent = content
-                item.frontmatterDescrition = frontmatter.description
-                item.frontmatterTitle = frontmatter.title
-
-                item.attributes.headerContent = frontmatter.description
+                item.description = frontmatter.description
                 item.buttonText = "Read More"
             }
             return item.attributes.Blog_Type == "WorkSearchApp" 
