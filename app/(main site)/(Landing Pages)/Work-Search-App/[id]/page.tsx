@@ -25,8 +25,10 @@ async function fgenerateStaticParams(params) {
   console.log(params.id)
 
   for (let x of post.data) {
-    if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)) {
+    const regex = new RegExp(`^${params.id}$`); // Match exactly the whole string, because without it it wont enforce exact matches and will behave like  includes => x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)
+    if (regex.test(x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-'))) {
       blogID = x.id
+      console.log(blogID, x.attributes.Title) 
     }
   }
   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
