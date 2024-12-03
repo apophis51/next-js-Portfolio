@@ -18,7 +18,7 @@ export async function Section({getData,sectionTitle}: SectionType){
             <div className='  flex flex-col gap-5'>
               {getData.map((item: UniversalData) => (
                 <div className="card lg:card-side bg-base-100 shadow-xl lg:max-h-64">
-                  <figure className='max-w-xs min-w-fit pt-7 lg:pt-10 lg:pb-10 lg:pl-10'><img src={item.Image} alt="Album" /></figure>
+                  <figure className='max-w-xs min-w-fit pt-7 lg:pt-10 lg:pb-10 lg:pl-10 mx-auto'><img src={item.Image} alt="Album" /></figure>
                   <div className="card-body">
                     <h2 className="card-title">{item.Title}</h2>
                     <p>{item.description }</p>
