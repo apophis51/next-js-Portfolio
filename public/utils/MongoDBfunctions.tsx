@@ -10,7 +10,7 @@ export async function updateMongoDBblogContent(blogId: string, markdownContent: 
         const response = await axios.patch(`${url}/${blogId}`, {
             markdown_content: markdownContent, // Key must match the FastAPI input parameter
         });
-
+        await fetch("https://pwncontracting.com/api/clear-cache")
         console.log("Blog updated successfully:", response.data);
     } catch (error) {
         if (error.response) {
