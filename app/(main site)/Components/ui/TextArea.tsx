@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 
 
 
-export default function useTextArea({ prompt }: { prompt: string }): [() => string | undefined, (value: string) => void, React.FC] {
+export default function useTextArea({ prompt, rowNumber=2 }: { prompt: string, rowNumber?: number }): [() => string | undefined, (value: string) => void, React.FC] {
 
     const textAreaRef = useRef<HTMLInputElement>(null); // Ref to access the textarea DOM element
     
@@ -38,7 +38,7 @@ export default function useTextArea({ prompt }: { prompt: string }): [() => stri
                     onChange={handleInput}
                     className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300 resize-none" // Disable manual resizing
                     placeholder={prompt}
-                    rows="2"
+                    rows= {rowNumber}
                     style={{ overflow: "hidden" }} // Prevent scrollbars
                 />
         );

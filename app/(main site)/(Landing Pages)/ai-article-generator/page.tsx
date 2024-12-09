@@ -6,7 +6,7 @@ import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
 import { useBasicSelect, useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
-import  useTextArea  from '@/app/(main site)/(Landing Pages)/ai-article-generator/TextArea'
+import  useTextArea  from '@/app/(main site)/Components/ui/TextArea'
 
 
 
