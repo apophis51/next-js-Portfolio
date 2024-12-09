@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 
 
 
-export default function useTextArea({ prompt, rowNumber=2 }: { prompt: string, rowNumber?: number }): [() => string | undefined, (value: string) => void, React.FC] {
+export default function useTextArea({ prompt, rowNumber = 2 }: { prompt: string, rowNumber?: number }): [() => string | undefined, (value: string) => void, React.FC] {
 
     const textAreaRef = useRef<HTMLInputElement>(null); // Ref to access the textarea DOM element
     

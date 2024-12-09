@@ -10,6 +10,8 @@ import { SaveIcon } from '@/app/(main site)/Components/ui/SaveIcon';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { updateMongoDBblogContent } from '@/public/utils/MongoDBfunctions';
+import useTextArea from '@/app/(main site)/Components/ui/TextArea';
+import Container from '@mui/material/Container';
 
 
 const options = {
@@ -28,6 +30,15 @@ const options = {
 export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlog: string, setValue: string }) {
   const [view, setView] = useState("view")
   const [key, setKey] = useState(Date.now());
+
+  const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
+  const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2 })
+
+
+
+
+
+
   const router = useRouter();
   const pathname = usePathname();
   const ID = pathname.match(/\/([^\/]+)$/)[1]
@@ -130,7 +141,25 @@ export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlo
               <ReactMarkdown>{downloadedBlog}</ReactMarkdown>
             </div>
           }
-          {view == "edit" && <EditMarkdown Content={downloadedBlog} onChange={onChange} />}
+          {view == "edit" &&
+          <>
+          <Container maxWidth="xl"  >
+          <div className= 'px-9  flex-row  md:flex md:flex-row md:overflow-visible items-center justify-evenly overflow-y-hidden overflow-x-hidden gap-20'>
+          <p className='text-xl text-bold'>Title:</p> 
+          <TitleTextBox />
+          <button className='btn text-white bg-pink-700'>Generate With AI</button> 
+          </div>
+          </Container>
+          <Container maxWidth="xl"  >
+          <div className= 'px-9  flex-row  md:flex md:flex-row md:overflow-visible items-center justify-evenly overflow-y-hidden overflow-x-hidden gap-5'>
+          <p>Description:</p> 
+          <DescriptionTextBox />
+          <button className='btn text-white bg-pink-700'>Generate With AI</button> 
+          </div>
+          </Container>
+          <EditMarkdown Content={downloadedBlog} onChange={onChange} />
+          </> 
+          }
         </div>
       </div>}
     </>
