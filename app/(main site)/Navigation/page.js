@@ -142,7 +142,7 @@ function ResponsiveAppBar() {
 
   return (
     
-    <AppBar position="sticky" className='rounded-lg'sx={{
+    <AppBar position="sticky" className='rounded-lg'id="malcMindNav"sx={{
       height: 150, 
       zIndex: 1000,
       marginBottom: '10px',
