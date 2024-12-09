@@ -1,7 +1,7 @@
 "use client"
 
 import { AdvancedEditIcon } from '@/app/(main site)/Components/ui/AdvancedEditIcon';
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown';
 import { EditMarkdown } from '../../EditMarkdown'
 import { BackIcon } from '@/app/(main site)/Components/ui/BackIcon';
@@ -12,6 +12,8 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { updateMongoDBblogContent } from '@/public/utils/MongoDBfunctions';
 import useTextArea from '@/app/(main site)/Components/ui/TextArea';
 import Container from '@mui/material/Container';
+import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
+import useLoading from '@/app/(main site)/Components/ui/Loading';
 
 
 const options = {
@@ -27,14 +29,17 @@ const options = {
   mode: 'markdown',
   theme: 'base16-dark', // Optional: You can change the theme if you like
 };
-export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlog: string, setValue: string }) {
+export function ViewOrEditPageView({ downloadedBlog, setValue, title, description }: { downloadedBlog: string, setValue: string, title: string, description: string }) {
   const [view, setView] = useState("view")
   const [key, setKey] = useState(Date.now());
+
 
   const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
   const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2 })
 
 
+  const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
+  const [setLoading2, LoadingWrapper2, LoadSuccess2, LoadError2] = useLoading()
 
 
 
@@ -97,8 +102,27 @@ export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlo
 
   }
 
+  async function fetchAIData(command: string, callback: (result: string)=>void) {
+    let result = await handlefetch_ai_data({
+      selectedOption: 'openai o1-mini',
+      textInput: command + downloadedBlog,
+      multipleGenerationText: '',
+      generationCount: 0
+    })
+    console.log(result)
+    setLoading('off')
+    setLoading2('off')
+    callback(result)
+  }
 
-  
+ useEffect(() => {
+  console.log(title)
+  console.log(description)
+    setDescription(description)
+    setTitle(title)
+
+ }, [])
+
 
   HighlightafterEveryRender()
 
@@ -107,31 +131,31 @@ export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlo
 
       {view == "sidebyside" &&
         <div className="flex flex-row  bg-white justify-center ">
-        {typeof downloadedBlog === 'string' && downloadedBlog.length > 0 && (
-          <>
-            <div className="flex flex-row ">
-              <div className="flex flex-col ">
-                <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog)} />
-                <BackIcon onClick={() => changeView("view")} />
+          {typeof downloadedBlog === 'string' && downloadedBlog.length > 0 && (
+            <>
+              <div className="flex flex-row ">
+                <div className="flex flex-col ">
+                  <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog)} />
+                  <BackIcon onClick={() => changeView("view")} />
+                </div>
+                <EditMarkdown options={options} Content={downloadedBlog} onChange={onChange} />
               </div>
-              <EditMarkdown options={options} Content={downloadedBlog} onChange={onChange}  />
-            </div>
-            <div
-              key={key}
-              className=" prose prose-sm lg:prose-xl prose-a:text-red-600 overflow-auto pr-2"
-            >
-              <ReactMarkdown>{downloadedBlog}</ReactMarkdown>
-            </div>
-          </>
-        )}
-      </div>
+              <div
+                key={key}
+                className=" prose prose-sm lg:prose-xl prose-a:text-red-600 overflow-auto pr-2"
+              >
+                <ReactMarkdown>{downloadedBlog}</ReactMarkdown>
+              </div>
+            </>
+          )}
+        </div>
       }
       {view != "sidebyside" && <div className='bg-white p-9 flex flex-col flex-initial md:flex md:flex-row md:overflow-visible items-start justify-center overflow-y-hidden overflow-x-hidden '>
         {view == "view" && <AdvancedEditIcon onClick={() => changeView('edit')} />}
         {view == "edit" &&
           <div className="flex flex-col ">
             <EyeIcon onClick={() => { changeView("sidebyside") }} />
-            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog)} />
+            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription())} />
             <BackIcon onClick={() => { changeView("view") }} />
           </div>}
 
@@ -142,23 +166,46 @@ export function ViewOrEditPageView({ downloadedBlog, setValue }: { downloadedBlo
             </div>
           }
           {view == "edit" &&
-          <>
-          <Container maxWidth="xl"  >
-          <div className= 'px-9  flex-row  md:flex md:flex-row md:overflow-visible items-center justify-evenly overflow-y-hidden overflow-x-hidden gap-20'>
-          <p className='text-xl text-bold'>Title:</p> 
-          <TitleTextBox />
-          <button className='btn text-white bg-pink-700'>Generate With AI</button> 
-          </div>
-          </Container>
-          <Container maxWidth="xl"  >
-          <div className= 'px-9  flex-row  md:flex md:flex-row md:overflow-visible items-center justify-evenly overflow-y-hidden overflow-x-hidden gap-5'>
-          <p>Description:</p> 
-          <DescriptionTextBox />
-          <button className='btn text-white bg-pink-700'>Generate With AI</button> 
-          </div>
-          </Container>
-          <EditMarkdown Content={downloadedBlog} onChange={onChange} />
-          </> 
+            <>
+              <Container maxWidth="xl"  >
+                <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
+                  <div>
+                    <p className='text-2xl font-bold w-32'> Title: </p>
+                  </div>
+                  <div className='w-full flex-1'>
+                    <TitleTextBox />
+                  </div>
+                  <div>
+                    <LoadingWrapper2>
+                    <button className='btn text-white bg-pink-700'
+                      onClick={() => {
+                        setLoading2('on')
+                        fetchAIData("Make an Seo Friendly Title based on this document", setTitle)}}
+                    >Generate With AI</button>
+                    </LoadingWrapper2>
+                  </div>
+                </div>
+              </Container>
+              <Container maxWidth="xl"  >
+                <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
+                  <div className="self-start">
+                    <p className='text-2xl font-bold w-32 self-start'> Description: </p>
+                  </div>
+                  <div className='w-full flex-1'>
+                    <DescriptionTextBox />
+                  </div>
+                  <div>
+                  <LoadingWrapper>
+                    <button className='btn text-white bg-pink-700'
+                    onClick={() => {
+                      setLoading('on')
+                      fetchAIData("Make an Seo Friendly Meta Description based on this document", setDescription)}}>Generate With AI</button>
+                    </LoadingWrapper>
+                  </div>
+                </div>
+              </Container>
+              <EditMarkdown Content={downloadedBlog} onChange={onChange} />
+            </>
           }
         </div>
       </div>}

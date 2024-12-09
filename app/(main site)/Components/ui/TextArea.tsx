@@ -13,8 +13,11 @@ export default function useTextArea({ prompt, rowNumber = 2 }: { prompt: string,
     }
 
     function setValue(changeRequest:string){
+        console.log(changeRequest)
         if (textAreaRef && textAreaRef.current) {
+            console.log(changeRequest)
              textAreaRef.current.value = changeRequest
+             handleInput()
         }
        
     }

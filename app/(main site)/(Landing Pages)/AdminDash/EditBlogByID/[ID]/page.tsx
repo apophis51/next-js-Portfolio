@@ -38,6 +38,7 @@ export default function ArticleView({
 
   useEffect(() => {
     console.log(downloadedBlog)
+
     if (!downloadedBlog || downloadedBlog.length < 1) {
       serverGetBlogs()
     }
@@ -58,7 +59,11 @@ export default function ArticleView({
     <Container maxWidth="xl"   >
       {(downloadedBlog && downloadedBlog.length > 0) &&
         <>
-          <ViewOrEditPageView downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}/>
+        {console.log(downloadedBlog.find((blog) => blog.id == ID))}
+          <ViewOrEditPageView
+          title = {downloadedBlog.find((blog) => blog.id == ID).Title}
+          description = {downloadedBlog.find((blog) => blog.id == ID).Description || 'No Description Found'} 
+          downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}/>
         </>
       }
     </Container>)

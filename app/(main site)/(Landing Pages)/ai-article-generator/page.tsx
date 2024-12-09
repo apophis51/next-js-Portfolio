@@ -85,11 +85,15 @@ export default function AIArticleGenerator() {
         console.log(selectedOption, SelectedChapters, textInput2, toggled)
         let result = null
         if (toggleTextContext) {
+            
             result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
             //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
             //save value into ai_result
         }
         if (!toggleTextContext) {
+            console.log('hit')
+            let cool = { selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number }
+            console.log(cool)
             result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
         }

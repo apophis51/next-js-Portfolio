@@ -7,10 +7,12 @@ import type { Config } from "@measured/puck";
 import save from "./serverAction";
 import Container from '@mui/material/Container';
 import { DropZone } from "@measured/puck";
+import ReactMarkdown from "react-markdown";
 
 type Components = {
     Container: {};
     TextBlock: {};
+    ReactMarkDown: {};
   };
 
 // Create Puck component config
@@ -30,6 +32,24 @@ const config: Config<Components> = {
         
 //     },  
   components: { 
+    ReactMarkDown: {
+        fields: {
+            MarkDownContent: {
+              type: "textarea",
+            },
+          },
+          defaultProps: {
+            MarkDownContent: "# This is a sample Blog",
+          },
+        render: ({ MarkDownContent }) => {
+            return (
+                <div
+              className=" prose prose-sm lg:prose-xl prose-a:text-red-600 overflow-auto pr-2"
+            >
+                <ReactMarkdown>{MarkDownContent}</ReactMarkdown>
+             </div>)
+        }
+    },
     Container: {
         render: () => {
             return (
@@ -44,15 +64,15 @@ const config: Config<Components> = {
     },
     TextBlock: {
       fields: {
-        title: {
+        text: {
           type: "text",
         },
       },
       defaultProps: {
-        title: "Hello, world",
+        text: "Hello, world",
       },
-      render: ({ title }) => {
-        return <h1 className="bg-white">{title}</h1>;
+      render: ({ text }) => {
+        return <h1 className="bg-white">{text}</h1>;
       },
     },
   },

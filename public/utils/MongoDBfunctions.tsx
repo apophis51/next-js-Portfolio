@@ -2,14 +2,17 @@ import axios from 'axios';
 import projectURLS from '@/projectSettings'
 
 
-export async function updateMongoDBblogContent(blogId: string, markdownContent: string) {
+export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog") {
     console.log("Blog ID:", blogId);
     console.log("Blog content:", markdownContent);
+    console.log("title", title)
+    console.log("description", description)
     try {
         let url = projectURLS().pythonMongoDBServerUpdateBlog;
-        const response = await axios.patch(`${url}/${blogId}`, {
-            markdown_content: markdownContent, // Key must match the FastAPI input parameter
-        });
+        const payload = { markdown_content: markdownContent };
+        if (title) payload.title = title;
+         if (description) payload.description = description;
+        const response = await axios.patch(`${url}/${blogId}`, payload);
         await fetch("https://pwncontracting.com/api/clear-cache")
         console.log("Blog updated successfully:", response.data);
     } catch (error) {
