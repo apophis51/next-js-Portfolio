@@ -62,9 +62,14 @@ export default function ArticleView() {
         
     }
 
+    // useEffect(() => {
+      
+    // },[key])
+    
+
     useEffect(() => {
         // Delay the logic by 2 seconds
-        const timer = setTimeout(() => {
+        // const timer = setTimeout(() => {
           console.log('hit');
           
           // Check if the ref is set
@@ -80,13 +85,9 @@ export default function ArticleView() {
               // Add the event listener to the eye icon
               const handleClick = () => {
                 console.log('Eye icon clicked!');
-                const timer = setTimeout(() => {
-                    setKey(Date.now());
-                }, 500);
-
-
-                
-                // You can perform actions here when the icon is clicked
+                // const timer = setTimeout(() => {
+                    // setKey(Date.now());
+                // }, 500);     
               };
     
               eyeIcon.addEventListener('click', handleClick);
@@ -94,15 +95,15 @@ export default function ArticleView() {
     
               // Clean up the event listener when the component unmounts or ref changes
               return () => {
-                eyeIcon.removeEventListener('click', handleClick);
-                splitView.removeEventListener('click', handleClick);
+                // eyeIcon.removeEventListener('click', handleClick);
+                // splitView.removeEventListener('click', handleClick);
               };
             }
           }
-        }, 1000);
+        // }, 1000);
     
         // Cleanup the timeout if the component unmounts or downloadedBlog changes
-        return () => clearTimeout(timer);
+        // return () => clearTimeout(timer);
     
       }, []); 
 
