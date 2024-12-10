@@ -1,9 +1,10 @@
 import { get } from 'http';
-import { useState, useRef, useEffect } from 'react';
+import {  useRef } from 'react';
 
 
 
 export default function useTextArea({ prompt, rowNumber = 2 }: { prompt: string, rowNumber?: number }): [() => string | undefined, (value: string) => void, React.FC] {
+
 
     const textAreaRef = useRef<HTMLInputElement>(null); // Ref to access the textarea DOM element
     
@@ -14,6 +15,11 @@ export default function useTextArea({ prompt, rowNumber = 2 }: { prompt: string,
 
     function setValue(changeRequest:string){
         console.log(changeRequest)
+        console.log(!!textAreaRef)
+        console.log(!!textAreaRef.current)
+        console.log(!!(textAreaRef && textAreaRef.current))
+        // if ( textAreaRef.current) {
+
         if (textAreaRef && textAreaRef.current) {
             console.log(changeRequest)
              textAreaRef.current.value = changeRequest
@@ -31,9 +37,13 @@ export default function useTextArea({ prompt, rowNumber = 2 }: { prompt: string,
         }
       };
 
+
+  
+
     function TextAreaInput() {
         return (
                 <textarea
+                   
                     id="auto-resize-textarea"
                     ref={textAreaRef}
                     // value={text}

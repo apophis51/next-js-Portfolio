@@ -32,6 +32,7 @@ export default function ArticleView({
     console.log('we just got a res response')
     const data = await res.json()
     console.log(data)
+    console.log(data.find((blog) => blog.id == "674424f853b90d245fa825c9"))
     setDownloadedBlogs(data)
     console.log(data)
   }

@@ -14,6 +14,7 @@ import useTextArea from '@/app/(main site)/Components/ui/TextArea';
 import Container from '@mui/material/Container';
 import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
 import useLoading from '@/app/(main site)/Components/ui/Loading';
+import { get } from 'http';
 
 
 const options = {
@@ -35,7 +36,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
 
 
   const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
-  const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2 })
+  const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2, })
 
 
   const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
@@ -48,6 +49,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   const pathname = usePathname();
   const ID = pathname.match(/\/([^\/]+)$/)[1]
   console.log(ID)
+  console.log(title)
+  console.log(description)
 
   const paramsEdit = (useSearchParams()).get('edit')
   const paramsSideBySide = (useSearchParams()).get('sidebyside')
@@ -81,6 +84,15 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
     if (view == 'edit') {
       router.push(`${pathname}?edit=true`, { scroll: false });
       setView("edit")
+      
+      
+      /// prevent react batching these need to be set after the component mounts
+      // setTimeout(() => {
+      // setDescription(description)
+      // setTitle(title)
+      // }, 500)
+    
+
     }
     if (view == 'view') {
       console.log('hit promo')
@@ -99,6 +111,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   const onChange = (value: string) => {
     setKey(Date.now());
     setValue(value);
+     console.log(getDescription())
+
 
   }
 
@@ -115,14 +129,18 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
     callback(result)
   }
 
+
  useEffect(() => {
   console.log(title)
   console.log(description)
-    setDescription(description)
-    setTitle(title)
+ setDescription(description)
+  setTitle(title)
+  // setMetaBoxKey((prev) => Date.now() +2)
 
- }, [])
 
+ }, [view])
+
+ console.log(getDescription())
 
   HighlightafterEveryRender()
 
@@ -172,7 +190,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
                   <div>
                     <p className='text-2xl font-bold w-32'> Title: </p>
                   </div>
-                  <div className='w-full flex-1'>
+                  <div className='w-full flex-1' >
                     <TitleTextBox />
                   </div>
                   <div>
