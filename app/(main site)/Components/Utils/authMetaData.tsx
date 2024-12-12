@@ -3,9 +3,16 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import {auth} from "@clerk/nextjs/server"
 
+export async function getGenericMetaData() {
+  const $newClerkClient = await clerkClient()
+  const {userId} = await auth()
+  const publicMetaData:any = (await $newClerkClient.users.getUser(userId as string)).publicMetadata
+  return publicMetaData
+}
 
 export async function fetchUserAIMetaData({deductCreditType = null,userId=null} = {}): Promise<number> {
-  
+  const testFunction = await getGenericMetaData()
+  console.log(testFunction)
   const $newClerkClient = await clerkClient()
   console.log($newClerkClient.users)
   if (!deductCreditType){

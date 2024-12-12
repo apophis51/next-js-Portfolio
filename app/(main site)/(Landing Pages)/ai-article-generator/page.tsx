@@ -1,11 +1,12 @@
 'use client'
 import ReactMarkdown from "react-markdown"
-// import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
+import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
-import { useBasicSelect, useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
+import {  useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
+
 import  useTextArea  from '@/app/(main site)/Components/ui/TextArea'
 
 
@@ -30,12 +31,13 @@ let javacode = " ```javaScript \n \
 (() => {console.log('hello world') \n \
   })() \n```\n"
 
-
+const savedSettings = {
+    preferedAIModel: 'openai o1-mini'}
 
 // export default function ClientPage({handlefetch_ai_data}: any) {
 export default function AIArticleGenerator() {
 
-    const [selectedOption, BasicSelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
+    const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', savedOption: savedSettings.preferedAIModel })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
@@ -82,19 +84,18 @@ export default function AIArticleGenerator() {
     }
 
     async function handleClick() {
-        console.log(selectedOption, SelectedChapters, textInput2, toggled)
+        console.log(AISelectOutput, SelectedChapters, textInput2, toggled)
         let result = null
         if (toggleTextContext) {
             
-            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
-            //let result = await fetch_ai_data(selectedOption, textInput[0]).then(result => result.singleGeneration())
-            //save value into ai_result
+            result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+
         }
         if (!toggleTextContext) {
             console.log('hit')
-            let cool = { selectedOption: selectedOption, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number }
+            let cool = { selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number }
             console.log(cool)
-            result = await handlefetch_ai_data({ selectedOption: selectedOption, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
+            result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
         }
 
@@ -122,7 +123,7 @@ export default function AIArticleGenerator() {
         <MainContentTemplate title="MalcMind - AI Article Generator">
 
             <div className='flex flex-col gap-1 items-center justify-center'>
-                <BasicSelect />
+                <AISelect />
                 <div className="w-full flex items-center justify-center m-4">
                 <AiTextBox />
                 </div>
