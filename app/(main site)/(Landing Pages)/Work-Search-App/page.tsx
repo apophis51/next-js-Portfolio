@@ -26,11 +26,14 @@ async function checkUser() { //we need to add a try catch block to this to preve
     //     console.log('route hit')
 
     console.log('route hit') 
-    const { auth, currentUser } = await import('@clerk/nextjs')
+    // const { auth, currentUser } = await import('@clerk/nextjs')
+    const { auth, currentUser } = await import('@clerk/nextjs/server')
+
     //  const { userId, getToken, orgRole } = auth();
     console.log('route hit')
-    console.log(auth().sessionClaims?.primaryEmail)
-    const {sessionClaims, userId} = auth()
+    let $newAuth = await auth()
+    console.log($newAuth.sessionClaims?.primaryEmail)
+    const {sessionClaims, userId} = await auth()
     console.log(userId)
     console.log(sessionClaims)
     // if (userId) {

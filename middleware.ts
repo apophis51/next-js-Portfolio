@@ -2,7 +2,9 @@
 // refer to docs @ https://nextjs.org/docs/app/building-your-application/routing/middleware
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { authMiddleware } from "@clerk/nextjs";
+// import { authMiddleware } from "@clerk/nextjs";
+import { auth, clerkMiddleware, createRouteMatcher  } from "@clerk/nextjs/server";
+
 
 // This function can be marked `async` if using `await` inside
 // export function middleware(request: NextRequest) {
@@ -47,26 +49,27 @@ import { authMiddleware } from "@clerk/nextjs";
 //     ['/api/auth/callback/credentials','/api/auth/session','/api/auth/_log','/api/auth/:error*','/api/auth/:signin*','/api/auth/signout','/api/auth/providers' ]
   
 // }
+const isAdminDashRoute = createRouteMatcher(['/AdminDash(.*)'])
 
-export default authMiddleware({
-  // Routes that can be accessed while signed out
-  // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest'],
-  // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/WorkSearchApp'],
-  publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/Work-Search-App','/Work-Search-App/Authorize'],
-
-
-  // Routes that can always be accessed, and have
-  // no authentication information
+export default clerkMiddleware(async(auth,req) =>{
+// export default authMiddleware({
+  // publicRoutes: ['/anyone-can-visit-this-route','/ClerkAuthTest','/Work-Search-App','/Work-Search-App/Authorize'],
   // ignoredRoutes: ['/no-auth-in-this-route','/'],
-  ignoredRoutes: ['/no-auth-in-this-route','/'],
+
+  if (isAdminDashRoute(req)) {
+    let status = await auth()
+    console.log(status)
+    await auth.protect({ role: 'org:admin' })}
+    // if (isAdminDashRoute(req)) await auth.protect()
+
+
 
 });
 
 export const config = {
-  // matcher: ['/dashboard/:path*','/ClerkAuthTest','/'],
-  // matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/WorkSearchApp','/WorkSearchApp/Authorize/api'],
-   matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App'],
-  // matcher: ['/dashboard/:path*','/ClerkAuthTest','/'],
+  //  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App'],
+  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App', '/AdminDash(.*)'],
+
 
 
 }
