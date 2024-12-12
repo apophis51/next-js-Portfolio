@@ -1,5 +1,5 @@
 // import { ClerkProvider } from '@clerk/nextjs'
-import { UserButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs/server";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Dashboard from '@/app/(main site)/(Test pages)/ClerkAuthTest/Dashboard/data'
 export default function ClerkAuthTest(params: {
