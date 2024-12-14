@@ -6,7 +6,46 @@ import {auth} from "@clerk/nextjs/server"
 export async function getGenericMetaData() {
   const $newClerkClient = await clerkClient()
   const {userId} = await auth()
+  console.log(userId)
   const publicMetaData:any = (await $newClerkClient.users.getUser(userId as string)).publicMetadata
+  return publicMetaData
+}
+
+export async function deleteUserMetaData(object) {
+  const $newClerkClient = await clerkClient()
+  const {userId} = await auth()
+  console.log(userId)
+
+  // const oldPublicMetaData:any = (await $newClerkClient.users.getUser(userId as string)).publicMetadata
+  // delete oldPublicMetaData[object]
+  // console.log(oldPublicMetaData)
+  // await $newClerkClient.users.updateUserMetadata(userId as string, {
+  //   publicMetadata: oldPublicMetaData
+  // }) 
+
+  await $newClerkClient.users.updateUserMetadata(userId as string, {
+    publicMetadata: {
+      [object]: null
+    }
+  }) 
+  const publicMetaData:any = (await $newClerkClient.users.getUser(userId as string)).publicMetadata
+
+  console.log(publicMetaData)
+  return publicMetaData
+}
+
+export async function createNewMetaData(object:string, value:string) {
+  const $newClerkClient = await clerkClient()
+  const {userId} = await auth()
+  console.log(userId)
+  await $newClerkClient.users.updateUserMetadata(userId as string, {
+    publicMetadata: {
+      [object]: value
+    }
+  }) 
+    const publicMetaData:any = (await $newClerkClient.users.getUser(userId as string)).publicMetadata
+
+  console.log(publicMetaData)
   return publicMetaData
 }
 

@@ -1,13 +1,13 @@
 'use client'
 import ReactMarkdown from "react-markdown"
-import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'  
+import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
-import {  useBasicToggle, useAdvancedTextInput} from 'malcolm_ui_react'
+import { useBasicToggle, useAdvancedTextInput } from 'malcolm_ui_react'
 
-import  useTextArea  from '@/app/(main site)/Components/ui/TextArea'
+import useTextArea from '@/app/(main site)/Components/ui/TextArea'
 
 
 
@@ -22,6 +22,7 @@ import { atom, useAtom } from 'jotai'
 import { Modal } from "@/public/utils/Modal"
 import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-generator/SubmitToMongoDB'
 import { CloseButton } from '@/public/utils/CloseButton'
+import { getGenericMetaData, createNewMetaData, deleteUserMetaData } from "@/app/(main site)/Components/Utils/authMetaData"
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -32,12 +33,23 @@ let javacode = " ```javaScript \n \
   })() \n```\n"
 
 const savedSettings = {
-    preferedAIModel: 'openai o1-mini'}
+    preferedAIModel: 'openai o1-mini'
+}
 
-// export default function ClientPage({handlefetch_ai_data}: any) {
+async function getUserData() {
+    let myData = await getGenericMetaData()
+    console.log(myData)
+    console.log(!!myData.AIlCredits)
+    return myData
+}
+
+
+
 export default function AIArticleGenerator() {
 
-    const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini','gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', savedOption: savedSettings.preferedAIModel })
+  
+
+    const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', savedOption: savedSettings.preferedAIModel })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
@@ -48,38 +60,42 @@ export default function AIArticleGenerator() {
     const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
     const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context' })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
-    
+
 
     //Save Article UI
-    const [prompt, setPrompt] = useState("Enter Article Name" )
-    const [typePrompt, setTypePrompt] = useState("Enter Article Type" )
-    const [articleName, BasicArticleName] = useAdvancedTextInput({ prompt: prompt})
-    const [articleType, BasicArticleType] =   useAdvancedTextInput({ prompt: typePrompt })
+    const [prompt, setPrompt] = useState("Enter Article Name")
+    const [typePrompt, setTypePrompt] = useState("Enter Article Type")
+    const [articleName, BasicArticleName] = useAdvancedTextInput({ prompt: prompt })
+    const [articleType, BasicArticleType] = useAdvancedTextInput({ prompt: typePrompt })
 
 
     const modalRef = useRef<HTMLDialogElement>(null)
 
 
-     console.log(articleName.current)
+
+    useEffect(() => {
+        getUserData()
+    }, [])
+    console.log(articleName.current)
     async function submit_to_mongoDB() {
         console.log(articleName.current)
         if (!articleName.current) {
             console.log(articleName)
-            setPrompt( "please enter the a Name" )
+            setPrompt("please enter the a Name")
 
         }
         if (!articleType.current) {
-            setTypePrompt("please enter a Type" )
+            setTypePrompt("please enter a Type")
 
         }
-   
+
         if (articleName.current && articleType.current) {
-        console.log('submit_to_mongoDB triggered')
-        console.log(articleName.current, articleType.current)
-        let markdownContent = ai_result.join('\n')
-        await addMongoDBblog(articleName.current, articleType.current, markdownContent)
-        setArticleAccumulator((prev) => prev + 1)
-        modalRef.current?.close()
+            console.log('submit_to_mongoDB triggered')
+            console.log(articleName.current, articleType.current)
+            let markdownContent = ai_result.join('\n')
+            await addMongoDBblog(articleName.current, articleType.current, markdownContent)
+            setArticleAccumulator((prev) => prev + 1)
+            modalRef.current?.close()
         }
     }
 
@@ -87,7 +103,7 @@ export default function AIArticleGenerator() {
         console.log(AISelectOutput, SelectedChapters, textInput2, toggled)
         let result = null
         if (toggleTextContext) {
-            
+
             result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
         }
@@ -110,22 +126,25 @@ export default function AIArticleGenerator() {
             setAi_result([result])
         }
         console.log(result)
-        setAiText('') 
+        setAiText('')
 
 
 
     }
     HighlightafterEveryRender()
 
-   
+
 
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">
 
             <div className='flex flex-col gap-1 items-center justify-center'>
                 <AISelect />
+                <button className="btn" onClick={()=> createNewMetaData("test", "this is a test")}>Create New Meta Data</button>
+                <button className="btn" onClick={()=> deleteUserMetaData("test")}>Delete User Meta Data</button>
+
                 <div className="w-full flex items-center justify-center m-4">
-                <AiTextBox />
+                    <AiTextBox />
                 </div>
                 {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
                 {/* <BasicTextInput /> */}
@@ -139,21 +158,21 @@ export default function AIArticleGenerator() {
                     </div>}
                 <button className='btn' onClick={handleClick}>Generate Article</button>
                 <div className="max-w-full">
-                {ai_result.map((ai_result) => {
-                    return (
-                        <div className="p-10">
-                        <CloseButton>
-                            <ReactMarkdown >{ai_result}</ReactMarkdown>
-                        </CloseButton>
-                        </div>)
-                })}
+                    {ai_result.map((ai_result) => {
+                        return (
+                            <div className="p-10">
+                                <CloseButton>
+                                    <ReactMarkdown >{ai_result}</ReactMarkdown>
+                                </CloseButton>
+                            </div>)
+                    })}
                 </div>
-                <Modal ref = {modalRef}>
+                <Modal ref={modalRef}>
                     <BasicArticleName />
                     <BasicArticleType />
-                    <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB}      />
+                    <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
                 </Modal>
-                
+
                 {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
                 <AiTextBox />
                 <button className='btn' onClick={handleClick}>Generate Article</button>
