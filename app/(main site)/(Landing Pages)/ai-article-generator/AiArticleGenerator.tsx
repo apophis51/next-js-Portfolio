@@ -1,6 +1,7 @@
 'use client'
 import ReactMarkdown from "react-markdown"
 import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
+import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
@@ -32,24 +33,19 @@ let javacode = " ```javaScript \n \
 (() => {console.log('hello world') \n \
   })() \n```\n"
 
-const savedSettings = {
-    preferedAIModel: 'openai o1-mini'
-}
+// const savedSettings = {
+//     preferedAIModel: 'openai o1-mini'
+// }
 
-async function getUserData() {
-    let myData = await getGenericMetaData()
-    console.log(myData)
-    console.log(!!myData.AIlCredits)
-    return myData
-}
 
 
 
 export default function AIArticleGenerator() {
 
   
+    // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
 
-    const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', savedOption: savedSettings.preferedAIModel })
+    const {selectedOption: AISelectOutput,setSelectedOption, BasicSelect: AISelect} = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: (modelValue:string) =>  createNewMetaData('preferedAIModel', modelValue)  })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
@@ -73,9 +69,7 @@ export default function AIArticleGenerator() {
 
 
 
-    useEffect(() => {
-        getUserData()
-    }, [])
+ 
     console.log(articleName.current)
     async function submit_to_mongoDB() {
         console.log(articleName.current)
@@ -133,7 +127,21 @@ export default function AIArticleGenerator() {
     }
     HighlightafterEveryRender()
 
+    async function getUserData() {
+        let myData = await getGenericMetaData()
+        console.log(myData)
+        console.log(!!myData.preferedAIModel)
+        if(myData.preferedAIModel){
+            setSelectedOption(myData.preferedAIModel)
 
+        }
+    }
+    
+
+    //retrieve user settings
+    useEffect(() => {
+        getUserData()
+    }, [])
 
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">

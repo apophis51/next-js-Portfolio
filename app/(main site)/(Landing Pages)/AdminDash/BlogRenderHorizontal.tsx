@@ -8,11 +8,10 @@ import ReactMarkdown from 'react-markdown';
 import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions'; //possibly decouple py passing as a function to handle the article deletion
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
-import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/page' //possibly decouple into passing a variable that updates on action
+import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator' //possibly decouple into passing a variable that updates on action
 import { CloseButton } from '@/public/utils/CloseButton'  //beter integrate or actually just put into my ui methods
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'  //decouple? maybe by passing as a prop
-import serverGetBlogss from './ServerFunctions/serverAction';
 import projectURLS from '@/projectSettings'
 
 
