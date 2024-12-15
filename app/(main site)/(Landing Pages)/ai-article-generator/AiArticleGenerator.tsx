@@ -26,6 +26,9 @@ import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-ge
 import { CloseButton } from '@/public/utils/CloseButton'
 import { getGenericMetaData, createNewMetaData, deleteUserMetaData } from "@/app/(main site)/Components/Utils/authMetaData"
 
+import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
+import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
+
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
 
@@ -43,22 +46,22 @@ let javacode = " ```javaScript \n \
 
 export default function AIArticleGenerator() {
 
-  
+
     // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
 
-    const {selectedOption: AISelectOutput,setSelectedOption, BasicSelect: AISelect} = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: (modelValue:string) =>  createNewMetaData('preferedAIModel', modelValue)  })
+    const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: (modelValue: string) => createNewMetaData('preferedAIModel', modelValue) })
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
     const [textInput2, BasicSelect_ArticleNumber] = useAdvancedTextInput({ prompt: "Only Input This for Multiple Generations..." })
     const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
-    
 
-    const [toggled, setBasicToggle,BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Multiple_Articles', modelValue) })
 
-    const [toggleErase, setToggleErase,BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Reset_Settings', modelValue) })
-    const [toggleTextContext, setToggleTextContext,BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Context_Settings', modelValue) })
+    const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue) })
+
+    const [toggleErase, setToggleErase, BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Reset_Settings', modelValue) })
+    const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
 
@@ -70,10 +73,11 @@ export default function AIArticleGenerator() {
 
 
     const modalRef = useRef<HTMLDialogElement>(null)
+    const settingsRef = useRef<HTMLDialogElement>(null)
 
 
 
- 
+
     console.log(articleName.current)
     async function submit_to_mongoDB() {
         console.log(articleName.current)
@@ -132,21 +136,21 @@ export default function AIArticleGenerator() {
     async function getUserData() {
         let myData = await getGenericMetaData()
         console.log(!!myData.preferedAIModel)
-        if(myData.preferedAIModel){
+        if (myData.preferedAIModel) {
             setSelectedOption(myData.preferedAIModel)
         }
-        if(myData.AI_Context_Settings == false){
+        if (myData.AI_Context_Settings == false) {
             console.log(myData.AI_Context_Settings)
             setToggleTextContext(myData.AI_Context_Settings)
         }
-        if(myData.AI_Reset_Settings == false){
+        if (myData.AI_Reset_Settings == false) {
             setToggleErase(myData.AI_Reset_Settings)
         }
-        if(myData.AI_Multiple_Articles == false){
+        if (myData.AI_Multiple_Articles == false) {
             setBasicToggle(myData.AI_Multiple_Articles)
         }
     }
-    
+
 
     //retrieve user settings
     useEffect(() => {
@@ -156,7 +160,7 @@ export default function AIArticleGenerator() {
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">
             <>
-               <div className="max-w-full">
+                <div className="max-w-full">
                     {ai_result.map((ai_result) => {
                         return (
                             <div className="p-10">
@@ -166,34 +170,41 @@ export default function AIArticleGenerator() {
                             </div>)
                     })}
                 </div>
-            <div className='flex flex-col gap-1 items-center justify-center'>
-                <AISelect />
-                
-                <div className="w-full flex flex-col items-center justify-center m-4">
-                    <AiTextBox />
-                    <button className='btn mt-4' onClick={handleClick}>Generate Article</button>
+                <div className='flex flex-col gap-1 items-center justify-center'>
+                    <AISelect />
 
+                    <div className="w-full flex flex-col items-center justify-center m-4">
+                        <AiTextBox />
+                    </div>
+                    {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
+                    {/* <BasicTextInput /> */}
+                    <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
+                        <div className="w-full h-full ">
+                            <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
+                                <BasicToggle />
+                                <BasicToggleErase />
+                                <BasicToggleContext />
+                                {toggled &&
+                                    <div>
+                                        <BasicSelect_Chapter />
+                                        <BasicSelect_ArticleNumber />
+                                    </div>}
+                            </Modal>
+                        </div>
+
+                        <div className="flex justify-center items-center"><button className='btn' onClick={handleClick}>Generate Article</button></div>
+                        <div className="w-full h-full ">
+                            <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
+                                <BasicArticleName />
+                                <BasicArticleType />
+                                <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
+                            </Modal>
+                        </div>
+                    </div>
+
+
+                    {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
                 </div>
-                {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
-                {/* <BasicTextInput /> */}
-                <BasicToggle />
-                <BasicToggleErase />
-                <BasicToggleContext />
-                {toggled &&
-                    <div>
-                        <BasicSelect_Chapter />
-                        <BasicSelect_ArticleNumber />
-                    </div>}
-                <button className='btn' onClick={handleClick}>Generate Article</button>
-             
-                <Modal ref={modalRef}>
-                    <BasicArticleName />
-                    <BasicArticleType />
-                    <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
-                </Modal>
-
-                {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
-            </div>
             </>
         </MainContentTemplate>
 

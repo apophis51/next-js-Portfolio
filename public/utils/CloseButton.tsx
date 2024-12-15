@@ -6,7 +6,7 @@ export function CloseButton({ children, top, callback=() => {console.log ("click
 
     return (
         <>
-            <div className="relative">
+            <div className="relative w-full">
                 <button
                     className="btn btn-sm btn-circle bg-yellow-300 absolute left-[95%] bottom-[99.5%]"
                     onClick={async () => {
