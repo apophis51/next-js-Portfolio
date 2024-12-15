@@ -2,6 +2,7 @@
 import ReactMarkdown from "react-markdown"
 import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
+import useBasicToggle2 from '@/app/(main site)/Components/ui/BasicToggle2'
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 
@@ -54,7 +55,7 @@ export default function AIArticleGenerator() {
     const [textInput2, BasicSelect_ArticleNumber] = useAdvancedTextInput({ prompt: "Only Input This for Multiple Generations..." })
     const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
     const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
-    const [toggleTextContext, BasicToggleContext] = useBasicToggle({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context' })
+    const [toggleTextContext, setToggleTextContext,BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Context_Settings', modelValue) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
 
@@ -102,9 +103,7 @@ export default function AIArticleGenerator() {
 
         }
         if (!toggleTextContext) {
-            console.log('hit')
             let cool = { selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number }
-            console.log(cool)
             result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
         }
@@ -129,11 +128,13 @@ export default function AIArticleGenerator() {
 
     async function getUserData() {
         let myData = await getGenericMetaData()
-        console.log(myData)
         console.log(!!myData.preferedAIModel)
         if(myData.preferedAIModel){
             setSelectedOption(myData.preferedAIModel)
-
+        }
+        if(myData.AI_Context_Settings == false){
+            console.log(myData.AI_Context_Settings)
+            setToggleTextContext(myData.AI_Context_Settings)
         }
     }
     
@@ -145,14 +146,24 @@ export default function AIArticleGenerator() {
 
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">
-
+            <>
+               <div className="max-w-full">
+                    {ai_result.map((ai_result) => {
+                        return (
+                            <div className="p-10">
+                                <CloseButton>
+                                    <ReactMarkdown >{ai_result}</ReactMarkdown>
+                                </CloseButton>
+                            </div>)
+                    })}
+                </div>
             <div className='flex flex-col gap-1 items-center justify-center'>
                 <AISelect />
-                <button className="btn" onClick={()=> createNewMetaData("test", "this is a test")}>Create New Meta Data</button>
-                <button className="btn" onClick={()=> deleteUserMetaData("test")}>Delete User Meta Data</button>
-
-                <div className="w-full flex items-center justify-center m-4">
+                
+                <div className="w-full flex flex-col items-center justify-center m-4">
                     <AiTextBox />
+                    <button className='btn mt-4' onClick={handleClick}>Generate Article</button>
+
                 </div>
                 {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
                 {/* <BasicTextInput /> */}
@@ -165,16 +176,7 @@ export default function AIArticleGenerator() {
                         <BasicSelect_ArticleNumber />
                     </div>}
                 <button className='btn' onClick={handleClick}>Generate Article</button>
-                <div className="max-w-full">
-                    {ai_result.map((ai_result) => {
-                        return (
-                            <div className="p-10">
-                                <CloseButton>
-                                    <ReactMarkdown >{ai_result}</ReactMarkdown>
-                                </CloseButton>
-                            </div>)
-                    })}
-                </div>
+             
                 <Modal ref={modalRef}>
                     <BasicArticleName />
                     <BasicArticleType />
@@ -182,11 +184,8 @@ export default function AIArticleGenerator() {
                 </Modal>
 
                 {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
-                <AiTextBox />
-                <button className='btn' onClick={handleClick}>Generate Article</button>
-
-
             </div>
+            </>
         </MainContentTemplate>
 
     )

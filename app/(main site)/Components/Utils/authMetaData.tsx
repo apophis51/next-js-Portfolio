@@ -34,7 +34,7 @@ export async function deleteUserMetaData(object) {
   return publicMetaData
 }
 
-export async function createNewMetaData(object:string, value:string) {
+export async function createNewMetaData(object:string, value:any) {
   const $newClerkClient = await clerkClient()
   const {userId} = await auth()
   console.log(userId)

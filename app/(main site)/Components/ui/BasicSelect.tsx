@@ -9,7 +9,6 @@ export default function useBasicSelect({options, maintext, savedOption}:{options
 
     console.log({savedOption, maintext})
     function handleChange(evt: ChangeEvent<HTMLSelectElement>) {
-        console.log('triggered')
         setSelectedOption(evt.target.value);
     }
     function BasicSelect() {
