@@ -51,10 +51,13 @@ export default function AIArticleGenerator() {
 
 
     const [SelectedChapters, BasicSelect_Chapter] = useBasicSelect({ options: [1, 2, 3, 4, 5], maintext: 'Select Chapter Amount' })
-    const [toggled, BasicToggle] = useBasicToggle({ leftText: 'Multiple Articles', RightText: 'One Article' })
     const [textInput2, BasicSelect_ArticleNumber] = useAdvancedTextInput({ prompt: "Only Input This for Multiple Generations..." })
     const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
-    const [toggleErase, BasicToggleErase] = useBasicToggle({ leftText: 'Reset Text', RightText: 'Keep Adding' })
+    
+
+    const [toggled, setBasicToggle,BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Multiple_Articles', modelValue) })
+
+    const [toggleErase, setToggleErase,BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Reset_Settings', modelValue) })
     const [toggleTextContext, setToggleTextContext,BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue:boolean ) =>  createNewMetaData('AI_Context_Settings', modelValue) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
@@ -135,6 +138,12 @@ export default function AIArticleGenerator() {
         if(myData.AI_Context_Settings == false){
             console.log(myData.AI_Context_Settings)
             setToggleTextContext(myData.AI_Context_Settings)
+        }
+        if(myData.AI_Reset_Settings == false){
+            setToggleErase(myData.AI_Reset_Settings)
+        }
+        if(myData.AI_Multiple_Articles == false){
+            setBasicToggle(myData.AI_Multiple_Articles)
         }
     }
     
