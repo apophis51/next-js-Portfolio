@@ -1,6 +1,6 @@
 
 
-import PriceCard from './PriceCard'
+import PriceCard from '@/app/(main site)/Components/PriceCard'
 import Container from '@mui/material/Container';
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 
@@ -70,7 +70,7 @@ export default function PurchaseMenu() {
         {/* <Hero contentNeeded={'WebDev Plans'} buttonLink='availablePlans'/> */}
         <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>
               
-                <PriceCard priceCardData={priceCardData}/>
+                <PriceCard priceCardData={priceCardData} link={"https://buy.stripe.com/"}/>
         </div>
         <ContactForm/>
         </Container>
