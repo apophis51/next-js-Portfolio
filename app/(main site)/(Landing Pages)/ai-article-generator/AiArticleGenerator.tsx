@@ -29,6 +29,7 @@ import { getGenericMetaData, createNewMetaData, deleteUserMetaData } from "@/app
 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
+import { Modal2 } from "../../Components/ui/modal2"
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -78,6 +79,7 @@ export default function AIArticleGenerator() {
 
     const modalRef = useRef<HTMLDialogElement>(null)
     const settingsRef = useRef<HTMLDialogElement>(null)
+    const purchaseRef = useRef<HTMLDialogElement>(null)
 
 
 
@@ -153,9 +155,18 @@ export default function AIArticleGenerator() {
         if (myData.AI_Multiple_Articles == false) {
             setBasicToggle(myData.AI_Multiple_Articles)
         }
+        if (myData.AI_Credits_remaining) {
+            console.log(myData.AI_Credits_remaining)
+            // setIpRequestRemaining(myData.AI_Credits_remaining)
+        }
+        if (!myData.AI_Credits_remaining) {
+            console.log(myData.AI_Credits_remaining)
+            createNewMetaData('AI_Credits_Remaining', 12)
+            // setIpRequestRemaining(12)
+        }
     }
 
-
+    console.log(ipRequestRemaining)
     //retrieve user settings
     useEffect(() => {
         getUserData()
@@ -164,18 +175,18 @@ export default function AIArticleGenerator() {
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">
             <>
-            <div className='flex flex-col gap-1 items-center justify-center'>
+                <div className='flex flex-col gap-1 items-center justify-center'>
 
-                <div className="max-w-full">
-                    {ai_result.map((ai_result) => {
-                        return (
-                            <div className="p-10">
-                                <CloseButton>
-                                    <ReactMarkdown >{ai_result}</ReactMarkdown>
-                                </CloseButton>
-                            </div>)
-                    })}
-                </div>
+                    <div className="max-w-full">
+                        {ai_result.map((ai_result) => {
+                            return (
+                                <div className="p-10">
+                                    <CloseButton>
+                                        <ReactMarkdown >{ai_result}</ReactMarkdown>
+                                    </CloseButton>
+                                </div>)
+                        })}
+                    </div>
                 </div>
                 <div className='flex flex-col gap-1 items-center justify-center'>
                     <AISelect />
@@ -207,24 +218,19 @@ export default function AIArticleGenerator() {
                                 <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
                             </Modal>
                         </div>
+                        
+
                     </div>
+                    <div className=" mt-12"><p className="italic  text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p></div>
 
 
                     {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
                     {ipRequestRemaining <= 0 &&
-                            <>
-                                <dialog id="my_modal_2" className="modal" open>
-                                    <div className="modal-box">
-                                        <h3 className="font-bold text-lg">Your out of credits please buy more :(</h3>
-                                        <Link href='/girlfriend-ai-chat/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy GirlxAI Chat Now! - Black Friday Discount</button></Link>
-
-                                    </div>
-                                    <form method="dialog" className="modal-backdrop">
-                                        <button>Close</button>
-                                    </form>
-                                </dialog>
-                            </>
-                        }
+                        <>
+                            <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
+                                <Link href='/girlfriend-ai-chat/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>
+                            </Modal2>
+                        </>}
                 </div>
             </>
         </MainContentTemplate>
