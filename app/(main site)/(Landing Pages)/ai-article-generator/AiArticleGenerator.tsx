@@ -228,7 +228,7 @@ export default function AIArticleGenerator() {
                     {ipRequestRemaining <= 0 &&
                         <>
                             <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
-                                <Link href='/girlfriend-ai-chat/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>
+                                <Link href='/ai-article-generator/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>
                             </Modal2>
                         </>}
                 </div>
