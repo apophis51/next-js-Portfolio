@@ -103,7 +103,7 @@ console.log(getAiText())
 
 
     }
-    const [ipRequestRemaining, setIpRequestRemaining] = useState('');
+    const [ipRequestRemaining, setIpRequestRemaining] = useState(0);
 
     const fetchData = async (url:string) => {
         try {

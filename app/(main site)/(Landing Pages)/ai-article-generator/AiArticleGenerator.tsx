@@ -10,6 +10,7 @@ import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
 import { useBasicToggle, useAdvancedTextInput } from 'malcolm_ui_react'
 
 import useTextArea from '@/app/(main site)/Components/ui/TextArea'
+import Link from 'next/link'
 
 
 
@@ -63,6 +64,9 @@ export default function AIArticleGenerator() {
     const [toggleErase, setToggleErase, BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Reset_Settings', modelValue) })
     const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
+
+
+    const [ipRequestRemaining, setIpRequestRemaining] = useState(0);
 
 
     //Save Article UI
@@ -160,6 +164,8 @@ export default function AIArticleGenerator() {
     return (
         <MainContentTemplate title="MalcMind - AI Article Generator">
             <>
+            <div className='flex flex-col gap-1 items-center justify-center'>
+
                 <div className="max-w-full">
                     {ai_result.map((ai_result) => {
                         return (
@@ -169,6 +175,7 @@ export default function AIArticleGenerator() {
                                 </CloseButton>
                             </div>)
                     })}
+                </div>
                 </div>
                 <div className='flex flex-col gap-1 items-center justify-center'>
                     <AISelect />
@@ -204,6 +211,20 @@ export default function AIArticleGenerator() {
 
 
                     {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
+                    {ipRequestRemaining <= 0 &&
+                            <>
+                                <dialog id="my_modal_2" className="modal" open>
+                                    <div className="modal-box">
+                                        <h3 className="font-bold text-lg">Your out of credits please buy more :(</h3>
+                                        <Link href='/girlfriend-ai-chat/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy GirlxAI Chat Now! - Black Friday Discount</button></Link>
+
+                                    </div>
+                                    <form method="dialog" className="modal-backdrop">
+                                        <button>Close</button>
+                                    </form>
+                                </dialog>
+                            </>
+                        }
                 </div>
             </>
         </MainContentTemplate>
