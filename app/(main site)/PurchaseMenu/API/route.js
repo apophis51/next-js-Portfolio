@@ -52,6 +52,7 @@ export async function POST(data) {
             var metadata = event.data.object.metadata;
             // Do something with the metadata here...
             console.log('Metadata:', metadata);
+            break;
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
