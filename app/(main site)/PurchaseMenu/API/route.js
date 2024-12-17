@@ -5,8 +5,7 @@ import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-Ap
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
- const endpointSecret = "whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194";
-//const endpointSecret = "we_1P3ZQWCBn6LU6bJVdFFDpEhB";
+const endpointSecret = "whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194";
 
 async function getRawBody(readable) {
     const chunks = [];
@@ -24,9 +23,8 @@ export async function POST(data) {
 
 
     let event = ''
-    // let body = await data.body
-    // const rawBody = await getRawBody(body)
-    const rawBody = await getRawBody(data)
+    let body = await data.body
+    const rawBody = await getRawBody(body)
     // body = await body.toString()
 
     console.log(rawBody)
