@@ -1,12 +1,16 @@
-import { NextResponse } from 'next/server'
-import { headers } from 'next/headers'
-
-import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils'
+import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
+import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const endpointSecret = 'whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194';
 
-const endpointSecret = "whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194";
-
+/**
+ * Get the raw request body.
+ * 
+ * @param {object} readable - The readable stream.
+ * @returns {Promise<Buffer>}
+ */
 async function getRawBody(readable) {
     const chunks = [];
     for await (const chunk of readable) {
@@ -15,57 +19,75 @@ async function getRawBody(readable) {
     return Buffer.concat(chunks);
 }
 
-
+/**
+ * Handle incoming Stripe webhook requests.
+ * 
+ * @param {object} data - The request data.
+ * @returns {Promise<NextResponse>}
+ */
 export async function POST(data) {
-    const sig = (await headers()).get('stripe-signature')
-    //  console.log(data.headers)
-    console.log(sig)
-
-
-    let event = ''
-    // let body = await data.body
-    const rawBody = await getRawBody(data.body)
-    // body = await body.toString()
-
-    console.log(rawBody)
+    const sig = (await headers()).get('stripe-signature');
+    let event = null;
 
     try {
-        console.log('triggered')
+        // Verify the Stripe signature
+        const rawBody = await getRawBody(data.body);
         event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
-        console.log(event)
-    } catch (err) {
-        console.log(`Webhook Error: ${err.message}`)
-    }
-    let paymentIntentSucceeded = null
-    // Handle the event
-    switch (event.type) {
-        case 'payment_intent.succeeded':
-            paymentIntentSucceeded = event.data.object;
-            console.log(paymentIntentSucceeded)
-            console.log(`PaymentIntent for ${paymentIntentSucceeded.amount} was successful!`);
-            paymentIntentSucceeded = paymentIntentSucceeded.amount
-            // paymentIntentSucceeded = paymentIntentSucceeded.toString()
-            // Then define and call a function to handle the event payment_intent.succeeded
-            break;
-        // ... handle other event types
-        case 'checkout.session.completed': 
-            var metadata = event.data.object.metadata;
-            // Do something with the metadata here...
-            console.log('Metadata:', metadata);
-            break;
-        default:
-            console.log(`Unhandled event type ${event.type}`);
-    }
-    console.log(paymentIntentSucceeded)
-    return NextResponse.json(
-        
-        {
-            data: {
-                information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
-                logs: paymentIntentSucceeded,
-                metadata: metadata
-            }
-        },
-        responseUtils.allowCors)
-}
 
+        // Handle the event
+        switch (event.type) {
+            case 'payment_intent.succeeded':
+                const paymentIntentSucceeded = event.data.object;
+                console.log(`PaymentIntent for ${paymentIntentSucceeded.amount} was successful!`);
+                return NextResponse.json(
+                    {
+                        data: {
+                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                            logs: paymentIntentSucceeded.amount,
+                        }
+                    },
+                    responseUtils.allowCors
+                );
+
+            // ... handle other event types
+            case 'checkout.session.completed':
+                const metadata = event.data.object.metadata;
+                console.log('Metadata:', metadata);
+                // Return a 200 status to acknowledge the request
+                return NextResponse.json(
+                    {
+                        data: {
+                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                            metadata: metadata,
+                        }
+                    },
+                    responseUtils.allowCors
+                );
+            default:
+                console.log(`Unhandled event type ${event.type}`);
+                // Return a 200 status to acknowledge the request
+                return NextResponse.json(
+                    {
+                        data: {
+                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                        }
+                    },
+                    responseUtils.allowCors
+                );
+        }
+    } catch (err) {
+        console.log(`Webhook Error: ${err.message}`);
+        // Return a 400 status to indicate a bad request
+        return NextResponse.json(
+            {
+                data: {
+                    error: err.message,
+                }
+            },
+            {
+                status: 400,
+                ...responseUtils.allowCors,
+            },
+        );
+    }
+}
