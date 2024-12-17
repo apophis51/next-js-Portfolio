@@ -49,7 +49,7 @@ export async function POST(data) {
             break;
         // ... handle other event types
         case 'checkout.session.completed': 
-            const metadata = event.data.object.metadata;
+            var metadata = event.data.object.metadata;
             // Do something with the metadata here...
             console.log('Metadata:', metadata);
         default:
@@ -61,7 +61,8 @@ export async function POST(data) {
         {
             data: {
                 information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
-                logs: paymentIntentSucceeded
+                logs: paymentIntentSucceeded,
+                metadata: metadata
             }
         },
         responseUtils.allowCors)
