@@ -34,8 +34,8 @@ export async function POST(data) {
 
     try {
         // Verify the Stripe signature
-        // const rawBody = await getRawBody(data.body);
-        const rawBody = await data.text()
+        const rawBody = await getRawBody(data.body);
+        // const rawBody = await data.text()
         event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
 
         // Handle the event
