@@ -48,6 +48,10 @@ export async function POST(data) {
             // Then define and call a function to handle the event payment_intent.succeeded
             break;
         // ... handle other event types
+        case 'checkout.session.completed': 
+            const metadata = event.data.object.metadata;
+            // Do something with the metadata here...
+            console.log('Metadata:', metadata);
         default:
             console.log(`Unhandled event type ${event.type}`);
     }
