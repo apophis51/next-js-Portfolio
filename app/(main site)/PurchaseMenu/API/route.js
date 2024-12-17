@@ -23,8 +23,8 @@ export async function POST(data) {
 
 
     let event = ''
-    let body = await data.body
-    const rawBody = await getRawBody(body)
+    // let body = await data.body
+    const rawBody = await getRawBody(data.body)
     // body = await body.toString()
 
     console.log(rawBody)
