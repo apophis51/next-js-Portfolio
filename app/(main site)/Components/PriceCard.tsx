@@ -1,10 +1,11 @@
-'use client'
 
 import { features } from "process";
+//import { headers } from 'next/headers'
 
 // this was inspired by flobite https://flowbite.com/docs/components/card/
 
-
+//read headers
+ //let activeHeaders = await headers
 
 
 export default function PriceCard({priceCardData, link, subscriptionMode}: any) {

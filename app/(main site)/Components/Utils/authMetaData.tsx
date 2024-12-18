@@ -3,6 +3,12 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import {auth} from "@clerk/nextjs/server"
 
+export async function getUserID(){
+  const {userId} = await auth()
+  console.log(userId)
+  return userId
+}
+
 export async function getGenericMetaData() {
   const $newClerkClient = await clerkClient()
   const {userId} = await auth()

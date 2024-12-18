@@ -25,7 +25,7 @@ import { atom, useAtom } from 'jotai'
 import { Modal } from "@/public/utils/Modal"
 import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-generator/SubmitToMongoDB'
 import { CloseButton } from '@/public/utils/CloseButton'
-import { getGenericMetaData, createNewMetaData, deleteUserMetaData } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
@@ -45,13 +45,14 @@ let javacode = " ```javaScript \n \
 
 
 
-
 export default function AIArticleGenerator() {
 
 
     // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
 
     const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: (modelValue: string) => createNewMetaData('preferedAIModel', modelValue) })
+    const [userID, setUserID] = useState('')
+
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
 
@@ -169,7 +170,13 @@ export default function AIArticleGenerator() {
     console.log(ipRequestRemaining)
     //retrieve user settings
     useEffect(() => {
-        getUserData()
+        getUserData();
+        (async () => {
+            let user = await getUserID()
+            setUserID(user)
+        })();
+
+        
     }, [])
 
     return (
@@ -228,7 +235,13 @@ export default function AIArticleGenerator() {
                     {ipRequestRemaining <= 0 &&
                         <>
                             <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
-                                <Link href='/ai-article-generator/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>
+                                {userID == '' &&
+                                <>
+                                <p className = 'text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>                               
+                                 </p>
+                                 </>
+                                 }
+                                {userID != '' && <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
                             </Modal2>
                         </>}
                 </div>
