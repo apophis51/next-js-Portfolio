@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils';
 
-import {getUserId} from '@/app/(main site)/Components/Utils/authMetaData';
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+// const endpointSecret = 'whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194';
 const endpointSecret = 'whsec_70JVSKV3HIhEGVZOBGAcSOLdmYiQOF1p';
 
 /**
@@ -28,9 +27,8 @@ async function getRawBody(readable) {
  * @returns {Promise<NextResponse>}
  */
 export async function POST(data) {
-    let userRequesting = await getUserId()
-    console.log(userRequesting)
     const sig = (await headers()).get('stripe-signature');
+    // const sig = 'whsec_70JVSKV3HIhEGVZOBGAcSOLdmYiQOF1p'
     console.log(sig)
     let event = null;
 
