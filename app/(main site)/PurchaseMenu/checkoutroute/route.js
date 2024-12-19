@@ -6,11 +6,16 @@ import { redirect } from 'next/navigation'
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
 
 export async function POST(data) {
+
+    // let userRequesting = await getUserId()
+    // console.log(userRequesting)
     let req = await headers()
     let session = null
     console.log(data.nextUrl.searchParams)
     let productPriceId = data.nextUrl.searchParams.get("product")
     let subscriptionMode = data.nextUrl.searchParams.get("subscription-mode")
+    let userId = data.nextUrl.searchParams.get("userId")
+    console.log(userId)
     if (subscriptionMode != 'payment') {
         subscriptionMode = 'subscription'
     }
@@ -25,7 +30,7 @@ export async function POST(data) {
                 },
             ],
             metadata: {
-                cart_id: 'cart_6943',
+                userId: userId,
               },
             // mode: 'payment',
             // mode: 'subscription',

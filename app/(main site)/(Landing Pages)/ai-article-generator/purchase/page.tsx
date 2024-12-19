@@ -39,11 +39,15 @@ let priceCardData = [{
 }
 ]
 
-export default function PurchaseMenu() {
+export default async function PurchaseMenu({searchParams}) {
+    console.log(searchParams)
+
+    let ourSearchParams = (await searchParams)
+    console.log(ourSearchParams.signInUser)
     return (
       <Container maxWidth="xl"  >
         <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>          
-                <PriceCard priceCardData={priceCardData} subscriptionMode={'payment'}/>
+                <PriceCard priceCardData={priceCardData} subscriptionMode={'payment'} userID={ourSearchParams.signInUser}/>
         </div>
         <ContactForm/>
         </Container>
