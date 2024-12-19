@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils';
+import {createNewMetaData} from "@/app/(main site)/Components/Utils/authMetaData"
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // const endpointSecret = 'whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194';
@@ -57,6 +58,7 @@ export async function POST(data) {
             case 'checkout.session.completed':
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
+                createNewMetaData('Ai_credits_granted', 'yes', metadata.userId)
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
                     {

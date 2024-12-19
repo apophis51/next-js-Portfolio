@@ -40,9 +40,11 @@ export async function deleteUserMetaData(object) {
   return publicMetaData
 }
 
-export async function createNewMetaData(object:string, value:any) {
+export async function createNewMetaData(object:string, value:any, userId?:string) {
   const $newClerkClient = await clerkClient()
+  if (!userId){
   const {userId} = await auth()
+  }
   console.log(userId)
   await $newClerkClient.users.updateUserMetadata(userId as string, {
     publicMetadata: {
