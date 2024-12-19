@@ -30,7 +30,7 @@ export async function POST(data) {
                 },
             ],
             metadata: {
-                userId: userId,
+                userId: 'testlkjlajf'
               },
             // mode: 'payment',
             // mode: 'subscription',
