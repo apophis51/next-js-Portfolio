@@ -14,7 +14,7 @@ export async function POST(data) {
     console.log(data.nextUrl.searchParams)
     let productPriceId = data.nextUrl.searchParams.get("product")
     let subscriptionMode = data.nextUrl.searchParams.get("subscription-mode")
-    let userId = data.nextUrl.searchParams.get("userId")
+    let userIdData = data.nextUrl.searchParams.get("userId")
     console.log(userId)
     if (subscriptionMode != 'payment') {
         subscriptionMode = 'subscription'
@@ -30,7 +30,7 @@ export async function POST(data) {
                 },
             ],
             metadata: {
-                userId: 'testlkjlajf'
+                userId: userIdData
               },
             // mode: 'payment',
             // mode: 'subscription',
