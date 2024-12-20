@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import {EpochTime} from '@/app/(main site)/Components/Utils/PartyTime'
 
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); 
@@ -20,6 +21,7 @@ export async function POST(data) {
         subscriptionMode = 'subscription'
     }
     try {
+        let currentUTCTime = (new EpochTime()).standard_UTC_Format
         // Create Checkout Sessions from body params.
         session = await stripe.checkout.sessions.create({
             line_items: [
@@ -30,7 +32,8 @@ export async function POST(data) {
                 },
             ],
             metadata: {
-                userId: userIdData
+                userId: userIdData,
+                timeOrdered: currentUTCTime
               },
             // mode: 'payment',
             // mode: 'subscription',
