@@ -58,7 +58,7 @@ export async function POST(data) {
             case 'checkout.session.completed':
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
-                await createNewMetaData('Ai_credits_granted', 'yes', metadata.userId)
+                await createNewMetaData('Ai_credits_granted', 'yes', metadata)
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
                     {
