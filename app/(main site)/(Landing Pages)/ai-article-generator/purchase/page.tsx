@@ -4,6 +4,7 @@ import PriceCard from '@/app/(main site)/Components/PriceCard'
 import Container from '@mui/material/Container';
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 
+let productName = "AI Article Generator"
 let priceCardData = [{
   title: "2000 Credits",
   price: 20,
@@ -13,7 +14,12 @@ let priceCardData = [{
     { name: "2000 credits" },
   ],
   crossOutFeatures: [
-  ]
+  ],
+  meta: {
+      productName: productName,
+      exipire: 30,
+      credits: 2000
+  }
 },
 {
   title: "3000 Credits - Best Value",
@@ -24,7 +30,12 @@ let priceCardData = [{
     { name: "3000 credits" },
   ],
   crossOutFeatures: [
-  ]
+  ],
+  meta: {
+    productName: productName,
+    exipire: 30,
+    credits: 3000
+}
 },
 {
   title: "1000 Credits - Popular",
@@ -35,7 +46,12 @@ let priceCardData = [{
     { name: "1000 credits" },
   ],
   crossOutFeatures: [
-  ]
+  ],
+  meta: {
+    productName: productName,
+    exipire: 10,
+    credits: 1000
+}
 }
 ]
 

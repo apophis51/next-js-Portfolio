@@ -47,7 +47,7 @@ export async function POST(data) {
                 return NextResponse.json(
                     {
                         data: {
-                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                            information: 'Your Payment has Been Submitted. Thank You!',
                             logs: paymentIntentSucceeded.amount,
                         }
                     },
@@ -63,7 +63,7 @@ export async function POST(data) {
                 return NextResponse.json(
                     {
                         data: {
-                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                            information: 'Your Payment has Been Submitted. Thank You!',
                             metadata: metadata,
                         }
                     },
@@ -75,7 +75,7 @@ export async function POST(data) {
                 return NextResponse.json(
                     {
                         data: {
-                            information: 'Your job application has been submitted. Thank you for using WorkSearchApp.',
+                            information: 'Your Payment has Been Submitted. Thank You!',
                         }
                     },
                     responseUtils.allowCors

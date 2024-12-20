@@ -3,6 +3,27 @@ import OpenAI from "openai";
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const Groq = require('groq-sdk');
 
+const modal_stats = {
+    //reference https://ai.google.dev/pricing#1_5pro
+    "gemini-1.5-flash": {
+        "free_use":true,
+        "requests_per_minute": 15,
+        "tokens_per_minute": 1000000,
+        "requests_per_day": 1500,
+    },
+    //reference https://openai.com/api/pricing/
+    "gpt-4o-mini": {
+        "free_use":false,
+        "input tokens": "$0.150/1M input tokens",
+        "output tokens": "$0.600/1M output tokens",
+    },
+    "o1-mini":{
+        "free_use":false,
+        "input tokens": "$3.00/1M input tokens",
+        "output tokens": "$12.00/1M output tokens",
+    }
+}
+
 export function fetch_ai_data(model: string, prompt: string) {
     const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });

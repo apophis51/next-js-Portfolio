@@ -13,7 +13,7 @@ import malcStrapiAdapter from '@/app/(main site)/Components/malcStrapiAdapter';
 
 
 
-export default async function WebApps() {
+export default async function WebApps() { 
 
   const getData = await projectsData({content: "WebApps"})
   console.log(getData)
