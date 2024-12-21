@@ -9,6 +9,13 @@ export async function getUserID(){
   return userId
 }
 
+export async function get_generic_meta_data_with_user_id(userid:string) {
+  const $newClerkClient = await clerkClient()
+  console.log(userid)
+  const publicMetaData:any = (await $newClerkClient.users.getUser(userid as string)).publicMetadata
+  return publicMetaData
+}
+
 export async function getGenericMetaData() {
   const $newClerkClient = await clerkClient()
   const {userId} = await auth()
