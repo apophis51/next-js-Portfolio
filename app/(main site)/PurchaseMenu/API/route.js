@@ -64,7 +64,7 @@ export async function POST(data) {
                 if (metadata.credits != null | undefined){
                     totalTokenCount = metadata.credits +totalTokenCount
                 }
-                await createNewMetaData(metadata.productName.TotalTokenCount, totalTokenCount, metadata.userId)
+                await createNewMetaData(metadata.productName["TotalTokenCount"], totalTokenCount, metadata.userId)
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
                     {
