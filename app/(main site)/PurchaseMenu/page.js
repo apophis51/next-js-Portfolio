@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import Hero from '@/app/(main site)/Components/Hero'
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 
+let productName = "WebDev Plans"
 let priceCardData = [{
   title: "Weekly Plan",
   price: 3_000,
@@ -19,7 +20,12 @@ let priceCardData = [{
     { name: "Save 20% on annual billing" },
     { name: "BYOS - Chose Your Stack" },
     { name: "Dedicated Developer Support" },
-  ]
+  ],
+  meta: {
+    productName: productName,
+    exipire: 7,
+    credits: 40
+}
 },
 {
   title: "Monthly Plan - Popular",
@@ -36,7 +42,12 @@ let priceCardData = [{
   crossOutFeatures: [
     { name: "Save 20% on annual billing" },
     { name: "BYOS - Chose Your Stack" },
-  ]
+  ],
+  meta: {
+    productName: productName,
+    exipire: 30,
+    credits: 160
+}
 },
 {
   title: "Yearly Plan - Best Value",
@@ -52,7 +63,12 @@ let priceCardData = [{
     { name: "BYOS - Chose Your Stack" },
   ],
   crossOutFeatures: [
-  ]
+  ],
+  meta: {
+    productName: productName,
+    exipire: 365,
+    credits: 2240
+}
 }
 ]
 
