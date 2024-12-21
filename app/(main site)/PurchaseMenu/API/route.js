@@ -58,17 +58,16 @@ export async function POST(data) {
             case 'checkout.session.completed':
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
-                // let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
-                // let TotalCredits = currentMetaData[metadata.productName]?.TotalCredits
-                // if (!TotalCredits) {
-                //     TotalCredits = 0
-                // }
-                // let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
-                // console.log('Altered Metadata:', alteredMetadata)
+                let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
+                let TotalCredits = currentMetaData[metadata.productName]?.TotalCredits
+                if (!TotalCredits) {
+                    TotalCredits = 0
+                }
+                let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
+                console.log('Altered Metadata:', alteredMetadata)
 
-                //     await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
-                    //await createNewMetaData(metadata.productName, metadata, metadata.userId)
-                    await createNewMetaData("cool", "yes", metadata.userId)
+                   await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
+                   // await createNewMetaData(metadata.productName, metadata, metadata.userId)
 
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
