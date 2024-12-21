@@ -67,7 +67,8 @@ export async function POST(data) {
                 // console.log('Altered Metadata:', alteredMetadata)
 
                 //     await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
-                    await createNewMetaData(metadata.productName, metadata, metadata.userId)
+                    //await createNewMetaData(metadata.productName, metadata, metadata.userId)
+                    await createNewMetaData("cool", "yes", metadata.userId)
 
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
