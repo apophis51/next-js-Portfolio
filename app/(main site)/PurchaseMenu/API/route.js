@@ -58,26 +58,17 @@ export async function POST(data) {
             case 'checkout.session.completed':
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
-                let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
-                let TotalCredits = currentMetaData[metadata.productName]?.TotalCredits
-                if (!TotalCredits) {
-                    TotalCredits = 0
-                }
-                let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
-                console.log('Altered Metadata:', alteredMetadata)
-
-                // metadata = {...metadata , totalTokenCount: currentMetaData.totalTokenCount}s
-                // let totalTokenCount = await getGenericMetaData().productName.totalTokenCount
-                //we are adding the purchased credits to the credits the user already has
-                // if (totalTokenCount != null | undefined){
-                //     totalTokenCount = 0 
-                //     metadata = {...metadata , totalTokenCount: 0 }
-                //     await createNewMetaData(metadata.productName, metadata, metadata.userId)
-
+                // let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
+                // let TotalCredits = currentMetaData[metadata.productName]?.TotalCredits
+                // if (!TotalCredits) {
+                //     TotalCredits = 0
                 // }
-                // else{
-                    await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
-                // }
+                // let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
+                // console.log('Altered Metadata:', alteredMetadata)
+
+                //     await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
+                    await createNewMetaData(metadata.productName, metadata, metadata.userId)
+
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
                     {
