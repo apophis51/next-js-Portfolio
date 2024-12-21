@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils';
-import {createNewMetaData} from "@/app/(main site)/Components/Utils/authMetaData"
+import {createNewMetaData, get_generic_meta_data_with_user_id} from "@/app/(main site)/Components/Utils/authMetaData"
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // const endpointSecret = 'whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194';
@@ -63,7 +63,7 @@ export async function POST(data) {
                 if (!TotalCredits) {
                     TotalCredits = 0
                 }
-                let alteredMetadata = {...metadata, TotalCredits: TotalCredits + metadata.credits}
+                let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
                 // metadata = {...metadata , totalTokenCount: currentMetaData.totalTokenCount}s
                 // let totalTokenCount = await getGenericMetaData().productName.totalTokenCount
                 //we are adding the purchased credits to the credits the user already has
