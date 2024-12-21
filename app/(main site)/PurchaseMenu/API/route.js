@@ -64,6 +64,8 @@ export async function POST(data) {
                     TotalCredits = 0
                 }
                 let alteredMetadata = {...metadata, TotalCredits: TotalCredits + parseInt(metadata.credits)}
+                console.log('Altered Metadata:', alteredMetadata)
+
                 // metadata = {...metadata , totalTokenCount: currentMetaData.totalTokenCount}s
                 // let totalTokenCount = await getGenericMetaData().productName.totalTokenCount
                 //we are adding the purchased credits to the credits the user already has
