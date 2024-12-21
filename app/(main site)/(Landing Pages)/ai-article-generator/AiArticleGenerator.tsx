@@ -163,7 +163,7 @@ export default function AIArticleGenerator() {
         if (!myData.AI_Credits_remaining) {
             console.log(myData.AI_Credits_remaining)
             createNewMetaData('AI_Credits_Remaining', 12)
-            // setIpRequestRemaining(12)
+            setIpRequestRemaining(12)
         }
     }
 

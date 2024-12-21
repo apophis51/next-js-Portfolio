@@ -58,7 +58,12 @@ export async function POST(data) {
             case 'checkout.session.completed':
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
-                // let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
+                let currentMetaData = await get_generic_meta_data_with_user_id(metadata.userId)
+                let TotalCredits = currentMetaData[metadata.productName]?.TotalCredits
+                if (!TotalCredits) {
+                    TotalCredits = 0
+                }
+                let alteredMetadata = {...metadata, TotalCredits: TotalCredits + metadata.credits}
                 // metadata = {...metadata , totalTokenCount: currentMetaData.totalTokenCount}s
                 // let totalTokenCount = await getGenericMetaData().productName.totalTokenCount
                 //we are adding the purchased credits to the credits the user already has
@@ -69,7 +74,7 @@ export async function POST(data) {
 
                 // }
                 // else{
-                    await createNewMetaData(metadata.productName, metadata, metadata.userId)
+                    await createNewMetaData(metadata.productName, alteredMetadata, metadata.userId)
                 // }
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(

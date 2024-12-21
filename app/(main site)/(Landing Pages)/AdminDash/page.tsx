@@ -9,6 +9,7 @@ import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
 import CreateANewBlog from "./CreateANewBlog/page";
 import TabView from "../../Components/ui/TabView";
 import Container from '@mui/material/Container';
+import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester/ClerkTester";
 
 
 export default function AdminDash() {
@@ -17,6 +18,9 @@ export default function AdminDash() {
     return (
         <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
+            <div>
+                <ClerkTester />
+            </div>
             <div>
                 <AIArticleGenerator />
             </div>
@@ -35,6 +39,7 @@ export default function AdminDash() {
             <div>
                 <CreateANewBlog /> 
             </div>
+            
             <div>
                 <Emails />
             </div>
