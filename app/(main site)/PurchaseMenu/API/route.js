@@ -59,6 +59,12 @@ export async function POST(data) {
                 const metadata = event.data.object.metadata;
                 console.log('Metadata:', metadata);
                 await createNewMetaData(metadata.productName, metadata, metadata.userId)
+                //we are adding the purchased credits to the credits the user already has
+                let totalTokenCount = 0 
+                if (metadata.credits != null | undefined){
+                    totalTokenCount = metadata.credits +totalTokenCount
+                }
+                await createNewMetaData(metadata.productName.TotalTokenCount, totalTokenCount, metadata.userId)
                 // Return a 200 status to acknowledge the request
                 return NextResponse.json(
                     {
