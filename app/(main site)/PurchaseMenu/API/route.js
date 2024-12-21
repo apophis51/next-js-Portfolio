@@ -62,7 +62,7 @@ export async function POST(data) {
                 //we are adding the purchased credits to the credits the user already has
                 let totalTokenCount = 0 
                 if (metadata.credits != null | undefined){
-                    totalTokenCount = metadata.credits + totalTokenCount
+                    totalTokenCount = parseInt(metadata.credits) + totalTokenCount
                 }
                 await createNewMetaData(metadata.productName, totalTokenCount, metadata.userId)
                 // Return a 200 status to acknowledge the request
