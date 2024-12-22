@@ -31,7 +31,7 @@ export default function AdminDash() {
             <div>
                 <BlogRenderConstructionBlogs /> 
             </div> 
-            <div className="flex justify-center items-center w-full">
+            <div className="">
                 <TabView TabContent= {{"All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />}}/>
             </div>
             <div>
