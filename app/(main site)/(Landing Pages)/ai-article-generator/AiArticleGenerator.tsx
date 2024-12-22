@@ -5,6 +5,7 @@ import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
 import useBasicToggle2 from '@/app/(main site)/Components/ui/BasicToggle2'
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
 import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
+import useLoading from "@/app/(main site)/Components/ui/Loading2";
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
 import { useBasicToggle, useAdvancedTextInput } from 'malcolm_ui_react'
@@ -30,7 +31,6 @@ import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
 import { Modal2 } from "../../Components/ui/modal2"
-import { get } from "http"
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -48,6 +48,7 @@ let javacode = " ```javaScript \n \
 
 export default function AIArticleGenerator() {
 
+    const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
     // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
     const [userID, setUserID] = useState('')
@@ -130,13 +131,13 @@ export default function AIArticleGenerator() {
             setAi_result([result])
         }
         console.log(result)
-        if(!userID)fetchData("https://fastapi-mongo-production.up.railway.app/requests/increment")
-        if(userID){
+        if (!userID) fetchData("https://fastapi-mongo-production.up.railway.app/requests/increment")
+        if (userID) {
             let metadata = await getGenericMetaData()
-            let newCreditCount = metadata['AI Article Generator'].TotalCredits -1
-            let alteredMetadata = {...metadata['AI Article Generator'], TotalCredits: newCreditCount}
+            let newCreditCount = metadata['AI Article Generator'].TotalCredits - 1
+            let alteredMetadata = { ...metadata['AI Article Generator'], TotalCredits: newCreditCount }
             console.log(alteredMetadata)
-            await createNewMetaData('AI Article Generator',alteredMetadata, userID)
+            await createNewMetaData('AI Article Generator', alteredMetadata, userID)
             setIpRequestRemaining(newCreditCount)
         }
         setAiText('')
@@ -176,7 +177,7 @@ export default function AIArticleGenerator() {
 
 
 
-    const fetchData = async (url:string) => {
+    const fetchData = async (url: string) => {
         try {
             // Get the IP address from ipify
             const ipResponse = await fetch('https://api.ipify.org?format=json');
@@ -205,7 +206,8 @@ export default function AIArticleGenerator() {
             console.log(user)
             if (user) {
                 getUserData()
-                setUserID(user)}
+                setUserID(user)
+            }
 
         })();
     }, [])
@@ -248,7 +250,14 @@ export default function AIArticleGenerator() {
                             </Modal>
                         </div>
 
-                        <div className="flex justify-center items-center"><button className='btn' onClick={handleClick}>Generate Article</button></div>
+                        <div className="flex  justify-center items-center ">
+                            <div className="flex-none">
+                                <LoadingWrapper callback={handleClick}>
+                                    <button className='btn '>Generate Article</button>
+                                </LoadingWrapper>
+                            </div>
+                        </div>
+
                         <div className="w-full h-full ">
                             <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
                                 <BasicArticleName />
@@ -256,7 +265,7 @@ export default function AIArticleGenerator() {
                                 <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
                             </Modal>
                         </div>
-                        
+
 
                     </div>
                     <div className=" mt-12"><p className="italic  text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p></div>
@@ -267,11 +276,11 @@ export default function AIArticleGenerator() {
                         <>
                             <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
                                 {userID == '' &&
-                                <>
-                                <p className = 'text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>                               
-                                 </p>
-                                 </>
-                                 }
+                                    <>
+                                        <p className='text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>
+                                        </p>
+                                    </>
+                                }
                                 {userID != '' && <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
                             </Modal2>
                         </>}

@@ -28,7 +28,7 @@ export default function useLoading(): [any,any,any,any] {
     function LoadingWrapper({ children, callback }: { children: React.ReactNode, callback: () => Promise<void> }) {
         if (isLoading == "off") {
             return (
-                <div onClick ={() => {executeLoad(callback)}}>
+                <div onClick ={() => {executeLoad(callback)}} className=''>
                     {children}
                 </div>
             )
