@@ -46,7 +46,7 @@ let javacode = " ```javaScript \n \
 
 
 
-export default function AIArticleGenerator() {
+export default function AIArticleGenerator({ titleName, AI_product_name }: { titleName: string, AI_product_name: string }) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -63,10 +63,10 @@ export default function AIArticleGenerator() {
     const [ai_result, setAi_result] = useState(['Your Result Will Appear Here']);
 
 
-    const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue) })
+    const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue, userID) })
 
-    const [toggleErase, setToggleErase, BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Reset_Settings', modelValue) })
-    const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Dont Use Text Context', RightText: 'Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue) })
+    const [toggleErase, setToggleErase, BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Reset_Settings', modelValue, userID) })
+    const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Dont Use Text Context', RightText: 'Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue, userID) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
 
@@ -213,80 +213,84 @@ export default function AIArticleGenerator() {
     }, [])
 
     return (
-        <MainContentTemplate title="MalcMind - AI Article Generator">
-            <>
-                <div className='flex flex-col gap-1 items-center justify-center'>
+        <div>
+            <div className='pb-4'>
+                <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
+            </div>
+            <MainContentTemplate title={titleName}>
+                <>
+                    <div className='flex flex-col gap-1 items-center justify-center'>
 
-                    <div className="max-w-full">
-                        {ai_result.map((ai_result) => {
-                            return (
-                                <div className="p-10">
-                                    <CloseButton>
-                                        <ReactMarkdown >{ai_result}</ReactMarkdown>
-                                    </CloseButton>
-                                </div>)
-                        })}
-                    </div>
-                </div>
-                <div className='flex flex-col gap-1 items-center justify-center'>
-                    <AISelect />
-
-                    <div className="w-full flex flex-col items-center justify-center m-4">
-                        <AiTextBox />
-                    </div>
-                    {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
-                    {/* <BasicTextInput /> */}
-                    <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
-                        <div className="w-full h-full ">
-                            <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
-                                <BasicToggle />
-                                <BasicToggleErase />
-                                <BasicToggleContext />
-                                {toggled &&
-                                    <div>
-                                        <BasicSelect_Chapter />
-                                        <BasicSelect_ArticleNumber />
-                                    </div>}
-                            </Modal>
+                        <div className="max-w-full">
+                            {ai_result.map((ai_result) => {
+                                return (
+                                    <div className="p-10">
+                                        <CloseButton>
+                                            <ReactMarkdown >{ai_result}</ReactMarkdown>
+                                        </CloseButton>
+                                    </div>)
+                            })}
                         </div>
+                    </div>
+                    <div className='flex flex-col gap-1 items-center justify-center'>
+                        <AISelect />
 
-                        <div className="flex  justify-center items-center ">
-                            <div className="flex-none">
-                                <LoadingWrapper callback={handleClick}>
-                                    <button className='btn '>Generate Article</button>
-                                </LoadingWrapper>
+                        <div className="w-full flex flex-col items-center justify-center m-4">
+                            <AiTextBox />
+                        </div>
+                        {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
+                        {/* <BasicTextInput /> */}
+                        <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
+                            <div className="w-full h-full ">
+                                <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
+                                    <BasicToggle />
+                                    <BasicToggleErase />
+                                    <BasicToggleContext />
+                                    {toggled &&
+                                        <div>
+                                            <BasicSelect_Chapter />
+                                            <BasicSelect_ArticleNumber />
+                                        </div>}
+                                </Modal>
                             </div>
+
+                            <div className="flex  justify-center items-center ">
+                                <div className="flex-none">
+                                    <LoadingWrapper callback={handleClick}>
+                                        <button className='btn '>Generate Article</button>
+                                    </LoadingWrapper>
+                                </div>
+                            </div>
+
+                            <div className="w-full h-full ">
+                                <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
+                                    <BasicArticleName />
+                                    <BasicArticleType />
+                                    <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
+                                </Modal>
+                            </div>
+
+
                         </div>
-
-                        <div className="w-full h-full ">
-                            <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
-                                <BasicArticleName />
-                                <BasicArticleType />
-                                <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
-                            </Modal>
-                        </div>
+                        <div className=" mt-12"><p className="italic  text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p></div>
 
 
+                        {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
+                        {ipRequestRemaining <= 0 &&
+                            <>
+                                <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
+                                    {userID == '' &&
+                                        <>
+                                            <p className='text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>
+                                            </p>
+                                        </>
+                                    }
+                                    {userID != '' && <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
+                                </Modal2>
+                            </>}
                     </div>
-                    <div className=" mt-12"><p className="italic  text-red-600">You have <span className="text-yellow-700">{ipRequestRemaining}</span> Chats Remaining</p></div>
-
-
-                    {/* <ReactMarkdown >{javacode}</ReactMarkdown> */}
-                    {ipRequestRemaining <= 0 &&
-                        <>
-                            <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
-                                {userID == '' &&
-                                    <>
-                                        <p className='text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>
-                                        </p>
-                                    </>
-                                }
-                                {userID != '' && <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
-                            </Modal2>
-                        </>}
-                </div>
-            </>
-        </MainContentTemplate>
-
+                </>
+            </MainContentTemplate>
+        </div>
     )
 }

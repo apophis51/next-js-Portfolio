@@ -16,7 +16,7 @@ export default function AdminDash() {
         <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
-                <AIArticleGenerator />
+                <AIArticleGenerator titleName="MalcMind - AI Article Generator" AI_product_name="MalcMind AI"/>
             </div>
             <div className="">
               {/* <TabView TabContent= {{"All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />}}/> */}

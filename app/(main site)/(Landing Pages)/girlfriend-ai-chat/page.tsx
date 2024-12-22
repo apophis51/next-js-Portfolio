@@ -7,10 +7,7 @@ import Container from '@mui/material/Container';
 import Link from 'next/link';
 
 
-export default function AdminDash() {
-
-
-
+export default function girlfriendAiChat() {
 
     return (
         <Container maxWidth="xl"  >   

@@ -18,28 +18,28 @@ export default function AdminDash() {
     return (
         <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
+            
             <div>
-                <ClerkTester />
-            </div>
-            <div>
-                <AIArticleGenerator />
+                <AIArticleGenerator titleName="MalcMind - AI Article Generator" />
             </div>
             <div>
                 <Obsidian />
             </div>
             {/* <div>
                 <BlogRenderHorizontal />
-            </div>
+                </div>*/} 
             <div>
                 <BlogRenderConstructionBlogs /> 
-            </div> */}
-            <div className="">
+            </div> 
+            <div className="flex justify-center items-center w-full">
                 <TabView TabContent= {{"All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />}}/>
             </div>
             <div>
                 <CreateANewBlog /> 
             </div>
-            
+            <div>
+                <ClerkTester />
+            </div>
             <div>
                 <Emails />
             </div>
