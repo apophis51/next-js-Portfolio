@@ -13,7 +13,7 @@ export default function useAdvancedSelect({options, maintext, savedOption, saver
         console.log('triggered')
         setSelectedOption(evt.target.value);
         if (saverCallBack) {
-            console.log('triggered')
+            console.log(evt.target.value)
             await saverCallBack(evt.target.value)
         }
     }

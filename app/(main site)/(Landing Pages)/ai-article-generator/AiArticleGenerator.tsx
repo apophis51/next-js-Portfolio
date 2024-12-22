@@ -30,6 +30,7 @@ import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
 import { Modal2 } from "../../Components/ui/modal2"
+import { get } from "http"
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
@@ -49,9 +50,9 @@ export default function AIArticleGenerator() {
 
 
     // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
-
-    const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: (modelValue: string) => createNewMetaData('preferedAIModel', modelValue) })
     const [userID, setUserID] = useState('')
+
+    const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: async (modelValue: string) => await createNewMetaData('preferedAIModel', modelValue, userID) })
 
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 
@@ -64,7 +65,7 @@ export default function AIArticleGenerator() {
     const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue) })
 
     const [toggleErase, setToggleErase, BasicToggleErase] = useBasicToggle2({ leftText: 'Reset Text', RightText: 'Keep Adding', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Reset_Settings', modelValue) })
-    const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Use Text Context', RightText: 'Dont Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue) })
+    const [toggleTextContext, setToggleTextContext, BasicToggleContext] = useBasicToggle2({ leftText: 'Dont Use Text Context', RightText: 'Use Text Context', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Context_Settings', modelValue) })
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
 
@@ -83,11 +84,7 @@ export default function AIArticleGenerator() {
     const purchaseRef = useRef<HTMLDialogElement>(null)
 
 
-
-
-    console.log(articleName.current)
     async function submit_to_mongoDB() {
-        console.log(articleName.current)
         if (!articleName.current) {
             console.log(articleName)
             setPrompt("please enter the a Name")
@@ -111,12 +108,12 @@ export default function AIArticleGenerator() {
     async function handleClick() {
         console.log(AISelectOutput, SelectedChapters, textInput2, toggled)
         let result = null
-        if (toggleTextContext) {
+        if (!toggleTextContext) {
 
             result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
         }
-        if (!toggleTextContext) {
+        if (toggleTextContext) {
             let cool = { selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number }
             result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: (ai_result + getAiText()), multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
 
@@ -133,6 +130,15 @@ export default function AIArticleGenerator() {
             setAi_result([result])
         }
         console.log(result)
+        if(!userID)fetchData("https://fastapi-mongo-production.up.railway.app/requests/increment")
+        if(userID){
+            let metadata = await getGenericMetaData()
+            let newCreditCount = metadata['AI Article Generator'].TotalCredits -1
+            let alteredMetadata = {...metadata['AI Article Generator'], TotalCredits: newCreditCount}
+            console.log(alteredMetadata)
+            await createNewMetaData('AI Article Generator',alteredMetadata, userID)
+            setIpRequestRemaining(newCreditCount)
+        }
         setAiText('')
 
 
@@ -156,14 +162,13 @@ export default function AIArticleGenerator() {
         if (myData.AI_Multiple_Articles == false) {
             setBasicToggle(myData.AI_Multiple_Articles)
         }
-        if (myData.AI_Credits_remaining) {
+        if (myData['AI Article Generator'].TotalCredits) {
             console.log(myData.AI_Credits_remaining)
-            // setIpRequestRemaining(myData.AI_Credits_remaining)
+            setIpRequestRemaining(myData['AI Article Generator'].TotalCredits)
         }
-        if (!myData.AI_Credits_remaining) {
-            console.log(myData.AI_Credits_remaining)
-            createNewMetaData('AI_Credits_Remaining', 12)
-            // setIpRequestRemaining(12)
+        if (!myData['AI Article Generator'].TotalCredits) {
+            //createNewMetaData('AI_Credits_Remaining', 12)
+            //setIpRequestRemaining(12)
         }
     }
 
@@ -171,21 +176,38 @@ export default function AIArticleGenerator() {
 
 
 
+    const fetchData = async (url:string) => {
+        try {
+            // Get the IP address from ipify
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
 
+            // Fetch the request count for the IP address
+            const requestResponse = await fetch(`${url}/${ipData.ip}`);
+            const requestData = await requestResponse.json();
+            console.log(requestData);
 
+            // Set the request count
+            setIpRequestRemaining(12 - requestData.request_count);
 
+        } catch (err) {
+            console.error('Error fetching data:', err);
+        }
+    };
 
-    
     //retrieve user settings
     useEffect(() => {
-        getUserData();
         (async () => {
             let user = await getUserID()
+            if (user == null) {
+                fetchData("https://fastapi-mongo-production.up.railway.app/requests/no-increment");
+            }
             console.log(user)
-            setUserID(user)
-        })();
+            if (user) {
+                getUserData()
+                setUserID(user)}
 
-        
+        })();
     }, [])
 
     return (

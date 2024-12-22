@@ -33,7 +33,9 @@ export default function useBasicToggle({ leftText, RightText, saverCallBack }: {
                 type="checkbox" 
                 onChange = {async (evt) => {
                     setToggled(prev => !prev)
-                    if (saverCallBack) await saverCallBack(evt.target.checked)
+                    if (saverCallBack) {
+                        console.log(evt.target.checked)
+                        await saverCallBack(evt.target.checked)}
                 }}
                 //onChange={() => toggled ? setToggled(false) : setToggled(true)}
                  className="toggle"

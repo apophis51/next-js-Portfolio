@@ -8,11 +8,14 @@ import save from "./serverAction";
 import Container from '@mui/material/Container';
 import { DropZone } from "@measured/puck";
 import ReactMarkdown from "react-markdown";
+import useAdvancedTextInput from "@/app/(main site)/Components/ui/AdvancedTextInput";
+
 
 type Components = {
     Container: {};
     TextBlock: {};
     ReactMarkDown: {};
+    TextInput: {};
   };
 
 // Create Puck component config
@@ -49,6 +52,18 @@ const config: Config<Components> = {
                 <ReactMarkdown>{MarkDownContent}</ReactMarkdown>
              </div>)
         }
+    },
+    TextInput: {
+      render: () => {
+        const [textOutput, TextInput] = useAdvancedTextInput({ prompt: "Type In some text" })
+        return (
+          <div className="flex flex-col items-center justify-center bg-white max-w-full">
+            <p>{textOutput.current}</p> 
+            <TextInput/>
+          </div>
+        );
+      },
+      
     },
     Container: {
         render: () => {
