@@ -168,11 +168,20 @@ export default function AIArticleGenerator() {
     }
 
     console.log(ipRequestRemaining)
+
+
+
+
+
+
+
+    
     //retrieve user settings
     useEffect(() => {
         getUserData();
         (async () => {
             let user = await getUserID()
+            console.log(user)
             setUserID(user)
         })();
 

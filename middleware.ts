@@ -50,6 +50,7 @@ import { auth, clerkMiddleware, createRouteMatcher  } from "@clerk/nextjs/server
   
 // }
 const isAdminDashRoute = createRouteMatcher(['/AdminDash(.*)'])
+const is_ai_article_generator_webApp = createRouteMatcher(['/Web-Apps/ai-article-generator'])
 
 export default clerkMiddleware(async(auth,req) =>{
 // export default authMiddleware({
@@ -62,13 +63,16 @@ export default clerkMiddleware(async(auth,req) =>{
     await auth.protect({ role: 'org:admin' })}
     // if (isAdminDashRoute(req)) await auth.protect()
 
+  
+  
+
 
 
 });
 
 export const config = {
   //  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App'],
-  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App', '/AdminDash(.*)'],
+  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App', '/AdminDash(.*)', '/Web-Apps/ai-article-generator'],
 
 
 
