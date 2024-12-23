@@ -62,7 +62,10 @@ export default function RootLayout({
         }}
     />
      <head><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3170313872835503"
-     crossOrigin="anonymous"></script></head>
+     crossOrigin="anonymous"></script>
+     <meta name="color-scheme" content="light only"></meta>
+
+     </head>
       {/* <body className="bg-blue-500"> */}
         {/* <body className='h-[19000px]'> */}
         <body className='h-full'>
