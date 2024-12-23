@@ -16,5 +16,8 @@ module.exports = {
     },
   },
   darkMode: 'media',
-  plugins: [ require('@tailwindcss/typography')],
+  plugins: [require("daisyui"), require('@tailwindcss/typography')],
+  daisyui: {
+    darkTheme: "light"
+  }
 }
