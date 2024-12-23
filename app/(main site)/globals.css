@@ -6,6 +6,11 @@
 :root {
   color-scheme: light;
 }
+@media (prefers-color-scheme){
+  :root {
+    color-scheme: light;
+  }
+}
 
  /* :root {
   --foreground-rgb: 0, 0, 0;
