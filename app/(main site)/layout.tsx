@@ -46,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     
-    <html lang="en">
+    <html lang="en" className="light">
       {/* <!-- Google tag (gtag.js) --> */}
       <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"/>
     <Script
