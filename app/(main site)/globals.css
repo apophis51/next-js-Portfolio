@@ -39,7 +39,9 @@
 
 @layer base {
 
-
+  :root {
+    color-scheme: light;
+  }
 
   body {
     background:
