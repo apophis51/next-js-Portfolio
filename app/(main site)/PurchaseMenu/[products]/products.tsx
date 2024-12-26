@@ -138,3 +138,43 @@ export const ai_article_generator = {
   }
   ]
 }
+
+export const girlfriend_ai_chat = {
+  originPath: "",
+  link: "https://buy.stripe.com/",
+  productName: "Girlfriend AI Chat",
+  pricingType: "subscription",
+  product: [{
+    title: "Weekly Plan",
+    price: 20,
+    item: "eVag1y6Qg5wm79CeUW",
+    billing: "/week",
+    features: [
+      { name: "100 chats" },
+    ],
+    crossOutFeatures: [
+    ]
+  },
+  {
+    title: "Monthly Plan - Popular",
+    price: 30,
+    item: "5kA4iQ0rS1g679C003",
+    billing: "/month",
+    features: [
+      { name: "500 chats" },
+    ],
+    crossOutFeatures: [
+    ]
+  },
+  {
+    title: "Yearly Plan - Best Value",
+    price: 100,
+    item: "7sI4iQ5Mc1g60LeaEI",
+    billing: "/year",
+    features: [
+      { name: "2000 chats" },
+    ],
+    crossOutFeatures: [
+    ]
+  }
+  ] }

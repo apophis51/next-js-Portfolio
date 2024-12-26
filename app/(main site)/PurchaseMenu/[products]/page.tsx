@@ -19,12 +19,13 @@ export default async function PurchaseMenu({
     const priceCardData = priceCardJson.product
     const subscriptionType = priceCardJson.pricingType
     const originPath = priceCardJson.originPath
+    const buyLink = priceCardJson.link
     const userID = await getUserID()
     return (
       <Container maxWidth="xl"  >
         {priceCardData[0].showHeroContent && <Hero contentNeeded={'WebDev Plans'} buttonLink='availablePlans'/>}
         <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>
-                <PriceCard priceCardData={priceCardData} subscriptionMode={subscriptionType} userID={userID} originPath={originPath}/>
+                <PriceCard priceCardData={priceCardData} subscriptionMode={subscriptionType} userID={userID} originPath={originPath} link={buyLink} />
         </div>
         <ContactForm/>
         </Container>

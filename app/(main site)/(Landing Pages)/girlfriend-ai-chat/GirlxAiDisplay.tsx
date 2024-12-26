@@ -182,7 +182,7 @@ console.log(getAiText())
                                 <dialog id="my_modal_2" className="modal" open>
                                     <div className="modal-box">
                                         <h3 className="font-bold text-lg">Your out of credits please buy more :(</h3>
-                                        <Link href='/girlfriend-ai-chat/purchase' ><button className='btn bg-pink-700 text-white w-full'>Buy GirlxAI Chat Now! - Black Friday Discount</button></Link>
+                                        <Link href='/PurchaseMenu/girlfriend-ai-chat' ><button className='btn bg-pink-700 text-white w-full'>Buy GirlxAI Chat Now! - Black Friday Discount</button></Link>
 
                                     </div>
                                     <form method="dialog" className="modal-backdrop">
