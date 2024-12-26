@@ -1,0 +1,31 @@
+"use server"
+
+import PriceCard from '@/app/(main site)/Components/PriceCard'
+import Container from '@mui/material/Container';
+import Hero from '@/app/(main site)/Components/Hero'
+import ContactForm from '@/app/(main site)/Components/ContactForm'
+import * as products from '@/app/(main site)/PurchaseMenu/[products]/products'
+import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
+
+
+export default async function PurchaseMenu({
+  params,
+}: {
+  params: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+   // http://localhost:3000/PurchaseMenu?product=web_dev_plans&showHeroContent=yes
+    const product = (await params).products
+    // const showHeroContent = (await searchParams).showHeroContent
+    const priceCardData = products[product]
+    const userID = await getUserID()
+    return (
+      <Container maxWidth="xl"  >
+        {priceCardData[0].showHeroContent && <Hero contentNeeded={'WebDev Plans'} buttonLink='availablePlans'/>}
+        <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>
+                <PriceCard priceCardData={priceCardData}/>
+        </div>
+        <ContactForm/>
+        </Container>
+    );
+}
+
