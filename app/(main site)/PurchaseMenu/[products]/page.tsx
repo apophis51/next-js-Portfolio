@@ -13,16 +13,18 @@ export default async function PurchaseMenu({
 }: {
   params: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-   // http://localhost:3000/PurchaseMenu?product=web_dev_plans&showHeroContent=yes
-    const product = (await params).products
-    // const showHeroContent = (await searchParams).showHeroContent
-    const priceCardData = products[product]
+    const param = (await params).products
+    const product = param!.replace(/-/g, '_')
+    const priceCardJson = products[product]
+    const priceCardData = priceCardJson.product
+    const subscriptionType = priceCardJson.pricingType
+    const originPath = priceCardJson.originPath
     const userID = await getUserID()
     return (
       <Container maxWidth="xl"  >
         {priceCardData[0].showHeroContent && <Hero contentNeeded={'WebDev Plans'} buttonLink='availablePlans'/>}
         <div className = ' bg-gradient-to-tr from-purple-600 to-blue-900 mt-5'>
-                <PriceCard priceCardData={priceCardData}/>
+                <PriceCard priceCardData={priceCardData} subscriptionMode={subscriptionType} userID={userID} originPath={originPath}/>
         </div>
         <ContactForm/>
         </Container>

@@ -215,7 +215,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name }: { tit
     return (
         <div>
             <div className='pb-4'>
-                <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
+                <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
             </div>
             <MainContentTemplate title={titleName}>
                 <>
@@ -285,7 +285,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name }: { tit
                                             </p>
                                         </>
                                     }
-                                    {userID != '' && <Link href={`/ai-article-generator/purchase?signInUser=${userID}`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
+                                    {userID != '' && <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
                                 </Modal2>
                             </>}
                     </div>

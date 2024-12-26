@@ -75,7 +75,7 @@ export default function JumboTron() {
                         style={
                             {marginLeft:'35%',marginTop:20}
                     }>Hire me</button> */}
-                    <Link href='/PurchaseMenu'><button className="btn btn-primary"
+                    <Link href='/PurchaseMenu/web-dev-plans'><button className="btn btn-primary"
                         style={
                             {marginLeft:'35%',marginTop:20}
                     }>Hire Me</button></Link>
@@ -96,7 +96,7 @@ export default function JumboTron() {
                         style={
                             {margin: "auto"}
                     }>Hire me</button> */}
-                     <Link href='/PurchaseMenu'><button className="btn btn-primary opacity-100 lg:opacity-0"
+                     <Link href='/PurchaseMenu/web-dev-plans'><button className="btn btn-primary opacity-100 lg:opacity-0"
                         style={
                             {margin: "auto"}
                     }>Hire me</button></Link>

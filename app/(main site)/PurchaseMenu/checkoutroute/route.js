@@ -19,14 +19,9 @@ export async function POST(data) {
     let productName = data.nextUrl.searchParams.get("productName")
     let expire = data.nextUrl.searchParams.get("expire")
     let credits = data.nextUrl.searchParams.get("credits")
+    let originPath = data.nextUrl.searchParams.get("originPath")
 
-    console.log(productPriceId),
-    console.log(subscriptionMode),
-    console.log(userIdData),
-    console.log(productName),
-    console.log(expire),
-    console.log(credits)
-    // console.log(userId)
+
     if (subscriptionMode != 'payment') {
         subscriptionMode = 'subscription'
     }
@@ -51,7 +46,7 @@ export async function POST(data) {
             // mode: 'payment',
             // mode: 'subscription',
             mode: subscriptionMode,
-            success_url: `${req.get('origin')}/?success=true`,
+            success_url: `${req.get('origin')}/${originPath}`,
             cancel_url: `${req.get('origin')}/?canceled=true`,
             automatic_tax: { enabled: true },
         });
