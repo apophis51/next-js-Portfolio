@@ -9,6 +9,10 @@ import Pagination from '@/app/(main site)/Components/Pagination.tsx'
 import { useSearchParams } from 'next/navigation'
 
 
+
+
+
+
 export default function BlogCollection({data}){
     const [blogFilter, setBlogFilter] = useState((useSearchParams()).get('filter'))
     const [sliceTopNumber, setSliceTopNumber] = useState(10)

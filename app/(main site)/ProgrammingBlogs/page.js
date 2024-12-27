@@ -8,20 +8,12 @@ import '@/app/(main site)/Components/styles/prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
 import { headers } from 'next/headers'
-import projectUrls from '@/projectSettings'
+import {strapi_blogs_Data, mongoDB_Blogs_Adapter} from '@/app/(main site)/Components/db_services/fetchBlogData'
 
 async function getData() {
-  // const res = await fetch('https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/')
-  const res = await fetch(projectUrls().blogsURL)
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  // Recommendation: handle errors
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
+  //const data = await mongoDB_Blogs_Adapter()///new
+  const data = await strapi_blogs_Data()
+  return data
 }
 
 
