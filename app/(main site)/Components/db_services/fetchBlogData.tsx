@@ -2,6 +2,11 @@ import projectUrls from '@/projectSettings'
 
 
 
+
+// export async function fetch_MongoDB_Blog_By_Title(){
+
+// }
+
 export async function mongoDB_Blogs_Adapter() {
     const res = await fetch(projectUrls().pythonMongoDBServer)
     const jsonRes = await res.json()

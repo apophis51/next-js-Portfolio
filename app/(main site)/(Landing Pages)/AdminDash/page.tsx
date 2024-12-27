@@ -10,7 +10,7 @@ import CreateANewBlog from "./CreateANewBlog/page";
 import TabView from "../../Components/ui/TabView";
 import Container from '@mui/material/Container';
 import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester/ClerkTester";
-
+import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/MongoDbTester";
 
 export default function AdminDash() {
 
@@ -18,6 +18,9 @@ export default function AdminDash() {
     return (
         <Container maxWidth="xl"  >
             <div className="flex flex-col gap-4 overflow-x-hidden relative ">
+                <div className="">
+                    <MongoDbTester/>
+                </div>
 
                 <div className="">
                     <AIArticleGenerator titleName="MalcMind - AI Article Generator" />
@@ -29,7 +32,7 @@ export default function AdminDash() {
                     <BlogRenderConstructionBlogs />
                 </div> */}
                 <div className=" min-h-screen bg-white">
-                        <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs /> }} />
+                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs /> }} />
                 </div>
                 <div>
                     <CreateANewBlog />

@@ -68,6 +68,7 @@
     "jotai": "^2.6.1",
     "malcolm_ui_react": "^0.0.11",
     "monaco-editor": "^0.44.0",
+    "mongodb": "^6.12.0",
     "next": "15.0.3",
     "next-auth": "^4.24.5",
     "next-connect": "^1.0.0",
