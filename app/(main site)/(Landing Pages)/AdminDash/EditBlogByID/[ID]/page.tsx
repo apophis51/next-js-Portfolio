@@ -66,6 +66,8 @@ export default function ArticleView({
           description = {downloadedBlog.find((blog) => blog.id == ID).Description || 'No Description Found'} 
           downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}
           url = {downloadedBlog.find((blog) => blog.id == ID).DocURL || 'No URL Found'} 
+          blogType = {downloadedBlog.find((blog) => blog.id == ID).BlogType || 'No Blog Type Found'} 
+          deployed = {downloadedBlog.find((blog) => blog.id == ID).Deployed}
           
           />
           
