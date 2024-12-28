@@ -8,11 +8,12 @@ import '@/app/(main site)/Components/styles/prism.css'
 import BlogCollection from './BlogCollection'
 // import { useSearchParams } from 'next/navigation'
 import { headers } from 'next/headers'
-import {strapi_blogs_Data, mongoDB_Blogs_Adapter} from '@/app/(main site)/Components/db_services/fetchBlogData'
+import {strapi_blogs_Data, mongoDB_Blogs_Adapter, combined_strapi_and_mongodb} from '@/app/(main site)/Components/db_services/fetchBlogData'
 
 async function getData() {
+  const data = await combined_strapi_and_mongodb()
   //const data = await mongoDB_Blogs_Adapter()///new
-  const data = await strapi_blogs_Data()
+  //const data = await strapi_blogs_Data()
   return data
 }
 

@@ -10,7 +10,7 @@ import { Suspense } from 'react'
 import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
 import projectUrls from '@/projectSettings'
-import {MongoDB_Blog_By_Title_Transformer} from '@/app/(main site)/Components/db_services/fetchBlogData'
+import {MongoDB_Blog_By_URL_Transformer} from '@/app/(main site)/Components/db_services/fetchBlogData'
 
 
 //import '../prism.css'
@@ -49,6 +49,28 @@ const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/
 // }
 
 
+// async function fetchBlog(params) {
+//   let res = await fetch(projectUrls().blogsURL)
+//   let post = await res.json()
+//   let blogID = ''
+
+//   for (let x of post.data) {
+//     if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)) {
+//       blogID = x.id
+//     }
+//   }
+//   console.log(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+//   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+//   post = await res.json()
+//   return post
+// }
+
+async function fetchMongoBlog(params) {
+  let res = await MongoDB_Blog_By_URL_Transformer(params)
+  return res
+}
+
+
 async function fetchBlog(params) {
   let res = await fetch(projectUrls().blogsURL)
   let post = await res.json()
@@ -59,11 +81,16 @@ async function fetchBlog(params) {
       blogID = x.id
     }
   }
-  console.log(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
-  res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
-  post = await res.json()
-  return post
+  if (blogID != '') {
+    console.log(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+    res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
+    post = await res.json()
+    return post
+  }
+  let mongoBlog = await fetchMongoBlog(params)
+  return mongoBlog
 }
+
 
 export default async function Post(props0) {
   const params = await props0.params;
