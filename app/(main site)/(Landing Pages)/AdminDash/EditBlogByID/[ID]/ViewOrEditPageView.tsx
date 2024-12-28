@@ -30,17 +30,19 @@ const options = {
   mode: 'markdown',
   theme: 'base16-dark', // Optional: You can change the theme if you like
 };
-export function ViewOrEditPageView({ downloadedBlog, setValue, title, description }: { downloadedBlog: string, setValue: string, title: string, description: string }) {
+export function ViewOrEditPageView({ downloadedBlog, setValue, title, description,url }: { downloadedBlog: string, setValue: string, title: string, description: string, url: string }) {
   const [view, setView] = useState("view")
   const [key, setKey] = useState(Date.now());
 
 
   const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
   const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2, })
+  const [getURL, setURL, URLTextBox] = useTextArea({ prompt: "Enter Your URL", rowNumber: 1 })
 
 
   const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
   const [setLoading2, LoadingWrapper2, LoadSuccess2, LoadError2] = useLoading()
+  const [setLoading3, LoadingWrapper3, LoadSuccess3, LoadError3] = useLoading()
 
 
 
@@ -126,6 +128,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
     console.log(result)
     setLoading('off')
     setLoading2('off')
+    setLoading3('off')
     callback(result)
   }
 
@@ -133,8 +136,9 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
  useEffect(() => {
   console.log(title)
   console.log(description)
- setDescription(description)
+  setDescription(description)
   setTitle(title)
+  setURL(url)
   // setMetaBoxKey((prev) => Date.now() +2)
 
 
@@ -173,7 +177,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
         {view == "edit" &&
           <div className="flex flex-col ">
             <EyeIcon onClick={() => { changeView("sidebyside") }} />
-            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription())} />
+            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL())} />
             <BackIcon onClick={() => { changeView("view") }} />
           </div>}
 
@@ -216,9 +220,27 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
                   <LoadingWrapper>
                     <button className='btn text-white bg-pink-700'
                     onClick={() => {
-                      setLoading('on')
+                      setLoading3('on')
                       fetchAIData("Make an Seo Friendly Meta Description based on this document", setDescription)}}>Generate With AI</button>
                     </LoadingWrapper>
+                  </div>
+                </div>
+              </Container>
+              <Container maxWidth="xl"  >
+                <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
+                  <div className="self-start">
+                    <p className='text-2xl font-bold w-32 self-start'> URL: </p>
+                  </div>
+                  <div className='w-full flex-1'>
+                    <URLTextBox />
+                  </div>
+                  <div>
+                  <LoadingWrapper3>
+                    <button className='btn text-white bg-pink-700'
+                    onClick={() => {
+                      setLoading3('on') 
+                      fetchAIData("Make one Seo Friendly URL based on this document and just give the url with best judgement and no explination", setURL)}}>Generate With AI</button>
+                    </LoadingWrapper3>
                   </div>
                 </div>
               </Container>

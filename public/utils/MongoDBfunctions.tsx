@@ -2,16 +2,18 @@ import axios from 'axios';
 import projectURLS from '@/projectSettings'
 
 
-export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog") {
+export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog", docURL="url") {
     console.log("Blog ID:", blogId);
     console.log("Blog content:", markdownContent);
     console.log("title", title)
     console.log("description", description)
+    console.log("url", docURL)
     try {
         let url = projectURLS().pythonMongoDBServerUpdateBlog;
         const payload = { markdown_content: markdownContent };
         if (title) payload.title = title;
-         if (description) payload.description = description;
+        if (description) payload.description = description;
+        if (docURL) payload.docURL = docURL;
         const response = await axios.patch(`${url}/${blogId}`, payload);
         await fetch("https://pwncontracting.com/api/clear-cache")
         console.log("Blog updated successfully:", response.data);

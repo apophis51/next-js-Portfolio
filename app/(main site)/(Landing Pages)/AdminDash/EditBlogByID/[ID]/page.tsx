@@ -64,7 +64,11 @@ export default function ArticleView({
           <ViewOrEditPageView
           title = {downloadedBlog.find((blog) => blog.id == ID).Title}
           description = {downloadedBlog.find((blog) => blog.id == ID).Description || 'No Description Found'} 
-          downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}/>
+          downloadedBlog={downloadedBlog.find((blog) => blog.id == ID).MarkdownContent} setValue={updateMarkdownContent}
+          url = {downloadedBlog.find((blog) => blog.id == ID).DocURL || 'No URL Found'} 
+          
+          />
+          
         </>
       }
     </Container>)
