@@ -14,8 +14,7 @@ import useTextArea from '@/app/(main site)/Components/ui/TextArea';
 import Container from '@mui/material/Container';
 import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-generator/servercontroller'
 import useLoading from '@/app/(main site)/Components/ui/Loading';
-import { get } from 'http';
-
+import useBasicToggle2 from '@/app/(main site)/Components/ui/BasicToggle2';
 
 const options = {
   spellChecker: false,  // Disable the spell checker (red highlights)
@@ -39,6 +38,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2, })
   const [getURL, setURL, URLTextBox] = useTextArea({ prompt: "Enter Your URL", rowNumber: 1 })
   const [getBlogType, setBlogType, BlogTypeTextBox] = useTextArea({ prompt: "Enter Your Type", rowNumber: 1 })
+  const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Keep It Not Deployed', RightText: 'Deploy It' })
+  
 
 
   const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
@@ -141,6 +142,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   setTitle(title)
   setURL(url)
   setBlogType(blogType)
+  setBasicToggle(deployed)
   // setMetaBoxKey((prev) => Date.now() +2)
 
 
@@ -179,7 +181,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
         {view == "edit" &&
           <div className="flex flex-col ">
             <EyeIcon onClick={() => { changeView("sidebyside") }} />
-            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), getBlogType())} />
+            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), getBlogType(), toggled)} />
             <BackIcon onClick={() => { changeView("view") }} />
           </div>}
 
@@ -254,6 +256,15 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
                   <div className='w-full flex-1'>
                     <BlogTypeTextBox />
                   </div>
+                  <div>
+                  </div>
+                </div>
+              </Container>
+              <Container maxWidth="xl"  >
+                <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
+                  <div className="self-start">
+                  </div>
+                    <BasicToggle />
                   <div>
                   </div>
                 </div>
