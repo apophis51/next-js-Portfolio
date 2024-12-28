@@ -6,6 +6,9 @@ import Obsidian from "@/app/(main site)/(Tooling Pages)/Obsidian/page"
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator"
 import BlogRenderHorizontal from "./BlogRenderHorizontal"
 import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
+import BlogRenderProgrammingnBlogs from "./BlogRenderProgrammingBlogs";
+import BlogRenderDeployedBlogs from "./BlogRenderDeployedBlogs";
+import BlogRenderUncategorizedBlogs from "./BlogRenderUnCategorizedBlogs";
 import CreateANewBlog from "./CreateANewBlog/page";
 import TabView from "../../Components/ui/TabView";
 import Container from '@mui/material/Container';
@@ -32,7 +35,7 @@ export default function AdminDash() {
                     <BlogRenderConstructionBlogs />
                 </div> */}
                 <div className=" min-h-screen bg-white">
-                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs /> }} />
+                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />, Programming: <BlogRenderProgrammingnBlogs /> , Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs /> }} />
                 </div>
                 <div>
                     <CreateANewBlog />
