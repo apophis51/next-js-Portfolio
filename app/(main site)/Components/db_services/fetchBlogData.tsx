@@ -1,11 +1,22 @@
+'use server'
 import projectUrls from '@/projectSettings'
+import {findByBlogName} from "@/app/(main site)/Components/db_services/mongo"
+import { Content } from 'next/font/google';
 
 
 
 
-// export async function fetch_MongoDB_Blog_By_Title(){
+export async function MongoDB_Blog_By_Title_Transformer(title:string){
+    let data = await findByBlogName(title)
+    console.log(data);
+    console.log(data.Title)
+    data.data = {attributes: {Content: data.MarkdownContent}}
+    //data.data.attributes.Content = data.Title
+    console.log(data)
+    console.log(data.data)
+    return data 
 
-// }
+}
 
 export async function mongoDB_Blogs_Adapter() {
     const res = await fetch(projectUrls().pythonMongoDBServer)

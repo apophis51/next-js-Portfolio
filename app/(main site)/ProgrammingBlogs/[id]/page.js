@@ -10,6 +10,7 @@ import { Suspense } from 'react'
 import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
 import projectUrls from '@/projectSettings'
+import {MongoDB_Blog_By_Title_Transformer} from '@/app/(main site)/Components/db_services/fetchBlogData'
 
 
 //import '../prism.css'
@@ -38,6 +39,16 @@ const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/
 // }
 
 
+// async function fetchBlog(params) {
+//   let blogID = ''
+//   console.log(params.id)
+//   let paramWithoutDashes = params.id.replace(/-/g, ' ')
+
+//   let res = await MongoDB_Blog_By_Title_Transformer(paramWithoutDashes)
+//   return res
+// }
+
+
 async function fetchBlog(params) {
   let res = await fetch(projectUrls().blogsURL)
   let post = await res.json()
@@ -48,6 +59,7 @@ async function fetchBlog(params) {
       blogID = x.id
     }
   }
+  console.log(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
   res = await fetch(`https://malcmind-strapi-cms-production.up.railway.app/api/programming-blogs/${blogID}`)
   post = await res.json()
   return post

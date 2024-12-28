@@ -10,8 +10,8 @@ export async function findByBlogName(name:string) {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('AI_Blogs'); // Replace with your collection name
-
-    const result = await collection.findOne({ Title: name }); // Query by the `Title' field
+    const regex = new RegExp(name, 'i')
+    const result = await collection.findOne({ Title: regex }); // Query by the `Title' field
     if (result) {
       return result
     } else {
