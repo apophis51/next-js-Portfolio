@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { CloseButton } from '@/public/utils/CloseButton'
 import { useRef, forwardRef } from 'react'
 
-export const Modal2 = forwardRef(function Modal({ children, modalTitle, buttonText, CustomButton }: {children?: any, modalTitle: string, buttonText?: string, CustomButton?: any}, ref: any) {
+export const Modal2 = forwardRef(function Modal({ children, modalTitle, buttonText, CustomButton, hideOutsideButton=false }: {children?: any, modalTitle: string, buttonText?: string, CustomButton?: any, hideOutsideButton?: any}, ref: any) {
 
     console.log('rerendered')
 
@@ -20,10 +20,11 @@ export const Modal2 = forwardRef(function Modal({ children, modalTitle, buttonTe
         }
     }, [ref]);
 
+
     return (
         <>
             {/* Open the modal using document.getElementById('ID').showModal() method */}
-            {buttonText &&(CustomButton && <CustomButton onClick={() => ref.current?.showModal()}>{buttonText}</CustomButton> ||<button className="btn bg-green-700 text-white" onClick={() => ref.current?.showModal()}>{buttonText}</button>)}
+            {!hideOutsideButton && ( buttonText && (CustomButton && <CustomButton onClick={() => ref.current?.showModal()}>{buttonText}</CustomButton> ||<button className="btn bg-green-700 text-white" onClick={() => ref.current?.showModal()}>{buttonText}</button>))}
             <dialog id="my_modal_1" ref={ref} className="modal">
                 <div className="modal-box">
                     <div className="modal-action">
