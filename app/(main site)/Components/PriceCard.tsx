@@ -10,7 +10,7 @@ import { headers } from 'next/headers'
 
 
 export default async function PriceCard({ priceCardData, link, subscriptionMode, userID, originPath }: any) {
-  console.log('hit')
+  console.log(userID)
 
  
 
