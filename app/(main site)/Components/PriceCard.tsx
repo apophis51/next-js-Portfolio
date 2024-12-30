@@ -6,6 +6,7 @@ import { Modal2 } from "@/app/(main site)/Components/ui/modal2"
 import {useRef} from 'react' 
 import { useRouter } from 'next/navigation'
 import { redirect } from 'next/navigation'
+import { SignInButton } from "@clerk/nextjs";
 
 
 // this was inspired by flobite https://flowbite.com/docs/components/card/
@@ -76,6 +77,9 @@ export default async function PriceCard({ priceCardData, link, subscriptionMode,
 
             {!userID && link && <div>
             <Modal2 ref={modalRef} modalTitle="You Must Login To Purchase"  hideOutsideButton={true} buttonText="not used">
+            <SignInButton>
+              <button className="btn">Sign In</button>
+                </SignInButton>
             </Modal2>
               <button  onClick={(evt) => verify_user_is_logged_in(evt, userID, link, priceCardData)} type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
             
