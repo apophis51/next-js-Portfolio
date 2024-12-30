@@ -15,6 +15,7 @@ export default function AdminDash() {
                 imageSRC="/girl.jpg"
                 imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"
                 setting_CloseButton={true}
+                hide_settings_and_save_button={true}
                 />
                 
             </div>

@@ -49,7 +49,7 @@ let javacode = " ```javaScript \n \
 
 
 
-export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC,imgTagline, setting_CloseButton=false}: { titleName: string, AI_product_name: string }) {
+export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC,imgTagline, setting_CloseButton=false, hide_settings_and_save_button=false}: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean }) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -257,7 +257,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                         {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
                         {/* <BasicTextInput /> */}
                         <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
-                            <div className="w-full h-full ">
+                        {!hide_settings_and_save_button && <div className="w-full h-full ">
                                 <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
                                     <BasicToggle />
                                     <BasicToggleErase />
@@ -268,7 +268,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                             <BasicSelect_ArticleNumber />
                                         </div>}
                                 </Modal>
-                            </div>
+                            </div>}
 
                             <div className="flex  justify-center items-center ">
                                 <div className="flex-none">
@@ -278,13 +278,13 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                 </div>
                             </div>
 
-                            <div className="w-full h-full ">
+                            {!hide_settings_and_save_button && <div className="w-full h-full ">
                                 <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
                                     <BasicArticleName />
                                     <BasicArticleType />
                                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
                                 </Modal>
-                            </div>
+                            </div>}
 
 
                         </div>
