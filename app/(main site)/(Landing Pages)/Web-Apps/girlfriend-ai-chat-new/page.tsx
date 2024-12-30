@@ -9,7 +9,14 @@ export default function AdminDash() {
         <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
-                <AIArticleGenerator titleName="GirlxAi Uncensored Chat" AI_product_name="GirlxAi"/>
+                <AIArticleGenerator 
+                titleName="GirlxAi Uncensored Chat" 
+                AI_product_name="GirlxAi" 
+                imageSRC="/girl.jpg"
+                imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"
+                setting_CloseButton={true}
+                />
+                
             </div>
         </div>
         </Container>

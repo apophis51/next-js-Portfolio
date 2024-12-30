@@ -1,9 +1,9 @@
-"use client"  
+"use client"
 
 import { features } from "process";
 import { headers } from 'next/headers'
 import { Modal2 } from "@/app/(main site)/Components/ui/modal2"
-import {useRef} from 'react' 
+import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { redirect } from 'next/navigation'
 import { SignInButton } from "@clerk/nextjs";
@@ -18,8 +18,8 @@ export default async function PriceCard({ priceCardData, link, subscriptionMode,
   console.log(userID)
   console.log(link)
 
-      const modalRef = useRef<HTMLDialogElement>(null)
-  
+  const modalRef = useRef<HTMLDialogElement>(null)
+
 
   function verify_user_is_logged_in(evt, userID: string, link: string, priceCardData: any) {
     console.log('hit promo')
@@ -32,12 +32,12 @@ export default async function PriceCard({ priceCardData, link, subscriptionMode,
       modalRef.current?.showModal()
       // return ''
     }
-    else{
+    else {
       console.log('user is logged in')
     }
-    
+
   }
- 
+
 
 
   return (
@@ -75,23 +75,24 @@ export default async function PriceCard({ priceCardData, link, subscriptionMode,
               <button type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
             </form>}
 
-            {!userID && link && <div>
-            <Modal2 ref={modalRef} modalTitle="You Must Login To Purchase"  hideOutsideButton={true} buttonText="not used">
-            <SignInButton>
-              <button className="btn">Sign In</button>
+            {!userID  && <div>
+              <Modal2 ref={modalRef} modalTitle="You Must Login To Purchase" hideOutsideButton={true} buttonText="not used">
+                <SignInButton>
+                  <button className="btn">Sign In</button>
                 </SignInButton>
-            </Modal2>
-              <button  onClick={(evt) => verify_user_is_logged_in(evt, userID, link, priceCardData)} type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
-            
+              </Modal2>
+              <button onClick={(evt) => verify_user_is_logged_in(evt, userID, link, priceCardData)} type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
+
 
             </div>}
             {/* {!link && <form action={`/PurchaseMenu/checkoutroute?product=${priceCardData.item}&subscription-mode=${subscriptionMode}&userId=${userID}`} method="POST">
         <button type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
         </form> } */}
-        
-            {!link && <form action={`/PurchaseMenu/checkoutroute?product=${priceCardData.item}&subscription-mode=${subscriptionMode}&userId=${userID}&productName=${priceCardData.meta.productName}&expire=${priceCardData.meta.exipire}&credits=${priceCardData.meta.credits}&originPath=${originPath}`} method="POST"> 
-        <button type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
-        </form> }
+
+
+            {userID && !link && <form action={`/PurchaseMenu/checkoutroute?product=${priceCardData.item}&subscription-mode=${subscriptionMode}&userId=${userID}&productName=${priceCardData.meta.productName}&expire=${priceCardData.meta.exipire}&credits=${priceCardData.meta.credits}&originPath=${originPath}`} method="POST">
+              <button type="submit" role="link" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900 font-medium rounded-lg text-sm px-5 py-2.5 inline-flex justify-center w-full text-center">Choose plan</button>
+            </form>}
           </div>))
         }
       </div>

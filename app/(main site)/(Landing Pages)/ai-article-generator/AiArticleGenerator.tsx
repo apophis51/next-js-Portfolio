@@ -32,6 +32,9 @@ import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
 import { Modal2 } from "../../Components/ui/modal2"
 
+import Image from "next/image"
+
+
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
 
@@ -46,7 +49,7 @@ let javacode = " ```javaScript \n \
 
 
 
-export default function AIArticleGenerator({ titleName, AI_product_name }: { titleName: string, AI_product_name: string }) {
+export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC,imgTagline, setting_CloseButton=false}: { titleName: string, AI_product_name: string }) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -220,14 +223,27 @@ export default function AIArticleGenerator({ titleName, AI_product_name }: { tit
             <MainContentTemplate title={titleName}>
                 <>
                     <div className='flex flex-col gap-1 items-center justify-center'>
-
+                        {imageSRC && <Image
+                            src={imageSRC}
+                            width={500}
+                            height={300}
+                        />}
+                        {imgTagline && <p className="italic text-gray-600 mt-2 text-center">
+                            {imgTagline}
+                        </p>}
                         <div className="max-w-full">
-                            {ai_result.map((ai_result) => {
+                            {!setting_CloseButton && ai_result.map((ai_result) => {
                                 return (
                                     <div className="p-10">
                                         <CloseButton>
                                             <ReactMarkdown >{ai_result}</ReactMarkdown>
                                         </CloseButton>
+                                    </div>)
+                            })}
+                              {setting_CloseButton && ai_result.map((ai_result) => {
+                                return (
+                                    <div className="p-10">
+                                            <ReactMarkdown >{ai_result}</ReactMarkdown>
                                     </div>)
                             })}
                         </div>
