@@ -49,7 +49,7 @@ let javacode = " ```javaScript \n \
 
 
 
-export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_and_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false }: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean }) {
+export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_and_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false, purchaseLink="/PurchaseMenu/ai-article-generator" }: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean, purchaseLink?: string }) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -233,7 +233,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     return (
         <div>
             <div className='pb-4'>
-                <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
+                <Link href={purchaseLink} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
             </div>
             <MainContentTemplate title={titleName}>
                 <>
@@ -317,7 +317,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                         </>
                                     } */}
                                     {/* {userID != '' && <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>} */}
-                                    {<Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
+                                    {<Link href={purchaseLink} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
                                 </Modal2>
                             </>}
                     </div>

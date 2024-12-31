@@ -19,6 +19,7 @@ export default function AdminDash() {
                 AI_Select_Setting={false}
                 AI_Bot_Setting="uncensored chat ai"
                 show_user_text={true}
+                purchaseLink="/PurchaseMenu/girlfriend_ai_chat"
                 />
                 
             </div>
