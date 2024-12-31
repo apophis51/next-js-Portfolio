@@ -49,7 +49,7 @@ let javacode = " ```javaScript \n \
 
 
 
-export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC,imgTagline, setting_CloseButton=false, hide_settings_and_save_button=false}: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean }) {
+export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_and_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false }: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean }) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -112,6 +112,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     async function handleClick() {
         console.log(AISelectOutput, SelectedChapters, textInput2, toggled)
         let result = null
+        let userText = getAiText()
         if (!toggleTextContext) {
 
             result = await handlefetch_ai_data({ selectedOption: AISelectOutput, textInput: getAiText() as string, multipleGenerationText: textInput2.current, generationCount: SelectedChapters as number })
@@ -124,15 +125,26 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
         }
 
         if (toggleErase) {
+            console.log('hit promo')
+
             setAi_result((prevResults) => {
+                if (show_user_text && prevResults[0] === 'Your Result Will Appear Here') {
+                    return ([ "User:" + " " + userText, "Assistant:" + " " + result])
+
+                }
                 if (prevResults[0] === 'Your Result Will Appear Here') {
                     return [result]
+                }
+                if (show_user_text) {
+                    return ([...prevResults, "User:" + " " + userText, "Assistant:" + " " + result])
                 }
                 return [...prevResults, result]
             })
         } else {
             setAi_result([result])
+
         }
+        console.log(show_user_text)
         console.log(result)
         if (!userID) fetchData("https://fastapi-mongo-production.up.railway.app/requests/increment")
         if (userID) {
@@ -211,6 +223,9 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                 getUserData()
                 setUserID(user)
             }
+            if (AI_Bot_Setting) {
+                setSelectedOption(AI_Bot_Setting)
+            }
 
         })();
     }, [])
@@ -240,16 +255,16 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                         </CloseButton>
                                     </div>)
                             })}
-                              {setting_CloseButton && ai_result.map((ai_result) => {
+                            {setting_CloseButton && ai_result.map((ai_result) => {
                                 return (
                                     <div className="p-10">
-                                            <ReactMarkdown >{ai_result}</ReactMarkdown>
+                                        <ReactMarkdown >{ai_result}</ReactMarkdown>
                                     </div>)
                             })}
                         </div>
                     </div>
                     <div className='flex flex-col gap-1 items-center justify-center'>
-                        <AISelect />
+                        {AI_Select_Setting && <AISelect />}
 
                         <div className="w-full flex flex-col items-center justify-center m-4">
                             <AiTextBox />
@@ -257,7 +272,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                         {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
                         {/* <BasicTextInput /> */}
                         <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
-                        {!hide_settings_and_save_button && <div className="w-full h-full ">
+                            {!hide_settings_and_save_button && <div className="w-full h-full ">
                                 <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
                                     <BasicToggle />
                                     <BasicToggleErase />

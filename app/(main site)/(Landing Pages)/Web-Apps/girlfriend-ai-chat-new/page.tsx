@@ -16,6 +16,9 @@ export default function AdminDash() {
                 imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"
                 setting_CloseButton={true}
                 hide_settings_and_save_button={true}
+                AI_Select_Setting={false}
+                AI_Bot_Setting="uncensored chat ai"
+                show_user_text={true}
                 />
                 
             </div>
