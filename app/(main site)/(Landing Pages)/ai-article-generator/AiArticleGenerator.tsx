@@ -310,13 +310,14 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                         {ipRequestRemaining <= 0 &&
                             <>
                                 <Modal2 ref={purchaseRef} modalTitle="You Have Reached AI Credit Limit">
-                                    {userID == '' &&
+                                    {/* {userID == '' &&
                                         <>
                                             <p className='text-center'>Loading Personalized Link</p><p className="text-center"><span className="loading loading-ring loading-lg"></span>
                                             </p>
                                         </>
-                                    }
-                                    {userID != '' && <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
+                                    } */}
+                                    {/* {userID != '' && <Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>} */}
+                                    {<Link href={`/PurchaseMenu/ai-article-generator`} ><button className='btn bg-pink-700 text-white w-full'>Buy More AI Credits Now!</button></Link>}
                                 </Modal2>
                             </>}
                     </div>
