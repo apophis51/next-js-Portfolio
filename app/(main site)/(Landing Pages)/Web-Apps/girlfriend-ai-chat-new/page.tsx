@@ -11,15 +11,18 @@ export default function AdminDash() {
             <div>
                 <AIArticleGenerator 
                 titleName="GirlxAi Uncensored Chat" 
-                AI_product_name="GirlxAi" 
-                imageSRC="/girl.jpg"
-                imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"
+                AI_product_name="GirlxAi"   // This name appears in the buy header and Title header
+                imageSRC="/girl.jpg"        //no image if this is not set
+                imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"  //no tagline if this is not set
                 setting_CloseButton={true}
                 hide_settings_and_save_button={true}
-                AI_Select_Setting={false}
+                AI_Select_Setting={false}  // lets you select different ai models
                 AI_Bot_Setting="uncensored chat ai"
                 show_user_text={true}
-                purchaseLink="/PurchaseMenu/girlfriend_ai_chat"
+                purchaseLink="/Web-Apps/girlfriend-ai-chat-new"  //this is the purchase link... if you are doing beta set this page to the original page since they cant purchase once we reactivate it set it to /PurchaseMenu/girlfriend_ai_cha
+                disableCreditBuying={true}
+                submitButtonText="Submit"
+                buy_more_AI_credit_Message="We are In Beta. Wait 24 hours to get 12 more Credits!"
                 />
                 
             </div>
