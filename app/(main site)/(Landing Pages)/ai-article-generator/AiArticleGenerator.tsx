@@ -112,6 +112,10 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     }
 
     async function handleClick() {
+        if(disableCreditBuying && ipRequestRemaining <= 0) {
+            purchaseRef.current?.showModal()
+            return null
+        }
         console.log(AISelectOutput, SelectedChapters, textInput2, toggled)
         let result = null
         let userText = getAiText()
