@@ -18,6 +18,9 @@ export async function projectsData({ content }: { content: string }) {
             if (item.attributes.Title == "PwnContracting") {
                 item.links = "https://pwncontracting.com/"
             }
+            if(item.attributes.Title == "girlfriend-ai-chat"){
+                item.links = "/Web-Apps/girlfriend-ai-chat-new" 
+            }
             if(item.attributes.Title == "ai-article-generator"){
                 item.links = "/Web-Apps/ai-article-generator"
             }
