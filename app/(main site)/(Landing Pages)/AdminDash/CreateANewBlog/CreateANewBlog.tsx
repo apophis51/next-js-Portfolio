@@ -75,13 +75,13 @@ export default function CreateANewBlog() {
     }
 
     return (
-        <MainContentTemplate title={"Upload A New Blog"}>
+        <MainContentTemplate title={"Upload New Content"}>
             <>
                 <div className='flex flex-col justify-center items-center'>
                     <div className='flex'>
                         <Link href={'/AdminDash/CreateANewBlog'}><button
                             onClick={() => setBlogActive(true)}
-                            className="btn">Upload A New Blog</button></Link>
+                            className="btn">Upload/Create</button></Link>
                     </div>
                 </div>
             </>

@@ -2,17 +2,25 @@
 
 import { mongoClient } from '@/lib/mongo';
 
-// export async function contentSettings() {
-//   try{
-//   const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
-//   const collection = database.collection('Settings'); // Replace with your collection name
 
-//   }
-//   catch(error){
-//     console.log(error)
-//   }
+type contentType = {
+  type: "blog" | "meta" | "dropdown"
+}
+
+export async function contentSettings() {
+  try{
+  const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
+  const collection = database.collection('Settings'); // Replace with your collection name
+  const filter = {name: 'MainSettings'}
+  const update = {$addToSet: { contentType: {type: "blog"}}}
+  const result = await collection.updateOne(filter, update)
+  console.log(result)
+  }
+  catch(error){
+    console.log(error)
+  }
   
-// }
+}
 
 
 
