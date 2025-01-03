@@ -7,7 +7,7 @@ import { Content } from 'next/font/google';
 
 
 export async function MongoDB_Blog_By_URL_Transformer(URL:string){
-    let data = await findByBlogUrl(URL)
+    let data = await findByBlogUrl(URL.id)
     console.log(data);
     console.log(data.Doc_URL)
     data.data = {attributes: {Content: data.MarkdownContent}}

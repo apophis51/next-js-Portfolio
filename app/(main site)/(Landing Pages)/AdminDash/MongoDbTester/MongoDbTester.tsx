@@ -24,7 +24,7 @@ export default function MongoDbTester() {
 
 
     return (
-        <MainContentTemplate title="ClerkTester">
+        <MainContentTemplate title="MongoDb Tester">
             <div className="flex flex-col justify-center items-center gap-5 w-full">
 
                 <h2>Get Blog By Title</h2>
