@@ -2,21 +2,23 @@ import axios from 'axios';
 import projectURLS from '@/projectSettings'
 
 
-export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog", docURL="url", blogType="blog", deployed=false) {
+export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog", docURL="url", contentType="blog", deployed=false, category="blog") {
     console.log("Blog ID:", blogId);
     console.log("Blog content:", markdownContent);
     console.log("title", title)
     console.log("description", description)
     console.log("url", docURL)
-    console.log("blog type", blogType)
     console.log("deployed", deployed)
+    console.log("contentType", contentType)
+    console.log("category", category)
     try {
         let url = projectURLS().pythonMongoDBServerUpdateBlog;
         const payload = { markdown_content: markdownContent };
         if (title) payload.title = title;
         if (description) payload.description = description;
         if (docURL) payload.docURL = docURL;
-        if (blogType) payload.blogType = blogType;
+        if (contentType) payload.contentType = contentType;
+        if (category) payload.category = category;
         if (deployed) payload.deployed = deployed;
         if (!deployed) payload.deployed = false;
         const response = await axios.patch(`${url}/${blogId}`, payload);

@@ -1,32 +1,20 @@
+import ReactMarkdown from "react-markdown";
 
-
-
-export default function Collasible() {
+export default function Collasible({dropdownData}:any) {
     return (
         <>
             <div className="bg-base-200 collapse collapse-arrow mb-4">
                 <input type="checkbox" className="peer" />
                 <div
-                    className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-                    Click me to show/hide content
+                    className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content text-center">
+                    {dropdownData.Title}
                 </div>
                 <div
                     className="collapse-content text-primary-content peer-checked:bg-white peer-checked:text-black">
-                    <p>hello</p>
+                    <div className="prose mx-auto py-24"><ReactMarkdown>{dropdownData.MarkdownContent}</ReactMarkdown></div>
                 </div>
             </div>
 
-            <div className="bg-base-200 collapse collapse-arrow ">
-                <input type="checkbox" className="peer" />
-                <div
-                    className="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-                    Click me to show/hide content
-                </div>
-                <div
-                    className="collapse-content text-primary-content peer-checked:bg-white peer-checked:text-black">
-                    <p>hello</p>
-                </div>
-            </div>
         </>
     )
 }

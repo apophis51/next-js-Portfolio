@@ -29,7 +29,7 @@ const options = {
   mode: 'markdown',
   theme: 'base16-dark', // Optional: You can change the theme if you like
 };
-export function ViewOrEditPageView({ downloadedBlog, setValue, title, description,url, blogType, deployed }: { downloadedBlog: string, setValue: string, title: string, description: string, url: string, blogType: string, deployed: boolean }) {
+export function ViewOrEditPageView({ downloadedBlog, setValue, title, description,url, contentType, deployed, categoryType }: { downloadedBlog: string, setValue: string, title: string, description: string, url: string, contentType: string, deployed: boolean, categoryType: string }) {
   const [view, setView] = useState("view")
   const [key, setKey] = useState(Date.now());
 
@@ -37,7 +37,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
   const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2, })
   const [getURL, setURL, URLTextBox] = useTextArea({ prompt: "Enter Your URL", rowNumber: 1 })
-  const [getBlogType, setBlogType, BlogTypeTextBox] = useTextArea({ prompt: "Enter Your Type", rowNumber: 1 })
+  const [getContentType, setContentType, ContentTypeTextBox] = useTextArea({ prompt: "Enter Your Type", rowNumber: 1 })
+  const [getCategoryType, setCategoryType, CategoryTypeTextBox] = useTextArea({ prompt: "Enter Your Category", rowNumber: 1 })
   const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Keep It Not Deployed', RightText: 'Deploy It' })
   
 
@@ -141,7 +142,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   setDescription(description)
   setTitle(title)
   setURL(url)
-  setBlogType(blogType)
+  setContentType(contentType)
+  setCategoryType(categoryType)
   setBasicToggle(deployed)
   // setMetaBoxKey((prev) => Date.now() +2)
 
@@ -181,7 +183,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
         {view == "edit" &&
           <div className="flex flex-col ">
             <EyeIcon onClick={() => { changeView("sidebyside") }} />
-            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), getBlogType(), toggled)} />
+            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), getContentType(), toggled, getCategoryType())} />
             <BackIcon onClick={() => { changeView("view") }} />
           </div>}
 
@@ -251,10 +253,23 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
               <Container maxWidth="xl"  >
                 <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
                   <div className="self-start">
-                    <p className='text-2xl font-bold w-32 self-start'> Blog Type: </p>
+                    <p className='text-2xl font-bold w-32 self-start'> Content Type: </p>
                   </div>
                   <div className='w-full flex-1'>
-                    <BlogTypeTextBox />
+                    <ContentTypeTextBox />
+                  </div>
+                  <div>
+                  </div>
+                </div>
+              </Container>
+
+              <Container maxWidth="xl"  >
+                <div className=' pl-9 prose prose-xl flex flex-row items-center justify-space-between md:flex md:flex-row md:overflow-visible  overflow-y-hidden overflow-x-hidden gap-4 '>
+                  <div className="self-start">
+                    <p className='text-2xl font-bold w-32 self-start'> Category: </p>
+                  </div>
+                  <div className='w-full flex-1'>
+                    <CategoryTypeTextBox /> 
                   </div>
                   <div>
                   </div>

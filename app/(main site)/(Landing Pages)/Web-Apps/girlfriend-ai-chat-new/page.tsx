@@ -1,10 +1,12 @@
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator"
 import Container from '@mui/material/Container';
 import Collasible from "@/app/(main site)/Components/ui/collapsible";
+import { findByBlogUrlandType } from "@/app/(main site)/Components/db_services/mongo";
 
 
-export default function GirlxAi() {
-
+export default  async function GirlxAi() {
+let dropdownData = await findByBlogUrlandType("girlfriend-ai-chat-new", "dropdown")
+console.log(dropdownData)
 
     return (
         <div>
@@ -32,7 +34,7 @@ export default function GirlxAi() {
             </Container>
             <Container maxWidth="xl">
                 <div className="my-5 h-screen">
-                    <Collasible /> 
+                    <Collasible dropdownData={dropdownData}/> 
                 </div>
             </Container>
         </div>
