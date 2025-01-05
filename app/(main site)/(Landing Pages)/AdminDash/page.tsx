@@ -16,9 +16,12 @@ import Container from '@mui/material/Container';
 import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester/ClerkTester";
 import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/MongoDbTester";
 
+const experimentalJson = {
+    Construction: <ContentRenderUniversal contentType="blog" category="Construction"  />,
+    Meta: <ContentRenderUniversal contentType="meta" category="girlx" />
+}
+
 export default function AdminDash() {
-
-
     return (
         <Container maxWidth="xl"  >
             <div className="flex flex-col gap-4 overflow-x-hidden relative ">
@@ -36,7 +39,7 @@ export default function AdminDash() {
                     <BlogRenderConstructionBlogs />
                 </div> */}
                 <div className=" min-h-screen bg-white">
-                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Construction: <BlogRenderConstructionBlogs />, Programming: <BlogRenderProgrammingnBlogs /> , Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, Meta: <ContentRenderUniversal contentType="meta" category="girlx" />}} />
+                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />,  Programming: <BlogRenderProgrammingnBlogs /> , Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...experimentalJson}} />
                 </div>
                 <div>
                     <CreateANewBlog />
