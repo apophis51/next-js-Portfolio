@@ -1,11 +1,11 @@
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator"
 import Container from '@mui/material/Container';
 import Collasible from "@/app/(main site)/Components/ui/collapsible";
-import { findByBlogUrlandType } from "@/app/(main site)/Components/db_services/mongo";
+import { findByBlogUrlAndType } from "@/app/(main site)/Components/db_services/mongo";
 
 
 export default  async function GirlxAi() {
-let dropdownData = await findByBlogUrlandType("girlfriend-ai-chat-new", "dropdown")
+let dropdownData = await findByBlogUrlAndType("girlfriend-ai-chat-new", "dropdown")
 console.log(dropdownData)
 
     return (

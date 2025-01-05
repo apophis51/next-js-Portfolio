@@ -56,21 +56,23 @@ export async function getMainSettings() {
   }
 }
 
-export async function findByBlogUrlandType(URL: string, type: string) {
+export async function findByBlogUrlAndType(URL: string, type: string) {
   try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Next_Content'); // Replace with your collection name
-    const regex = new RegExp(URL, 'i')
-    const result = await collection.findOne({ DocURL: regex, ContentType: type }); // Query by the `Title' field
-    if (result) {
-      return result
+    const regex = new RegExp(URL, 'i'); // Case-insensitive regex for URL matching
+
+    // Find all matching documents
+    const results = await collection.find({ DocURL: regex, ContentType: type }).toArray();
+
+    if (results.length > 0) {
+      return results; // Return all matching documents as an array
     } else {
-      throw new Error('Document not found');
+      throw new Error('No documents found');
     }
-  }
-  catch (error) {
-    return (error)
+  } catch (error) {
+    return error;
   }
 }
 
