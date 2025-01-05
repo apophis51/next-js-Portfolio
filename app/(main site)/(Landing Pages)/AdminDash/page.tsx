@@ -17,7 +17,7 @@ import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester
 import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/MongoDbTester";
 
 const experimentalJson = {
-    Construction: <ContentRenderUniversal contentType="blog" category="Construction"  />,
+    Construction: <ContentRenderUniversal contentType="blog" category="Construction" />,
     Meta: <ContentRenderUniversal contentType="meta" category="girlx" />
 }
 
@@ -25,9 +25,7 @@ export default function AdminDash() {
     return (
         <Container maxWidth="xl"  >
             <div className="flex flex-col gap-4 overflow-x-hidden relative ">
-                <div className="">
-                    <MongoDbTester/>
-                </div>
+
 
                 <div className="">
                     <AIArticleGenerator titleName="MalcMind - AI Article Generator" />
@@ -39,9 +37,9 @@ export default function AdminDash() {
                     <BlogRenderConstructionBlogs />
                 </div> */}
                 <div className=" min-h-screen bg-white">
-                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />,  Programming: <BlogRenderProgrammingnBlogs /> , Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...experimentalJson}} />
+                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Programming: <BlogRenderProgrammingnBlogs />, Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...experimentalJson }} />
                 </div>
-                <div>
+                <div className="mt-24">
                     <CreateANewBlog />
                 </div>
                 <div>
@@ -50,7 +48,9 @@ export default function AdminDash() {
                 <div>
                     <Emails />
                 </div>
-
+                <div className="">
+                    <MongoDbTester />
+                </div>
 
             </div>
         </Container>
