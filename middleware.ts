@@ -49,6 +49,25 @@ import { auth, clerkMiddleware, createRouteMatcher  } from "@clerk/nextjs/server
 //     ['/api/auth/callback/credentials','/api/auth/session','/api/auth/_log','/api/auth/:error*','/api/auth/:signin*','/api/auth/signout','/api/auth/providers' ]
   
 // }
+
+
+
+
+// Create a custom middleware function
+async function customMiddleware(request: NextRequest) {
+  // Store current request URL in a custom header
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url', request.url);
+  console.log('Custom Middleware Headers:', requestHeaders);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+}
+
+
 const isAdminDashRoute = createRouteMatcher(['/AdminDash(.*)'])
 const is_ai_article_generator_webApp = createRouteMatcher(['/Web-Apps/ai-article-generator'])
 
@@ -63,8 +82,9 @@ export default clerkMiddleware(async(auth,req) =>{
     await auth.protect({ role: 'org:admin' })}
     // if (isAdminDashRoute(req)) await auth.protect()
 
-  
-  
+
+    const response = await customMiddleware(req);
+    return response;
 
 
 

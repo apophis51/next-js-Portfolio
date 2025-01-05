@@ -2,9 +2,21 @@ import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-gen
 import Container from '@mui/material/Container';
 import Collasible from "@/app/(main site)/Components/ui/collapsible";
 import { findByBlogUrlAndType } from "@/app/(main site)/Components/db_services/mongo";
+//  import { generateMetadata } from "@/app/(main site)/Components/LandingPageMeta";
 
 
-export default  async function GirlxAi() {
+
+// export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {  //only suported in server components
+//     const myParamsID = await params
+//     // const data = await serverGetBlogsByTitle(myParamsID.id)
+//     // console.log(data)
+
+//     return {
+//       title: 'Blog',
+//       description: 'Desciption'
+//     }
+//   }
+export default  async function GirlxAi() { 
 let dropdownData = await findByBlogUrlAndType("girlfriend-ai-chat-new", "dropdown")
 console.log(dropdownData)
 

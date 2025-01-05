@@ -39,6 +39,26 @@ export async function addNewContentType(contentType: string) {
   }
 }
 
+export async function getOneContent(DocURL: string, contentType: string) {
+  try{
+    await mongoClient.connect();
+    const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
+    const collection = database.collection('Next_Content'); // Replace with your collection name
+    const regex = new RegExp(DocURL, 'i'); // Case-insensitive regex for URL matching
+
+    // Find all matching documents
+    const result = await collection.findOne({ DocURL: regex, ContentType: contentType });
+    if (result) {
+      return result
+    } else {
+      throw new Error('Document not found');
+    }
+  }
+  catch (error) {
+    return (error)
+  }
+}
+
 export async function getMainSettings() {
   console.log('getting content type')
   try {
