@@ -16,12 +16,31 @@ import Container from '@mui/material/Container';
 import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester/ClerkTester";
 import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/MongoDbTester";
 
+
+const experimentalMongo = {
+    contentType: ["blog", "meta", "dropdown"],
+}
+
+
+
+const contentRenders = experimentalMongo.contentType.reduce((acc,contentType) => {
+    acc[contentType] = <ContentRenderUniversal contentType={contentType} category="girlx" />
+    return acc
+}, {})
+
+//console.log(contentRenders)
+// const contentRenders = experimentalMongo.contentType.map((contentType) => {
+//     return <ContentRenderUniversal contentType={contentType} category="girlx" />
+// })
+
 const experimentalJson = {
     Construction: <ContentRenderUniversal contentType="blog" category="Construction" />,
     Meta: <ContentRenderUniversal contentType="meta" category="girlx" />
 }
 
 export default function AdminDash() {
+
+    // console.log(contentRenders)
     return (
         <Container maxWidth="xl"  >
             <div className="flex flex-col gap-4 overflow-x-hidden relative ">
@@ -37,7 +56,7 @@ export default function AdminDash() {
                     <BlogRenderConstructionBlogs />
                 </div> */}
                 <div className=" min-h-screen bg-white">
-                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Programming: <BlogRenderProgrammingnBlogs />, Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...experimentalJson }} />
+                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Programming: <BlogRenderProgrammingnBlogs />, Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...experimentalJson, ...contentRenders }} />
                 </div>
                 <div className="mt-24">
                     <CreateANewBlog />
