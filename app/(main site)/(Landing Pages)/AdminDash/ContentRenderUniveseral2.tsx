@@ -26,15 +26,15 @@ interface Blog {
 }
 
 
-export default function ContentRenderUniversal2({ contentType, category }: { contentType: string, category: string }) {
-    console.log(contentType, category)
-
+export default function ContentRenderUniversal2({ contentType,  settings }: { contentType: string, settings: string[] }) {
+    console.log(contentType)
+    console.log(settings)
     console.log('attempting to render Horizontal Blogs')
     const [downloadedBlogs, setDownloadedBlogs] = useAtom(mongoDBDownloadAtom)
 
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
-    const { selectedOption: CategorySelectOutput, setSelectedOption, BasicSelect: CategorySelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select A Category', saverCallBack: async (modelValue: string) => await createNewMetaData('preferedAIModel', modelValue, userID) })
+    const { selectedOption: CategorySelectOutput, setSelectedOption, BasicSelect: CategorySelect } = useAdvancedSelect({ options: ["ALL CATEGORIES", ...settings], maintext: 'Select A Category',})
 
 
 
@@ -85,8 +85,8 @@ export default function ContentRenderUniversal2({ contentType, category }: { con
 
 
     return (
-        <MainContentTemplate title={`My ${contentType} Content`}>
-            <div>{CategorySelect}</div>
+        <MainContentTemplate title={`My ${contentType.replace(/^./, char => char.toUpperCase())} Content`}>
+            <div className="mb-5"><CategorySelect /></div>
             <div className="">
                 {/* Scrollable Container */}
                 <div className="flex justify-center items-center gap-5 md:gap-12">
@@ -100,7 +100,19 @@ export default function ContentRenderUniversal2({ contentType, category }: { con
                         ref={scrollContainerRef}
                         className='flex flex-row justify-between items-center gap-2 min-h-[70vh] min-w-[65vw] bg-green-400 overflow-x-auto px-4 ' >
                         {/* <p className='bg-white text-black  '>We Could Not Render Anything </p> */}
-                        {downloadedBlogs && typeof downloadedBlogs != "string" && downloadedBlogs.filter((blog: Blog) => blog.Category == category && blog.ContentType === contentType).map((blog: Blog) => (
+                        {downloadedBlogs && typeof downloadedBlogs != "string" && downloadedBlogs.filter((blog: Blog) => {
+                            console.log(CategorySelectOutput)
+                            console.log(contentType)
+                            if (CategorySelectOutput != "Select A Category" && CategorySelectOutput != "ALL CATEGORIES") {
+                                console.log('hit')
+                                return (blog.Category == CategorySelectOutput && blog.ContentType === contentType)
+                            }
+                            else {
+                                console.log('hit')
+                                return (blog.ContentType === contentType)
+                            }
+                        }
+                        ).map((blog: Blog) => (
                             <div key={blog.id} className="  bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                 <div className="p-5 min-w-[300px] min-h-[50vh] max-w-[50px] max-h-[50px] overflow-y-auto">
                                     <CloseButton callback={async function () {

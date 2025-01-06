@@ -18,7 +18,7 @@ export default function TabView({ TabContent }: { TabContent: { [key: string]: R
                                 name="my_tabs_2"
                                 role="tab"
                                 className="tab [--tab-bg:purple] [--tab-border-color:orange] [--tab-color:white]"
-                                aria-label={key}
+                                aria-label={key.replace(/^./, char => char.toUpperCase())}
                                 defaultChecked={index === 0}
                             />
                             <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box ">
