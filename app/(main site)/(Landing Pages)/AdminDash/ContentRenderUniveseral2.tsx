@@ -23,10 +23,11 @@ interface Blog {
     MarkdownContent: string;
     ContentType: string;
     Category: string;
+    Deployed: boolean;
 }
 
 
-export default function ContentRenderUniversal2({ contentType,  settings }: { contentType: string, settings: string[] }) {
+export default function ContentRenderUniversal2({ contentType, settings }: { contentType: string, settings: string[] }) {
     console.log(contentType)
     console.log(settings)
     console.log('attempting to render Horizontal Blogs')
@@ -34,10 +35,9 @@ export default function ContentRenderUniversal2({ contentType,  settings }: { co
 
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
 
-    const { selectedOption: CategorySelectOutput, setSelectedOption, BasicSelect: CategorySelect } = useAdvancedSelect({ options: ["ALL CATEGORIES", ...settings], maintext: 'Select A Category',})
+    const { selectedOption: CategorySelectOutput, setSelectedOption, BasicSelect: CategorySelect } = useAdvancedSelect({ options: ["ALL CATEGORIES", ...settings], maintext: 'Select A Category', })
 
-
-
+    const { selectedOption: DeployedOption, setSelectedOption: setDeployedOption, BasicSelect: DeploySelect } = useAdvancedSelect({ options: ["Deployed and Undeployed", "Deployed Only", "Undeployed"], maintext: 'Select Your View', })
 
 
 
@@ -87,6 +87,7 @@ export default function ContentRenderUniversal2({ contentType,  settings }: { co
     return (
         <MainContentTemplate title={`My ${contentType.replace(/^./, char => char.toUpperCase())} Content`}>
             <div className="mb-5"><CategorySelect /></div>
+            <div className="mb-5"><DeploySelect /></div>
             <div className="">
                 {/* Scrollable Container */}
                 <div className="flex justify-center items-center gap-5 md:gap-12">
@@ -103,13 +104,30 @@ export default function ContentRenderUniversal2({ contentType,  settings }: { co
                         {downloadedBlogs && typeof downloadedBlogs != "string" && downloadedBlogs.filter((blog: Blog) => {
                             console.log(CategorySelectOutput)
                             console.log(contentType)
+                            console.log(DeployedOption)
                             if (CategorySelectOutput != "Select A Category" && CategorySelectOutput != "ALL CATEGORIES") {
-                                console.log('hit')
-                                return (blog.Category == CategorySelectOutput && blog.ContentType === contentType)
+                                if (DeployedOption == "Deployed and Undeployed" || DeployedOption == "Select Your View") {
+                                    return (blog.Category == CategorySelectOutput && blog.ContentType === contentType)
+                                }
+                                if (DeployedOption == "Deployed Only") {
+                                    return (blog.Category == CategorySelectOutput && blog.ContentType === contentType && blog.Deployed ==true)
+                                }
+                                if (DeployedOption == "Undeployed") {
+                                    console.log( 'hit')
+                                    return (blog.Category == CategorySelectOutput && blog.ContentType === contentType && blog.Deployed == false)
+                                }
                             }
                             else {
-                                console.log('hit')
-                                return (blog.ContentType === contentType)
+                                if (DeployedOption == "Deployed and Undeployed" || DeployedOption == "Select Your View") {
+                                    return (blog.ContentType === contentType)
+                                }
+                                if (DeployedOption == "Deployed Only") {
+                                    return ( blog.ContentType === contentType && blog.Deployed ==true)
+                                }
+                                if (DeployedOption == "Undeployed") {
+                                    console.log( 'hit')
+                                    return ( blog.ContentType === contentType && blog.Deployed == false)
+                                }
                             }
                         }
                         ).map((blog: Blog) => (
