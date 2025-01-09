@@ -4,12 +4,6 @@ export const dynamic = 'force-dynamic'
 import Emails from "./Emails";
 import Obsidian from "@/app/(main site)/(Tooling Pages)/Obsidian/page"
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator"
-import BlogRenderHorizontal from "./BlogRenderHorizontal"
-import BlogRenderConstructionBlogs from "./BlogRenderConstrucitonBlogs";
-import BlogRenderProgrammingnBlogs from "./BlogRenderProgrammingBlogs";
-import BlogRenderDeployedBlogs from "./BlogRenderDeployedBlogs";
-import BlogRenderUncategorizedBlogs from "./BlogRenderUnCategorizedBlogs";
-import ContentRenderUniversal from "@/app/(main site)/(Landing Pages)/AdminDash/ContentRenderUniversal";
 import ContentRenderUniversal2 from "@/app/(main site)/(Landing Pages)/AdminDash/ContentRenderUniveseral2";
 import CreateANewBlog from "./CreateANewBlog/page";
 import TabView from "../../Components/ui/TabView";
@@ -20,22 +14,16 @@ import { ai_article_generator } from "../../PurchaseMenu/[products]/products";
 
 
 const experimentalMongo = {
-    contentType: ["blog", "meta", "dropdown", "uncategorized"],
+    contentType: ["all","blog", "meta", "dropdown", "uncategorized"],
     category: ["ai", "girlx", "Programming", "Construction", "Uncategorized"]
 }
 
 
-
+// we used reduce instead of map so the output could be an object instead of an array
 const contentRenders = experimentalMongo.contentType.reduce((acc,contentType) => {
     acc[contentType] = <ContentRenderUniversal2 contentType={contentType} settings={[...experimentalMongo.category]} />
     return acc
 }, {})
-
-
-// const experimentalJson = {
-//     Construction: <ContentRenderUniversal contentType="blog" category="Construction" />,
-//     Meta: <ContentRenderUniversal contentType="meta" category="girlx" />
-// }
 
 export default function AdminDash() {
 
@@ -54,10 +42,10 @@ export default function AdminDash() {
                 {/* <div>
                     <BlogRenderConstructionBlogs />
                 </div> */}
-                <div className=" min-h-screen bg-white">
-                    <TabView TabContent={{ "All Blogs": <BlogRenderHorizontal />, Programming: <BlogRenderProgrammingnBlogs />, Deployed: <BlogRenderDeployedBlogs />, UnCategorized: <BlogRenderUncategorizedBlogs />, ...contentRenders }} />
+                <div className=" min-h-screen bg-white mb-28">
+                    <TabView TabContent={{ ...contentRenders }} />
                 </div>
-                <div className="mt-24">
+                <div className="mt-28 ">
                     <CreateANewBlog />
                 </div>
                 <div>
