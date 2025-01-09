@@ -83,7 +83,7 @@ export default function ContentRenderUniversal2({ contentType, settings }: { con
         }
     }, [articleAccumulator])
 
-
+console.log('triggered')
     return (
         <MainContentTemplate title={`My ${contentType.replace(/^./, char => char.toUpperCase())} Content`}>
             <div className="mb-5"><CategorySelect /></div>
@@ -102,30 +102,51 @@ export default function ContentRenderUniversal2({ contentType, settings }: { con
                         className='flex flex-row justify-between items-center gap-2 min-h-[70vh] min-w-[65vw] bg-green-400 overflow-x-auto px-4 ' >
                         {/* <p className='bg-white text-black  '>We Could Not Render Anything </p> */}
                         {downloadedBlogs && typeof downloadedBlogs != "string" && downloadedBlogs.filter((blog: Blog) => {
+                                
+                            
                             console.log(CategorySelectOutput)
                             console.log(contentType)
                             console.log(DeployedOption)
+                            console.log(blog.Category)
                             if (CategorySelectOutput != "Select A Category" && CategorySelectOutput != "ALL CATEGORIES") {
                                 if (DeployedOption == "Deployed and Undeployed" || DeployedOption == "Select Your View") {
+                                    if (CategorySelectOutput == "Uncategorized") {
+                                        return (blog.Category =="No Category" && blog.ContentType === contentType)
+                                    }
                                     return (blog.Category == CategorySelectOutput && blog.ContentType === contentType)
                                 }
                                 if (DeployedOption == "Deployed Only") {
+                                    if (CategorySelectOutput == "Uncategorized") {
+                                        return (blog.Category == "No Category" && blog.ContentType === contentType && blog.Deployed ==true)
+                                    }
                                     return (blog.Category == CategorySelectOutput && blog.ContentType === contentType && blog.Deployed ==true)
                                 }
                                 if (DeployedOption == "Undeployed") {
-                                    console.log( 'hit')
+                                    if (CategorySelectOutput == "Uncategorized") {
+                                        return (blog.Category == "No Category" && blog.ContentType === contentType && blog.Deployed == false)
+                                    }
                                     return (blog.Category == CategorySelectOutput && blog.ContentType === contentType && blog.Deployed == false)
                                 }
                             }
-                            else {
+                            else { 
+                                console.log(blog.ContentType)
+                                console.log(contentType)
                                 if (DeployedOption == "Deployed and Undeployed" || DeployedOption == "Select Your View") {
+                                    if (contentType == "uncategorized") {
+                                        return (blog.ContentType === "No Content Type")
+                                    }
                                     return (blog.ContentType === contentType)
                                 }
                                 if (DeployedOption == "Deployed Only") {
+                                    if (contentType == "uncategorized") {
+                                        return (blog.ContentType === "No Content Type" && blog.Deployed ==true)
+                                    }
                                     return ( blog.ContentType === contentType && blog.Deployed ==true)
                                 }
                                 if (DeployedOption == "Undeployed") {
-                                    console.log( 'hit')
+                                    if (contentType == "uncategorized") {
+                                        return (blog.ContentType === "No Content Type" && blog.Deployed == false)
+                                    }
                                     return ( blog.ContentType === contentType && blog.Deployed == false)
                                 }
                             }

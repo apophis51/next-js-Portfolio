@@ -20,8 +20,8 @@ import { ai_article_generator } from "../../PurchaseMenu/[products]/products";
 
 
 const experimentalMongo = {
-    contentType: ["blog", "meta", "dropdown"],
-    category: ["ai", "girlx", "Programming", "Construction"]
+    contentType: ["blog", "meta", "dropdown", "uncategorized"],
+    category: ["ai", "girlx", "Programming", "Construction", "Uncategorized"]
 }
 
 
