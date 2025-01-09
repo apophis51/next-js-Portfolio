@@ -50,7 +50,10 @@ let javacode = " ```javaScript \n \
 type submitButtonText = "Submit" | "Generate Article"
 type buy_more_AI_credit_Message = "Buy More AI Credits Now!" | "We are In Beta. Wait 24 hours to get 12 more Credits!"
 
+/**
+ remember route calling this needs to be enabled on middleware
 
+ */
 export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_and_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false, purchaseLink="/PurchaseMenu/ai-article-generator", disableCreditBuying=false, submitButtonText="Generate Article", buy_more_AI_credit_Message="Buy More AI Credits Now!"}: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean, purchaseLink?: string, disableCreditBuying?: boolean, submitButtonText?: submitButtonText, buy_more_AI_credit_Message?: buy_more_AI_credit_Message}) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
