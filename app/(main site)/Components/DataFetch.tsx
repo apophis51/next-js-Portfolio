@@ -24,7 +24,16 @@ export async function projectsData({ content }: { content: string }) {
             if(item.attributes.Title == "ai-article-generator"){
                 item.links = "/Web-Apps/ai-article-generator"
             }
-            return item.attributes.Title == "Work-Search-App" || item.attributes.Title == "Programmer-Clicker-Game"  || item.attributes.Title == "PwnContracting" || item.attributes.Title == "girlfriend-ai-chat" || item.attributes.Title == "ai-article-generator"
+            if(item.attributes.Title == "MalcMind AI Playground"){
+                item.links = "/Web-Apps/ai-playground"
+            }
+            return (
+                item.attributes.Title == "Work-Search-App" 
+                || item.attributes.Title == "Programmer-Clicker-Game"  
+                || item.attributes.Title == "PwnContracting" 
+                || item.attributes.Title == "girlfriend-ai-chat" 
+                // || item.attributes.Title == "ai-article-generator" 
+                || item.attributes.Title == "MalcMind AI Playground")
         });
         console.log(filteredResults)
         return filteredResults
