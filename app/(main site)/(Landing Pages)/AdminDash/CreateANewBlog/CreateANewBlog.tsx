@@ -11,6 +11,7 @@ import { addMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useLoading from '@/app/(main site)/Components/ui/Loading';
+import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
 
 
 export default function CreateANewBlog() {
@@ -33,6 +34,7 @@ export default function CreateANewBlog() {
 
     async function handleAddToMongo(title: string, type: string, content: string) {
         setLoading("on")
+        const userID = await getUserID()
         const isAddedSuccessfully = await addMongoDBblog(title, type, content)
         if (isAddedSuccessfully == true) {
             // setLoading(false)
@@ -56,12 +58,12 @@ export default function CreateANewBlog() {
                     <TitleText />
                     <SelectType />
                     <LoadingWrapper>
-                        <button className='btn bg-green-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current, selectedType, blogContent)}>Upload To MongoDB</button>
+                        <button className='btn bg-green-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current, selectedType, blogContent)}>Save Content</button>
                     </LoadingWrapper>
                     <LoadSuccess>
                         <Link href={'/AdminDash'}>
                             <button className='btn bg-blue-700 text-white w-full max-w-xs' onClick={() => setLoading("off")}>Return To Admin Dash</button></Link>
-                        <p className="text-green-600">Blog Successfully Uploaded</p>
+                        <p className="text-green-600">Content Successfully Uploaded</p>
                     </LoadSuccess>
                     <LoadError>
                         <button className='btn bg-red-700 text-white w-full max-w-xs' onClick={() => handleAddToMongo(title.current, selectedType, blogContent)}>Problem With Server, Contact Support Or Click To Try Again.</button>
