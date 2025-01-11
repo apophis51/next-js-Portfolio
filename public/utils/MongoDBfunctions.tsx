@@ -1,5 +1,6 @@
 import axios from 'axios';
 import projectURLS from '@/projectSettings'
+import { use } from 'react';
 
 
 export async function updateMongoDBblogContent(blogId: string, markdownContent: string, title="blog", description="blog", docURL="url", contentType="blog", deployed=false, category="blog") {
@@ -51,13 +52,15 @@ export async function deleteMongoDBblog(blogID: string) {
 export async function addMongoDBblog(
     title: string,
     blogType: string,
-    markdownContent: string
+    markdownContent: string,
+    userID: string
 ) {
     const url = projectURLS().pythonMongoDBServerAddBlog;
     const data = {
         Title: title,
         BlogType: blogType,
-        MarkdownContent: markdownContent
+        MarkdownContent: markdownContent,
+        ClerkID: userID
     };
 
     console.log(data)

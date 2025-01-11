@@ -33,17 +33,21 @@ export default function CreateANewBlog() {
 
 
     async function handleAddToMongo(title: string, type: string, content: string) {
-        setLoading("on")
-        const userID = await getUserID()
-        const isAddedSuccessfully = await addMongoDBblog(title, type, content)
-        if (isAddedSuccessfully == true) {
-            // setLoading(false)
-            setLoading("Successful")
-        }
-        else {
-            setLoading("error")
-        }
+        try {
+            setLoading("on");
+            const userID = await getUserID();
 
+            if (userID) { // Only proceed if userID exists
+                const isAddedSuccessfully = await addMongoDBblog(title, type, content, userID);
+                setLoading(isAddedSuccessfully ? "Successful" : "error");
+            } else {
+                console.warn("User ID not found");
+                setLoading("error"); // Handle the case where userID doesn't exist
+            }
+        } catch (error) {
+            console.error("Error adding to MongoDB:", error);
+            setLoading("error");
+        }
     }
 
     if (isCreateNewBlogPage && isCreateBlogActive) {
