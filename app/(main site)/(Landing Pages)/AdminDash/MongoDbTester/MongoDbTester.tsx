@@ -70,7 +70,7 @@ export default function MongoDbTester() {
                     <h2>Current Content Types</h2>
                     <BasicSelect />
                 </div>
-                <div className="flex flex-col justify-center items-center gap-5 w-full">
+                <div className="flex flex-col justify-center items-center gap-5 w-full bg-slate-400 ">
                     <h2>Add A Content Type</h2>
                     <i>example: Blog || Meta || Dropdown
                     </i>
