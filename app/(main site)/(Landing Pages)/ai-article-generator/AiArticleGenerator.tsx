@@ -108,7 +108,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
             console.log('submit_to_mongoDB triggered')
             console.log(articleName.current, articleType.current)
             let markdownContent = ai_result.join('\n')
-            await addMongoDBblog(articleName.current, articleType.current, markdownContent)
+            await addMongoDBblog(articleName.current, articleType.current, markdownContent, userID)
             setArticleAccumulator((prev) => prev + 1)
             modalRef.current?.close()
         }
