@@ -16,6 +16,9 @@ import handlefetch_ai_data from '@/app/(main site)/(Landing Pages)/ai-article-ge
 import useLoading from '@/app/(main site)/Components/ui/Loading';
 import useBasicToggle2 from '@/app/(main site)/Components/ui/BasicToggle2';
 
+import useUserContentSettings from '@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/useUserContentSettings';
+
+
 const options = {
   spellChecker: false,  // Disable the spell checker (red highlights)
   autofocus: false, // Optional: Automatically focus the editor when it loads
@@ -37,8 +40,13 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   const [getTitle, setTitle, TitleTextBox] = useTextArea({ prompt: "Enter Your Title", rowNumber: 1 })
   const [getDescription, setDescription, DescriptionTextBox] = useTextArea({ prompt: "Enter Your Description", rowNumber: 2, })
   const [getURL, setURL, URLTextBox] = useTextArea({ prompt: "Enter Your URL", rowNumber: 1 })
+
+const [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent, setCategoryELM, setContentELM] = useUserContentSettings()
+
   const [getContentType, setContentType, ContentTypeTextBox] = useTextArea({ prompt: "Enter Your Type", rowNumber: 1 })
-  const [getCategoryType, setCategoryType, CategoryTypeTextBox] = useTextArea({ prompt: "Enter Your Category", rowNumber: 1 })
+  const [getCategoryType,setCategoryType , CategoryTypeTextBox] = useTextArea({ prompt: "Enter Your Category", rowNumber: 1 })
+
+
   const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Keep It Not Deployed', RightText: 'Deploy It' })
   
 
@@ -142,8 +150,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
   setDescription(description)
   setTitle(title)
   setURL(url)
-  setContentType(contentType)
-  setCategoryType(categoryType)
+  setContentELM(contentType)
+  setCategoryELM(categoryType)
   setBasicToggle(deployed)
   // setMetaBoxKey((prev) => Date.now() +2)
 
@@ -183,7 +191,7 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
         {view == "edit" &&
           <div className="flex flex-col ">
             <EyeIcon onClick={() => { changeView("sidebyside") }} />
-            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), getContentType(), toggled, getCategoryType())} />
+            <SaveIcon onClick={() => updateMongoDBblogContent(ID, downloadedBlog, getTitle(), getDescription(), getURL(), selectedContent, toggled, selectedCategory)} />
             <BackIcon onClick={() => { changeView("view") }} />
           </div>}
 
@@ -255,8 +263,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
                   <div className="self-start">
                     <p className='text-2xl font-bold w-32 self-start'> Content Type: </p>
                   </div>
-                  <div className='w-full flex-1'>
-                    <ContentTypeTextBox />
+                  <div className='w-full'>
+                    <ContentSelectELM />
                   </div>
                   <div>
                   </div>
@@ -268,8 +276,8 @@ export function ViewOrEditPageView({ downloadedBlog, setValue, title, descriptio
                   <div className="self-start">
                     <p className='text-2xl font-bold w-32 self-start'> Category: </p>
                   </div>
-                  <div className='w-full flex-1'>
-                    <CategoryTypeTextBox /> 
+                  <div className='w-full '>
+                    <CategorySelectELM /> 
                   </div>
                   <div>
                   </div>

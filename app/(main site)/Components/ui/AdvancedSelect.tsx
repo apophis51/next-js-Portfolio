@@ -20,7 +20,8 @@ export default function useAdvancedSelect({options, maintext, savedOption, saver
     function BasicSelect() {
         return (
             <div className='flex items-center justify-center'>
-                <select className="select select-bordered w-full max-w-xs" 
+                {/* <select className="select select-bordered w-full max-w-xs"  */}
+                <select className="select select-bordered w-full" 
                 value={selectedOption}
                 onChange={(evt: ChangeEvent<HTMLSelectElement>) => handleChange(evt)}>
                     <option disabled >{maintext}</option>

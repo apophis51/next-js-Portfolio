@@ -4,17 +4,17 @@ import { useState, useEffect } from 'react'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
 import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
 import { getMainSettings } from "@/app/(main site)/Components/db_services/mongo"
-import {FC} from 'react'
+import {FC, Dispatch, SetStateAction} from 'react'
 
 
-export default function useUserContentSettings():[FC, FC, string | number, string | number] {
+export default function useUserContentSettings():[FC, FC, string | number, string | number, Dispatch<SetStateAction<string>>, Dispatch<SetStateAction<string>>] {
 
     const [category, setCategory] = useState([])
     const [contentType, setContentType] = useState([])
 
 
-    const { BasicSelect: CategorySelectELM, selectedOption: selectedCategory } = useAdvancedSelect({ options: category, maintext: 'Select A Category' })
-    const { selectedOption: selectedContent, setSelectedOption, BasicSelect: ContentSelectELM } = useAdvancedSelect({ options: contentType, maintext: 'Select A Content Type' })
+    const { BasicSelect: CategorySelectELM, selectedOption: selectedCategory, setSelectedOption: setCategoryELM } = useAdvancedSelect({ options: category, maintext: 'Select A Category' })
+    const { selectedOption: selectedContent, setSelectedOption: setContentELM, BasicSelect: ContentSelectELM } = useAdvancedSelect({ options: contentType, maintext: 'Select A Content Type' })
 
 
 
@@ -32,6 +32,6 @@ export default function useUserContentSettings():[FC, FC, string | number, strin
     }, [])
 
     return (
-        [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent]
+        [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent, setCategoryELM, setContentELM]
     )
 }

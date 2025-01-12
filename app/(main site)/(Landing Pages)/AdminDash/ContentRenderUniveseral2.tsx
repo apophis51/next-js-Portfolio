@@ -86,8 +86,8 @@ export default function ContentRenderUniversal2({ contentType, settings }: { con
 console.log('triggered')
     return (
         <MainContentTemplate title={`My ${contentType.replace(/^./, char => char.toUpperCase())} Content`}>
-            <div className="mb-5"><CategorySelect /></div>
-            <div className="mb-5"><DeploySelect /></div>
+            <div className="mb-5 max-w-xs mx-auto"><CategorySelect /></div>
+            <div className="mb-5 max-w-xs mx-auto"><DeploySelect /></div>
             <div className="">
                 {/* Scrollable Container */}
                 <div className="flex justify-center items-center gap-5 md:gap-12">
