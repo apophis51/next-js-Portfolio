@@ -59,13 +59,13 @@ export async function getOneContent(DocURL: string, contentType: string) {
   }
 }
 
-export async function getMainSettings() {
+export async function getMainSettings(user:string) {
   console.log('getting content type')
   try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Settings'); // Replace with your collection name
-    const result = await collection.findOne({ name: 'MainSettings' }); // Query by the `Title' field
+    const result = await collection.findOne({ name: 'MainSettings', ClerkID: user }); // Query by the `Title' field
     if (result) {
       return result
     } else {
