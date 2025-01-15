@@ -28,7 +28,8 @@ export async function mongoDB_Blogs_Adapter() {
             Title: blog.Title,
             Content: blog.MarkdownContent,
             Discription: blog.Description,
-            Blog_Type: blog.BlogType,
+            // Blog_Type: blog.BlogType,
+            Blog_Type: blog.Category,
             Doc_URL: blog.DocURL
         }
       }
