@@ -147,6 +147,14 @@ const [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent, s
  useEffect(() => {
   console.log(title)
   console.log(description)
+  console.log(categoryType)
+  console.log(contentType)
+  if (contentType = "No Category"){
+    contentType = "uncategorized"
+  }
+  if(categoryType == "No Category"){
+    categoryType = "uncategorized"
+  }
   setDescription(description)
   setTitle(title)
   setURL(url)
