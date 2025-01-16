@@ -152,7 +152,7 @@ console.log('triggered')
                                 }
                                 if (DeployedOption == "Deployed Only") {
                                     if (contentType == "all") {
-                                        return true
+                                        return (blog.Deployed == true)  //edited
                                     }
                                     if (contentType == "uncategorized") {
                                         return (blog.ContentType === "No Content Type" && blog.Deployed ==true)
@@ -161,7 +161,7 @@ console.log('triggered')
                                 }
                                 if (DeployedOption == "Undeployed") {
                                     if (contentType == "all") {
-                                        return true
+                                        return (blog.Deployed == false)  //edited
                                     }
                                     if (contentType == "uncategorized") {
                                         return (blog.ContentType === "No Content Type" && blog.Deployed == false)
