@@ -192,7 +192,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
         }
         if (myData['AI Article Generator'].TotalCredits) {
             console.log(myData.AI_Credits_remaining)
-            setIpRequestRemaining(myData['AI Article Generator'].TotalCredits)
+            setIpRequestRemaining((prev) => prev + myData['AI Article Generator'].TotalCredits)
         }
         if (!myData['AI Article Generator'].TotalCredits) {
             //createNewMetaData('AI_Credits_Remaining', 12)
@@ -216,7 +216,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
             console.log(requestData);
 
             // Set the request count
-            setIpRequestRemaining(12 - requestData.request_count);
+            setIpRequestRemaining((prev) => prev +(12 - requestData.request_count));
 
         } catch (err) {
             console.error('Error fetching data:', err);
@@ -232,6 +232,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
             }
             console.log(user)
             if (user && !disableCreditBuying) {
+                fetchData("https://fastapi-mongo-production.up.railway.app/requests/no-increment");
                 getUserData()
                 setUserID(user)
             }

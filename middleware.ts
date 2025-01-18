@@ -68,7 +68,8 @@ async function customMiddleware(request: NextRequest) {
 }
 
 
-const isAdminDashRoute = createRouteMatcher(['/AdminDash(.*)'])
+// const isAdminDashRoute = createRouteMatcher(['/AdminDash(.*)'])
+const isAdminDashRoute = createRouteMatcher(['/AdminDash'])
 const is_ai_article_generator_webApp = createRouteMatcher(['/Web-Apps/ai-article-generator'])
 
 export default clerkMiddleware(async(auth,req) =>{
