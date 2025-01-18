@@ -64,7 +64,7 @@ export default function AdminTabView() {
         const settings = getSettings()
     }, [])
 
-
+    
     return (
         <>  
             {Object.keys(tabContent).length == 0 && 
