@@ -12,7 +12,8 @@ export default async function AdminDash() {
             <Container maxWidth="xl"  >
                 <div className="flex flex-col gap-4 overflow-x-hidden">
                     <div>
-                        <AIGenerator titleName="MalcMind - AI Article PlayGround" AI_product_name="MalcMind AI" hide_settings_and_save_button={true} />
+                        <AIGenerator titleName="MalcMind - AI Article PlayGround" AI_product_name="MalcMind AI" hide_settings_button={true} 
+                        hide_save_button={true}/>
                     </div>
                 </div>
             </Container>

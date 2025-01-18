@@ -54,7 +54,7 @@ type buy_more_AI_credit_Message = "Buy More AI Credits Now!" | "We are In Beta. 
  remember route calling this needs to be enabled on middleware
 
  */
-export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_and_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false, purchaseLink="/PurchaseMenu/ai-article-generator", disableCreditBuying=false, submitButtonText="Generate Article", buy_more_AI_credit_Message="Buy More AI Credits Now!"}: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_and_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean, purchaseLink?: string, disableCreditBuying?: boolean, submitButtonText?: submitButtonText, buy_more_AI_credit_Message?: buy_more_AI_credit_Message}) {
+export default function AIArticleGenerator({ titleName, AI_product_name, imageSRC, imgTagline, setting_CloseButton = false, hide_settings_button = false, hide_save_button = false, AI_Select_Setting = true, AI_Bot_Setting, show_user_text=false, purchaseLink="/PurchaseMenu/ai-article-generator", disableCreditBuying=false, submitButtonText="Generate Article", buy_more_AI_credit_Message="Buy More AI Credits Now!"}: { titleName: string, AI_product_name: string, imageSRC: string, imgTagline: string, setting_CloseButton?: boolean, hide_settings_button?: boolean, hide_save_button?: boolean, AI_Select_Setting?: boolean, AI_Bot_Setting?: string, show_user_text?: boolean, purchaseLink?: string, disableCreditBuying?: boolean, submitButtonText?: submitButtonText, buy_more_AI_credit_Message?: buy_more_AI_credit_Message}) {
 
     const [setLoading, LoadingWrapper, LoadSuccess, LoadError] = useLoading()
 
@@ -281,7 +281,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                         {/* <textarea className="textarea textarea-bordered" placeholder="Type Your Text Here"></textarea> */}
                         {/* <BasicTextInput /> */}
                         <div className="flex flex-row justify-center items-center h-[50px] w-[70px] gap-8">
-                            {!hide_settings_and_save_button && <div className="w-full h-full ">
+                            {!hide_settings_button && <div className="w-full h-full ">
                                 <Modal ref={settingsRef} modalTitle="Settings" buttonText="Settings" CustomButton={SettingsIcon}>
                                     <BasicToggle />
                                     <BasicToggleErase />
@@ -302,7 +302,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                 </div>
                             </div>
 
-                            {!hide_settings_and_save_button && <div className="w-full h-full ">
+                            {!hide_save_button && <div className="w-full h-full ">
                                 <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
                                     <BasicArticleName />
                                     <BasicArticleType />

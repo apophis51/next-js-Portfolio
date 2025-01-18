@@ -12,7 +12,10 @@ export default function AdminDash() {
         <Container maxWidth="xl"  >   
         <div className="flex flex-col gap-4 overflow-x-hidden">
             <div>
-                <AIArticleGenerator titleName="MalcMind - AI Article Generator" AI_product_name="MalcMind AI"/>
+                <AIArticleGenerator titleName="MalcMind - AI Article Generator" 
+                AI_product_name="MalcMind AI"
+                 hide_settings_button={true}
+                />
             </div>
         </div>
         </Container>

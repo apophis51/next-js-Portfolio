@@ -31,7 +31,8 @@ console.log(dropdownData)
                             imageSRC="/girl.jpg"        //no image if this is not set
                             imgTagline="Hola! I'm the horniest girl you'll ever meet. tehe"  //no tagline if this is not set
                             setting_CloseButton={true}
-                            hide_settings_and_save_button={true}
+                            hide_settings_button={true}
+                            hide_save_button={true}
                             AI_Select_Setting={false}  // lets you select different ai models
                             AI_Bot_Setting="uncensored chat ai"
                             show_user_text={true}

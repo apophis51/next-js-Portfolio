@@ -32,7 +32,7 @@ export async function projectsData({ content }: { content: string }) {
                 || item.attributes.Title == "Programmer-Clicker-Game"  
                 || item.attributes.Title == "PwnContracting" 
                 || item.attributes.Title == "girlfriend-ai-chat" 
-                // || item.attributes.Title == "ai-article-generator" 
+                || item.attributes.Title == "ai-article-generator" 
                 || item.attributes.Title == "MalcMind AI Playground")
         });
         console.log(filteredResults)
