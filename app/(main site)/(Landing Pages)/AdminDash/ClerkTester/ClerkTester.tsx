@@ -47,7 +47,7 @@ export default function ClerkTester() {
             productName: productName,
             exipire: 30,
             credits: 2000,
-            userId: "user_2cW48SU14nvos8u3FwtQQLFsMjf"
+            userId: "useasdasdasd3FwtQQLFadssMjf"
         }
         let alteredmetadata = {...metadata, TotalCredits: TotalTokens + metadata.credits}
         await createNewMetaData(metadata.productName, alteredmetadata, metadata.userId)

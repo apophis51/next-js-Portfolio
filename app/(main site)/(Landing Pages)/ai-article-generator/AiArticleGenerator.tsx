@@ -31,8 +31,10 @@ import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"
 import { Modal2 } from "../../Components/ui/modal2"
+import {Modal3} from "@/app/(main site)/Components/ui/modal3"
 
 import Image from "next/image"
+import { SignInButton } from "@clerk/nextjs";
 
 
 ///Make a jotai atom
@@ -91,6 +93,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     const modalRef = useRef<HTMLDialogElement>(null)
     const settingsRef = useRef<HTMLDialogElement>(null)
     const purchaseRef = useRef<HTMLDialogElement>(null)
+    const loginChecker = useRef<HTMLDialogElement>(null)
 
 
     async function submit_to_mongoDB() {
@@ -301,14 +304,34 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                     </LoadingWrapper>
                                 </div>
                             </div>
-
+                            {
+                                <>
+                                 <Modal2 ref={loginChecker} modalTitle="You Must Login To Save" hideOutsideButton={true} buttonText="not used">
+                                 <SignInButton>
+                                   <button className="btn">Sign In</button>
+                                 </SignInButton>
+                               </Modal2>
+                               </>
+                            }
                             {!hide_save_button && <div className="w-full h-full ">
-                                <Modal ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}>
+                                <Modal3 ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}
+                                onClick={() => {
+                                if(!userID) {
+                                    loginChecker.current?.showModal()
+                                    return (true)
+                                     }
+                                    else {
+                                        return (false) 
+                                    }
+                                }}
+                                >
                                     <BasicArticleName />
                                     <BasicArticleType />
                                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
-                                </Modal>
+                                </Modal3> 
                             </div>}
+
+                            
 
 
                         </div>

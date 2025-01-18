@@ -82,9 +82,16 @@ export async function getALLUserBlogs(user:string) {
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Next_Content'); // Replace with your collection name
     const result = await collection.find({ ClerkID: user }).toArray(); // Query by the `Title' field
+
     console.log(result)
     if (result) {
-      return result
+      const plainResults = result.map(doc => ({
+        ...doc,
+        _id: null,
+        id: doc._id.toString(), // Convert ObjectId to string
+      }));
+      console.log(plainResults)
+      return plainResults
     } else {
       throw new Error('Document not found');
     }
@@ -93,10 +100,6 @@ export async function getALLUserBlogs(user:string) {
 }
 }
 
-// (async() => {
-//   const results = await getALLUserBlogs("user_2cW48SU14nvos8u3FwtQQLFsMjf")
-//   console.log(results)
-// })();
 
 export async function getMainSettings(user:string) {
   try {
