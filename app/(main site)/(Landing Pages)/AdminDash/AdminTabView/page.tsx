@@ -49,7 +49,7 @@ export default function AdminTabView() {
     
         // we used reduce instead of map so the output could be an object instead of an array
         const contentRenders = metaData.contentType.reduce((acc, contentType) => {
-            acc[contentType] = <ContentRenderUniversal2 contentType={contentType} settings={[...metaData.category]} />
+            acc[contentType] = <ContentRenderUniversal2 contentType={contentType} settings={[...metaData.category]} user = {user} />
             return acc
         }, {})
         setTabContent(contentRenders)

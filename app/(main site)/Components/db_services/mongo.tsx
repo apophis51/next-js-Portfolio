@@ -76,6 +76,28 @@ export async function getOneContent(DocURL: string, contentType: string) {
   }
 }
 
+export async function getALLUserBlogs(user:string) {
+  try {
+    await mongoClient.connect();
+    const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
+    const collection = database.collection('Next_Content'); // Replace with your collection name
+    const result = await collection.find({ ClerkID: user }).toArray(); // Query by the `Title' field
+    console.log(result)
+    if (result) {
+      return result
+    } else {
+      throw new Error('Document not found');
+    }
+  } catch (error) {
+    return (error)
+}
+}
+
+// (async() => {
+//   const results = await getALLUserBlogs("user_2cW48SU14nvos8u3FwtQQLFsMjf")
+//   console.log(results)
+// })();
+
 export async function getMainSettings(user:string) {
   try {
     await mongoClient.connect();

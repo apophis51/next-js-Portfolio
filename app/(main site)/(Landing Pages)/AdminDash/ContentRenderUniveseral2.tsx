@@ -13,6 +13,7 @@ import { CloseButton } from '@/public/utils/CloseButton'
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
+import {getALLUserBlogs} from '@/app/(main site)/Components/db_services/mongo'
 
 
 
@@ -27,7 +28,7 @@ interface Blog {
 }
 
 
-export default function ContentRenderUniversal2({ contentType, settings }: { contentType: string, settings: string[] }) {
+export default function ContentRenderUniversal2({ contentType, settings, user }: { contentType: string, settings: string[] , user: string }) {
     console.log(contentType)
     console.log(settings)
     console.log('attempting to render Horizontal Blogs')
@@ -46,9 +47,11 @@ export default function ContentRenderUniversal2({ contentType, settings }: { con
 
     async function serverGetBlogs() {
         console.log('about to fetch serverBlogs')
-        const res = await fetch(projectURLS().pythonMongoDBServer)
+        const res = await getALLUserBlogs(user)
+        //const res = await fetch(projectURLS().pythonMongoDBServer)
         console.log('we just got a res response')
-        const data = await res.json()
+        // const data = await res.json()
+        const data = res
         setDownloadedBlogs(data)
         console.log(data)
     }
