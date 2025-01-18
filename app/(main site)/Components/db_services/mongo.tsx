@@ -1,6 +1,7 @@
 'use server'
 
 import { mongoClient } from '@/lib/mongo';
+import { all } from 'axios';
 
 
 type contentType = {
@@ -76,12 +77,23 @@ export async function getOneContent(DocURL: string, contentType: string) {
 }
 
 export async function getMainSettings(user:string) {
-  console.log('getting content type')
   try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Settings'); // Replace with your collection name
     const result = await collection.findOne({ name: 'MainSettings', ClerkID: user }); // Query by the `Title' field
+    console.log(result)
+    if(!result){
+      const objectToInsert = {
+        name: 'MainSettings',
+        ClerkID: user,
+        contentType: ["all", "uncategorized"],
+        category: ["uncategorized"]
+      }
+      await collection.insertOne(objectToInsert)
+      getMainSettings(user) //recursion the results
+    }
+
     if (result) {
       return result
     } else {
