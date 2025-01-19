@@ -9,6 +9,8 @@ import ClerkTester from "@/app/(main site)/(Landing Pages)/AdminDash/ClerkTester
 import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/MongoDbTester";
 import { ai_article_generator } from "../../PurchaseMenu/[products]/products";
 import AdminTabView from "@/app/(main site)/(Landing Pages)/AdminDash/AdminTabView/page";
+import ImageUploader from "@/app/(main site)/Components/ImageUploader";
+// import ImageExplorer from "@/app/(main site)/Components/ImageExplorer";
  
 
 export default function AdminDash() {
@@ -17,8 +19,12 @@ export default function AdminDash() {
     return (
         <Container maxWidth="xl"  >
             <div className="flex flex-col gap-4 overflow-x-hidden relative ">
-
-
+                {/* <div >
+                    <ImageExplorer />
+                </div> */}
+                <div>
+                    <ImageUploader />
+                </div>
                 <div className="">
                     <AIArticleGenerator titleName="MalcMind - AI Article Generator" />
                 </div>
