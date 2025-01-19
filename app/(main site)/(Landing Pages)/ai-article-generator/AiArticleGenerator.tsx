@@ -246,7 +246,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     return (
         <div>
             <div className='pb-4'>
-                <Link href={purchaseLink} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - Christmas Discount</button></Link>
+                <Link href={purchaseLink} ><button className='btn bg-pink-700 text-white w-full'>Buy {AI_product_name} Chat Now! - 2025 Discount</button></Link>
             </div>
             <MainContentTemplate title={titleName}>
                 <>
@@ -316,7 +316,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                             }
                             {!hide_save_button && <div className="w-full h-full ">
                                 <Modal3 ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}
-                                onClick={() => {
+                                buttonCallback={() => {
                                 if(!userID) {
                                     loginChecker.current?.showModal()
                                     return (true)
