@@ -149,7 +149,7 @@ const [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent, s
   console.log(description)
   console.log(categoryType)
   console.log(contentType)
-  if (contentType = "No Category"){
+  if (contentType == "No Category"){
     contentType = "uncategorized"
   }
   if(categoryType == "No Category"){

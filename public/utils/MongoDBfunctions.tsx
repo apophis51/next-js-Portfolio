@@ -90,7 +90,8 @@ export async function addMongoDBblog2(
         MarkdownContent: markdownContent,
         ClerkID: userID,
         ContentType: contentType,
-        Category: category
+        Category: category,
+        BlogType: "Deprecated Item"
         
     };
 
