@@ -35,6 +35,7 @@ import {Modal3} from "@/app/(main site)/Components/ui/modal3"
 
 import Image from "next/image"
 import { SignInButton } from "@clerk/nextjs";
+import useUserContentSettings from '@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/useUserContentSettings';
 
 
 ///Make a jotai atom
@@ -84,8 +85,17 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
     //Save Article UI
+    // fuck
     const [prompt, setPrompt] = useState("Enter Article Name")
+
+
+    const [CategorySelectELM, ContentSelectELM, selectedCategory, selectedContent, setCategoryELM, setContentELM] = useUserContentSettings()
+
     const [typePrompt, setTypePrompt] = useState("Enter Article Type")
+
+
+
+    
     const [articleName, BasicArticleName] = useAdvancedTextInput({ prompt: prompt })
     const [articleType, BasicArticleType] = useAdvancedTextInput({ prompt: typePrompt })
 
@@ -326,8 +336,10 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                     }
                                 }}
                                 >
-                                    <BasicArticleName />
-                                    <BasicArticleType />
+                                    {/* fuck */}
+                                    <BasicArticleName /> 
+                                    <CategorySelectELM/> 
+                                    <ContentSelectELM />
                                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
                                 </Modal3> 
                             </div>}
