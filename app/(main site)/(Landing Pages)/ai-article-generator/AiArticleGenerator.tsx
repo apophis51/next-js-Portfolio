@@ -4,7 +4,7 @@ import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
 import useBasicToggle2 from '@/app/(main site)/Components/ui/BasicToggle2'
 // import useBasicToggle from "@/app/(main site)/Components/ui/BasicToggle"
-import { addMongoDBblog } from "@/public/utils/MongoDBfunctions"
+import { addMongoDBblog2 } from "@/public/utils/MongoDBfunctions"
 import useLoading from "@/app/(main site)/Components/ui/Loading2";
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
@@ -85,7 +85,6 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
     //Save Article UI
-    // fuck
     const [prompt, setPrompt] = useState("Enter Article Name")
 
 
@@ -112,16 +111,14 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
             setPrompt("please enter the a Name")
 
         }
-        if (!articleType.current) {
-            setTypePrompt("please enter a Type")
+        
+        //fuck
 
-        }
-
-        if (articleName.current && articleType.current) {
+        if (articleName.current && selectedCategory != 'Select A Category' && selectedContent != 'Select A Content Type') {
             console.log('submit_to_mongoDB triggered')
-            console.log(articleName.current, articleType.current)
+            console.log(articleName.current, selectedContent,selectedCategory)
             let markdownContent = ai_result.join('\n')
-            await addMongoDBblog(articleName.current, articleType.current, markdownContent, userID)
+            await addMongoDBblog2(articleName.current, markdownContent, userID, selectedContent, selectedCategory, )
             setArticleAccumulator((prev) => prev + 1)
             modalRef.current?.close()
         }
@@ -325,7 +322,8 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                </>
                             }
                             {!hide_save_button && <div className="w-full h-full ">
-                                <Modal3 ref={modalRef} modalTitle="Please Enter An ArticleName And Title To Save" buttonText="Save Article" CustomButton={SaveIcon}
+                                {/* fuck */}
+                                <Modal3 ref={modalRef} modalTitle="Please enter a Title, Category and Content Type" buttonText="Save Article" CustomButton={SaveIcon}
                                 buttonCallback={() => {
                                 if(!userID) {
                                     loginChecker.current?.showModal()
@@ -336,7 +334,6 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                     }
                                 }}
                                 >
-                                    {/* fuck */}
                                     <BasicArticleName /> 
                                     <CategorySelectELM/> 
                                     <ContentSelectELM />
