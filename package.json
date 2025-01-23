@@ -53,6 +53,7 @@
     "body-parser": "^1.20.2",
     "chai": "^4.3.8",
     "concurrently": "^8.0.1",
+    "d3": "^7.9.0",
     "dotenv": "^16.3.1",
     "easymde": "^2.18.0",
     "eslint": "8.40.0",

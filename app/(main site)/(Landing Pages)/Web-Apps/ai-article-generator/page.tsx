@@ -10,6 +10,7 @@ import { findByBlogUrlAndType } from "@/app/(main site)/Components/db_services/m
 
 export default async function AdminDash() {
     let dropdownData = await findByBlogUrlAndType("ai-article-generator", "dropdown")
+    console.log(dropdownData)
 
 
     return (
