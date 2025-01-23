@@ -10,6 +10,7 @@ import MongoDbTester from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTe
 import { ai_article_generator } from "../../PurchaseMenu/[products]/products";
 import AdminTabView from "@/app/(main site)/(Landing Pages)/AdminDash/AdminTabView/page";
 import ImageUploader from "@/app/(main site)/Components/ImageUploader";
+import { APIGenerator } from "@/app/(main site)/(Landing Pages)/AdminDash/APIGenerator/APIGenerator";
 // import ImageExplorer from "@/app/(main site)/Components/ImageExplorer";
  
 
@@ -27,6 +28,9 @@ export default function AdminDash() {
                 </div>
                 <div className="">
                     <AIArticleGenerator titleName="MalcMind - AI Article Generator" />
+                </div>
+                <div>
+                    <APIGenerator />
                 </div>
                 <div>
                     <Obsidian />
