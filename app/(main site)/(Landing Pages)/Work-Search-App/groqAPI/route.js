@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import * as responseUtils from '../responseUtils'
 import { headers } from 'next/headers'
 import projectURLS from '@/projectSettings'
-import {fetchUserAIMetaData} from '@/app/(main site)/Components/Utils/authMetaData'
+import {fetchUserAIMetaData} from '@/app/services/userServices'
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 //This was changed from Groq to Gemini 

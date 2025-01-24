@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import * as responseUtils from '@/app/(main site)/(Landing Pages)/Work-Search-App/responseUtils';
-import {createNewMetaData, get_generic_meta_data_with_user_id} from "@/app/(main site)/Components/Utils/authMetaData"
+import {createNewMetaData, get_generic_meta_data_with_user_id} from '@/app/services/userServices'
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // const endpointSecret = 'whsec_7d827d24ac63d8ed989a538f76c3136f59dbd55a2ee8835069bc186c46598194';
