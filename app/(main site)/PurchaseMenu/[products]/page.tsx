@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Hero from '@/app/(main site)/Components/Hero'
 import ContactForm from '@/app/(main site)/Components/ContactForm'
 import * as products from '@/app/(main site)/PurchaseMenu/[products]/products'
-import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getUserID } from "@/app/services/userServices"
 
 
 export default async function PurchaseMenu({

@@ -11,7 +11,7 @@ import { addMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useLoading from '@/app/(main site)/Components/ui/Loading';
-import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getUserID } from "@/app/services/userServices"
 
 
 export default function CreateANewBlog() {

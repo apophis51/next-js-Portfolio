@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
-import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getUserID } from "@/app/services/userServices"
 import { getMainSettings } from "@/app/(main site)/Components/db_services/mongo"
 import {FC, Dispatch, SetStateAction} from 'react'
 

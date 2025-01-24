@@ -2,7 +2,7 @@
 import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 import useAdvancedTextInput from "@/app/(main site)/Components/ui/AdvancedTextInput";
 import useLoading from "@/app/(main site)/Components/ui/Loading2";
-import { getGenericMetaData, get_generic_meta_data_with_user_id, createNewMetaData, deleteUserMetaData } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getGenericMetaData, get_generic_meta_data_with_user_id, createNewMetaData, deleteUserMetaData } from "@/app/services/userServices"
 import { useState, useEffect } from "react";
 
 export default function ClerkTester() {

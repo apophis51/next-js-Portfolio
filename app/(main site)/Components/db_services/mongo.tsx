@@ -1,7 +1,6 @@
 'use server'
 
 import { mongoClient } from '@/lib/mongo';
-import { all } from 'axios';
 
 
 type contentType = {

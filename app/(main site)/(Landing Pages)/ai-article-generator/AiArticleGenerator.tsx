@@ -26,7 +26,7 @@ import { atom, useAtom } from 'jotai'
 import { Modal } from "@/public/utils/Modal"
 import { SubmitToMongoDB } from '@/app/(main site)/(Landing Pages)/ai-article-generator/SubmitToMongoDB'
 import { CloseButton } from '@/public/utils/CloseButton'
-import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } from "@/app/(main site)/Components/Utils/authMetaData"
+import { getGenericMetaData, createNewMetaData, deleteUserMetaData, getUserID } from "@/app/services/userServices"
 
 import { SettingsIcon } from "@/app/(main site)/Components/ui/SettingsIcon"
 import { SaveIcon } from "@/app/(main site)/Components/ui/SaveIcon2"

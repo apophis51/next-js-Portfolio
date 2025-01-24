@@ -1,162 +1,101 @@
 'use client';
 
 import { Revenue } from '@/app/lib/definitions';
-import React, {useRef,useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 
-type LogLinearChartClientProps = {
-    revenue: Revenue[];
-  };
-
 const revenue = [
-    {
-        "month": "Jan",
-        "revenue": 2000
-    },
-    {
-        "month": "Feb",
-        "revenue": 1800
-    },
-    {
-        "month": "Mar",
-        "revenue": 2200
-    },
-    {
-        "month": "Apr",
-        "revenue": 2500
-    },
-    {
-        "month": "May",
-        "revenue": 2300
-    },
-    {
-        "month": "Jun",
-        "revenue": 3200
-    },
-    {
-        "month": "Jul",
-        "revenue": 3500
-    },
-    {
-        "month": "Aug",
-        "revenue": 3700
-    },
-    {
-        "month": "Sep",
-        "revenue": 2500
-    },
-    {
-        "month": "Oct",
-        "revenue": 2800
-    },
-    {
-        "month": "Nov",
-        "revenue": 3000
-    },
-    {
-        "month": "Dec",
-        "revenue": 4800
-    }
-]
+  { "month": "Jan", "revenue": 2000 },
+  { "month": "Feb", "revenue": 1800 },
+  { "month": "Mar", "revenue": 2200 },
+  { "month": "Apr", "revenue": 2500 },
+  { "month": "May", "revenue": 2300 },
+  { "month": "Jun", "revenue": 3200 },
+  { "month": "Jul", "revenue": 3500 },
+  { "month": "Aug", "revenue": 3700 },
+  { "month": "Sep", "revenue": 2500 },
+  { "month": "Oct", "revenue": 2800 },
+  { "month": "Nov", "revenue": 3000 },
+  { "month": "Dec", "revenue": 4800 },
+];
 
-
-// export default function LogLinearChartClient({ revenue }: LogLinearChartClientProps) {
 export default function LogLinearChartClient() {
-
-//   const chartHeight = 350;
-
-  const svgRef = useRef<SVGSVGElement>(null);
   const [isLogScale, setIsLogScale] = useState(true);
-
-  if (!revenue || revenue.length === 0) {
-    return <p className="mt-4 text-gray-400">No data available.</p>;
-  }
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    // if (!svgRef.current) return;
-    
-    // const svg = d3.select(svgRef.current);
-    const svg = d3.select(".cool");
+    const svg = d3.select(svgRef.current);
 
-    svg.selectAll("*").remove(); //added
     const width = 500;
     const height = 350;
     const margin = { top: 20, right: 20, bottom: 40, left: 50 };
 
     const revenueMax = Math.max(...revenue.map((month) => month.revenue));
 
-
-    // Map indices for x-axis
     const xScale = d3.scaleLinear()
-      .domain([0, revenue.length - 1]) // Indices as the domain
+      .domain([0, revenue.length - 1])
       .range([margin.left, width - margin.right]);
 
     const yScale = isLogScale
       ? d3.scaleLog().domain([1, revenueMax]).range([height - margin.bottom, margin.top])
       : d3.scaleLinear().domain([0, revenueMax]).range([height - margin.bottom, margin.top]);
 
-    // Axes
     const xAxis = d3.axisBottom(xScale).ticks(revenue.length).tickFormat((d) => revenue[d as number]?.month || "");
     const yAxis = d3.axisLeft(yScale).tickFormat(d3.format(".2d"));
 
-    svg.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(xAxis);
+    // Add axes if not already present
+    if (svg.select(".x-axis").empty()) {
+      svg.append("g")
+        .attr("class", "x-axis")
+        .attr("transform", `translate(0,${height - margin.bottom})`)
+        .call(xAxis);
+    }
 
-    svg.append("g")
-    .attr("class", "y-axis")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(yAxis);
+    if (svg.select(".y-axis").empty()) {
+      svg.append("g")
+        .attr("class", "y-axis")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(yAxis);
+    }
 
-    // svg.select(".x-axis")
-    // .attr("class", "x-axis")
-    //   .attr("transform", `translate(0,${height - margin.bottom})`)
-    //   .call(xAxis);
+    // Update the y-axis with transition
+    svg.select(".y-axis")
+      .transition()
+      .duration(750)
+      .call(yAxis);
 
-    // svg.select(".y-axis")
-    // .attr("class", "y-axis")
-    //   .attr("transform", `translate(${margin.left},0)`)
-    //   .call(yAxis);
-
-    // Line Path
-    const line = d3
-      .line<Revenue>()
-      .x((_, i) => xScale(i)) // Map index to x-axis
+    // Define the line
+    const line = d3.line<Revenue>()
+      .x((_, i) => xScale(i))
       .y((d) => yScale(d.revenue))
-      .curve(d3.curveMonotoneX); // Optional: smooth line
+      .curve(d3.curveMonotoneX);
 
-    // Draw or update line
-    // svg.select(".line")
-    //   .datum(revenue)
-    //.join("path")
+    // Add or update the line path
+    const path = svg.selectAll(".line").data([revenue]);
 
-    //   .attr("class", "line")
-    //   .attr("fill", "none")
-    //   .attr("stroke", "steelblue")
-    //   .attr("stroke-width", 2)
-    //   .transition()
-    //   .duration(1000)
-    //   .attr("d", line);
-
-      svg.append("path")
-      .datum(revenue)
+    path
+      .enter()
+      .append("path")
       .attr("class", "line")
       .attr("fill", "none")
       .attr("stroke", "steelblue")
       .attr("stroke-width", 2)
+      .merge(path)
+      .transition()
+      .duration(750)
       .attr("d", line);
-  }, [isLogScale, revenue]);
+
+  }, [isLogScale]);
 
   return (
-    <div className='bg-white'>
-      <button onClick={() => setIsLogScale(!isLogScale)}>
+    <div className="bg-white">
+      <button
+        onClick={() => setIsLogScale(!isLogScale)}
+        className="px-4 py-2 bg-blue-500 text-white rounded mb-4"
+      >
         Toggle Scale ({isLogScale ? "Logarithmic" : "Linear"})
       </button>
-      <svg /*ref={svgRef} */ width="500" height="350"    className="cool">
-        {/* <g className="x-axis" />
-        <g className="y-axis" /> */}
-      </svg>
+      <svg ref={svgRef} width="500" height="350" ></svg>
     </div>
   );
 }

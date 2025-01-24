@@ -4,7 +4,7 @@ import ContentRenderUniversal2 from "@/app/(main site)/(Landing Pages)/AdminDash
 import TabView from "@/app/(main site)/Components/ui/TabView";
 import useUserContentSettings from "@/app/(main site)/(Landing Pages)/AdminDash/MongoDbTester/useUserContentSettings";
 import { getMainSettings } from "@/app/(main site)/Components/db_services/mongo";
-import { getUserID } from "@/app/(main site)/Components/Utils/authMetaData";
+import { getUserID } from "@/app/services/userServices";
 import { useState, useEffect } from "react";
 import { SignInButton } from "@clerk/nextjs";
 

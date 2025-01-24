@@ -9,7 +9,7 @@ import CKEditor from './CKEditor'
 import RichTextEditor from './RichTextEditor.js';
 import { UpdateCallBack, JobDataUpdate, RawJobData, JobFetchMethods } from './workSearchTypes'
 //import RichTextEditor from '@/app/(email project)/RichTextEditor.js'
-import { fetchUserAIMetaData } from '@/app/(main site)/Components/Utils/authMetaData'
+import { fetchUserAIMetaData } from '@/app/services/userServices'
 
 
 const InputComponent = ({ updateAppliedJobs }: UpdateCallBack) => {
