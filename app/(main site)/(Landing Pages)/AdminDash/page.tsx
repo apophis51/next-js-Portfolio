@@ -12,7 +12,8 @@ import AdminTabView from "@/app/(main site)/(Landing Pages)/AdminDash/AdminTabVi
 import ImageUploader from "@/app/(main site)/Components/ImageUploader";
 import { APIGenerator } from "@/app/(main site)/(Landing Pages)/AdminDash/APIGenerator/APIGenerator";
 // import ImageExplorer from "@/app/(main site)/Components/ImageExplorer";
- 
+ import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
+
 
 export default function AdminDash() {
 

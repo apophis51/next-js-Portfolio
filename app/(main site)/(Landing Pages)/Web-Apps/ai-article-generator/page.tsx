@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import AdminTabView from "@/app/(main site)/(Landing Pages)/AdminDash/AdminTabView/page";
 import Collasible from "@/app/(main site)/Components/ui/collapsible";
 import { findByBlogUrlAndType } from "@/app/(main site)/Components/db_services/mongo";
+import { APIGenerator } from "@/app/(main site)/(Landing Pages)/AdminDash/APIGenerator/APIGenerator";
+import { Suspense } from "react";
 
 
 export default async function AdminDash() {
@@ -26,12 +28,17 @@ export default async function AdminDash() {
                 <div className=" min-h-screen bg-white mb-28">
                     <AdminTabView />
                 </div>
+                <div className="mt-36 ">
+                    <APIGenerator />
+                </div>
             </div>
         </Container>
          <Container maxWidth="xl">
+            <Suspense fallback={<div>Loading...</div>}>
          <div className="my-2 min-h-screen">
              <Collasible dropdownData={dropdownData} />
          </div>
+         </Suspense>
      </Container>
      </div> 
     );

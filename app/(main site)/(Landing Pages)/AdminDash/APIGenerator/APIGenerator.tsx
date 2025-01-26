@@ -4,11 +4,14 @@ import React, { useState, useEffect } from "react";
 import useUserId from "@/app/hooks/useUserId";
 import {addApiKeyToMainSettings, getUsersBlogsWithAPI,getMainSettings} from "@/app/(main site)/Components/db_services/mongo"
 import Link from "next/link";
+import MainContentTemplate from '@/app/(main site)/Components/ui/MainContentTemplate';
 
 export function APIGenerator() {
   const [apiKey, setApiKey] = useState("");
+  const [apiDisplayMessage, setApiDisplayMessage] = useState("Generate New API Key");
   const userId = useUserId();
   console.log(userId)
+  console.log(apiKey)
 
   const generateAPIKey = () => {
     // Simulate API key generation
@@ -24,35 +27,27 @@ export function APIGenerator() {
       console.log(userId)
       let userSettings = await getMainSettings(userId)
       console.log(userSettings)
+      if (userSettings.apiKey) {
       setApiKey(userSettings.apiKey)
+      }
       }
     })();
      
   }, [userId]);
 
   return (
-    <div className="flex justify-center items-center bg-white h-[250px] flex-col">
-        <p>{userId}</p>
+    <MainContentTemplate title={"Access Your Blogs Through the API"}>
+    <div className="flex justify-center items-center bg-white h-full flex-col  ">
       <button
-        className="bg-blue-500 text-white py-2 px-4 rounded btn block mb-2"
+        className="bg-blue-500 text-white  px-4 rounded btn block mb-2"
         onClick={generateAPIKey}
       >
-        Generate API Key
+        {apiDisplayMessage}
       </button>
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded btn block mb-2"
-        onClick={generateAPIKey}
-      >
-        Generate New API Key
-      </button>
-      <button
-        className="bg-blue-500 text-white py-2 px-4 rounded btn block mb-2"
-        onClick={() => getUsersBlogsWithAPI(apiKey)}
-      >
-        View Your Blogs JSON
-      </button>
-      <p className="mt-2">Link: {apiKey || "No API key generated yet"}</p>
-      <Link href={`AdminDash/APIGenerator?apiKey=${apiKey}`}><button className="btn"> See Your Blogs</button></Link>
+
+      <p className="">Your Current API Key: {apiKey || "No API key generated yet"}</p>
+    {(apiKey != "") && <p className="mt-2 text-center">Your Current API URL: <Link href={`https://malcmind.com/AdminDash/APIGenerator?apiKey=${apiKey}`}>{`https://malcmind.com/AdminDash/APIGenerator?apiKey=${apiKey}`|| "No API key generated yet"}</Link></p> } 
     </div>
+    </MainContentTemplate>
   );
 }

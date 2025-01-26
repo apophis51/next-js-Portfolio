@@ -64,7 +64,7 @@ async function customMiddleware(request: NextRequest) {
     request: {
       headers: requestHeaders,
     },
-  });
+  }); 
 }
 
 
