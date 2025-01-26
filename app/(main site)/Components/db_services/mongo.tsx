@@ -15,8 +15,8 @@ async function monitorChatChanges() {
   const changeStream = collection.watch();
 
   changeStream.on('change', (change) => {
-      console.log('Change detected:', change);
-      // Handle change event (e.g., notify users, update UI, etc.)
+    console.log('Change detected:', change);
+    // Handle change event (e.g., notify users, update UI, etc.)
   });
 }
 
@@ -56,7 +56,7 @@ export async function addNewContentType(contentType: string) {
 }
 
 export async function getOneContent(DocURL: string, contentType: string) {
-  try{
+  try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Next_Content'); // Replace with your collection name
@@ -75,7 +75,7 @@ export async function getOneContent(DocURL: string, contentType: string) {
   }
 }
 
-export async function getALLUserBlogs(user:string) {
+export async function getALLUserBlogs(user: string) {
   try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
@@ -84,37 +84,91 @@ export async function getALLUserBlogs(user:string) {
 
     console.log(result)
     if (result) {
-      const plainResults = result.map(doc => ({
-        ...doc,
-        _id: null,
-        id: doc._id.toString(), // Convert ObjectId to string
-      }));
-      console.log(plainResults)
-      return plainResults
+      // const plainResults = result.map(doc => ({
+      //   ...doc,
+      //   _id: null,
+      //   id: doc._id.toString(), // Convert ObjectId to string
+      // }));
+      // console.log(plainResults)
+      return transformResults(result)
     } else {
       throw new Error('Document not found');
     }
   } catch (error) {
     return (error)
-}
+  }
 }
 
 
-export async function getMainSettings(user:string) {
+export async function getUsersBlogsWithAPI(apiKey: string) {
+  try {
+    console.log(apiKey)
+    await mongoClient.connect();
+    const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
+
+    const settingsCollection = database.collection('Settings'); // Settings collection
+
+    // Perform an aggregation with a $lookup to join blogs and settings
+    const pipeline = [
+      {
+        $match: { apiKey: apiKey } 
+      },
+      {
+        $lookup: {
+          from: 'Next_Content', // The name of the collection to join
+          localField: 'ClerkID', // The field from the settings collection
+          foreignField: 'ClerkID', // The field from the blogs collection
+          as: 'blogs' // The name of the field to populate
+        }
+      }
+    ];
+
+    const result = await settingsCollection.aggregate(pipeline).toArray();
+
+    if (!result.length) {
+      throw new Error('No settings or blogs found for the user.');
+    }
+
+    console.log(result); // Logs the combined result
+    return result[0]; // Return the first result (as settings are usually unique per user)
+  } catch (error: any) {
+    console.error('Error fetching settings and blogs:', error);
+    return { error: error.message };
+  } finally {
+    await mongoClient.close(); // Ensure the MongoDB connection is closed
+  }
+}
+
+
+export async function transformResults(results: object[]) {
+  return results.map(doc => ({
+    ...doc,
+    _id: null,
+    id: doc._id.toString(), // Convert ObjectId to string
+  }));
+}
+
+export async function createDefaultUserSettings(user: string) {
+  const defaultUserSettings = {
+    name: 'MainSettings',
+    ClerkID: user,
+    contentType: ["all", "uncategorized"],
+    category: ["uncategorized"]
+  }
+  return defaultUserSettings
+}
+
+
+export async function getMainSettings(user: string) {
   try {
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Settings'); // Replace with your collection name
     const result = await collection.findOne({ name: 'MainSettings', ClerkID: user }); // Query by the `Title' field
     console.log(result)
-    if(!result){
-      const objectToInsert = {
-        name: 'MainSettings',
-        ClerkID: user,
-        contentType: ["all", "uncategorized"],
-        category: ["uncategorized"]
-      }
-      await collection.insertOne(objectToInsert)
+    if (!result) {
+      const defaultUserSettings = createDefaultUserSettings(user)
+      await collection.insertOne(defaultUserSettings)
       getMainSettings(user) //recursion the results
     }
 
@@ -127,6 +181,34 @@ export async function getMainSettings(user:string) {
     return (error)
   }
 }
+
+export async function addApiKeyToMainSettings(user: string, apiKey: string) {
+  try {
+    await mongoClient.connect();
+    const database = mongoClient.db('Next_JS_Portfolio');
+    const collection = database.collection('Settings');
+    const filter = { name: 'MainSettings', ClerkID: user }
+    const update = {$set: {apiKey}}
+    const options = { upsert: true };
+    const result = await collection.findOne({ name: 'MainSettings', ClerkID: user }); 
+    if (!result) {
+      const defaultUserSettings = createDefaultUserSettings(user)
+      await collection.insertOne(defaultUserSettings)
+      addApiKeyToMainSettings(user, apiKey) //recursion the results
+    }
+    if (result) {
+      const output = await collection.updateOne(filter, update, options)
+      console.log(output)
+      return output
+    } else {
+      throw new Error('Document not found');
+    }
+  } catch (error) {
+    return (error)
+  }
+}
+
+
 
 export async function findByBlogUrlAndType(URL: string, type: string) {
   try {
