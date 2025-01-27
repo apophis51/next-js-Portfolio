@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
-import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator'
+import { articleAccumulatorAtom, startConversationAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator'
 import { CloseButton } from '@/public/utils/CloseButton'
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'
@@ -44,6 +44,8 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
 
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+    const [initialAiConversation, setInitialAiConversation] = useAtom(startConversationAtom)
+    
 
     async function serverGetBlogs() {
         console.log('about to fetch serverBlogs')
@@ -196,7 +198,7 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
                                     </div>
 
                                 </div>
-                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>console.log("comming soon")}>Converse This Topic With AI - Comming Soon!</button></a>
+                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>setInitialAiConversation(blog.MarkdownContent)}>Converse This Topic With AI - Comming Soon!</button></a>
                             </div>
                         ))}
                     </div>
