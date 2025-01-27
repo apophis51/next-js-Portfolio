@@ -198,7 +198,7 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
                                     </div>
 
                                 </div>
-                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>setInitialAiConversation(blog.MarkdownContent)}>Converse This Topic With AI - Comming Soon!</button></a>
+                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>setInitialAiConversation([blog.MarkdownContent])}>Converse This Topic With AI</button></a>
                             </div>
                         ))}
                     </div>

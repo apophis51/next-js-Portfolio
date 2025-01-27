@@ -40,7 +40,7 @@ import useUserContentSettings from '@/app/(main site)/(Landing Pages)/AdminDash/
 
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
-export const startConversationAtom = atom("Your Results Will Appear Here")
+export const startConversationAtom = atom(["Your Results Will Appear Here"])
 
 
 let javacode = " ```javaScript \n \
@@ -74,10 +74,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     const [textInput2, BasicSelect_ArticleNumber] = useAdvancedTextInput({ prompt: "Only Input This for Multiple Generations..." })
 
 
-    const [initialAiConversation, setInitialAiConversation] = useAtom(startConversationAtom)
-
-
-    const [ai_result, setAi_result] = useState(["Your Results Will Appear Here"]);
+    const [ai_result, setAi_result] = useAtom(startConversationAtom);
 
 
     const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue, userID) })
@@ -238,12 +235,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
         }
     };
 
-    useEffect(() => {
-        console.log(initialAiConversation)
-        setAi_result([initialAiConversation])  
-        }
-        , [initialAiConversation]
-    )
+
  
 console.log('cool')
     //retrieve user settings
