@@ -196,7 +196,7 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
                                     </div>
 
                                 </div>
-                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white">Converse This Topic With AI - Comming Soon!</button></a>
+                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>console.log("comming soon")}>Converse This Topic With AI - Comming Soon!</button></a>
                             </div>
                         ))}
                     </div>
