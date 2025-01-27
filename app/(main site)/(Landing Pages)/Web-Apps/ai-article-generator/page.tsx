@@ -1,5 +1,5 @@
 
-export const dynamic = 'force-dynamic'
+//export const dynamic = 'force-dynamic'
 
 import AIArticleGenerator from "@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator"
 import Container from '@mui/material/Container';
@@ -34,7 +34,7 @@ export default async function AdminDash() {
             </div>
         </Container>
          <Container maxWidth="xl">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className="text-black">Loading...</div>}>
          <div className="my-2 min-h-screen">
              <Collasible dropdownData={dropdownData} />
          </div>
