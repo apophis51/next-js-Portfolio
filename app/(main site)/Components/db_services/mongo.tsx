@@ -160,7 +160,13 @@ export async function createDefaultUserSettings(user: string) {
 
 
 export async function getMainSettings(user: string) {
+  console.log('here')
   try {
+    if(!user) {
+      console.log('No user provided')
+      throw new Error('No user provided')
+    }
+
     await mongoClient.connect();
     const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
     const collection = database.collection('Settings'); // Replace with your collection name

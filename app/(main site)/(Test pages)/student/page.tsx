@@ -1,6 +1,7 @@
 'use client';
 
 import { Revenue } from '@/app/lib/definitions';
+import {fetchCryptoData}from './data'
 import React, { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 
@@ -95,6 +96,11 @@ export default function LogLinearChartClient() {
       >
         Toggle Scale ({isLogScale ? "Logarithmic" : "Linear"})
       </button>
+      <button 
+      onClick={fetchCryptoData}
+      className="px-4 py-2 bg-blue-500 text-white rounded mb-4"
+      
+      >Get CoinGecko Data</button>
       <svg ref={svgRef} width="500" height="350" ></svg>
     </div>
   );
