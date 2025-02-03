@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
-import { articleAccumulatorAtom, startConversationAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator'
+import { articleAccumulatorAtom, startConversationAtom, openedArticleFromTabMenuIDAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator'
 import { CloseButton } from '@/public/utils/CloseButton'
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'
@@ -32,6 +32,10 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
     console.log(contentType)
     console.log(settings)
     console.log('attempting to render Horizontal Blogs')
+    
+    const [openedArticleFromTabMenuID, setOpenedArticleFromTabMenuID] = useAtom(openedArticleFromTabMenuIDAtom)
+    
+    
     const [downloadedBlogs, setDownloadedBlogs] = useAtom(mongoDBDownloadAtom)
 
     const [articleAccumulator, setArticleAccumulator] = useAtom(articleAccumulatorAtom)
@@ -198,7 +202,13 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
                                     </div>
 
                                 </div>
-                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" onClick ={() =>setInitialAiConversation([blog.MarkdownContent])}>Converse This Topic With AI</button></a>
+                                <a href="#" className="w-full "><button className="btn w-full bg-purple-800 text-white" 
+                                onClick ={() =>{
+                                    console.log(blog.id)
+                                    setInitialAiConversation([blog.MarkdownContent + '\n'])
+                                    setOpenedArticleFromTabMenuID(blog.id) 
+                                    }}>
+                                    Converse This Topic With AI</button></a>
                             </div>
                         ))}
                     </div>

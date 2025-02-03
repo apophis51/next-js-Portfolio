@@ -1,4 +1,6 @@
 'use client'
+import { updateMongoDBblogContent } from '@/public/utils/MongoDBfunctions';
+
 import ReactMarkdown from "react-markdown"
 import useBasicSelect from '@/app/(main site)/Components/ui/BasicSelect'
 import useAdvancedSelect from '@/app/(main site)/Components/ui/AdvancedSelect'
@@ -41,6 +43,7 @@ import useUserContentSettings from '@/app/(main site)/(Landing Pages)/AdminDash/
 ///Make a jotai atom
 export const articleAccumulatorAtom = atom(0)
 export const startConversationAtom = atom(["Your Results Will Appear Here"])
+export const openedArticleFromTabMenuIDAtom = atom<string | null>(null)
 
 
 let javacode = " ```javaScript \n \
@@ -75,6 +78,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
     const [ai_result, setAi_result] = useAtom(startConversationAtom);
+    const [openedArticleFromTabMenuID, setOpenedArticleFromTabMenuID] = useAtom(openedArticleFromTabMenuIDAtom)
 
 
     const [toggled, setBasicToggle, BasicToggle] = useBasicToggle2({ leftText: 'Multiple Articles', RightText: 'One Article', saverCallBack: (modelValue: boolean) => createNewMetaData('AI_Multiple_Articles', modelValue, userID) })
@@ -346,6 +350,12 @@ console.log('cool')
                                     <CategorySelectELM/> 
                                     <ContentSelectELM />
                                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
+                                    {openedArticleFromTabMenuID && <button className="btn" 
+                                    onClick={() => {
+                                        updateMongoDBblogContent(openedArticleFromTabMenuID, ai_result.join('\n'))
+                                        setArticleAccumulator((prev) => prev + 1)
+                                        modalRef.current?.close()
+                                        }}>Overwrite Existing Article</button>}
                                 </Modal3> 
                             </div>}
 
