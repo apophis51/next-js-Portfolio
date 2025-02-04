@@ -350,7 +350,7 @@ console.log('cool')
                                     <CategorySelectELM/> 
                                     <ContentSelectELM />
                                     <SubmitToMongoDB submit_to_mongoDB={submit_to_mongoDB} />
-                                    {openedArticleFromTabMenuID && <button className="btn" 
+                                    {openedArticleFromTabMenuID && <button className="btn tooltip hover:tooltip-open tooltip-bottom" data-tip="Article Name and Type Changes Must be Done through the Edit Menu if you Overwrite"
                                     onClick={() => {
                                         updateMongoDBblogContent(openedArticleFromTabMenuID, ai_result.join('\n'))
                                         setArticleAccumulator((prev) => prev + 1)
