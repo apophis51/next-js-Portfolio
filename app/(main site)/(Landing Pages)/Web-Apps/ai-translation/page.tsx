@@ -3,15 +3,17 @@
 import { useState, useRef } from "react";
 import useAudioRecorder from "./useAudioRecorder";
 import { uploadAudio, getAudio } from "@/app/(main site)/Components/db_services/mongo"
-
+import { groqAudio } from "@/app/services/groqService";
 
 const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [audioSrc, setAudioSrc] = useState("");
 
   const fetchAudio = async () => {
+    console.log('cool')
     //const response = await fetch(`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`);
     const response = await getAudio('67a5ae5c675b2c59881618a4');
+    await groqAudio()
    
     // if (!response.ok) {
     //   alert("Failed to fetch audio");

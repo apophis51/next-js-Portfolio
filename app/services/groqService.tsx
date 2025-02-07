@@ -1,41 +1,64 @@
-import { MongoClient } from 'mongodb'; // Ensure you install mongodb package
+
+
+"use server"
+
+import { gridFSBucket } from '@/lib/mongo';
 import Groq from 'groq-sdk';
-import { Readable } from 'stream';
+import { ObjectId } from 'mongodb';
+import fs from "fs";
+import path from 'path';
+import crypto from 'crypto';
+import { pipeline } from 'stream/promises'; // Use stream/promises for cleaner pipeline
 
 // Initialize the Groq client
-const groq = new Groq();
 
-// MongoDB connection string
-const mongoUri = 'your_mongodb_connection_string'; // Replace with your MongoDB connection string
-const client = new MongoClient(mongoUri);
+export async function groqAudio() {
+    console.log('test message #1 - using fs.createReadStream');
+    let tempFilePath: string | null = null; // Variable to hold temporary file path
 
-async function main() {
-  try {
-    // Connect to MongoDB
-    await client.connect();
-    const database = client.db('your_database_name'); // Replace with your database name
-    const gridFSBucket = new GridFSBucket(database);
-    
-    const fileId = 'your_audio_file_id'; // Replace this with the actual ObjectId or filename
-    const downloadStream = gridFSBucket.openDownloadStream(ObjectId(fileId));
+    try {
+        const groq = new Groq({ apiKey: process.env.GROQAPI });
 
-    // Create a transcription job
-    const transcription = await groq.audio.transcriptions.create({
-      file: downloadStream, // Use the download stream instead of fs.createReadStream
-      model: "whisper-large-v3-turbo", // Required model to use for transcription
-      prompt: "Specify context or spelling", // Optional
-      response_format: "json", // Optional
-      language: "en", // Optional
-      temperature: 0.0, // Optional
-    });
+        const fileId = new ObjectId('67a5ae5c675b2c59881618a4');
+        const downloadStream = gridFSBucket.openDownloadStream(fileId);
 
-    // Log the transcribed text
-    console.log(transcription.text);
-  } catch (error) {
-    console.error('Error during transcription: ', error);
-  } finally {
-    await client.close();
-  }
+        // Create a temporary file path
+        const uniqueFilename = `temp_audio_${crypto.randomBytes(16).toString("hex")}.m4a`; // Or .wav, depending on your audio type
+        tempFilePath = path.join("/tmp", uniqueFilename); // Use /tmp directory for temporary files
+
+        const writeStream = fs.createWriteStream(tempFilePath);
+
+        // Pipe the downloadStream to the writeStream to save to a temporary file
+        await pipeline(downloadStream, writeStream);
+
+        console.log(`Audio downloaded to temporary file: ${tempFilePath}`);
+
+
+        // Create a transcription job using fs.createReadStream on the temporary file
+        const transcription = await groq.audio.transcriptions.create({
+            file: fs.createReadStream(tempFilePath), // Now use fs.createReadStream on the temp file
+            model: "whisper-large-v3-turbo",
+            prompt: "Specify context or spelling",
+            response_format: "json",
+            language: "en",
+            temperature: 0.0,
+        }); 
+
+        console.log(transcription.text);
+
+    } catch (error) {
+        console.error('Error during transcription: ', error);
+    } finally {
+        // Clean up: Delete the temporary file
+        if (tempFilePath) {
+            fs.unlink(tempFilePath, (err) => {
+                if (err) {
+                    console.error(`Error deleting temporary file: ${tempFilePath}`, err);
+                } else {
+                    console.log(`Temporary file deleted: ${tempFilePath}`);
+                }
+            });
+        }
+    }
 }
 
-main();
