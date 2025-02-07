@@ -1,8 +1,8 @@
 import { gridFSBucket } from "@/lib/mongo";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 
-export async function GET(request) {
+export async function GET(request: NextRequest) {
   try {
     const id = request.nextUrl.searchParams.get("id");
 
@@ -14,6 +14,16 @@ export async function GET(request) {
     const chunks = [];
 
     const stream = gridFSBucket.openDownloadStream(fileId);
+    
+
+    const response = new Response(stream, {
+        headers: {
+          "Content-Type": "audio/wav", // Set the appropriate content type
+        },
+      });
+      
+      return response; // Return the response which is now streaming the audio
+
 
     await new Promise((resolve, reject) => {
       stream.on("data", (chunk) => chunks.push(chunk));

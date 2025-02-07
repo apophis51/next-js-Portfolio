@@ -10,15 +10,19 @@ const AudioRecorder = () => {
   const [audioSrc, setAudioSrc] = useState("");
 
   const fetchAudio = async () => {
-    const response = await fetch(`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`);
+    //const response = await fetch(`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`);
+    const response = await getAudio('67a5ae5c675b2c59881618a4');
+   
+    // if (!response.ok) {
+    //   alert("Failed to fetch audio");
+    //   return;
+    // }
 
-    if (!response.ok) {
-      alert("Failed to fetch audio");
-      return;
-    }
+    // const blob = await response.blob();
+    // const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(response);
 
-    const blob = await response.blob();
-    const url = URL.createObjectURL(blob);
+    console.log(url)
     setAudioSrc(url);
   };
 
@@ -44,7 +48,7 @@ const AudioRecorder = () => {
     if (!audioBlob) return alert("Please select an audio file");
 
     const formData = new FormData();
-    formData.append("audio", audioBlob);
+    formData.append("audio", audioBlob, "cool.wav");
 
     const result = await uploadAudio(formData);
 

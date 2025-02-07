@@ -2,24 +2,35 @@
 
 import { mongoClient, gridFSBucket } from '@/lib/mongo';
 import { Readable } from 'stream';
+import { ObjectId } from "mongodb";
 
 export async function uploadAudio(formData: FormData) {
 
   const file = formData.get("audio");
+  
 
   if (!file) {
     return { error: "No file uploaded" };
   }
 
+  // if (!(file instanceof File)) {
+  //   return { error: "Invalid file uploaded" };
+  // }
+
   try {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
 
-    const uploadStream = gridFSBucket.openUploadStream(file.name, {
+    const uploadStream = gridFSBucket.openUploadStream(file.name,  {
       contentType: file.type,
+      metadata: {
+        size: file.size, // Size of the file
+        userId: "someUserId", // Example of other metadata (if you're tracking users)
+      },
     });
 
     stream.pipe(uploadStream);
+    
 
     return { success: true, fileId: uploadStream.id.toString() };
   } catch (error) {
@@ -29,36 +40,20 @@ export async function uploadAudio(formData: FormData) {
 }
 
 
-// export async function getAudio(fileId) {
-//   try {
-//     const chunks = [];
-//     const stream = gridFSBucket.openDownloadStream(fileId);
 
-//     await new Promise((resolve, reject) => {
-//       stream.on("data", (chunk) => chunks.push(chunk));
-//       stream.on("end", resolve);
-//       stream.on("error", reject);
-//     });
 
-//     // Convert chunks into a single Buffer
-//     const buffer = Buffer.concat(chunks);
-
-//     // Convert to Base64
-//     const base64Audio = buffer.toString("base64");
-
-//     // Return as a Data URL
-//     return `data:audio/mpeg;base64,${base64Audio}`;
-//   } catch (error) {
-//     console.error("Fetch error:", error);
-//     return null;
-//   }
-// }
-
-export async function getAudio(fileId) {
+export async function getAudio(id) {
   try {
-    console.log('cool')
-    console.log(gridFSBucket.openDownloadStream(fileId))
-    return gridFSBucket.openDownloadStream(fileId);
+    const fileId = new ObjectId(id);
+    const stream = gridFSBucket.openDownloadStream(fileId);
+    
+    const response = new Response(stream, {
+        headers: {
+          "Content-Type": "audio/wav", // Set the appropriate content type
+        },
+      });
+      return response.blob(); // Return the response which is now streaming the audio
+
   } catch (error) {
     console.error("Fetch error:", error);
     return null;
