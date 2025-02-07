@@ -122,7 +122,6 @@ export function fetch_ai_data(model: string, prompt: string) {
 
 
             });
-            console.log(chatCompletion)
             //tokens arr included in the response
 
             return chatCompletion.choices[0].message.content
@@ -166,10 +165,26 @@ export function fetch_ai_data(model: string, prompt: string) {
                 "stream": false,
                 "stop": null
             });
+        }
+        if (model == "deepseek-r1-distill-llama-70b") {
+            const chatCompletion = await groq.chat.completions.create({
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                "model": "deepseek-r1-distill-llama-70b",
+                "temperature": 1,
+                "max_tokens": 8000,
+                "top_p": 1,
+                "stream": false,
+                "stop": null,
+                 reasoning_format: "hidden"
+            });
 
-            console.log(chatCompletion)
-            return chatCompletion.choices[0].message.content
-
+        console.log(chatCompletion.usage.total_tokens)
+        return chatCompletion.choices[0].message.content
         }
         else {
 

@@ -68,7 +68,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
     // const [AISelectOutput, AISelect] = useBasicSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model' })
     const [userID, setUserID] = useState('')
 
-    const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: async (modelValue: string) => await createNewMetaData('preferedAIModel', modelValue, userID) })
+    const { selectedOption: AISelectOutput, setSelectedOption, BasicSelect: AISelect } = useAdvancedSelect({ options: ['deepseek-r1-distill-llama-70b','openai o1-mini', 'openai gpt-4o-mini', 'gemini gemini-1.5-flash', 'llama-3.1-70b-versatile', 'uncensored chat ai'], maintext: 'Select AI Model', saverCallBack: async (modelValue: string) => await createNewMetaData('preferedAIModel', modelValue, userID) })
 
     const [getAiText, setAiText, AiTextBox] = useTextArea({ prompt: "Enter Your AI Prompt.." })
 

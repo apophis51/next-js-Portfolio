@@ -2,10 +2,10 @@
 import { useState, useRef } from "react";
 
 const useAudioRecorder = () => {
-  const [audioBlob, setAudioBlob] = useState(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [isRecording, setIsRecording] = useState(false);
-  const mediaRecorder = useRef(null);
-  const audioChunks = useRef([]);
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const audioChunks = useRef<Blob[]>([]);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });

@@ -42,10 +42,11 @@ export async function uploadAudio(formData: FormData) {
 
 
 
-export async function getAudio(id) {
+export async function getAudio(id: string) {
   try {
     const fileId = new ObjectId(id);
     const stream = gridFSBucket.openDownloadStream(fileId);
+    
     
     const response = new Response(stream, {
         headers: {
