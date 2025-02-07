@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, GridFSBucket } from 'mongodb';
 
 const globalForMongo = global as unknown as { mongoClient: MongoClient };
 
@@ -7,8 +7,13 @@ export const mongoClient = globalForMongo.mongoClient || new MongoClient(process
 if (process.env.NODE_ENV !== 'production') globalForMongo.mongoClient = mongoClient;
 
 
-// const client = new MongoClient('mongodb://localhost:27017', { monitorCommands: true });
 
-// client.on('commandStarted', started => console.log(started));
-// client.db().collection('pets');
-// await client.insertOne({ name: 'spot', kind: 'dog' });
+const globalForGridFSBucket = global as unknown as { gridFSBucket: GridFSBucket };
+
+export const gridFSBucket = globalForGridFSBucket.gridFSBucket || new GridFSBucket(mongoClient.db('Next_JS_Portfolio'), { bucketName: 'audioDB' });
+
+if (process.env.NODE_ENV !== 'production') globalForGridFSBucket.gridFSBucket = gridFSBucket;
+
+
+
+  

@@ -1,6 +1,102 @@
 'use server'
 
-import { mongoClient } from '@/lib/mongo';
+import { mongoClient, gridFSBucket } from '@/lib/mongo';
+import { Readable } from 'stream';
+
+export async function uploadAudio(formData: FormData) {
+
+  const file = formData.get("audio");
+
+  if (!file) {
+    return { error: "No file uploaded" };
+  }
+
+  try {
+    const buffer = await file.arrayBuffer();
+    const stream = Readable.from(Buffer.from(buffer));
+
+    const uploadStream = gridFSBucket.openUploadStream(file.name, {
+      contentType: file.type,
+    });
+
+    stream.pipe(uploadStream);
+
+    return { success: true, fileId: uploadStream.id.toString() };
+  } catch (error) {
+    console.error("Upload error:", error);
+    return { error: "Upload failed" };
+  }
+}
+
+
+// export async function getAudio(fileId) {
+//   try {
+//     const chunks = [];
+//     const stream = gridFSBucket.openDownloadStream(fileId);
+
+//     await new Promise((resolve, reject) => {
+//       stream.on("data", (chunk) => chunks.push(chunk));
+//       stream.on("end", resolve);
+//       stream.on("error", reject);
+//     });
+
+//     // Convert chunks into a single Buffer
+//     const buffer = Buffer.concat(chunks);
+
+//     // Convert to Base64
+//     const base64Audio = buffer.toString("base64");
+
+//     // Return as a Data URL
+//     return `data:audio/mpeg;base64,${base64Audio}`;
+//   } catch (error) {
+//     console.error("Fetch error:", error);
+//     return null;
+//   }
+// }
+
+export async function getAudio(fileId) {
+  try {
+    console.log('cool')
+    console.log(gridFSBucket.openDownloadStream(fileId))
+    return gridFSBucket.openDownloadStream(fileId);
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return null;
+  }
+}
+
+// async function uploadAudio(file: File) {
+//   upload.single("audio")
+// }
+
+
+// async function uploadAudio(file: File) {
+//   const uploadStream = gridFSBucket.openUploadStream(file.name);
+//   return new Promise((resolve, reject) => {
+//     uploadStream.on('finish', resolve);
+//     uploadStream.on('error', reject);
+//     uploadStream.write(file);
+//     uploadStream.end();
+//   });
+// }
+
+
+// Upload Route
+// app.post("/upload", upload.single("audio"), (req, res) => {
+//   res.json({ fileId: req.file.id, filename: req.file.filename });
+// });
+
+// // Retrieve Audio File
+// app.get("/audio/:filename", async (req, res) => {
+//   const { filename } = req.params;
+//   gfs.find({ filename }).toArray((err, files) => {
+//     if (!files || files.length === 0) {
+//       return res.status(404).json({ error: "File not found" });
+//     }
+//     gfs.openDownloadStreamByName(filename).pipe(res);
+//   });
+// });
+
 
 
 type contentType = {
