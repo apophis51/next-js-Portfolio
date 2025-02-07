@@ -7,7 +7,7 @@ import { groqAudio } from "@/app/services/groqService";
 
 const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
-  const [audioSrc, setAudioSrc] = useState("");
+  const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
 
   const fetchAudio = async () => {
     console.log('cool')
@@ -61,7 +61,7 @@ const AudioRecorder = () => {
   };
 
   return (
-    <div className="p-4 flex flex-col justify-center items-center">
+    <div className="p-4 flex flex-col justify-center items-center bg-black">
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={isRecording ? stopRecording : startRecording}
@@ -100,6 +100,7 @@ const AudioRecorder = () => {
       )}
     </div>
   );
+  //
 };
 
 export default AudioRecorder;
