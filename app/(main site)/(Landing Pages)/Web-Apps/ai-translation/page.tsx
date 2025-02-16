@@ -1,20 +1,28 @@
 'use client'
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
-import { uploadAudio, getAudio } from "@/app/(main site)/Components/db_services/mongo"
+import { uploadAudio, getAudio, getAllAudioRecordigns } from "@/app/(main site)/Components/db_services/mongo"
 import { groqAudio } from "@/app/services/groqService";
+import { GridFSFile } from "mongodb";
 
 const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
+  const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
+
+  const handleGetAllAudioRecordigns = async () => {
+    const recordings = await getAllAudioRecordigns();
+    setAllRecordings(recordings);
+    console.log(recordings)
+  };
 
   const fetchAudio = async () => {
     console.log('cool')
     //const response = await fetch(`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`);
     const response = await getAudio('67a5ae5c675b2c59881618a4');
     await groqAudio()
-   
+
     // if (!response.ok) {
     //   alert("Failed to fetch audio");
     //   return;
@@ -28,14 +36,6 @@ const AudioRecorder = () => {
     setAudioSrc(url);
   };
 
-  const handleFetchAudio = async () => {
-    const audioDataUrl = await getAudio('67a5a6e7675b2c59881618a2');
-    if (audioDataUrl) {
-      setAudioSrc(audioDataUrl);
-    } else {
-      alert("Failed to fetch audio");
-    }
-  };
 
   const downloadAudio = () => {
     if (!audioBlob) return;
@@ -59,6 +59,11 @@ const AudioRecorder = () => {
     } else {
     }
   };
+
+  useEffect(() => {
+
+    handleGetAllAudioRecordigns();
+  }, []);
 
   return (
     <div className="p-4 flex flex-col justify-center items-center bg-black">
@@ -84,19 +89,24 @@ const AudioRecorder = () => {
           >
             Upload Audio
           </button>
-          <audio controls>
-            <source src={`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`} type="audio/mpeg" />
-          </audio>
-          <audio controls>
-          <source src={audioSrc} type="audio/mpeg" />
-        </audio>
         </div>
       )}
-      <button onClick={fetchAudio}>Load Audio</button>
+      <button onClick={fetchAudio}>Load Audio (Deprecated)</button>
       {audioSrc && (
         <audio controls>
           <source src={audioSrc} type="audio/mpeg" />
         </audio>
+      )}
+      {allRecordings.length > 0 && (
+        <div>
+          <h2 className='text-white'>All Recordings:</h2>
+          {allRecordings.map((recording) => (
+            <div key={recording._id.toString()}>
+              <audio controls src={`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=${recording._id}`} />
+              <p className="text-white">{recording.filename}</p>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

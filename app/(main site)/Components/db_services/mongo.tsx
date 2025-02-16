@@ -39,7 +39,15 @@ export async function uploadAudio(formData: FormData) {
   }
 }
 
-
+export async function getAllAudioRecordigns() {
+  try {
+    const files = await gridFSBucket.find({}).toArray();
+    return files;
+  } catch (error) {
+    console.error("List error:", error);
+    return [];
+  }
+}
 
 
 export async function getAudio(id: string) {
