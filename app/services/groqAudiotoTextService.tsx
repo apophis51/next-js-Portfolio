@@ -12,14 +12,14 @@ import { pipeline } from 'stream/promises'; // Use stream/promises for cleaner p
 
 // Initialize the Groq client
 
-export async function groqAudio() {
+export async function groqAudio(audioID: string) {
     console.log('test message #1 - using fs.createReadStream');
     let tempFilePath: string | null = null; // Variable to hold temporary file path
 
     try {
         const groq = new Groq({ apiKey: process.env.GROQAPI });
 
-        const fileId = new ObjectId('67a5ae5c675b2c59881618a4');
+        const fileId = new ObjectId(audioID);
         const downloadStream = gridFSBucket.openDownloadStream(fileId);
 
         // Create a temporary file path
@@ -45,6 +45,8 @@ export async function groqAudio() {
         }); 
 
         console.log(transcription.text);
+
+        return transcription.text
 
     } catch (error) {
         console.error('Error during transcription: ', error);

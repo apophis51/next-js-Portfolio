@@ -3,27 +3,35 @@
 import { useState, useRef, useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
 import { uploadAudio, getAudio, getAllAudioRecordigns } from "@/app/(main site)/Components/db_services/mongo"
-import { groqAudio } from "@/app/services/groqService";
+import { groqAudio } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
 
 const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
+  const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
+
 
   const handleGetAllAudioRecordigns = async () => {
-   let recordings = await getAllAudioRecordigns();
-    recordings =  JSON.stringify(recordings)   //stringify recordings
+    let recordings = await getAllAudioRecordigns();
+    recordings = JSON.stringify(recordings)   //stringify recordings
     recordings = JSON.parse(recordings)
     setAllRecordings(recordings);
     console.log(recordings)
   };
 
+  async function handleAudiotoText(audioID: string) {
+    const translatedAudio = await groqAudio(audioID);
+    setDisplayedTranslations((prev) => ({ ...prev, [audioID]: translatedAudio })); // Store translation by audio ID
+
+  }
+  console.log(displayedTranslations)
+
   const fetchAudio = async () => {
     console.log('cool')
     //const response = await fetch(`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=67a5ae5c675b2c59881618a4`);
     const response = await getAudio('67a5ae5c675b2c59881618a4');
-    await groqAudio()
 
     // if (!response.ok) {
     //   alert("Failed to fetch audio");
@@ -100,12 +108,18 @@ const AudioRecorder = () => {
         </audio>
       )}
       {allRecordings.length > 0 && (
-        <div>
+        <div >
           <h2 className='text-white'>All Recordings:</h2>
           {allRecordings && allRecordings.map((recording) => (
             <div key={recording._id.toString()}>
-              <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
-              <p className="text-white">{recording.filename}</p>
+              <div className="flex flex-col justify-center items-center gap-2">
+                <p className="text-white mt-20">Name: {recording.filename}</p>
+                <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
+                <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Translate This Text</button>
+                {displayedTranslations[recording._id.toString()] && (
+                  <p className="text-white mt-2">Translation: {displayedTranslations[recording._id.toString()]}</p>
+                )}
+              </div>
             </div>
           ))}
         </div>
