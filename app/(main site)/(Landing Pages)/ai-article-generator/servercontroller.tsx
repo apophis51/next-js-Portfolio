@@ -1,6 +1,6 @@
 "use server"
 
-import { fetch_ai_data } from '@/app/(main site)/Components/Utils/fetch_ai_data';
+import { fetch_ai_data } from '@/app/services/fetch_ai_data';
 
 
 
