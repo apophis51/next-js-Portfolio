@@ -12,7 +12,9 @@ const AudioRecorder = () => {
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
 
   const handleGetAllAudioRecordigns = async () => {
-    const recordings = await getAllAudioRecordigns();
+   let recordings = await getAllAudioRecordigns();
+    recordings =  JSON.stringify(recordings)   //stringify recordings
+    recordings = JSON.parse(recordings)
     setAllRecordings(recordings);
     console.log(recordings)
   };
@@ -100,9 +102,9 @@ const AudioRecorder = () => {
       {allRecordings.length > 0 && (
         <div>
           <h2 className='text-white'>All Recordings:</h2>
-          {allRecordings.map((recording) => (
+          {allRecordings && allRecordings.map((recording) => (
             <div key={recording._id.toString()}>
-              <audio controls src={`http://localhost:3000/Web-Apps/ai-translation/audioAPI?id=${recording._id}`} />
+              <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
               <p className="text-white">{recording.filename}</p>
             </div>
           ))}
