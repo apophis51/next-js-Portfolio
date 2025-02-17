@@ -7,6 +7,7 @@ import { ObjectId } from "mongodb";
 export async function uploadAudio(formData: FormData) {
 
   const file = formData.get("audio");
+  const userId = formData.get("userId");
   
 
   if (!file) {
@@ -25,7 +26,7 @@ export async function uploadAudio(formData: FormData) {
       contentType: file.type,
       metadata: {
         size: file.size, // Size of the file
-        userId: "someUserId", // Example of other metadata (if you're tracking users)
+        userId: userId, // Example of other metadata (if you're tracking users)
       },
     });
 

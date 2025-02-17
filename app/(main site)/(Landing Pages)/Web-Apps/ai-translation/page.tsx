@@ -5,13 +5,17 @@ import useAudioRecorder from "./useAudioRecorder";
 import { uploadAudio, getAudio, getAllAudioRecordigns } from "@/app/(main site)/Components/db_services/mongo"
 import { groqAudio } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
+import useUserId from "@/app/hooks/useUserId";
+
 
 const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
+  const userId = useUserId();
 
+  console.log(userId)
 
   const handleGetAllAudioRecordigns = async () => {
     let recordings = await getAllAudioRecordigns();
@@ -61,6 +65,7 @@ const AudioRecorder = () => {
 
     const formData = new FormData();
     formData.append("audio", audioBlob, "cool.wav");
+    formData.append("userId", userId);
 
     const result = await uploadAudio(formData);
 
@@ -111,8 +116,8 @@ const AudioRecorder = () => {
         <div >
           <h2 className='text-white'>All Recordings:</h2>
           {allRecordings && allRecordings.map((recording) => (
-            <div key={recording._id.toString()}>
-              <div className="flex flex-col justify-center items-center gap-2">
+            <div key={recording._id.toString()} className='bg-gray-800'>
+              <div className="flex flex-col justify-center items-center gap-2 m-4">
                 <p className="text-white mt-20">Name: {recording.filename}</p>
                 <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
                 <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Translate This Text</button>
