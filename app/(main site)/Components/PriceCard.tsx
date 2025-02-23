@@ -2,7 +2,7 @@
 
 import { features } from "process";
 import { headers } from 'next/headers'
-import { Modal2 } from "@/app/(main site)/Components/ui/modal2"
+import { Modal2 } from "@/app/components/ui/Modal2"
 import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { redirect } from 'next/navigation'

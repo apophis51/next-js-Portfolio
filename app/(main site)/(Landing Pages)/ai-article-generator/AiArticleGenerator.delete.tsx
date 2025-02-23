@@ -11,7 +11,6 @@ import useLoading from "@/app/(main site)/Components/ui/Loading2";
 
 // import { useBasicSelect, useBasicToggle, useBasicTextInput } from 'malcolm_ui_react'
 import { useBasicToggle, useAdvancedTextInput } from 'malcolm_ui_react'
-import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
 
 import useTextArea from '@/app/(main site)/Components/ui/TextArea'
 import Link from 'next/link'
@@ -105,9 +104,8 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
 
-    //const [articleName, BasicArticleName] = useAdvancedTextInput({ prompt: prompt })
-
-    const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: prompt })
+    
+    const [articleName, BasicArticleName] = useAdvancedTextInput({ prompt: prompt })
     const [articleType, BasicArticleType] = useAdvancedTextInput({ prompt: typePrompt })
 
 
@@ -120,20 +118,19 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
     async function submit_to_mongoDB() {
-        let theArticleName = articleName()
-        if (!theArticleName) {
-            console.log(theArticleName)
+        if (!articleName.current) {
+            console.log(articleName)
             setPrompt("please enter the a Name")
 
         }
         
         //fuck
 
-        if (theArticleName && selectedCategory != 'Select A Category' && selectedContent != 'Select A Content Type') {
+        if (articleName.current && selectedCategory != 'Select A Category' && selectedContent != 'Select A Content Type') {
             console.log('submit_to_mongoDB triggered')
-            console.log(theArticleName, selectedContent,selectedCategory)
+            console.log(articleName.current, selectedContent,selectedCategory)
             let markdownContent = ai_result.join('\n')
-            await addMongoDBblog2(theArticleName, markdownContent, userID, selectedContent, selectedCategory, )
+            await addMongoDBblog2(articleName.current, markdownContent, userID, selectedContent, selectedCategory, )
             setArticleAccumulator((prev) => prev + 1)
             modalRef.current?.close()
         }
@@ -222,6 +219,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
         }
     }
 
+    console.log(ipRequestRemaining)
 
 
 
@@ -234,6 +232,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
             // Fetch the request count for the IP address
             const requestResponse = await fetch(`${url}/${ipData.ip}`);
             const requestData = await requestResponse.json();
+            console.log(requestData);
 
             // Set the request count
             setIpRequestRemaining((prev) => prev +(12 - requestData.request_count));
@@ -245,6 +244,7 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
 
 
  
+console.log('cool')
     //retrieve user settings
     useEffect(() => {
         (async () => {
