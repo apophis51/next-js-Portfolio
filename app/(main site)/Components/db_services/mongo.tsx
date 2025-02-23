@@ -8,6 +8,7 @@ export async function uploadAudio(formData: FormData) {
 
   const file = formData.get("audio");
   const userId = formData.get("userId");
+  const audioName = formData.get("audioName");
 
 
   if (!file) {
@@ -21,12 +22,13 @@ export async function uploadAudio(formData: FormData) {
   try {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
-
-    const uploadStream = gridFSBucket.openUploadStream(file.name, {
+    const uploadStream = gridFSBucket.openUploadStream(audioName, {
+      // const uploadStream = gridFSBucket.openUploadStream(file.name, {
       contentType: file.type,
       metadata: {
         size: file.size, // Size of the file
         userId: userId, // Example of other metadata (if you're tracking users)
+        audioName: audioName
       },
     });
 

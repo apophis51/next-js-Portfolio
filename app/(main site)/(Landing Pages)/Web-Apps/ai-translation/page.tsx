@@ -9,16 +9,20 @@ import useUserId from "@/app/hooks/useUserId";
 import Image from "next/image";
 import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton } from "@clerk/nextjs";
+import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
 
 
 const AudioRecorder = () => {
   const modalRef = useRef<HTMLDialogElement>(null)
+  const nameRef = useRef<HTMLDialogElement>(null)
 
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
   const userId = useUserId();
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
+  const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
+
 
 
   function handleRecording() {
@@ -73,12 +77,15 @@ const AudioRecorder = () => {
     a.click();
   };
 
-  const handleUpload = async () => {
-    if (!audioBlob) return alert("Please select an audio file");
-
+  async function handleUpload() {
+    //nigga
+    nameRef.current?.close()
+       if (!audioBlob) return alert("Please select an audio file");
+    let theAudioName= articleName()
     const formData = new FormData();
     formData.append("audio", audioBlob, "cool.wav");
     formData.append("userId", userId);
+    formData.append("audioName", theAudioName);
 
 
     const result = await uploadAudio(formData);
@@ -87,6 +94,24 @@ const AudioRecorder = () => {
       alert(result.error);
     } else {
     }
+    
+  }
+  const handleSaveAudio = async () => {
+    nameRef.current?.showModal()
+
+    // if (!audioBlob) return alert("Please select an audio file");
+
+    // const formData = new FormData();
+    // formData.append("audio", audioBlob, "cool.wav");
+    // formData.append("userId", userId);
+
+
+    // const result = await uploadAudio(formData);
+
+    // if (result.error) {
+    //   alert(result.error);
+    // } else {
+    // }
   };
 
   useEffect(() => {
@@ -96,6 +121,12 @@ const AudioRecorder = () => {
 
   return (
     <div className="p-4 flex flex-col justify-center items-center bg-black">
+
+      <Modal3 ref={nameRef} modalTitle="Enter A Name for the Recording" hideOutsideButton={true} buttonText="not used">
+        <BasicArticleName />
+        <button className="btn" onClick={handleUpload}>Save Recording</button>
+      </Modal3>
+
       <Modal3 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
         <SignInButton>
           <button className="btn">Sign In</button>
@@ -122,7 +153,7 @@ const AudioRecorder = () => {
           </button>
           <button
             className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
-            onClick={handleUpload}
+            onClick={handleSaveAudio}
           >
             Save Audio
           </button>

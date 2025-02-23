@@ -337,7 +337,6 @@ export default function AIArticleGenerator({ titleName, AI_product_name, imageSR
                                </>
                             }
                             {!hide_save_button && <div className="w-full h-full ">
-                                {/* fuck */}
                                 <Modal3 ref={modalRef} modalTitle="Please enter a Title, Category and Content Type" buttonText="Save Article" CustomButton={SaveIcon}
                                 buttonCallback={() => {
                                 if(!userID) {
