@@ -6,19 +6,31 @@ import { uploadAudio, getAudio, getAllAudioRecordigns } from "@/app/(main site)/
 import { groqAudio } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
 import useUserId from "@/app/hooks/useUserId";
+import Image from "next/image";
+import { Modal2 } from "@/app/components/ui/Modal2"
+import { SignInButton } from "@clerk/nextjs";
 
 
 const AudioRecorder = () => {
-  const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
+  const modalRef = useRef<HTMLDialogElement>(null)
+
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
   const userId = useUserId();
+  const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
 
-  console.log(userId)
+
+  function handleRecording() {
+    if (userId != '' && userId != null) {
+      startRecording();
+    }
+    else {
+      modalRef.current?.showModal()
+    }
+  }
 
   const handleGetAllAudioRecordigns = async () => {
-    console.log(userId)
     let recordings = await getAllAudioRecordigns(userId);
     recordings = JSON.stringify(recordings)   //stringify recordings
     recordings = JSON.parse(recordings)
@@ -67,7 +79,7 @@ const AudioRecorder = () => {
     const formData = new FormData();
     formData.append("audio", audioBlob, "cool.wav");
     formData.append("userId", userId);
-    
+
 
     const result = await uploadAudio(formData);
 
@@ -84,9 +96,17 @@ const AudioRecorder = () => {
 
   return (
     <div className="p-4 flex flex-col justify-center items-center bg-black">
+      <Modal2 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
+        <SignInButton>
+          <button className="btn">Sign In</button>
+        </SignInButton>
+      </Modal2>
+
+
+      <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={isRecording ? stopRecording : startRecording}
+        onClick={isRecording ? stopRecording : handleRecording}
       >
         {isRecording ? "Stop Recording" : "Start Recording"}
       </button>
@@ -104,7 +124,7 @@ const AudioRecorder = () => {
             className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
             onClick={handleUpload}
           >
-            Upload Audio
+            Save Audio
           </button>
         </div>
       )}
