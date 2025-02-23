@@ -8,7 +8,7 @@ export async function uploadAudio(formData: FormData) {
 
   const file = formData.get("audio");
   const userId = formData.get("userId");
-  
+
 
   if (!file) {
     return { error: "No file uploaded" };
@@ -22,7 +22,7 @@ export async function uploadAudio(formData: FormData) {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
 
-    const uploadStream = gridFSBucket.openUploadStream(file.name,  {
+    const uploadStream = gridFSBucket.openUploadStream(file.name, {
       contentType: file.type,
       metadata: {
         size: file.size, // Size of the file
@@ -31,7 +31,7 @@ export async function uploadAudio(formData: FormData) {
     });
 
     stream.pipe(uploadStream);
-    
+
 
     return { success: true, fileId: uploadStream.id.toString() };
   } catch (error) {
@@ -40,13 +40,18 @@ export async function uploadAudio(formData: FormData) {
   }
 }
 
-export async function getAllAudioRecordigns() {
-  try {
-    const files = await gridFSBucket.find({}).toArray();
-    return files;
-  } catch (error) {
-    console.error("List error:", error);
-    return [];
+export async function getAllAudioRecordigns(userID: string) {
+  console.log(userID)
+  if (userID != '' && userID != null) {
+    try {
+      //const files = await gridFSBucket.find({}).toArray();
+      const files = await gridFSBucket.find({ "metadata.userId": userID }).toArray();
+      console.log(files)
+      return files;
+    } catch (error) {
+      console.error("List error:", error);
+      return [];
+    }
   }
 }
 
@@ -55,14 +60,14 @@ export async function getAudio(id: string) {
   try {
     const fileId = new ObjectId(id);
     const stream = gridFSBucket.openDownloadStream(fileId);
-    
-    
+
+
     const response = new Response(stream, {
-        headers: {
-          "Content-Type": "audio/wav", // Set the appropriate content type
-        },
-      });
-      return response.blob(); // Return the response which is now streaming the audio
+      headers: {
+        "Content-Type": "audio/wav", // Set the appropriate content type
+      },
+    });
+    return response.blob(); // Return the response which is now streaming the audio
 
   } catch (error) {
     console.error("Fetch error:", error);
@@ -212,7 +217,7 @@ export async function getUsersBlogsWithAPI(apiKey: string) {
     // Perform an aggregation with a $lookup to join blogs and settings
     const pipeline = [
       {
-        $match: { apiKey: apiKey } 
+        $match: { apiKey: apiKey }
       },
       {
         $lookup: {
@@ -263,7 +268,7 @@ export async function createDefaultUserSettings(user: string) {
 export async function getMainSettings(user: string) {
   console.log('here')
   try {
-    if(!user) {
+    if (!user) {
       console.log('No user provided')
       throw new Error('No user provided')
     }
@@ -295,9 +300,9 @@ export async function addApiKeyToMainSettings(user: string, apiKey: string) {
     const database = mongoClient.db('Next_JS_Portfolio');
     const collection = database.collection('Settings');
     const filter = { name: 'MainSettings', ClerkID: user }
-    const update = {$set: {apiKey}}
+    const update = { $set: { apiKey } }
     const options = { upsert: true };
-    const result = await collection.findOne({ name: 'MainSettings', ClerkID: user }); 
+    const result = await collection.findOne({ name: 'MainSettings', ClerkID: user });
     if (!result) {
       const defaultUserSettings = createDefaultUserSettings(user)
       await collection.insertOne(defaultUserSettings)

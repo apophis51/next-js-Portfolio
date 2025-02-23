@@ -18,7 +18,8 @@ const AudioRecorder = () => {
   console.log(userId)
 
   const handleGetAllAudioRecordigns = async () => {
-    let recordings = await getAllAudioRecordigns();
+    console.log(userId)
+    let recordings = await getAllAudioRecordigns(userId);
     recordings = JSON.stringify(recordings)   //stringify recordings
     recordings = JSON.parse(recordings)
     setAllRecordings(recordings);
@@ -66,6 +67,7 @@ const AudioRecorder = () => {
     const formData = new FormData();
     formData.append("audio", audioBlob, "cool.wav");
     formData.append("userId", userId);
+    
 
     const result = await uploadAudio(formData);
 
@@ -77,8 +79,8 @@ const AudioRecorder = () => {
 
   useEffect(() => {
 
-    handleGetAllAudioRecordigns();
-  }, []);
+    if (userId != '') handleGetAllAudioRecordigns();
+  }, [userId]);
 
   return (
     <div className="p-4 flex flex-col justify-center items-center bg-black">
@@ -120,9 +122,9 @@ const AudioRecorder = () => {
               <div className="flex flex-col justify-center items-center gap-2 m-4">
                 <p className="text-white mt-20">Name: {recording.filename}</p>
                 <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
-                <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Translate This Text</button>
+                <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Transcribe This Text</button>
                 {displayedTranslations[recording._id.toString()] && (
-                  <p className="text-white mt-2">Translation: {displayedTranslations[recording._id.toString()]}</p>
+                  <p className="text-white mt-2">Transcription: {displayedTranslations[recording._id.toString()]}</p>
                 )}
               </div>
             </div>
