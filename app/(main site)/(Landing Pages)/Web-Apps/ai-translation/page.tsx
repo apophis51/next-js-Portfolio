@@ -7,7 +7,7 @@ import { groqAudio } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
 import useUserId from "@/app/hooks/useUserId";
 import Image from "next/image";
-import { Modal2 } from "@/app/components/ui/Modal2"
+import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton } from "@clerk/nextjs";
 
 
@@ -96,11 +96,11 @@ const AudioRecorder = () => {
 
   return (
     <div className="p-4 flex flex-col justify-center items-center bg-black">
-      <Modal2 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
+      <Modal3 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
         <SignInButton>
           <button className="btn">Sign In</button>
         </SignInButton>
-      </Modal2>
+      </Modal3>
 
 
       <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
