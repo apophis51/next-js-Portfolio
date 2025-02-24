@@ -24,6 +24,7 @@ const AudioRecorder = () => {
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
   const [realtimeTranscription, setRealtimeTranscription] = useState<string | null>(null);
+  const [audioChanged, setAudiochanged] = useState<string | null>(null);
 
   async function handleRealTimeTranscription() {
     const transcribedBlob = await transcribeBlob(audioBlob)
@@ -99,6 +100,9 @@ const AudioRecorder = () => {
 
 
     const result = await uploadAudio(formData);
+    console.log(result)
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
     handleGetAllAudioRecordigns()
     if (result.error) {
       alert(result.error);

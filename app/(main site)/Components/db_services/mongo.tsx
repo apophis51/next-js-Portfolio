@@ -148,6 +148,21 @@ async function monitorChatChanges() {
 // monitorChatChanges()
 //   .catch(console.error);
 
+// async function monitorAudioUpdates() {
+//   console.log('monitoring changes')
+//   const database = mongoClient.db('Next_JS_Portfolio'); // Replace with your database name
+//   const collection = database.collection('audioDB.files'); // Replace with your collection name
+//   const changeStream = collection.watch();
+
+//   changeStream.on('change', (change) => {
+//     console.log('Change detected:', change);
+//     // Handle change event (e.g., notify users, update UI, etc.)
+//   });
+// }
+
+// monitorAudioUpdates()
+//   .catch(console.error);
+
 export async function addNewCategory(category: string) {
   console.log(category)
   try {
