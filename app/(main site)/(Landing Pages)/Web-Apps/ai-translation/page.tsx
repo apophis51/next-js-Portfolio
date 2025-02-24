@@ -2,8 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
-import { uploadAudio, getAudio, getAllAudioRecordigns , deleteAudio} from "@/app/(main site)/Components/db_services/mongo"
-import { groqAudio } from "@/app/services/groqAudiotoTextService";
+import { uploadAudio, getAudio, getAllAudioRecordigns, deleteAudio } from "@/app/(main site)/Components/db_services/mongo"
+import { groqAudio, transcribeBlob } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
 import useUserId from "@/app/hooks/useUserId";
 import Image from "next/image";
@@ -23,8 +23,12 @@ const AudioRecorder = () => {
   const userId = useUserId();
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
+  const [realtimeTranscription, setRealtimeTranscription] = useState<string | null>(null);
 
-
+  async function handleRealTimeTranscription() {
+    const transcribedBlob = await transcribeBlob(audioBlob)
+    setRealtimeTranscription(transcribedBlob)
+  }
 
   function handleRecording() {
     if (userId != '' && userId != null) {
@@ -99,7 +103,7 @@ const AudioRecorder = () => {
     if (result.error) {
       alert(result.error);
     } else {
-      
+
     }
 
   }
@@ -142,6 +146,9 @@ const AudioRecorder = () => {
 
 
       <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
+      <div className="max-w-[330px] text-white pb-10">
+        <p>{realtimeTranscription}</p>
+      </div>
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={isRecording ? stopRecording : handleRecording}
@@ -162,7 +169,13 @@ const AudioRecorder = () => {
             className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
             onClick={handleSaveAudio}
           >
-            Save Audio 
+            Save Audio
+          </button>
+          <button
+            className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
+            onClick={handleRealTimeTranscription}
+          >
+            Transcribe Audio
           </button>
         </div>
       )}
