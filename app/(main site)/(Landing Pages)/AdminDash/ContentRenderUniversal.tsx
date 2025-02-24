@@ -9,7 +9,7 @@ import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions';
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
 import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator'
-import { CloseButton } from '@/public/utils/CloseButton'
+import { CloseButton } from '@/app/components/ui/CloseButton'
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'
 

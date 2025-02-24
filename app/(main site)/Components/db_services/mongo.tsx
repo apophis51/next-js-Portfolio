@@ -4,6 +4,23 @@ import { mongoClient, gridFSBucket } from '@/lib/mongo';
 import { Readable } from 'stream';
 import { ObjectId } from "mongodb";
 
+
+export async function deleteAudio(fileId: string) {
+  try {
+    if (!fileId) {
+      return { error: "File ID is required" };
+    }
+
+    const objectId = new ObjectId(fileId); // Convert string ID to ObjectId
+    await gridFSBucket.delete(objectId);
+
+    return { success: true, message: "File deleted successfully" };
+  } catch (error) {
+    console.error("Delete error:", error);
+    return { error: "File deletion failed" };
+  }
+}
+
 export async function uploadAudio(formData: FormData) {
 
   const file = formData.get("audio");
@@ -49,7 +66,7 @@ export async function getAllAudioRecordigns(userID: string) {
       //const files = await gridFSBucket.find({}).toArray();
       const files = await gridFSBucket.find({ "metadata.userId": userID }).toArray();
       console.log(files)
-      return files;
+      return transformResults2(files); 
     } catch (error) {
       console.error("List error:", error);
       return [];
@@ -247,6 +264,12 @@ export async function getUsersBlogsWithAPI(apiKey: string) {
   }
 }
 
+export async function transformResults2(results: object[]) {
+  return results.map(doc => ({
+    ...doc,
+    _id: doc._id.toString(), // Convert ObjectId to string
+  }));
+}
 
 export async function transformResults(results: object[]) {
   return results.map(doc => ({

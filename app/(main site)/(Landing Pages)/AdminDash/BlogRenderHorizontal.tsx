@@ -9,7 +9,7 @@ import { deleteMongoDBblog } from '@/public/utils/MongoDBfunctions'; //possibly 
 import { HighlightafterEveryRender } from '@/app/(main site)/Components/Utils/highlighter'
 import { atom, useAtom } from 'jotai'
 import { articleAccumulatorAtom } from '@/app/(main site)/(Landing Pages)/ai-article-generator/AiArticleGenerator' //possibly decouple into passing a variable that updates on action
-import { CloseButton } from '@/public/utils/CloseButton'  //beter integrate or actually just put into my ui methods
+import { CloseButton } from '@/app/components/ui/CloseButton'  //beter integrate or actually just put into my ui methods
 import Link from 'next/link'
 import { mongoDBDownloadAtom } from './globalAdminDashAtoms'  //decouple? maybe by passing as a prop
 import projectURLS from '@/projectSettings'

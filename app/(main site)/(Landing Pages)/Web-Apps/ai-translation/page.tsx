@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import useAudioRecorder from "./useAudioRecorder";
-import { uploadAudio, getAudio, getAllAudioRecordigns } from "@/app/(main site)/Components/db_services/mongo"
+import { uploadAudio, getAudio, getAllAudioRecordigns , deleteAudio} from "@/app/(main site)/Components/db_services/mongo"
 import { groqAudio } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
 import useUserId from "@/app/hooks/useUserId";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton } from "@clerk/nextjs";
 import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
+import { CloseButton } from '@/app/components/ui/CloseButton'
 
 
 const AudioRecorder = () => {
@@ -77,11 +78,16 @@ const AudioRecorder = () => {
     a.click();
   };
 
+  async function handleDeleteAudio(audioID: string) {
+    await deleteAudio(audioID);
+    handleGetAllAudioRecordigns();
+  }
+
   async function handleUpload() {
     //nigga
     nameRef.current?.close()
-       if (!audioBlob) return alert("Please select an audio file");
-    let theAudioName= articleName()
+    if (!audioBlob) return alert("Please select an audio file");
+    let theAudioName = articleName()
     const formData = new FormData();
     formData.append("audio", audioBlob, "cool.wav");
     formData.append("userId", userId);
@@ -89,12 +95,13 @@ const AudioRecorder = () => {
 
 
     const result = await uploadAudio(formData);
-
+    handleGetAllAudioRecordigns()
     if (result.error) {
       alert(result.error);
     } else {
+      
     }
-    
+
   }
   const handleSaveAudio = async () => {
     nameRef.current?.showModal()
@@ -155,7 +162,7 @@ const AudioRecorder = () => {
             className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
             onClick={handleSaveAudio}
           >
-            Save Audio
+            Save Audio 
           </button>
         </div>
       )}
@@ -169,16 +176,22 @@ const AudioRecorder = () => {
         <div >
           <h2 className='text-white'>All Recordings:</h2>
           {allRecordings && allRecordings.map((recording) => (
-            <div key={recording._id.toString()} className='bg-gray-800'>
-              <div className="flex flex-col justify-center items-center gap-2 m-4">
-                <p className="text-white mt-20">Name: {recording.filename}</p>
-                <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
-                <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Transcribe This Text</button>
-                {displayedTranslations[recording._id.toString()] && (
-                  <p className="text-white mt-2">Transcription: {displayedTranslations[recording._id.toString()]}</p>
-                )}
-              </div>
+
+            <div key={recording._id.toString()} className='bg-gray-800 max-w-[330px]'>
+              <CloseButton left={0} bottom={85} callback={() => handleDeleteAudio(recording._id.toString())}>
+                <div className="flex flex-col justify-center items-center gap-2 m-4">
+
+                  <p className="text-white mt-20">Name: {recording.filename}</p>
+                  <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
+                  <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Transcribe This Text</button>
+                  {displayedTranslations[recording._id.toString()] && (
+                    <p className="text-white mt-2">Transcription: {displayedTranslations[recording._id.toString()]}</p>
+                  )}
+
+                </div>
+              </CloseButton>
             </div>
+
           ))}
         </div>
       )}

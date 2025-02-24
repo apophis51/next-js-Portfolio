@@ -64,3 +64,60 @@ export async function groqAudio(audioID: string) {
     }
 }
 
+
+/**
+ * Transcribes an audio Blob using Groq's Whisper API.
+ * @param audioBlob - The audio Blob (e.g., from a file input or recording)
+ * @returns Transcribed text from the audio
+ */
+export async function transcribeBlob(audioBlob: Blob): Promise<string | null> {
+
+    const groq = new Groq({ apiKey: process.env.GROQAPI });
+
+    console.log("Starting audio transcription...");
+
+    let tempFilePath: string | null = null;
+
+    try {
+        // Generate a temporary file path
+        const uniqueFilename = `temp_audio_${crypto.randomBytes(16).toString("hex")}.m4a`;
+        tempFilePath = path.join("/tmp", uniqueFilename);
+
+        // Convert Blob to a Buffer
+        const buffer = Buffer.from(await audioBlob.arrayBuffer());
+
+        // Write the Buffer to a temporary file
+        await fs.promises.writeFile(tempFilePath, buffer);
+        console.log(`Audio saved to temporary file: ${tempFilePath}`);
+
+        // Transcribe the audio using Groq Whisper API
+        const transcription = await groq.audio.transcriptions.create({
+            file: fs.createReadStream(tempFilePath),
+            model: "whisper-large-v3-turbo",
+            prompt: "Specify context or spelling",
+            response_format: "json",
+            language: "en",
+            temperature: 0.0,
+        });
+
+        console.log("Transcription complete:", transcription.text);
+
+        return transcription.text;
+    } catch (error) {
+        console.error("Error during transcription:", error);
+        return null;
+    } finally {
+        // Clean up: Delete the temporary file
+        if (tempFilePath) {
+            fs.unlink(tempFilePath, (err) => {
+                if (err) {
+                    console.error(`Error deleting temporary file: ${tempFilePath}`, err);
+                } else {
+                    console.log(`Temporary file deleted: ${tempFilePath}`);
+                }
+            });
+        }
+    }
+}
+
+

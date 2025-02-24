@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
-import { CloseButton } from '@/public/utils/CloseButton'
+import { CloseButton } from '@/app/components/ui/CloseButton'
 import { useRef, forwardRef } from 'react'
 import { on } from 'events'
 

@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { CloseButton } from '@/public/utils/CloseButton'
+import { CloseButton } from '@/app/components/ui/CloseButton'
 import { useRef, forwardRef } from 'react'
 
 export const Modal = forwardRef(function Modal({ children, modalTitle, buttonText, CustomButton }: any, ref: any) {
