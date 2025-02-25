@@ -132,7 +132,7 @@ const AudioRecorder = () => {
   };
 
   useEffect(() => {
-    const toolbarElement = document.querySelector('.css-19r6kue-MuiContainer-root');
+    const toolbarElement = document.querySelector('.MuiContainer-root');
 
     if (toolbarElement) {
       toolbarElement.style.display = 'none';
