@@ -132,13 +132,18 @@ const AudioRecorder = () => {
   };
 
   useEffect(() => {
+    const toolbarElement = document.querySelector('.css-19r6kue-MuiContainer-root');
+
+    if (toolbarElement) {
+      toolbarElement.style.display = 'none';
+    }
 
     if (userId != '') handleGetAllAudioRecordigns();
   }, [userId]);
 
   return (
     <>
-      <div className="p-4 flex flex-col justify-center items-center bg-black container mx-auto pb-20">
+      <div className="flex flex-col justify-center items-center bg-black container mx-auto h-full min-h-screen pb-10">
         <Modal3 ref={nameRef} modalTitle="Enter A Name for the Recording" hideOutsideButton={true} buttonText="not used">
           <BasicArticleName />
           <button className="btn" onClick={handleUpload}>Save Recording</button>
@@ -194,7 +199,7 @@ const AudioRecorder = () => {
           </audio>
         )}
         {activeNavButton == "saved recordings" && allRecordings.length > 0 && (
-          <div >
+          <div className='pb-14'>
             <h2 className='text-white'>All Recordings:</h2>
             {allRecordings && allRecordings.map((recording) => (
 
