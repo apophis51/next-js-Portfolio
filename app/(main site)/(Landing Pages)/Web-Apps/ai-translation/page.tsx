@@ -11,6 +11,7 @@ import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton } from "@clerk/nextjs";
 import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
 import { CloseButton } from '@/app/components/ui/CloseButton'
+import { BottomNav } from "@/app/components/ui/BottomNav"
 
 
 const AudioRecorder = () => {
@@ -135,84 +136,87 @@ const AudioRecorder = () => {
   }, [userId]);
 
   return (
-    <div className="p-4 flex flex-col justify-center items-center bg-black">
+    <>
+      <div className="p-4 flex flex-col justify-center items-center bg-black container mx-auto pb-20">
+        <Modal3 ref={nameRef} modalTitle="Enter A Name for the Recording" hideOutsideButton={true} buttonText="not used">
+          <BasicArticleName />
+          <button className="btn" onClick={handleUpload}>Save Recording</button>
+        </Modal3>
 
-      <Modal3 ref={nameRef} modalTitle="Enter A Name for the Recording" hideOutsideButton={true} buttonText="not used">
-        <BasicArticleName />
-        <button className="btn" onClick={handleUpload}>Save Recording</button>
-      </Modal3>
-
-      <Modal3 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
-        <SignInButton>
-          <button className="btn">Sign In</button>
-        </SignInButton>
-      </Modal3>
+        <Modal3 ref={modalRef} modalTitle="You Must Login To Record" hideOutsideButton={true} buttonText="not used">
+          <SignInButton>
+            <button className="btn">Sign In</button>
+          </SignInButton>
+        </Modal3>
 
 
-      <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
-      <div className="max-w-[330px] text-white pb-10">
-        <p>{realtimeTranscription}</p>
+        <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
+        <div className="max-w-[330px] text-white pb-10">
+          <p>{realtimeTranscription}</p>
+        </div>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={isRecording ? stopRecording : handleRecording}
+        >
+          {isRecording ? "Stop Recording" : "Start Recording"}
+        </button>
+
+        {audioBlob && (
+          <div className="mt-4 flex flex-col justify-center items-center">
+            <audio controls src={URL.createObjectURL(audioBlob)} />
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
+              onClick={downloadAudio}
+            >
+              Download Audio
+            </button>
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
+              onClick={handleSaveAudio}
+            >
+              Save Audio
+            </button>
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
+              onClick={handleRealTimeTranscription}
+            >
+              Transcribe Audio
+            </button>
+          </div>
+        )}
+        <button onClick={fetchAudio}>Load Audio (Deprecated)</button>
+        {audioSrc && (
+          <audio controls>
+            <source src={audioSrc} type="audio/mpeg" />
+          </audio>
+        )}
+        {allRecordings.length > 0 && (
+          <div >
+            <h2 className='text-white'>All Recordings:</h2>
+            {allRecordings && allRecordings.map((recording) => (
+
+              <div key={recording._id.toString()} className='bg-gray-800 max-w-[330px]'>
+                <CloseButton left={0} bottom={85} callback={() => handleDeleteAudio(recording._id.toString())}>
+                  <div className="flex flex-col justify-center items-center gap-2 m-4">
+
+                    <p className="text-white mt-20">Name: {recording.filename}</p>
+                    <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
+                    <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Transcribe This Text</button>
+                    {displayedTranslations[recording._id.toString()] && (
+                      <p className="text-white mt-2">Transcription: {displayedTranslations[recording._id.toString()]}</p>
+                    )}
+
+                  </div>
+                </CloseButton>
+              </div>
+            ))}
+
+          </div>
+        )}
+        <BottomNav />
       </div>
-      <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={isRecording ? stopRecording : handleRecording}
-      >
-        {isRecording ? "Stop Recording" : "Start Recording"}
-      </button>
 
-      {audioBlob && (
-        <div className="mt-4 flex flex-col justify-center items-center">
-          <audio controls src={URL.createObjectURL(audioBlob)} />
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
-            onClick={downloadAudio}
-          >
-            Download Audio
-          </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
-            onClick={handleSaveAudio}
-          >
-            Save Audio
-          </button>
-          <button
-            className="bg-green-500 text-white px-4 py-2 rounded ml-2 mt-4"
-            onClick={handleRealTimeTranscription}
-          >
-            Transcribe Audio
-          </button>
-        </div>
-      )}
-      <button onClick={fetchAudio}>Load Audio (Deprecated)</button>
-      {audioSrc && (
-        <audio controls>
-          <source src={audioSrc} type="audio/mpeg" />
-        </audio>
-      )}
-      {allRecordings.length > 0 && (
-        <div >
-          <h2 className='text-white'>All Recordings:</h2>
-          {allRecordings && allRecordings.map((recording) => (
-
-            <div key={recording._id.toString()} className='bg-gray-800 max-w-[330px]'>
-              <CloseButton left={0} bottom={85} callback={() => handleDeleteAudio(recording._id.toString())}>
-                <div className="flex flex-col justify-center items-center gap-2 m-4">
-
-                  <p className="text-white mt-20">Name: {recording.filename}</p>
-                  <audio controls src={`/Web-Apps/ai-translation/audioAPI?id=${recording._id.toString()}`} />
-                  <button className="btn bg-green-700 text-white" onClick={() => handleAudiotoText(recording._id.toString())}>Transcribe This Text</button>
-                  {displayedTranslations[recording._id.toString()] && (
-                    <p className="text-white mt-2">Transcription: {displayedTranslations[recording._id.toString()]}</p>
-                  )}
-
-                </div>
-              </CloseButton>
-            </div>
-
-          ))}
-        </div>
-      )}
-    </div>
+    </>
   );
   //
 };
