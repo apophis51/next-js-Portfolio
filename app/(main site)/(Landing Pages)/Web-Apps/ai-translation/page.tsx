@@ -152,17 +152,19 @@ const AudioRecorder = () => {
 
 
         <Image src="/voiceTranscriptionIcon-512x512.png" alt="Logo" width={512} height={512} />
-        <div className="max-w-[330px] text-white pb-10">
-          <p>{realtimeTranscription}</p>
-        </div>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={isRecording ? stopRecording : handleRecording}
-        >
-          {isRecording ? "Stop Recording" : "Start Recording"}
-        </button>
-
-        {audioBlob && (
+        {activeNavButton == "record" &&
+          <>
+            <div className="max-w-[330px] text-white pb-10">
+              <p>{realtimeTranscription}</p>
+            </div>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={isRecording ? stopRecording : handleRecording}
+            >
+              {isRecording ? "Stop Recording" : "Start Recording"}
+            </button>
+          </>}
+        {activeNavButton == "record" && audioBlob && (
           <div className="mt-4 flex flex-col justify-center items-center">
             <audio controls src={URL.createObjectURL(audioBlob)} />
             <button
@@ -186,7 +188,7 @@ const AudioRecorder = () => {
           </div>
         )}
         <button onClick={fetchAudio}>Load Audio (Deprecated)</button>
-        {audioSrc && (
+        {activeNavButton == "record" && audioSrc && (
           <audio controls>
             <source src={audioSrc} type="audio/mpeg" />
           </audio>
