@@ -11,7 +11,7 @@ import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton } from "@clerk/nextjs";
 import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
 import { CloseButton } from '@/app/components/ui/CloseButton'
-import { BottomNav } from "@/app/components/ui/BottomNav"
+import { useBottomNav } from "@/app/hooks/ui/useBottomNav"
 
 
 const AudioRecorder = () => {
@@ -26,6 +26,7 @@ const AudioRecorder = () => {
   const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
   const [realtimeTranscription, setRealtimeTranscription] = useState<string | null>(null);
   const [audioChanged, setAudiochanged] = useState<string | null>(null);
+  const [activeNavButton, BottomNavComponent] = useBottomNav()
 
   async function handleRealTimeTranscription() {
     const transcribedBlob = await transcribeBlob(audioBlob)
@@ -190,7 +191,7 @@ const AudioRecorder = () => {
             <source src={audioSrc} type="audio/mpeg" />
           </audio>
         )}
-        {allRecordings.length > 0 && (
+        {activeNavButton == "saved recordings" && allRecordings.length > 0 && (
           <div >
             <h2 className='text-white'>All Recordings:</h2>
             {allRecordings && allRecordings.map((recording) => (
@@ -213,7 +214,7 @@ const AudioRecorder = () => {
 
           </div>
         )}
-        <BottomNav />
+        <BottomNavComponent />
       </div>
 
     </>
