@@ -7,6 +7,10 @@ const useAudioRecorder = () => {
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
 
+  const resetAudioBlob = () => {
+    setAudioBlob(null);
+  };
+
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorder.current = new MediaRecorder(stream);
@@ -48,7 +52,7 @@ const useAudioRecorder = () => {
     }
   };
 
-  return { audioBlob, isRecording, startRecording, stopRecording };
+  return { audioBlob, isRecording, startRecording, stopRecording,resetAudioBlob };
 };
 
 export default useAudioRecorder;

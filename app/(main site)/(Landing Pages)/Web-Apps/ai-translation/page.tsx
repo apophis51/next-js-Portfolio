@@ -5,7 +5,7 @@ import useAudioRecorder from "./useAudioRecorder";
 import { uploadAudio, getAudio, getAllAudioRecordigns, deleteAudio } from "@/app/(main site)/Components/db_services/mongo"
 import { groqAudio, transcribeBlob } from "@/app/services/groqAudiotoTextService";
 import { GridFSFile } from "mongodb";
-import useUserId from "@/app/hooks/useUserId";
+import useUserId from "@/app/hooks/useUserIDAdvanced";
 import Image from "next/image";
 import { Modal3 } from "@/app/components/ui/Modal3"
 import { SignInButton, SignOutButton } from "@clerk/nextjs";
@@ -21,8 +21,8 @@ const AudioRecorder = () => {
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
-  let userId = useUserId();
-  const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
+  const [userId, resetUserId] = useUserId();
+  const { audioBlob, isRecording, startRecording, stopRecording, resetAudioBlob } = useAudioRecorder();
   const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
   const [realtimeTranscription, setRealtimeTranscription] = useState<string | null>(null);
   const [activeNavButton, BottomNavComponent] = useBottomNav()
@@ -140,6 +140,8 @@ const AudioRecorder = () => {
     if (userId != '') handleGetAllAudioRecordigns();
   }, [userId]);
 
+  console.log(userId)
+
   return (
     <>
       <div className="flex flex-col justify-center items-center bg-black container mx-auto h-full min-h-screen pb-10">
@@ -195,12 +197,18 @@ const AudioRecorder = () => {
           <>
           {console.log(userId)}
             {!userId  &&
-              <SignInButton>
+              <SignInButton  signUpForceRedirectUrl={"/Web-Apps/ai-translation"}  forceRedirectUrl={"/Web-Apps/ai-translation"}> 
                 <button className="btn">Sign In</button>
               </SignInButton>}
             {userId &&
-              <SignOutButton redirectUrl="/Web-Apps/ai-translation">
-                <button className="btn">Sign Out</button>
+              <SignOutButton redirectUrl="/Web-Apps/ai-translation" >
+                <button className="btn" onClick={() => {
+                  resetUserId()
+                  setAllRecordings([])
+                  setAudioSrc('')
+                  resetAudioBlob()
+                  setRealtimeTranscription(null)
+                }}>Sign Out</button>
               </SignOutButton>}
           </>
         }
