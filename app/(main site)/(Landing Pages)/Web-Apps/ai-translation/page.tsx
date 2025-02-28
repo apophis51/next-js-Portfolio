@@ -223,7 +223,7 @@ const AudioRecorder = () => {
             {allRecordings && allRecordings.map((recording) => (
 
               <div key={recording._id.toString()} className='bg-gray-800 max-w-[330px]'>
-                <CloseButton left={0} bottom={85} callback={() => handleDeleteAudio(recording._id.toString())}>
+                <CloseButton left={"90"} bottom={"85"} callback={() => handleDeleteAudio(recording._id.toString())}>
                   <div className="flex flex-col justify-center items-center gap-2 m-4">
 
                     <p className="text-white mt-20">Name: {recording.filename}</p>

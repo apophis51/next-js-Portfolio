@@ -11,13 +11,13 @@ interface CloseButtonProps {
      * The left position of the button as a percentage of its container. 
      * @default 95
      */
-    left?: number;
+    left?: string;
 
     /** 
      * The bottom position of the button as a percentage of its container.
      * @default 99.5
      */
-    bottom?: number;
+    bottom?: string;
 
     /** 
      * Function to be executed when the button is clicked.
@@ -26,7 +26,7 @@ interface CloseButtonProps {
     callback?: () => void;
 }
 
-export function CloseButton({ children,left=95, bottom=99.5, callback=() => {console.log ("clicked")} }: CloseButtonProps) {
+export function CloseButton({ children,left="95", bottom="99.5", callback=() => {console.log ("clicked")} }: CloseButtonProps) {
     return (
         <>
             <div className="relative w-full">
