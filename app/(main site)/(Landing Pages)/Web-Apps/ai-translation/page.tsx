@@ -8,7 +8,7 @@ import { GridFSFile } from "mongodb";
 import useUserId from "@/app/hooks/useUserId";
 import Image from "next/image";
 import { Modal3 } from "@/app/components/ui/Modal3"
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton } from "@clerk/nextjs";
 import useAdvancedTextInput3 from '@/app/hooks/ui/useAdvancedTextInput3'
 import { CloseButton } from '@/app/components/ui/CloseButton'
 import { useBottomNav } from "@/app/hooks/ui/useBottomNav"
@@ -21,11 +21,10 @@ const AudioRecorder = () => {
   const [audioSrc, setAudioSrc] = useState<Blob | null | string>("");
   const [allRecordings, setAllRecordings] = useState<GridFSFile[]>([]);
   const [displayedTranslations, setDisplayedTranslations] = useState<{ [key: string]: string | void }>({});
-  const userId = useUserId();
+  let userId = useUserId();
   const { audioBlob, isRecording, startRecording, stopRecording } = useAudioRecorder();
   const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: "Enter a Recording Name" })
   const [realtimeTranscription, setRealtimeTranscription] = useState<string | null>(null);
-  const [audioChanged, setAudiochanged] = useState<string | null>(null);
   const [activeNavButton, BottomNavComponent] = useBottomNav()
 
   async function handleRealTimeTranscription() {
@@ -192,7 +191,19 @@ const AudioRecorder = () => {
             </button>
           </div>
         )}
-        <button onClick={fetchAudio}>Load Audio (Deprecated)</button>
+        {activeNavButton == "settings" &&
+          <>
+          {console.log(userId)}
+            {!userId  &&
+              <SignInButton>
+                <button className="btn">Sign In</button>
+              </SignInButton>}
+            {userId &&
+              <SignOutButton redirectUrl="/Web-Apps/ai-translation">
+                <button className="btn">Sign Out</button>
+              </SignOutButton>}
+          </>
+        }
         {activeNavButton == "record" && audioSrc && (
           <audio controls>
             <source src={audioSrc} type="audio/mpeg" />
