@@ -91,6 +91,10 @@ async function fetchBlog(params) {
   return mongoBlog
 }
 
+function debug(x){
+  return x
+}
+
 
 export default async function Post(props0) {
   const params = await props0.params;
@@ -167,7 +171,8 @@ export default async function Post(props0) {
       );
     }, h3: (props) => {
       // Generate an 'id' attribute based on the heading text
-      console.log(props.children)
+      debug(props.children)
+      
       const headingText = props.children ? props.children.toString() : '';
       let id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'); 
 
