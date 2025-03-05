@@ -2,18 +2,19 @@
 import projectUrls from '@/projectSettings'
 import {findByBlogUrl} from "@/app/(main site)/Components/db_services/mongo"
 import { Content } from 'next/font/google';
+import {debug} from '@/app/utils/debug' 
 
 
 
 
 export async function MongoDB_Blog_By_URL_Transformer(URL:string){
     let data = await findByBlogUrl(URL.id)
-    console.log(data);
-    console.log(data.Doc_URL)
+    debug(data);
+    debug(data.Doc_URL)
     data.data = {attributes: {Content: data.MarkdownContent}}
     //data.data.attributes.Content = data.Title
-    console.log(data)
-    console.log(data.data)
+    debug(data)
+    debug(data.data)
     return data 
 
 }

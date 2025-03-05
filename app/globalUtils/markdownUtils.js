@@ -1,5 +1,5 @@
-
-
+import {debug} from '@/app/utils/debug'
+ 
 export function processMarkdown(rawMarkdownContent) {
   ///we want to delete all code blocks before parsing the h1s 
   const markdownContent = rawMarkdownContent.replace(/```[\s\S]*?```/g, '')
@@ -22,6 +22,6 @@ export function processMarkdown(rawMarkdownContent) {
         headingsArray.push({ level: depth, text, link});
       }
     });
-    console.log(headingsArray)
+    debug(headingsArray)
     return headingsArray;
   }

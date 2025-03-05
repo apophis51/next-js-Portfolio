@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 // import { authMiddleware } from "@clerk/nextjs";
 import { auth, clerkMiddleware, createRouteMatcher  } from "@clerk/nextjs/server";
+import {debug} from "@/app/utils/debug"
 
 
 // This function can be marked `async` if using `await` inside
@@ -58,7 +59,7 @@ async function customMiddleware(request: NextRequest) {
   // Store current request URL in a custom header
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-url', request.url);
-  console.log('Custom Middleware Headers:', requestHeaders);
+  debug('Custom Middleware Headers:', requestHeaders);
 
   return NextResponse.next({
     request: {
@@ -79,7 +80,7 @@ export default clerkMiddleware(async(auth,req) =>{
 
   if (isAdminDashRoute(req)) {
     let status = await auth()
-    console.log(status)
+    debug(status)
     await auth.protect({ role: 'org:admin' })}
     // if (isAdminDashRoute(req)) await auth.protect()
 

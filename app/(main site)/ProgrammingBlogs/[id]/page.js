@@ -11,6 +11,7 @@ import * as markdownUtils from '@/app/globalUtils/markdownUtils'
 import { TableOfContentsGenerator } from '@/app/globalComponents/TableOfContentsGenerator'
 import projectUrls from '@/projectSettings'
 import {MongoDB_Blog_By_URL_Transformer} from '@/app/(main site)/Components/db_services/fetchBlogData'
+import {debug} from '@/app/utils/debug' 
 
 
 //import '../prism.css'
@@ -66,18 +67,20 @@ const App = dynamic(() => import('@/app/(main site)/(Landing Pages)/FiringRange/
 // }
 
 async function fetchMongoBlog(params) {
-  let res = await MongoDB_Blog_By_URL_Transformer(params)
+  let paramResults = await params
+  let res = await MongoDB_Blog_By_URL_Transformer(paramResults)
   return res
 }
 
 
 async function fetchBlog(params) {
+  let paramResult = await params
   let res = await fetch(projectUrls().blogsURL)
   let post = await res.json()
   let blogID = ''
 
   for (let x of post.data) {
-    if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(params.id)) {
+    if (x.attributes.Title.toLowerCase().replace(/,/g, '').split(' ').join('-').includes(paramResult.id)) {
       blogID = x.id
     }
   }
@@ -87,13 +90,11 @@ async function fetchBlog(params) {
     post = await res.json()
     return post
   }
-  let mongoBlog = await fetchMongoBlog(params)
+  let mongoBlog = await fetchMongoBlog(paramResult)
   return mongoBlog
 }
 
-function debug(x){
-  return x
-}
+
 
 
 export default async function Post(props0) {
@@ -106,7 +107,7 @@ export default async function Post(props0) {
   console.timeEnd('fetchBlog Execution Speed')
 
   const markdownTOCData = markdownUtils.processMarkdown(post.data.attributes.Content)
-  console.log(markdownTOCData[0].link)
+  debug(markdownTOCData[0].link)
   const renderLink = (props) => (
     <a style={{ color: 'red' }} {...props}>
       {props.children}
@@ -139,7 +140,7 @@ export default async function Post(props0) {
       // Generate an 'id' attribute based on the heading text
       const headingText = props.children ? props.children.toString() : '';
       const id = headingText.toLowerCase().replace(/[^a-z\s]/g, '').trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-')
-      console.log(id)
+      debug(id)
       //const id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');  //depricated 8/22/2024
       return (
         <h1 {...props} id={id} >
@@ -197,7 +198,7 @@ export default async function Post(props0) {
       );
     },  h4: (props) => {
       // Generate an 'id' attribute based on the heading text
-      console.log(props.children)
+      debug(props.children)
       const headingText = props.children ? props.children.toString() : '';
       let id = headingText.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-'); 
 

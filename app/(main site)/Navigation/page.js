@@ -18,6 +18,7 @@ import Cottage from '@mui/icons-material/Cottage';
 import { blue } from '@mui/material/colors';
 import './LoginButton.css'
 import './MenuStyles.css'
+import {debug} from '@/app/utils/debug'
 
 import useSWR from 'swr'
 // import { LoginButton, LogoutButton } from "../auth";  /Clerk Deprecation
@@ -40,8 +41,8 @@ export function LogStatus() {
 //comment out this line to delete clerk 2/18/2024
   const { userId, sessionId  } = useAuth();
   const { isSignedIn, user } = useUser();
-  console.log(userId, sessionId, isSignedIn, user)
-  console.log(user?.publicMetadata.role)
+  debug(userId, sessionId, isSignedIn, user)
+  debug(user?.publicMetadata.role)
       if(true){
 
         if(userId == (undefined || null)){ 

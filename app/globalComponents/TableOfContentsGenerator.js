@@ -7,7 +7,7 @@ http://localhost:3000/ProgrammingBlogs/how-do-you-make-a-toc-table-of-contents-s
 http://localhost:3000/ProgrammingBlogs/learn-websockets#want-to-learn-more
 http://localhost:3000/ProgrammingBlogs/how-do-you-integrate-stripe-with-nextjs 
 */
-
+import {debug} from '@/app/utils/debug'  
 
 const ListWrapper = ({ children }) => {
     return (
@@ -24,7 +24,7 @@ const ListWrapper = ({ children }) => {
 
   export function TableOfContentsGenerator({ markdownTOCData }) {   
   
-    console.log(markdownTOCData)
+    debug(markdownTOCData)
     const renderTOC = () => {
       let htmlString = `<ul class="menu bg-base-200 w-56 rounded-box">
       <h3 class="pl-4"><b>On This Page</b></h3><li class="max-w-[14rem]"><a class="block" href=${markdownTOCData[0].link}>${markdownTOCData[0].text}</a></li>`
@@ -33,9 +33,9 @@ const ListWrapper = ({ children }) => {
       let levelsOpend = 0 // htmlString += '</ul></details></li>'
       let duplicates = []
       markdownTOCData.map((heading, index, array) => {
-        console.log(markdownTOCData[index])
+        debug(markdownTOCData[index])
         try {
-            console.log(heading)
+            debug(heading)
             let next_is_biggerText = markdownTOCData[index + 1].level < markdownTOCData[index].level
             let next = markdownTOCData[index + 1]
             //let prev_is_equalText = markdownTOCData[index - 1].level == markdownTOCData[index].level
@@ -43,16 +43,16 @@ const ListWrapper = ({ children }) => {
             let next_is_smallerText = markdownTOCData[index + 1].level > markdownTOCData[index].level
             // the section might get duplicated in equaling text
             if (next_is_smallerText && !duplicates.includes(heading.text)) {     //content discovery with recursion No/404
-                   console.log(heading.text, next.text)
-                   console.log(duplicates.includes(next.text))
-                   console.log(duplicates)
+                   debug(heading.text, next.text)
+                   debug(duplicates.includes(next.text))
+                   debug(duplicates)
                     htmlString += '<li class="max-w-[14rem]"><details open>'
                     htmlString +=    `<summary><a href=${heading.link}>${heading.text}</a></summary>`
                     htmlString += '<ul>'    
                     levelsOpend++       
            }
             else if (next_is_equalText) { // Ty in the terminal
-                    console.log(heading.text)
+                    debug(heading.text)
                    if(!duplicates.includes(heading.text)){
                    htmlString += `<li class="max-w-[14rem]"><a class="block" href=${heading.link}>${heading.text.replace(/:$/g, '')}</a></li>`
                    }
@@ -63,24 +63,24 @@ const ListWrapper = ({ children }) => {
                    duplicates.push(next.text)
             }
             else if (next_is_biggerText) {
-                console.log(heading.text)
+                debug(heading.text)
                 while(levelsOpend > 0) {
-                    console.log('hit promo')
+                    debug('hit promo')
                     htmlString += '</ul></details></li>'
                     levelsOpend--
                 }
                 // htmlString += `<li><a href=${next.link}>${next.text}</a></li>`
             }
             else {
-                console.log(heading.text)
+                debug(heading.text)
                 // htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             }
         }
         catch(error) {
-            console.log(error)
-            console.log(heading.text)
+            debug(error)
+            debug(heading.text)
             while(levelsOpend > 0) {
-                console.log('hit promo')
+                debug('hit promo')
                 htmlString += '</ul></details></li>'
                 levelsOpend--
             }
@@ -89,7 +89,7 @@ const ListWrapper = ({ children }) => {
         }
         
     });
-      console.log(htmlString)
+      debug(htmlString)
       return htmlString ;
     };
   
@@ -99,53 +99,53 @@ const ListWrapper = ({ children }) => {
 
   export function TableOfConttentsGeneratorDepricated({ markdownTOCData }) {   
   
-    console.log(markdownTOCData)
+    debug(markdownTOCData)
     const renderTOC = () => {
       let htmlString = `<ul class="menu bg-base-200 w-56 rounded-box">
       <h3><b>On This Page</b></h3>`
       
       let levelsOpend = 0 // htmlString += '</ul></details></li>'
       markdownTOCData.map((heading, index, array) => {
-        console.log(markdownTOCData[index])
+        debug(markdownTOCData[index])
         try {
-            console.log(heading)
+            debug(heading)
             let last_was_biggerText = markdownTOCData[index - 1].level < markdownTOCData[index].level
             let last_was_equalText = markdownTOCData[index - 1].level == markdownTOCData[index].level
             let last_was_smallerText = markdownTOCData[index - 1].level > markdownTOCData[index].level
             if (last_was_biggerText) {     //content discovery with recursion No/404
-                   console.log(heading.link)
+                   debug(heading.link)
                     htmlString += '<li><details open>'
                     htmlString +=    `<summary><a href=${heading.link}>${heading.text}</a></summary>`
                     htmlString += '<ul>'    
                     levelsOpend++       
            }
             else if (last_was_equalText) { // Ty in the terminal
-                    console.log(heading.text)
+                    debug(heading.text)
                    htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             }
             else if (last_was_smallerText) {
-                console.log(heading.text)
+                debug(heading.text)
                 while(levelsOpend > 0) {
-                    console.log('hit promo')
+                    debug('hit promo')
                     htmlString += '</ul></details></li>'
                     levelsOpend--
                 }
                 htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             }
             else {
-                console.log(' we are doing nothing')
+                debug(' we are doing nothing')
             }
         }
         catch(error) {
-            console.log(error)
-            console.log(heading.text)
+            debug(error)
+            debug(heading.text)
 
             htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             htmlString += '<li>'
         }
         
     });
-      console.log(htmlString)
+      debug(htmlString)
       return htmlString ;
     };
   
@@ -156,7 +156,7 @@ const ListWrapper = ({ children }) => {
 
   export function TableOffContentsGeneratorDepricated({ markdownTOCData }) {   
   
-    console.log(markdownTOCData)
+    debug(markdownTOCData)
     const renderTOC = () => {
       let htmlString = `<ul class="menu bg-base-200 w-56 rounded-box">
       <h3><b>On This Page</b></h3>`
@@ -184,20 +184,20 @@ const ListWrapper = ({ children }) => {
       
       let tracksToClose = 0
       markdownTOCData.map((heading, index, array) => {
-        console.log(markdownTOCData[index])
+        debug(markdownTOCData[index])
         try {
-            console.log(heading)
+            debug(heading)
             //if the previous header is bigger then the current
             if (markdownTOCData[index - 1].level > markdownTOCData[index].level) {     //content discovery with recursion No/404
                     
                 if(markdownTOCData[index + 1].level == markdownTOCData[index].level){  //content discovery with recursion
-                    console.log(heading.text)
+                    debug(heading.text)
                     // htmlString += '</ul></details></li>'
 
                     htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
                 }
                 if(markdownTOCData[index + 1].level > markdownTOCData[index].level){ 
-                    console.log(markdownTOCData[index].text) 
+                    debug(markdownTOCData[index].text) 
                     //No 404 status
                     htmlString += '</ul></details></li>'
                     htmlString += '<li><details open>'
@@ -208,20 +208,20 @@ const ListWrapper = ({ children }) => {
             else if (markdownTOCData[index - 1].level < markdownTOCData[index].level) { // Ty in the terminal
                     
                     if(markdownTOCData[index + 1].level == markdownTOCData[index].level){
-                        console.log(heading.text)
+                        debug(heading.text)
 
-                        console.log(heading.link)
+                        debug(heading.link)
                         htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
                     }
                     if(markdownTOCData[index + 1].level < markdownTOCData[index].level){  
-                        console.log(heading.text)
+                        debug(heading.text)
 
                         htmlString += '<ul>'  //try it in the terminal
                         htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
     
                     }
                     if(markdownTOCData[index + 1].level > markdownTOCData[index].level){
-                        console.log(heading.text)
+                        debug(heading.text)
 
                         htmlString += '<li><details open>'
                         htmlString +=    `<summary><a href=${heading.link}>${heading.text}</a></summary>`
@@ -230,14 +230,14 @@ const ListWrapper = ({ children }) => {
             }
        
             else if ((markdownTOCData[index - 1].level == markdownTOCData[index].level) && (markdownTOCData[index + 1].level > markdownTOCData[index].level)) {
-                console.log(heading.text)
+                debug(heading.text)
 
                 htmlString += '<li><details open>'
                 htmlString +=    `<summary><a href=${heading.link}>${heading.text}</a></summary>`
                 htmlString += '<ul>' 
             }
             else {
-                console.log(heading.text)
+                debug(heading.text)
                 htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             }
             // if (markdownTOCData[index - 1].level == markdownTOCData[index].level) {
@@ -255,8 +255,8 @@ const ListWrapper = ({ children }) => {
             // }
         }
         catch(error) {
-            console.log(error)
-            console.log(heading.text)
+            debug(error)
+            debug(heading.text)
 
             htmlString += `<li><a href=${heading.link}>${heading.text}</a></li>`
             htmlString += '<li>'
@@ -266,7 +266,7 @@ const ListWrapper = ({ children }) => {
         //         <a href={heading.link}>{heading.text}</a>
         //     </li>)
     });
-      console.log(htmlString)
+      debug(htmlString)
       return htmlString ;
     };
   
@@ -277,7 +277,7 @@ const ListWrapper = ({ children }) => {
 
 export function TableOfCfontentsGeneratorDepricated({ markdownTOCData }) {
 
-    console.log(markdownTOCData)
+    debug(markdownTOCData)
 
 
     // [
