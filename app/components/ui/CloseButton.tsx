@@ -27,11 +27,15 @@ interface CloseButtonProps {
 }
 
 export function CloseButton({ children,left="95", bottom="99.5", callback=() => {console.log ("clicked")} }: CloseButtonProps) {
+   
     return (
         <>
             <div className="relative w-full">
                 <button
-                    className={`btn btn-sm btn-circle bg-yellow-300 absolute left-[${left}%] bottom-[${bottom}%]`}
+                    // className={`btn btn-sm btn-circle bg-yellow-300 absolute ${leftvalue} ${bottomvalue}`}
+                    // className={`btn btn-sm btn-circle bg-yellow-300 absolute left-[${left}%] bottom-[${bottom}%]`}
+                    className={`btn btn-sm btn-circle bg-yellow-300 absolute `}
+                    style={{ left: `${left}%`, bottom: `${bottom}%` }}
                     onClick={async () => {
                         callback()
                     }}
