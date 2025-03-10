@@ -93,8 +93,8 @@ export default clerkMiddleware(async(auth,req) =>{
 });
 
 export const config = {
-  // matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App', '/AdminDash(.*)', '/Web-Apps/ai-article-generator', '/Web-Apps/girlfriend-ai-chat-new','/Web-Apps/ai-playground', '/PurchaseMenu/(.*), '],
-  matcher: ['/(.*)'],
+  matcher: ['/dashboard/:path*','/ClerkAuthTest','/', '/Work-Search-App', '/AdminDash(.*)', '/Web-Apps/ai-article-generator', '/Web-Apps/girlfriend-ai-chat-new','/Web-Apps/ai-playground', '/PurchaseMenu/(.*), '],
+  //matcher: ['/(.*)'],
 
 
 }
