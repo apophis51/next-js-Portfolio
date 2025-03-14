@@ -193,7 +193,7 @@ export default function ContentRenderUniversal2({ contentType, settings, user }:
                                             }
                                         }} >
                                             <Link href={`/AdminDash/EditBlogByID/${blog.id}`}>
-                                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Title is: {blog.Title}Type is: {blog.BlogType}</h5>
+                                                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><span className="block">Title is: {blog.Title}</span>Type is: {blog.Category}</h5>
                                             </Link>
                                             <div className="mb-3 font-normal text-gray-700 dark:text-gray-400 prose prose-sm">
                                                 <ReactMarkdown>{blog.MarkdownContent}</ReactMarkdown>
