@@ -6,8 +6,8 @@
     "background_color": "#ffffff",
     "display": "standalone",
     "orientation": "portrait",
-    "scope": "/Web-Apps/ai-translation",
-    "start_url": "/Web-Apps/ai-translation",
+    "scope": "/",
+    "start_url": "/",
     "icons": [
       {
         "src": "icons/web-app-manifest-96x96.png",
