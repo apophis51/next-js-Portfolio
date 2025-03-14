@@ -1,0 +1,32 @@
+
+{
+    "name": "PWA Next.js",
+    "short_name": "pwa-nextjs",
+    "theme_color": "#35155D",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "orientation": "portrait",
+    "scope": "/Web-Apps/ai-translation",
+    "start_url": "/Web-Apps/ai-translation",
+    "icons": [
+      {
+        "src": "icons/web-app-manifest-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "purpose": "maskable any"
+      },
+      {
+        "src": "icons/web-app-manifest-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "maskable any"
+      },
+      {
+        "src": "icons/web-app-manifest-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable any"
+      }
+    ],
+    "splash_pages": null
+  }
