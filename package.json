@@ -110,18 +110,19 @@
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@bubblewrap/cli": "^1.22.3",
     "@playwright/test": "^1.40.1",
     "@tailwindcss/typography": "^0.5.10",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/bun": "latest",
     "daisyui": "^4.12.14",
     "hardhat": "^2.17.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "ts-node": "^10.9.2",
-    "@types/bun": "latest"
+    "ts-node": "^10.9.2"
   },
   "overrides": {
     "@types/react": "npm:types-react@19.0.0-rc.1",

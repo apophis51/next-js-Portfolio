@@ -55,3 +55,28 @@ __pycache__
 # Auto Generated PWA files
 **/public/sw.js
 **/public/workbox-*.js
+
+
+#New Ignored ones I added
+
+.gradle
+.idea
+build
+release
+src
+build.gradle
+gradle
+gradle.properties
+gradlew
+gradlew.bat
+android.keystore
+app-release-bundle.aab
+app-release-signed.apk
+app-release-signed.apk.idsig
+app-release-unsigned-aligned.apk
+local.properties
+manifest-checksum.txt
+settings.gradle
+store_icon.png
+twa-manifest.json
+
