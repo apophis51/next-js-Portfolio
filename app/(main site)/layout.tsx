@@ -3,7 +3,6 @@ import './globals.css'
 
 
 
-import { ClerkProvider } from '@clerk/nextjs'
 import type { Metadata } from "next";
 
 
@@ -44,8 +43,8 @@ export default function RootLayout({
         <body className='h-full'>
 
          
-      <ClerkProvider>
-   {children}</ClerkProvider>
+   
+   {children}
 
    </body>
 
