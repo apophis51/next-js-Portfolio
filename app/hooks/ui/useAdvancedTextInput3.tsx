@@ -10,6 +10,28 @@ type referenceString = {
 };
 
 
+/**
+ * Text Input Component
+ * 
+ * Generates a Text Input React Component that allows the user to input text.
+ * 
+ * @example
+ * ```jsx
+ * default function Home() {
+ * let prompt = "Enter Your AI Prompt.."
+ * //propmpt is the placeholder for the text input
+ * const [articleName, BasicArticleName] = useAdvancedTextInput3({ prompt: prompt })
+ * 
+ * function handler(){
+ * console.log(articleName()) // this is the information from the text input
+ * }
+ * 
+ * return(
+      * <BasicArticleName />)
+      * 
+ }
+ *```
+ */
 export default function useAdvancedTextInput3({ prompt }: { prompt: string }): [() => string | undefined, React.FC] {
     const inputRef = useRef<HTMLInputElement>(null); // Create a ref to manage input focus
 
